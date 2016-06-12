@@ -9,19 +9,19 @@ PODS:
     - SwiftyJSON
   - Flamingo (0.0.1):
     - Alamofire (~> 3.4.0)
-    - AlamofireImage (~> 2.4.0)
     - Cache (~> 1.3.0)
     - ObjectMapper (~> 1.2.0)
   - ObjectMapper (1.2.0)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
+  - AlamofireImage (~> 2.4.0)
   - Fakery (~> 1.2.0)
   - Flamingo (from `../`)
 
 EXTERNAL SOURCES:
   Flamingo:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
   Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
@@ -29,10 +29,10 @@ SPEC CHECKSUMS:
   Cache: b8abf7795a6d72f9d5b924d1367624a53fe777a9
   CryptoSwift: 25b5aff3f260967391f8fff2e9abe4254d2c6fd5
   Fakery: ff6a27c3688a05c055d3e64c5fa9d78684796749
-  Flamingo: c92682643d020d63b883107b0a02f8e54b9a1c64
+  Flamingo: 5e138e78e0c7a47ed806d35f83ad10be4441e25b
   ObjectMapper: b1e9c7c8a9f6400b72690c80072c131504caa66f
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: 826dfad58de7c9fc51a03d4ec8e99932cdbd11d8
+PODFILE CHECKSUM: b0ac2c23ac6099ba25fefc621a08328f9ba3edea
 
 COCOAPODS: 1.0.0

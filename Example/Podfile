@@ -4,6 +4,6 @@ target 'Example' do
 	use_frameworks!
 	
 	pod 'Flamingo', :path => '../'
+	pod 'AlamofireImage', '~> 2.4.0'
 	pod 'Fakery', '~> 1.2.0'
-	
 end

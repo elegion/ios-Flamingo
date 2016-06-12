@@ -25,9 +25,6 @@
     "Alamofire": [
       "~> 3.4.0"
     ],
-    "AlamofireImage": [
-      "~> 2.4.0"
-    ],
     "Cache": [
       "~> 1.3.0"
     ],
