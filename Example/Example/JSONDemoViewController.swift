@@ -53,7 +53,7 @@ class JSONDemoViewController: UIViewController {
         
         let request = UsersRequest(useMock: useMock)
         
-        networkClient.sendRequest(request, responseSerializer: AlamofireObjectMapperFactory<User>().arrayResponseSerializer()) { (users, error) in
+        networkClient.sendRequest(request, responseSerializer: ResponseSerializer<User, NSError>.arrayResponseSerializer()) { (users, error) in
             let json = users?.toJSONString(true)
             
             self.textView.text = json
