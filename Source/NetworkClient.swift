@@ -20,7 +20,8 @@ public class NetworkClient: NetworkClientPrototype {
     
     private let configuration: NetworkConfigurationPrototype
     private let cacheManager: NetworkCacheManagerPrototype?
-    private let networkManager: Manager
+    
+    public let networkManager: Manager
     
     public init(configuration: NetworkConfigurationPrototype,
                 cacheManager: NetworkCacheManagerPrototype? = nil,
