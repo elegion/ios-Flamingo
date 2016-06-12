@@ -20,88 +20,80 @@ pod 'Flamingo'
 #### Setup configuration
 
 ```
-let configuration = NetworkConfiguration(baseURL: nil, // default - nil
-                                         debugMode: true, // default - false
-                                         completionQueue: dispatch_get_main_queue(), // default - main queue
-                                         defaultTimeoutInterval: 5) // default - 60
-```
-
-#### Setup request
-
-```
-let request = NetworkRequest(URL: "http://someurl.com/api")
+let configuration = NetworkConfiguration()
 ...
-
-let request = NetworkRequest(URL: "http://someurl.com/api", method: .GET)
+let configuration = NetworkConfiguration(baseURL: "http://jsonplaceholder.typicode.com/",
+                                         debugMode: true)
 ...
-
-let request = NetworkRequest(URL: "http://someurl.com/api", // required
-                             method: .GET, // optional, default - GET
-                             parametersEncoding: .URL, // optional, default - URL
-                             parameters: ["key": "value"], // optional, default - nil
-                             headers: ["key" : "value"], // optional, default - nil
-                             timeoutInterval: 15, // optional, default - nil
-                             completionQueue: dispatch_get_main_queue()) // optional, default - nil
+let configuration = NetworkConfiguration(baseURL: "http://jsonplaceholder.typicode.com/",
+                                         debugMode: true,
+                                         completionQueue: dispatch_get_main_queue(),
+                                         defaultTimeoutInterval: 10)
 ```
 
-#### JSON example
+#### Setup network client
 
 ```
 let configuration = NetworkConfiguration(baseURL: "http://jsonplaceholder.typicode.com/", debugMode: true)
 let cacheManager = NetworkDefaultCacheManager(cacheName: "network_cache")
-
 let networkClient = NetworkClient(configuration: configuration, cacheManager: cacheManager)
 ```
 
+#### Request protocol implementation example
+
 ```
-let requestInfo = NetworkRequest(URL: "users")
-let repsonseSerializer = AlamofireObjectMapperFactory<User>().arrayResponseSerializer()
-let networkCommand = NetworkCommand(requestInfo: requestInfo, responseSerializer: repsonseSerializer) { (users, error) in
-    let json = users?.toJSONString(true)
+struct UsersRequest: NetworkRequestPrototype {
     
-    // do some with JSON
+    var URL: URLStringConvertible {
+        return "users"
+    }
+    
+    var baseURL: URLStringConvertible? {
+        return "http://jsonplaceholder.typicode.com"
+    }
+    
+    var useCache: Bool {
+        return true
+    }
+    
+    var mockObject: NetworkRequestMockPrototype? {
+        return UsersMock()
+    }
 }
-
-networkClient.executeCommand(networkCommand, useCache: true, mockObject: nil)
 ```
 
-#### Image example
+#### Mock protocol implementation example
 
 ```
-let configuration = NetworkConfiguration(baseURL: nil, debugMode: true)
-let cacheManager = NetworkDefaultCacheManager(cacheName: "network_cache")
-
-let networkClient = NetworkClient(configuration: configuration, cacheManager: cacheManager)
-```
-
-```
-let requestInfo = NetworkRequest(URL: "http://lorempixel.com/320/480?q=\(arc4random())")
-let responseSerializer = Request.imageResponseSerializer()
-let networkCommand = NetworkCommand(requestInfo: requestInfo, responseSerializer: responseSerializer) { (image, error) in
-    // do some with image
-}
-
-networkClient.executeCommand(networkCommand, useCache: true, mockObject: nil)
-```
-
-#### Mock example
-
-```
-class ImageMock: NetworkRequestMockPrototype {
+struct UsersMock: NetworkRequestMockPrototype {
     
     var responseDelay: NSTimeInterval {
-        return 2
+        return 3
     }
     
     var mimeType: String {
-        return "image/jpeg"
+        return "application/json"
     }
     
     func responseData() -> NSData {
-        let image = UIImage(named: "demo_image.jpeg")!
+        var users = [User]()
         
-        return UIImagePNGRepresentation(image)!
+        // ...
+        
+        return users.toNSData()
     }
+}
+```
+
+#### Send request
+
+```
+let request = UsersRequest()
+        
+networkClient.sendRequest(request, responseSerializer: ResponseSerializer<User, NSError>.arrayResponseSerializer()) { (users, error) in
+    let json = users?.toJSONString(true)
+    
+    // ...
 }
 ```
 
