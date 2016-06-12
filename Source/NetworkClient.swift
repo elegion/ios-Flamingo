@@ -127,7 +127,9 @@ public class NetworkClient: NetworkClientPrototype {
         }
         
         if error.domain != NSURLErrorDomain {
-            return false
+            let underlyingError = (error.userInfo as! [String : AnyObject])[NSUnderlyingErrorKey] as? NSError
+            
+            return shouldUseCachedResponseDataIfError(underlyingError)
         }
         
         switch error.code {
@@ -142,9 +144,7 @@ public class NetworkClient: NetworkClientPrototype {
              NSURLErrorDataNotAllowed:
             return true
         default:
-            let underlyingError = (error.userInfo as! [String : AnyObject])[NSUnderlyingErrorKey] as? NSError
-            
-            return shouldUseCachedResponseDataIfError(underlyingError)
+            return false
         }
     }
 }
