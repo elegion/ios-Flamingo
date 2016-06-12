@@ -15,46 +15,50 @@ class JSONDemoViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
-    private var networkClient: NetworkClientPrototype!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "JSON Demo"
         
+        textView.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20)
+        
+        setupNetwork()
+    }
+    
+    @IBAction func getRealDataTapped() {
+        loadUsersUsingMock(false)
+    }
+    
+    @IBAction func useMockDataTapped() {
+        loadUsersUsingMock(true)
+    }
+    
+    // MARK: Network
+    
+    private var networkClient: NetworkClientPrototype!
+    
+    private func setupNetwork() {
         let configuration = NetworkConfiguration(baseURL: "http://jsonplaceholder.typicode.com/", debugMode: true)
         let cacheManager = NetworkDefaultCacheManager(cacheName: "network_cache")
         
         networkClient = NetworkClient(configuration: configuration, cacheManager: cacheManager)
-        
-        textView.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20)
     }
     
-    @IBAction func getRealDataTapped() {
-        loadUsersWithMock(nil)
-    }
-    
-    @IBAction func useMockDataTapped() {
-        loadUsersWithMock(UsersMock())
-    }
-    
-    private func loadUsersWithMock(mockObject: NetworkRequestMockPrototype?) {
+    private func loadUsersUsingMock(useMock: Bool) {
         if loadingIndicator.isAnimating() {
             return
         }
         
         loadingIndicator.startAnimating()
         
-        let requestInfo = NetworkRequest(URL: "users")
-        let repsonseSerializer = AlamofireObjectMapperFactory<User>().arrayResponseSerializer()
-        let networkCommand = NetworkCommand(requestInfo: requestInfo, responseSerializer: repsonseSerializer) { (users, error) in
+        let request = UsersRequest(useMock: useMock)
+        
+        networkClient.sendRequest(request, responseSerializer: AlamofireObjectMapperFactory<User>().arrayResponseSerializer()) { (users, error) in
             let json = users?.toJSONString(true)
             
             self.textView.text = json
             
             self.loadingIndicator.stopAnimating()
         }
-        
-        networkClient.executeCommand(networkCommand, useCache: true, mockObject: mockObject)
     }
 }

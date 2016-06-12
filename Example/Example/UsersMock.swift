@@ -10,7 +10,7 @@ import Foundation
 import Flamingo
 import Fakery
 
-class UsersMock: NetworkRequestMockPrototype {
+struct UsersMock: NetworkRequestMockPrototype {
     
     var responseDelay: NSTimeInterval {
         return 3

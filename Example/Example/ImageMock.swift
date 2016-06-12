@@ -9,7 +9,7 @@
 import Foundation
 import Flamingo
 
-class ImageMock: NetworkRequestMockPrototype {
+struct ImageMock: NetworkRequestMockPrototype {
     
     var responseDelay: NSTimeInterval {
         return 2

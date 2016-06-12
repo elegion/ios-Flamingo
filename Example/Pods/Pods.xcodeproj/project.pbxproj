@@ -37,7 +37,6 @@
 		257D7E58CD9669F225C625B07C6F3E21 /* ObjectMapper-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D731D534BCB16A7EA240653162A51CAC /* ObjectMapper-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		259B3C4779BF85758007BFFE187BCD91 /* sv.json in Resources */ = {isa = PBXBuildFile; fileRef = 57B9F079C785C9DCB5275913F1B7C896 /* sv.json */; };
 		25CC318793E2D5582336A0039D2BCEE0 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802543D959B1544BEC11DE858C6D6235 /* SwiftyJSON.framework */; };
-		26BB1B80EE7AE4FC67FBC777F77060D3 /* NetworkCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C413A2D6F3A890D88FCC5B1037C0F3 /* NetworkCommand.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		288B407C1861C325D63558155BE51969 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6623173E61F35AEBD2E65F46EBED01 /* Notifications.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		2C7E111808744A8BEFB2B961AE188EE1 /* SHA2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2199EDC2147D698CAE948E05DA62502 /* SHA2.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		2C9E121687C2B87F4D0E3A17AC86463A /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F68CCADDBCC09C4214D1E6DE0C0899 /* Cache.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -380,7 +379,6 @@
 		369226FCE07BDF0E27F6B0ED9F3E2009 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		38B5C0026056A04BF384432A76F48BEE /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkReachabilityManager.swift; path = Source/NetworkReachabilityManager.swift; sourceTree = "<group>"; };
 		399DB46FE19290D6E9851A0DA0CF207E /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		39C413A2D6F3A890D88FCC5B1037C0F3 /* NetworkCommand.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NetworkCommand.swift; sourceTree = "<group>"; };
 		3ADC15BD8423A33C836CD329C25AD303 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B1915337F32D87B3911C297EA408033 /* CSArrayType+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CSArrayType+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/CSArrayType+Foundation.swift"; sourceTree = "<group>"; };
 		3BD594B545A4989C9FB9C6BDBF47EDF1 /* Cache-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Cache-dummy.m"; sourceTree = "<group>"; };
@@ -919,7 +917,6 @@
 				D178E538EF53B273EDA8DFC6B86FFBD4 /* MockOperation.swift */,
 				4D13119907829A81E8218C8311755EEE /* NetworkCache.swift */,
 				1B3E97E3C44747BD17305DE56B524754 /* NetworkClient.swift */,
-				39C413A2D6F3A890D88FCC5B1037C0F3 /* NetworkCommand.swift */,
 				41B53886E0D802DD22CA2E65107C4AB2 /* NetworkConfiguration.swift */,
 				DFC5698EFFAC36C0640B1077A76A915E /* NetworkRequest.swift */,
 				EB9AB19EF5EFF1FA7559B2D2B029BB29 /* NetworkRequestMock.swift */,
@@ -1482,7 +1479,6 @@
 				75FDDAD079F3DD1A817FF53022CC0D19 /* MockOperation.swift in Sources */,
 				7DF667B45E97B5F4E507CA07C85D9519 /* NetworkCache.swift in Sources */,
 				DC51CD8D731505AEDB832904FFFB8BBD /* NetworkClient.swift in Sources */,
-				26BB1B80EE7AE4FC67FBC777F77060D3 /* NetworkCommand.swift in Sources */,
 				00AFA6CB3E3C41DBC85E56EC461E2A22 /* NetworkConfiguration.swift in Sources */,
 				81806A6F34FF5725EB3B38E16DA03555 /* NetworkRequest.swift in Sources */,
 				555B2CF8491C409D28701BE1384F5F05 /* NetworkRequestMock.swift in Sources */,

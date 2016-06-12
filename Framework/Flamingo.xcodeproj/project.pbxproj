@@ -11,7 +11,6 @@
 		8F7CEBAE1CE9B03F00D6CCBA /* MockOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBA41CE9B03F00D6CCBA /* MockOperation.swift */; };
 		8F7CEBAF1CE9B03F00D6CCBA /* NetworkCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBA51CE9B03F00D6CCBA /* NetworkCache.swift */; };
 		8F7CEBB01CE9B03F00D6CCBA /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBA61CE9B03F00D6CCBA /* NetworkClient.swift */; };
-		8F7CEBB11CE9B03F00D6CCBA /* NetworkCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBA71CE9B03F00D6CCBA /* NetworkCommand.swift */; };
 		8F7CEBB21CE9B03F00D6CCBA /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBA81CE9B03F00D6CCBA /* NetworkConfiguration.swift */; };
 		8F7CEBB31CE9B03F00D6CCBA /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBA91CE9B03F00D6CCBA /* NetworkRequest.swift */; };
 		8F7CEBB41CE9B03F00D6CCBA /* NetworkRequestMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBAA1CE9B03F00D6CCBA /* NetworkRequestMock.swift */; };
@@ -30,7 +29,6 @@
 		8F7CEBA41CE9B03F00D6CCBA /* MockOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockOperation.swift; sourceTree = "<group>"; };
 		8F7CEBA51CE9B03F00D6CCBA /* NetworkCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkCache.swift; sourceTree = "<group>"; };
 		8F7CEBA61CE9B03F00D6CCBA /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
-		8F7CEBA71CE9B03F00D6CCBA /* NetworkCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkCommand.swift; sourceTree = "<group>"; };
 		8F7CEBA81CE9B03F00D6CCBA /* NetworkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		8F7CEBA91CE9B03F00D6CCBA /* NetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		8F7CEBAA1CE9B03F00D6CCBA /* NetworkRequestMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequestMock.swift; sourceTree = "<group>"; };
@@ -94,7 +92,6 @@
 			children = (
 				8F7CEBA51CE9B03F00D6CCBA /* NetworkCache.swift */,
 				8F7CEBA61CE9B03F00D6CCBA /* NetworkClient.swift */,
-				8F7CEBA71CE9B03F00D6CCBA /* NetworkCommand.swift */,
 				8F7CEBA81CE9B03F00D6CCBA /* NetworkConfiguration.swift */,
 				8F7CEBA91CE9B03F00D6CCBA /* NetworkRequest.swift */,
 				8F7CEBAA1CE9B03F00D6CCBA /* NetworkRequestMock.swift */,
@@ -239,7 +236,6 @@
 				8F7CEBBB1CE9B14700D6CCBA /* Alamofire+ObjectMapper.swift in Sources */,
 				8F7CEBB41CE9B03F00D6CCBA /* NetworkRequestMock.swift in Sources */,
 				8F7CEBB31CE9B03F00D6CCBA /* NetworkRequest.swift in Sources */,
-				8F7CEBB11CE9B03F00D6CCBA /* NetworkCommand.swift in Sources */,
 				8F7CEBAF1CE9B03F00D6CCBA /* NetworkCache.swift in Sources */,
 				8F7CEBB81CE9B08F00D6CCBA /* CancelableOperation.swift in Sources */,
 				8F7CEBAE1CE9B03F00D6CCBA /* MockOperation.swift in Sources */,

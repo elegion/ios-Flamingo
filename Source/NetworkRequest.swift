@@ -13,37 +13,52 @@ public protocol NetworkRequestPrototype {
     
     var URL: URLStringConvertible { get }
     var method: Alamofire.Method { get }
-    var parametersEncoding: ParameterEncoding { get }
     var parameters: [String : AnyObject]? { get }
+    var parametersEncoding: ParameterEncoding { get }
+    var baseURL: URLStringConvertible? { get }
     var headers: [String : String]? { get }
+    var useCache: Bool { get }
+    var mockObject: NetworkRequestMockPrototype? { get }
     var timeoutInterval: NSTimeInterval? { get }
     var completionQueue: dispatch_queue_t? { get }
 }
 
-public struct NetworkRequest: NetworkRequestPrototype {
+public extension NetworkRequestPrototype {
     
-    public let URL: URLStringConvertible
-    public let method: Alamofire.Method
-    public let parametersEncoding: ParameterEncoding
-    public let parameters: [String : AnyObject]?
-    public let headers: [String : String]?
-    public let timeoutInterval: NSTimeInterval?
-    public let completionQueue: dispatch_queue_t?
+    public var method: Alamofire.Method {
+        return .GET
+    }
     
-    public init(URL: URLStringConvertible,
-                method: Alamofire.Method = .GET,
-                parametersEncoding: ParameterEncoding = .URL,
-                parameters: [String : AnyObject]? = nil,
-                headers: [String : String]? = nil,
-                timeoutInterval: NSTimeInterval? = nil,
-                completionQueue: dispatch_queue_t? = nil) {
-        self.URL = URL
-        self.method = method
-        self.parametersEncoding = parametersEncoding
-        self.parameters = parameters
-        self.headers = headers
-        self.timeoutInterval = timeoutInterval
-        self.completionQueue = completionQueue
+    public var parameters: [String : AnyObject]? {
+        return nil
+    }
+    
+    public var parametersEncoding: ParameterEncoding {
+        return .URL
+    }
+    
+    public var baseURL: URLStringConvertible? {
+        return nil
+    }
+    
+    public var headers: [String : String]? {
+        return nil
+    }
+    
+    public var useCache: Bool {
+        return false
+    }
+    
+    public var mockObject: NetworkRequestMockPrototype? {
+        return nil
+    }
+    
+    public var timeoutInterval: NSTimeInterval? {
+        return nil
+    }
+    
+    public var completionQueue: dispatch_queue_t? {
+        return nil
     }
 }
 
@@ -51,7 +66,9 @@ public extension NetworkRequestPrototype {
     
     public func URLRequestWithBaseURL(baseURL: URLStringConvertible? = nil,
                                       timeoutInterval: NSTimeInterval) -> NSMutableURLRequest {
-        let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: URL.URLString, relativeToURL: baseURL != nil ? NSURL(string: baseURL!.URLString) : nil)!)
+        let _baseURL = self.baseURL ?? baseURL
+        
+        let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: URL.URLString, relativeToURL: _baseURL != nil ? NSURL(string: _baseURL!.URLString) : nil)!)
         
         mutableURLRequest.timeoutInterval = self.timeoutInterval ?? timeoutInterval
         

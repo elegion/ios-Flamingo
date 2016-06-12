@@ -11,7 +11,7 @@ import Alamofire
 
 public protocol NetworkClientPrototype: class {
     
-    func executeCommand<T>(networkCommand: NetworkCommand<T>, useCache: Bool, mockObject: NetworkRequestMockPrototype?) -> CancelableOperation
+    func sendRequest<T>(request: NetworkRequestPrototype, responseSerializer: ResponseSerializer<T, NSError>, completionHandler: ((T?, NSError?) -> Void)?) -> CancelableOperation
 }
 
 public class NetworkClient: NetworkClientPrototype {
@@ -30,34 +30,43 @@ public class NetworkClient: NetworkClientPrototype {
         self.networkManager = networkManager
     }
     
-    public func executeCommand<T>(networkCommand: NetworkCommand<T>, useCache: Bool, mockObject: NetworkRequestMockPrototype?) -> CancelableOperation {
-        let URLRequest = networkCommand.requestInfo.URLRequestWithBaseURL(configuration.baseURL, timeoutInterval: configuration.defaultTimeoutInterval)
+    public func sendRequest<T>(request: NetworkRequestPrototype, responseSerializer: ResponseSerializer<T, NSError>, completionHandler: ((T?, NSError?) -> Void)?) -> CancelableOperation {
+        let URLRequest = request.URLRequestWithBaseURL(configuration.baseURL, timeoutInterval: configuration.defaultTimeoutInterval)
         
-        let _completionQueue = networkCommand.requestInfo.completionQueue ?? self.configuration.completionQueue
+        let _completionQueue = request.completionQueue ?? self.configuration.completionQueue
         
-        if let mockObject = mockObject {
+        if let mockObject = request.mockObject {
             let mockOperation = MockOperation(mockObject: mockObject, dispatchQueue: NetworkClient.operationQueue) { (data, error) in
                 guard error == nil else {
-                    dispatch_async(_completionQueue, {
-                        networkCommand.responseHandler(nil, error)
-                    })
+                    if let completionHandler = completionHandler {
+                        dispatch_async(_completionQueue, {
+                            completionHandler(nil, error)
+                        })
+                    }
                     
                     return
                 }
                 
-                let response = NSHTTPURLResponse(URL: URLRequest.URL!, MIMEType: mockObject.mimeType, expectedContentLength: -1, textEncodingName: nil)
+                let response = NSHTTPURLResponse(URL: URLRequest.URL!,
+                                                 MIMEType: mockObject.mimeType,
+                                                 expectedContentLength: -1,
+                                                 textEncodingName: nil)
                 
-                let result = networkCommand.responseSerializer.serializeResponse(nil, response, data, nil)
+                let result = responseSerializer.serializeResponse(nil, response, data, nil)
                 
                 switch result {
                 case .Success(let value):
-                    dispatch_async(_completionQueue, {
-                        networkCommand.responseHandler(value, nil)
-                    })
+                    if let completionHandler = completionHandler {
+                        dispatch_async(_completionQueue, {
+                            completionHandler(value, nil)
+                        })
+                    }
                 case .Failure(let error):
-                    dispatch_async(_completionQueue, {
-                        networkCommand.responseHandler(nil, error)
-                    })
+                    if let completionHandler = completionHandler {
+                        dispatch_async(_completionQueue, {
+                            completionHandler(nil, error)
+                        })
+                    }
                 }
             }
             
@@ -66,7 +75,7 @@ public class NetworkClient: NetworkClientPrototype {
             return mockOperation
         }
         
-        let _useCache = useCache && self.cacheManager != nil
+        let _useCache = request.useCache && self.cacheManager != nil
         
         let request = networkManager.request(URLRequest).response(queue: _completionQueue) { (request, response, data, error) in
             var _data: NSData? = data
@@ -78,7 +87,7 @@ public class NetworkClient: NetworkClientPrototype {
             }
             
             dispatch_async(NetworkClient.operationQueue, {
-                let result = networkCommand.responseSerializer.serializeResponse(request, response, _data, nil)
+                let result = responseSerializer.serializeResponse(request, response, _data, nil)
                 
                 switch result {
                 case .Success(let value):
@@ -86,13 +95,17 @@ public class NetworkClient: NetworkClientPrototype {
                         self.cacheManager!.setResponseData(_data!, forRequest: URLRequest)
                     }
                     
-                    dispatch_async(_completionQueue, {
-                        networkCommand.responseHandler(value, error)
-                    })
+                    if let completionHandler = completionHandler {
+                        dispatch_async(_completionQueue, {
+                            completionHandler(value, error)
+                        })
+                    }
                 case .Failure(let error):
-                    dispatch_async(_completionQueue, {
-                        networkCommand.responseHandler(nil, error)
-                    })
+                    if let completionHandler = completionHandler {
+                        dispatch_async(_completionQueue, {
+                            completionHandler(nil, error)
+                        })
+                    }
                 }
             })
         }

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		33223EDBDCD4B1D3820E4E19 /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9948B69825BF9B59F5F2D514 /* Pods_Example.framework */; };
+		8F1B4AB91D0D8E6000BEEC8C /* UsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1B4AB81D0D8E6000BEEC8C /* UsersRequest.swift */; };
+		8F1B4ABC1D0D95B000BEEC8C /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1B4ABB1D0D95B000BEEC8C /* ImageRequest.swift */; };
 		8F7CEBCB1CE9B2A000D6CCBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBCA1CE9B2A000D6CCBA /* AppDelegate.swift */; };
 		8F7CEBD21CE9B2A000D6CCBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F7CEBD11CE9B2A000D6CCBA /* Assets.xcassets */; };
 		8F7CEBDE1CE9B4CC00D6CCBA /* JSONDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBDC1CE9B4CC00D6CCBA /* JSONDemoViewController.swift */; };
@@ -23,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		356712F42FB575B7DFEFD01F /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
+		8F1B4AB81D0D8E6000BEEC8C /* UsersRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersRequest.swift; sourceTree = "<group>"; };
+		8F1B4ABB1D0D95B000BEEC8C /* ImageRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRequest.swift; sourceTree = "<group>"; };
 		8F7CEBC71CE9B2A000D6CCBA /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F7CEBCA1CE9B2A000D6CCBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F7CEBD11CE9B2A000D6CCBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -90,6 +94,7 @@
 				8F7CEBDD1CE9B4CC00D6CCBA /* JSONDemoViewController.xib */,
 				8FC9EDEC1CE9BFE400C807DA /* UserModels.swift */,
 				8FC9EDF01CE9C7C800C807DA /* UsersMock.swift */,
+				8F1B4AB81D0D8E6000BEEC8C /* UsersRequest.swift */,
 			);
 			name = "JSON Demo";
 			sourceTree = "<group>";
@@ -100,6 +105,7 @@
 				8FC9EDF31CE9CB3600C807DA /* ImageDemoViewController.swift */,
 				8FC9EDF41CE9CB3600C807DA /* ImageDemoViewController.xib */,
 				8FC9EDFA1CE9F3A900C807DA /* ImageMock.swift */,
+				8F1B4ABB1D0D95B000BEEC8C /* ImageRequest.swift */,
 			);
 			name = "Image Demo";
 			sourceTree = "<group>";
@@ -255,7 +261,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F7CEBCB1CE9B2A000D6CCBA /* AppDelegate.swift in Sources */,
+				8F1B4ABC1D0D95B000BEEC8C /* ImageRequest.swift in Sources */,
 				8FC9EDFB1CE9F3A900C807DA /* ImageMock.swift in Sources */,
+				8F1B4AB91D0D8E6000BEEC8C /* UsersRequest.swift in Sources */,
 				8FC9EDED1CE9BFE400C807DA /* UserModels.swift in Sources */,
 				8FC9EDF51CE9CB3600C807DA /* ImageDemoViewController.swift in Sources */,
 				8FC9EDF11CE9C7C800C807DA /* UsersMock.swift in Sources */,
