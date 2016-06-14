@@ -9,7 +9,7 @@
 import Foundation
 import Flamingo
 
-struct ImageMock: NetworkRequestMockPrototype {
+struct ImageMock: NetworkRequestMock {
     
     var responseDelay: NSTimeInterval {
         return 2
@@ -19,7 +19,7 @@ struct ImageMock: NetworkRequestMockPrototype {
         return "image/jpeg"
     }
     
-    func responseData() -> NSData {
+    func responseData() -> NSData? {
         let image = UIImage(named: "demo_image.jpeg")!
         
         return UIImagePNGRepresentation(image)!

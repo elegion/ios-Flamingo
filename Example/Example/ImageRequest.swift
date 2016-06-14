@@ -8,9 +8,10 @@
 
 import Foundation
 import Alamofire
+import AlamofireImage
 import Flamingo
 
-struct ImageRequest: NetworkRequestPrototype {
+struct ImageRequest: NetworkRequest {
     
     private let useMock: Bool
     
@@ -28,7 +29,11 @@ struct ImageRequest: NetworkRequestPrototype {
         return "http://lorempixel.com"
     }
     
-    var mockObject: NetworkRequestMockPrototype? {
+    var responseSerializer: ResponseSerializer<UIImage, NSError> {
+        return Request.imageResponseSerializer()
+    }
+    
+    var mockObject: NetworkRequestMock? {
         return useMock ? ImageMock() : nil
     }
 }

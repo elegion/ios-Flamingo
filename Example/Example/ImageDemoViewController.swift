@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Alamofire
-import AlamofireImage
 import Flamingo
 
 class ImageDemoViewController: UIViewController {
@@ -34,13 +32,13 @@ class ImageDemoViewController: UIViewController {
     
     // MARK: Network
     
-    private var networkClient: NetworkClientPrototype!
+    private var networkClient: NetworkClient!
     
     private func setupNetwork() {
-        let configuration = NetworkConfiguration(baseURL: nil, debugMode: true, defaultTimeoutInterval: 5)
+        let configuration = NetworkDefaultConfiguration(baseURL: nil, debugMode: true, defaultTimeoutInterval: 5)
         let cacheManager = NetworkDefaultCacheManager(cacheName: "network_cache")
         
-        networkClient = NetworkClient(configuration: configuration, cacheManager: cacheManager)
+        networkClient = NetworkDefaultClient(configuration: configuration, cacheManager: cacheManager)
     }
     
     private func loadImageUsingMock(useMock: Bool) {
@@ -52,7 +50,7 @@ class ImageDemoViewController: UIViewController {
         
         let request = ImageRequest(useMock: useMock)
         
-        networkClient.sendRequest(request, responseSerializer: Request.imageResponseSerializer()) { (image, error) in
+        networkClient.sendRequest(request) { (image, error) in
             self.imageView.image = image
             
             self.loadingIndicator.stopAnimating()

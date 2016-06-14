@@ -10,7 +10,7 @@ import Foundation
 import Flamingo
 import Fakery
 
-struct UsersMock: NetworkRequestMockPrototype {
+struct UsersMock: NetworkRequestMock {
     
     var responseDelay: NSTimeInterval {
         return 3
@@ -20,7 +20,7 @@ struct UsersMock: NetworkRequestMockPrototype {
         return "application/json"
     }
     
-    func responseData() -> NSData {
+    func responseData() -> NSData? {
         let faker = Faker()
         
         var users = [User]()

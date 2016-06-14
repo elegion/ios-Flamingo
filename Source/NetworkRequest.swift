@@ -2,14 +2,16 @@
 //  NetworkRequest.swift
 //  Flamingo
 //
-//  Created by Георгий Касапиди on 16.05.16.
+//  Created by Георгий Касапиди on 14.06.16.
 //  Copyright © 2016 ELN. All rights reserved.
 //
 
 import Foundation
 import Alamofire
 
-public protocol NetworkRequestPrototype {
+public protocol NetworkRequest {
+    
+    associatedtype T
     
     var URL: URLStringConvertible { get }
     var method: Alamofire.Method { get }
@@ -18,12 +20,13 @@ public protocol NetworkRequestPrototype {
     var baseURL: URLStringConvertible? { get }
     var headers: [String : String]? { get }
     var useCache: Bool { get }
-    var mockObject: NetworkRequestMockPrototype? { get }
+    var responseSerializer: ResponseSerializer<T, NSError> { get }
+    var mockObject: NetworkRequestMock? { get }
     var timeoutInterval: NSTimeInterval? { get }
     var completionQueue: dispatch_queue_t? { get }
 }
 
-public extension NetworkRequestPrototype {
+public extension NetworkRequest {
     
     public var method: Alamofire.Method {
         return .GET
@@ -49,7 +52,7 @@ public extension NetworkRequestPrototype {
         return false
     }
     
-    public var mockObject: NetworkRequestMockPrototype? {
+    public var mockObject: NetworkRequestMock? {
         return nil
     }
     
@@ -62,7 +65,7 @@ public extension NetworkRequestPrototype {
     }
 }
 
-public extension NetworkRequestPrototype {
+public extension NetworkRequest {
     
     public func URLRequestWithBaseURL(baseURL: URLStringConvertible? = nil,
                                       timeoutInterval: NSTimeInterval) -> NSMutableURLRequest {

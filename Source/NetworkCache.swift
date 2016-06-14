@@ -9,7 +9,7 @@
 import Foundation
 import Cache
 
-public protocol NetworkCacheManagerPrototype: class {
+public protocol NetworkCacheManager: class {
 
     func cacheKeyFromRequest(request: NSURLRequest) -> String
     func responseDataForRequest(request: NSURLRequest) -> NSData?
@@ -18,7 +18,7 @@ public protocol NetworkCacheManagerPrototype: class {
     func clearCache()
 }
 
-public final class NetworkDefaultCacheManager: NetworkCacheManagerPrototype {
+public final class NetworkDefaultCacheManager: NetworkCacheManager {
     
     private let syncCache: SyncHybridCache
     

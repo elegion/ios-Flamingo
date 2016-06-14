@@ -21,7 +21,7 @@ extension Request: CancelableOperation {
     }
 }
 
-extension MockOperation: CancelableOperation {
+extension NetworkMockOperation: CancelableOperation {
     
     public func cancelOperation() {
         cancel()

@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import Flamingo
 
-struct UsersRequest: NetworkRequestPrototype {
+struct UsersRequest: NetworkRequest {
     
     private let useMock: Bool
     
@@ -28,7 +28,11 @@ struct UsersRequest: NetworkRequestPrototype {
         return true
     }
     
-    var mockObject: NetworkRequestMockPrototype? {
+    var responseSerializer: ResponseSerializer<[User], NSError> {
+        return ResponseSerializer<User, NSError>.arrayResponseSerializer()
+    }
+    
+    var mockObject: NetworkRequestMock? {
         return useMock ? UsersMock() : nil
     }
 }
