@@ -18,7 +18,7 @@ struct UsersRequest: NetworkRequest {
         self.useMock = useMock;
     }
     
-    // implementation
+    //MARK: - Implementation
     
     var URL: URLStringConvertible {
         return "users"
