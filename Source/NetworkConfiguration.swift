@@ -27,7 +27,7 @@ public struct NetworkDefaultConfiguration: NetworkConfiguration {
     public let defaultTimeoutInterval: NSTimeInterval
     
     public init(baseURL: URLStringConvertible? = nil,
-                useMocks: Bool = true,
+                useMocks: Bool = false,
                 debugMode: Bool = false,
                 completionQueue: dispatch_queue_t = dispatch_get_main_queue(),
                 defaultTimeoutInterval: NSTimeInterval = 60.0) {

@@ -38,7 +38,7 @@ class JSONDemoViewController: UIViewController {
     private var networkClient: NetworkClient!
     
     private func setupNetwork() {
-        let configuration = NetworkDefaultConfiguration(baseURL: "http://jsonplaceholder.typicode.com/", debugMode: true)
+        let configuration = NetworkDefaultConfiguration(baseURL: "http://jsonplaceholder.typicode.com/", useMocks: true, debugMode: true)
         let cacheManager = NetworkDefaultCacheManager(cacheName: "network_cache")
         
         networkClient = NetworkDefaultClient(configuration: configuration, cacheManager: cacheManager)
