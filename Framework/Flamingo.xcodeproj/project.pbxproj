@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37FB15461D11ED7A001B69C2 /* NSError+NetworkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FB15451D11ED7A001B69C2 /* NSError+NetworkExtensions.swift */; };
 		8F0F6F5E1D109A4D00DD911F /* NetworkRequestMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0F6F5D1D109A4D00DD911F /* NetworkRequestMock.swift */; };
 		8F0F6F601D109A7400DD911F /* NetworkMockOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0F6F5F1D109A7400DD911F /* NetworkMockOperation.swift */; };
 		8F51C3951D10972C001AB5F0 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F51C3941D10972C001AB5F0 /* NetworkRequest.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		03FF46BFC6D2EF0F7ED1A270 /* Pods-Flamingo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flamingo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Flamingo/Pods-Flamingo.release.xcconfig"; sourceTree = "<group>"; };
+		37FB15451D11ED7A001B69C2 /* NSError+NetworkExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+NetworkExtensions.swift"; sourceTree = "<group>"; };
 		5E7BAE7B9D52B3E98ED2B2AE /* Pods_Flamingo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flamingo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F0F6F5D1D109A4D00DD911F /* NetworkRequestMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequestMock.swift; sourceTree = "<group>"; };
 		8F0F6F5F1D109A7400DD911F /* NetworkMockOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMockOperation.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				8F7CEBB71CE9B08F00D6CCBA /* CancelableOperation.swift */,
 				8F7CEBBA1CE9B14700D6CCBA /* Alamofire+ObjectMapper.swift */,
 				8F7CEBBC1CE9B1DC00D6CCBA /* ObjectMapper+NSData.swift */,
+				37FB15451D11ED7A001B69C2 /* NSError+NetworkExtensions.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				8F7CEBB01CE9B03F00D6CCBA /* NetworkClient.swift in Sources */,
 				8F7CEBB21CE9B03F00D6CCBA /* NetworkConfiguration.swift in Sources */,
 				8F51C3951D10972C001AB5F0 /* NetworkRequest.swift in Sources */,
+				37FB15461D11ED7A001B69C2 /* NSError+NetworkExtensions.swift in Sources */,
 				8F7CEBBD1CE9B1DC00D6CCBA /* ObjectMapper+NSData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

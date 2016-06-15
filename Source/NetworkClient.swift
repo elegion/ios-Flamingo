@@ -102,26 +102,6 @@ public class NetworkDefaultClient: NetworkClient {
         guard let error = error else {
             return false
         }
-        
-        if error.domain != NSURLErrorDomain {
-            let underlyingError = (error.userInfo as! [String : AnyObject])[NSUnderlyingErrorKey] as? NSError
-            
-            return shouldUseCachedResponseDataIfError(underlyingError)
-        }
-        
-        switch error.code {
-        case NSURLErrorTimedOut,
-             NSURLErrorCannotFindHost,
-             NSURLErrorCannotConnectToHost,
-             NSURLErrorNetworkConnectionLost,
-             NSURLErrorDNSLookupFailed,
-             NSURLErrorNotConnectedToInternet,
-             NSURLErrorInternationalRoamingOff,
-             NSURLErrorCallIsActive,
-             NSURLErrorDataNotAllowed:
-            return true
-        default:
-            return false
-        }
+        return error.isNetworkConnectionError
     }
 }
