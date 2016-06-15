@@ -2,7 +2,12 @@
 
 ## Description
 
-Swift network manager. Based on Alamofire, ObjectMapper and Cache.
+Swift network manager. Based on `Alamofire`, `ObjectMapper` and `Cache`.
+Supported features:
+* Performing http requests
+* Easy response mapping
+* Offline mode caching out-of-the-box
+* Request mocks
 
 ## Installation
 
@@ -17,55 +22,125 @@ pod 'Flamingo'
 
 ## Usage
 
+### Basic usage
+
 #### Setup configuration
 
+Create default network configuration:
+
+```swift
+let configuration = NetworkDefaultConfiguration()
 ```
-let configuration = NetworkConfiguration()
-...
-let configuration = NetworkConfiguration(baseURL: "http://jsonplaceholder.typicode.com/",
-                                         debugMode: true)
-...
-let configuration = NetworkConfiguration(baseURL: "http://jsonplaceholder.typicode.com/",
-                                         debugMode: true,
-                                         completionQueue: dispatch_get_main_queue(),
-                                         defaultTimeoutInterval: 10)
+```swift
+let configuration = NetworkDefaultConfiguration(baseURL: "http://jsonplaceholder.typicode.com/",
+                                                debugMode: true,
+                                                completionQueue: dispatch_get_main_queue(),
+                                                defaultTimeoutInterval: 10)
 ```
 
 #### Setup network client
 
-```
-let configuration = NetworkConfiguration(baseURL: "http://jsonplaceholder.typicode.com/", debugMode: true)
-let cacheManager = NetworkDefaultCacheManager(cacheName: "network_cache")
-let networkClient = NetworkClient(configuration: configuration, cacheManager: cacheManager)
+```swift
+let networkClient = NetworkDefaultClient(configuration: configuration)
 ```
 
-#### Request protocol implementation example
+#### Setup request info
 
-```
-struct UsersRequest: NetworkRequestPrototype {
+Satisfy `NetworkRequest` protocol to add request (see more information below about response mapping):
+
+```swift
+struct UsersRequest: NetworkRequest {
     
     var URL: URLStringConvertible {
         return "users"
-    }
-    
-    var baseURL: URLStringConvertible? {
-        return "http://jsonplaceholder.typicode.com"
     }
     
     var useCache: Bool {
         return true
     }
     
-    var mockObject: NetworkRequestMockPrototype? {
-        return UsersMock()
+    var responseSerializer: ResponseSerializer<[User], NSError> {
+        return ResponseSerializer<User, NSError>.arrayResponseSerializer()
     }
 }
 ```
 
-#### Mock protocol implementation example
+#### Map responses
 
+Map responses with `Alamofire` response serializers (`ResponseSerializer<T, NSError>`). There are standard JSON dictionary and array serializers over `ObjectMapper` providing easy mapping syntax including nested mapping (see `Alamofire+ObjectMapper`):
+
+```swift
+struct UsersRequest: NetworkRequest {
+    ...
+    var responseSerializer: ResponseSerializer<[User], NSError> {
+        return ResponseSerializer<User, NSError>.arrayResponseSerializer()
+    }
+}
+...
+class User: Mappable {
+    var userId: Int!
+    var address: Address!
+
+    init() {}
+    required init?(_ map: Map) {}
+    
+    func mapping(map: Map) {
+        userId      <- map["id"]
+        address     <- map["address"]
+    }
+}
+
+class Address: Mappable {
+    var street: String!
+
+    init() {}
+    required init?(_ map: Map) {}
+    
+    func mapping(map: Map) {
+        street      <- map["street"]
+    }
+}
 ```
-struct UsersMock: NetworkRequestMockPrototype {
+
+You can also create your own serializers. See `ResponseSerializer` for more details.
+
+#### Send request
+
+```swift
+let request = UsersRequest()
+networkClient.sendRequest(request) { (users, error) in
+    //Process response
+}
+```
+
+### Offline mode caching
+
+Offline mode caching for requests allows to use the last successful response when receiving request error. To use the cache, specify the flag in request:
+
+```swift
+struct UsersRequest: NetworkRequest {
+    ...
+    var useCache: Bool {
+        return true
+    }
+}
+```
+
+Successful server responses will be cached automatically then. If you cache a response and receive a network error next time, both cached response and the error wil be received in `sendRequest` completion closure.
+
+### Request mocks
+
+To enable mocks for request you should configure network client with `useMocks` flag:
+
+```swift
+let configuration = NetworkDefaultConfiguration(baseURL: "http://jsonplaceholder.typicode.com/", 
+                                                useMocks: true)
+```
+
+Then implement mock itself by satisfying `NetworkRequestMock` protocol:
+
+```swift
+struct UsersMock: NetworkRequestMock {
     
     var responseDelay: NSTimeInterval {
         return 3
@@ -75,27 +150,62 @@ struct UsersMock: NetworkRequestMockPrototype {
         return "application/json"
     }
     
-    func responseData() -> NSData {
-        var users = [User]()
-        
-        // ...
-        
-        return users.toNSData()
+    func responseData() -> NSData? {
+        //Return mock data
     }
 }
 ```
 
-#### Send request
+Then specify mock object in request:
 
-```
-let request = UsersRequest()
-        
-networkClient.sendRequest(request, responseSerializer: ResponseSerializer<User, NSError>.arrayResponseSerializer()) { (users, error) in
-    let json = users?.toJSONString(true)
-    
-    // ...
+```swift
+struct UsersRequest: NetworkRequest {
+    ...
+    var mockObject: NetworkRequestMock? {
+        return UsersMock()
+    }
 }
 ```
+
+### Client customization
+
+#### Custom configurtion types
+
+Create custom configuration structure if you need more information to initialize client:
+```swift
+public struct NetworkCustomConfiguration: NetworkConfiguration {
+    
+    public let baseURL: URLStringConvertible?
+    public let useMocks: Bool
+    public let debugMode: Bool
+    public let completionQueue: dispatch_queue_t
+    public let defaultTimeoutInterval: NSTimeInterval
+    public let clientToken: String?
+    
+    public init(baseURL: URLStringConvertible? = nil,
+                useMocks: Bool = true,
+                debugMode: Bool = false,
+                completionQueue: dispatch_queue_t = dispatch_get_main_queue(),
+                defaultTimeoutInterval: NSTimeInterval = 60.0,
+                clientToken: String?) {
+        
+        self.baseURL = baseURL
+        self.useMocks = useMocks
+        self.debugMode = debugMode
+        self.completionQueue = completionQueue
+        self.defaultTimeoutInterval = defaultTimeoutInterval
+        self.clientToken = clientToken
+    }
+}
+...
+let configuration = NetworkCustomConfiguration(baseURL: "http://jsonplaceholder.typicode.com/",
+                                               clientToken: "202cb962ac59075b964b07152d234b70")
+
+```
+
+### Offline cache error processing
+
+If you need to use offline mode cache for custom errors, you can subclass `NetworkDefaultClient` and override `shouldUseCachedResponseDataIfError` method.
 
 ## Requirements
 
