@@ -12,6 +12,7 @@ import Alamofire
 public protocol NetworkClient: class {
     
     func sendRequest<T: NetworkRequest>(networkRequest: T, completionHandler: ((T.T?, NSError?) -> Void)?) -> CancelableOperation
+    func shouldUseCachedResponseDataIfError(error: NSError?) -> Bool
 }
 
 public class NetworkDefaultClient: NetworkClient {
@@ -97,7 +98,7 @@ public class NetworkDefaultClient: NetworkClient {
         return _request
     }
     
-    private func shouldUseCachedResponseDataIfError(error: NSError?) -> Bool {
+    public func shouldUseCachedResponseDataIfError(error: NSError?) -> Bool {
         guard let error = error else {
             return false
         }
