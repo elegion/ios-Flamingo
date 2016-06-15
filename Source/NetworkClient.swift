@@ -20,15 +20,15 @@ public class NetworkDefaultClient: NetworkClient {
     private static let operationQueue = dispatch_queue_create("com.flamingo.operation-queue", DISPATCH_QUEUE_CONCURRENT)
     
     private let configuration: NetworkConfiguration
-    private let cacheManager: NetworkCacheManager?
+    private let offlineCacheManager: NetworkOfflineCacheManager?
     
     public let networkManager: Manager
     
     public init(configuration: NetworkConfiguration,
-                cacheManager: NetworkCacheManager? = nil,
+                offlineCacheManager: NetworkOfflineCacheManager? = nil,
                 networkManager: Manager = Manager.sharedInstance) {
         self.configuration = configuration
-        self.cacheManager = cacheManager
+        self.offlineCacheManager = offlineCacheManager
         self.networkManager = networkManager
     }
     
@@ -52,14 +52,14 @@ public class NetworkDefaultClient: NetworkClient {
             }
         }
         
-        let _useCache = networkRequest.useCache && self.cacheManager != nil
+        let _useCache = networkRequest.useCache && self.offlineCacheManager != nil
         
         let _request = networkManager.request(URLRequest).response(queue: _completionQueue) { (request, response, data, error) in
             var _data: NSData? = data
             
             if _useCache && self.shouldUseCachedResponseDataIfError(error) {
                 dispatch_sync(NetworkDefaultClient.operationQueue, {
-                    _data = self.cacheManager!.responseDataForRequest(URLRequest)
+                    _data = self.offlineCacheManager!.responseDataForRequest(URLRequest)
                 })
             }
             
@@ -69,7 +69,7 @@ public class NetworkDefaultClient: NetworkClient {
                 switch result {
                 case .Success(let value):
                     if _useCache {
-                        self.cacheManager!.setResponseData(_data!, forRequest: URLRequest)
+                        self.offlineCacheManager!.setResponseData(_data!, forRequest: URLRequest)
                     }
                     
                     if let completionHandler = completionHandler {

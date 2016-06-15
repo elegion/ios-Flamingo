@@ -12,7 +12,7 @@
 		8F0F6F601D109A7400DD911F /* NetworkMockOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0F6F5F1D109A7400DD911F /* NetworkMockOperation.swift */; };
 		8F51C3951D10972C001AB5F0 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F51C3941D10972C001AB5F0 /* NetworkRequest.swift */; };
 		8F7CEB9B1CE9AFCD00D6CCBA /* Flamingo.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F7CEB9A1CE9AFCD00D6CCBA /* Flamingo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8F7CEBAF1CE9B03F00D6CCBA /* NetworkCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBA51CE9B03F00D6CCBA /* NetworkCache.swift */; };
+		8F7CEBAF1CE9B03F00D6CCBA /* NetworkOfflineCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBA51CE9B03F00D6CCBA /* NetworkOfflineCache.swift */; };
 		8F7CEBB01CE9B03F00D6CCBA /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBA61CE9B03F00D6CCBA /* NetworkClient.swift */; };
 		8F7CEBB21CE9B03F00D6CCBA /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBA81CE9B03F00D6CCBA /* NetworkConfiguration.swift */; };
 		8F7CEBB81CE9B08F00D6CCBA /* CancelableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBB71CE9B08F00D6CCBA /* CancelableOperation.swift */; };
@@ -31,7 +31,7 @@
 		8F7CEB971CE9AFCD00D6CCBA /* Flamingo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flamingo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F7CEB9A1CE9AFCD00D6CCBA /* Flamingo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flamingo.h; sourceTree = "<group>"; };
 		8F7CEB9C1CE9AFCD00D6CCBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8F7CEBA51CE9B03F00D6CCBA /* NetworkCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkCache.swift; sourceTree = "<group>"; };
+		8F7CEBA51CE9B03F00D6CCBA /* NetworkOfflineCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkOfflineCache.swift; sourceTree = "<group>"; };
 		8F7CEBA61CE9B03F00D6CCBA /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		8F7CEBA81CE9B03F00D6CCBA /* NetworkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		8F7CEBB71CE9B08F00D6CCBA /* CancelableOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelableOperation.swift; sourceTree = "<group>"; };
@@ -92,7 +92,7 @@
 		8F7CEBA21CE9B03F00D6CCBA /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				8F7CEBA51CE9B03F00D6CCBA /* NetworkCache.swift */,
+				8F7CEBA51CE9B03F00D6CCBA /* NetworkOfflineCache.swift */,
 				8F7CEBA61CE9B03F00D6CCBA /* NetworkClient.swift */,
 				8F7CEBA81CE9B03F00D6CCBA /* NetworkConfiguration.swift */,
 				8F51C3941D10972C001AB5F0 /* NetworkRequest.swift */,
@@ -238,7 +238,7 @@
 			files = (
 				8F7CEBBB1CE9B14700D6CCBA /* Alamofire+ObjectMapper.swift in Sources */,
 				8F0F6F5E1D109A4D00DD911F /* NetworkRequestMock.swift in Sources */,
-				8F7CEBAF1CE9B03F00D6CCBA /* NetworkCache.swift in Sources */,
+				8F7CEBAF1CE9B03F00D6CCBA /* NetworkOfflineCache.swift in Sources */,
 				8F0F6F601D109A7400DD911F /* NetworkMockOperation.swift in Sources */,
 				8F7CEBB81CE9B08F00D6CCBA /* CancelableOperation.swift in Sources */,
 				8F7CEBB01CE9B03F00D6CCBA /* NetworkClient.swift in Sources */,

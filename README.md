@@ -115,12 +115,12 @@ networkClient.sendRequest(request) { (users, error) in
 
 ### Offline mode caching
 
-Offline mode caching for requests allows to use the last successful response when receiving request error. To use it, initialize network client with `cacheManager` parameter:
+Offline mode caching for requests allows to use the last successful response when receiving request error. To use it, initialize network client with `offlineCacheManager` parameter:
 
 ```swift
-let cacheManager = NetworkDefaultCacheManager(cacheName: "network_cache")
+let cacheManager = NetworkDefaultOfflineCacheManager(cacheName: "network_cache")
 networkClient = NetworkDefaultClient(configuration: configuration, 
-                                     cacheManager: cacheManager)
+                                     offlineCacheManager: cacheManager)
 ```
 
 Then specify the flag in requests:
@@ -213,7 +213,7 @@ let configuration = NetworkCustomConfiguration(baseURL: "http://jsonplaceholder.
 
 ### Offline cache error processing
 
-If you need to use offline mode cache for custom errors, you can subclass `NetworkDefaultClient` and override `shouldUseCachedResponseDataIfError` method.
+If you need to use offline mode cache in case of custom errors, you can subclass `NetworkDefaultClient` and override `shouldUseCachedResponseDataIfError` method.
 
 ## Requirements
 
