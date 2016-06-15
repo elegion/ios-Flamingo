@@ -115,7 +115,15 @@ networkClient.sendRequest(request) { (users, error) in
 
 ### Offline mode caching
 
-Offline mode caching for requests allows to use the last successful response when receiving request error. To use the cache, specify the flag in request:
+Offline mode caching for requests allows to use the last successful response when receiving request error. To use it, initialize network client with `cacheManager` parameter:
+
+```swift
+let cacheManager = NetworkDefaultCacheManager(cacheName: "network_cache")
+networkClient = NetworkDefaultClient(configuration: configuration, 
+                                     cacheManager: cacheManager)
+```
+
+Then specify the flag in requests:
 
 ```swift
 struct UsersRequest: NetworkRequest {
@@ -126,7 +134,7 @@ struct UsersRequest: NetworkRequest {
 }
 ```
 
-Successful server responses will be cached automatically then. If you cache a response and receive a network error next time, both cached response and the error wil be received in `sendRequest` completion closure.
+Successful server responses will be cached automatically. If you cache a response and receive a network error next time, both the cached response and the error wil be received in `sendRequest` completion closure.
 
 ### Request mocks
 
