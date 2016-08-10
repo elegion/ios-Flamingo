@@ -54,7 +54,7 @@ public class NetworkDefaultClient: NetworkClient {
         
         let _useCache = networkRequest.useCache && self.offlineCacheManager != nil
         
-        let _request = networkManager.request(URLRequest).response(queue: _completionQueue) { (request, response, data, error) in
+        let _request = networkManager.request(URLRequest).validate().response(queue: _completionQueue) { (request, response, data, error) in
             var _data: NSData? = data
             
             if _useCache && self.shouldUseCachedResponseDataIfError(error) {
