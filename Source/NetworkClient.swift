@@ -33,7 +33,7 @@ public class NetworkDefaultClient: NetworkClient {
     }
     
     public func sendRequest<T : NetworkRequest>(networkRequest: T, completionHandler: ((T.T?, NSError?) -> Void)?) -> CancelableOperation {
-        let URLRequest = networkRequest.URLRequestWithBaseURL(configuration.baseURL, timeoutInterval: configuration.defaultTimeoutInterval)
+        let URLRequest = mutableURLRequestFromNetworkRequest(networkRequest)
         
         let _completionQueue = networkRequest.completionQueue ?? self.configuration.completionQueue
         
@@ -98,10 +98,41 @@ public class NetworkDefaultClient: NetworkClient {
         return _request
     }
     
-    public func shouldUseCachedResponseDataIfError(error: NSError?) -> Bool {
-        guard let error = error else {
-            return false
+    public func mutableURLRequestFromNetworkRequest<T : NetworkRequest>(networkRequest: T) -> NSMutableURLRequest {
+        let _baseURL = networkRequest.baseURL ?? configuration.baseURL
+        
+        let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: networkRequest.URL.URLString, relativeToURL: _baseURL != nil ? NSURL(string: _baseURL!.URLString) : nil)!)
+        
+        mutableURLRequest.timeoutInterval = networkRequest.timeoutInterval ?? configuration.defaultTimeoutInterval
+        
+        mutableURLRequest.HTTPMethod = networkRequest.method.rawValue
+        
+        if let headers = networkRequest.headers {
+            for (headerName, headerValue) in headers {
+                mutableURLRequest.setValue(headerValue, forHTTPHeaderField: headerName)
+            }
         }
-        return error.isNetworkConnectionError
+        
+        if let customHeaders = customHeadersForRequest(networkRequest) {
+            for (headerName, headerValue) in customHeaders {
+                mutableURLRequest.setValue(headerValue, forHTTPHeaderField: headerName)
+            }
+        }
+        
+        let encodedMutableURLRequest = networkRequest.parametersEncoding.encode(mutableURLRequest, parameters: networkRequest.parameters).0
+        
+        return encodedMutableURLRequest
+    }
+    
+    public func customHeadersForRequest<T : NetworkRequest>(networkRequest: T) -> [String : String]? {
+        return nil
+    }
+    
+    public func shouldUseCachedResponseDataIfError(error: NSError?) -> Bool {
+        if let error = error {
+            return error.isNetworkConnectionError
+        }
+        
+        return false
     }
 }

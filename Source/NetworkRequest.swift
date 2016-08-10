@@ -64,27 +64,3 @@ public extension NetworkRequest {
         return nil
     }
 }
-
-public extension NetworkRequest {
-    
-    public func URLRequestWithBaseURL(baseURL: URLStringConvertible? = nil,
-                                      timeoutInterval: NSTimeInterval) -> NSMutableURLRequest {
-        let _baseURL = self.baseURL ?? baseURL
-        
-        let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: URL.URLString, relativeToURL: _baseURL != nil ? NSURL(string: _baseURL!.URLString) : nil)!)
-        
-        mutableURLRequest.timeoutInterval = self.timeoutInterval ?? timeoutInterval
-        
-        mutableURLRequest.HTTPMethod = method.rawValue
-        
-        if let headers = headers {
-            for (headerName, headerValue) in headers {
-                mutableURLRequest.setValue(headerValue, forHTTPHeaderField: headerName)
-            }
-        }
-        
-        let encodedMutableURLRequest = parametersEncoding.encode(mutableURLRequest, parameters: parameters).0
-        
-        return encodedMutableURLRequest
-    }
-}
