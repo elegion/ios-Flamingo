@@ -35,7 +35,7 @@ class ImageDemoViewController: UIViewController {
     private var networkClient: NetworkClient!
     
     private func setupNetwork() {
-        let configuration = NetworkDefaultConfiguration(baseURL: nil, debugMode: true, defaultTimeoutInterval: 5)
+        let configuration = NetworkDefaultConfiguration(baseURL: nil, debugMode: true, useMocks: true)
         let cacheManager = NetworkDefaultOfflineCacheManager(cacheName: "network_cache")
         
         networkClient = NetworkDefaultClient(configuration: configuration, offlineCacheManager: cacheManager)
