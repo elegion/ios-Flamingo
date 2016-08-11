@@ -18,7 +18,7 @@ public final class NetworkMockOperation<T> {
                 dispatchQueue: dispatch_queue_t,
                 completionQueue: dispatch_queue_t,
                 responseSerializer: ResponseSerializer<T, NSError>,
-                completionHandler: ((T?, NSError?) -> Void)?) {
+                completionHandler: ((T?, NSError?, NetworkContext?) -> Void)?) {
         
         let timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatchQueue)
         
@@ -39,13 +39,13 @@ public final class NetworkMockOperation<T> {
             case .Success(let value):
                 if let completionHandler = completionHandler {
                     dispatch_async(completionQueue, {
-                        completionHandler(value, error)
+                        completionHandler(value, error, nil)
                     })
                 }
             case .Failure(let error):
                 if let completionHandler = completionHandler {
                     dispatch_async(completionQueue, {
-                        completionHandler(nil, error)
+                        completionHandler(nil, error, nil)
                     })
                 }
             }
@@ -58,7 +58,7 @@ public final class NetworkMockOperation<T> {
             
             if let completionHandler = completionHandler {
                 dispatch_async(completionQueue, {
-                    completionHandler(nil, error)
+                    completionHandler(nil, error, nil)
                 })
             }
         }

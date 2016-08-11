@@ -1,5 +1,5 @@
 //
-//  NSError+NetworkExtensions.swift
+//  NSError+Flamingo.swift
 //  Flamingo
 //
 //  Created by Sergey Rakov on 15.06.16.

@@ -11,8 +11,7 @@ import Alamofire
 
 public protocol NetworkClient: class {
     
-    func sendRequest<T: NetworkRequest>(networkRequest: T, completionHandler: ((T.T?, NSError?) -> Void)?) -> CancelableOperation
-    func shouldUseCachedResponseDataIfError(error: NSError?) -> Bool
+    func sendRequest<T: NetworkRequest>(networkRequest: T, completionHandler: ((T.T?, NSError?, NetworkContext?) -> Void)?) -> CancelableOperation
 }
 
 public class NetworkDefaultClient: NetworkClient {
@@ -27,12 +26,13 @@ public class NetworkDefaultClient: NetworkClient {
     public init(configuration: NetworkConfiguration,
                 offlineCacheManager: NetworkOfflineCacheManager? = nil,
                 networkManager: Manager = Manager.sharedInstance) {
+        
         self.configuration = configuration
         self.offlineCacheManager = offlineCacheManager
         self.networkManager = networkManager
     }
     
-    public func sendRequest<T : NetworkRequest>(networkRequest: T, completionHandler: ((T.T?, NSError?) -> Void)?) -> CancelableOperation {
+    public func sendRequest<T : NetworkRequest>(networkRequest: T, completionHandler: ((T.T?, NSError?, NetworkContext?) -> Void)?) -> CancelableOperation {
         let URLRequest = mutableURLRequestFromNetworkRequest(networkRequest)
         
         let _completionQueue = networkRequest.completionQueue ?? self.configuration.completionQueue
@@ -55,6 +55,9 @@ public class NetworkDefaultClient: NetworkClient {
         let _useCache = networkRequest.useCache && self.offlineCacheManager != nil
         
         let _request = networkManager.request(URLRequest).validate().response(queue: _completionQueue) { (request, response, data, error) in
+            
+            let context = NetworkContext(request: request, response: response, data: data, error: error)
+            
             var _data: NSData? = data
             
             if _useCache && self.shouldUseCachedResponseDataIfError(error) {
@@ -74,13 +77,13 @@ public class NetworkDefaultClient: NetworkClient {
                     
                     if let completionHandler = completionHandler {
                         dispatch_async(_completionQueue, {
-                            completionHandler(value, error)
+                            completionHandler(value, error, context)
                         })
                     }
-                case .Failure(let error):
+                case .Failure(let _error):
                     if let completionHandler = completionHandler {
                         dispatch_async(_completionQueue, {
-                            completionHandler(nil, error)
+                            completionHandler(nil, _error, context)
                         })
                     }
                 }
