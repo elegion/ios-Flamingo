@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.description             = 'Based on Alamofire, ObjectMapper and Cache'
   s.homepage                = 'https://github.com/elegion/Flamingo'
   s.license                 = 'MIT'
-  s.screenshots             = 'https://github.com/elegion/ios-Flamingo/blob/master/logo.png'
+  s.screenshots             = 'https://raw.githubusercontent.com/elegion/ios-Flamingo/master/logo.png'
 
   s.author                  = { 'Geor Kasapidi' => 'georgy.kasapidi@e-legion.com' }
   s.source                  = { :git => 'https://github.com/elegion/ios-Flamingo.git', :tag => "v#{s.version}" }
