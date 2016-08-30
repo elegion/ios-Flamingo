@@ -1,4 +1,4 @@
-# Flamingo
+![Flamingo](https://github.com/elegion/ios-Flamingo/blob/master/logo.png)
 
 ## Description
 
