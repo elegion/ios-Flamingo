@@ -229,13 +229,9 @@ Flamingo is available under the MIT license. See the LICENSE file for more info.
 
 ## TODOs
 
-0) Logo 🦄
-
 1) Documentation
 
 2) Carthage support
-
-3) XML integration (add response serializers, etc.)
 
 ## P.S.
 
