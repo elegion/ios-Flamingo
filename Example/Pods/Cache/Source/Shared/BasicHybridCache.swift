@@ -16,6 +16,10 @@ public class BasicHybridCache: NSObject {
   // BAck cache (used for content that outlives the application life-cycle)
   var backStorage: StorageAware
 
+  public var path: String {
+    return backStorage.path
+  }
+
   // MARK: - Inititalization
 
   /**
@@ -28,7 +32,7 @@ public class BasicHybridCache: NSObject {
     self.name = name
     self.config = config
 
-    frontStorage = StorageFactory.resolve(name, kind: config.frontKind, maxSize: config.maxSize)
+    frontStorage = StorageFactory.resolve(name, kind: config.frontKind, maxSize: UInt(config.maxObjects))
     backStorage = StorageFactory.resolve(name, kind: config.backKind, maxSize: config.maxSize)
 
     super.init()

@@ -144,12 +144,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8F7CEB9F1CE9AFCD00D6CCBA /* Build configuration list for PBXNativeTarget "Flamingo" */;
 			buildPhases = (
-				C2EA6A50AE7E57D18EEF5A8F /* 📦 Check Pods Manifest.lock */,
+				C2EA6A50AE7E57D18EEF5A8F /* [CP] Check Pods Manifest.lock */,
 				8F7CEB921CE9AFCD00D6CCBA /* Sources */,
 				8F7CEB931CE9AFCD00D6CCBA /* Frameworks */,
 				8F7CEB941CE9AFCD00D6CCBA /* Headers */,
 				8F7CEB951CE9AFCD00D6CCBA /* Resources */,
-				CD2009EBD2BB4D52EE3473B2 /* 📦 Copy Pods Resources */,
+				CD2009EBD2BB4D52EE3473B2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -202,14 +202,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		C2EA6A50AE7E57D18EEF5A8F /* 📦 Check Pods Manifest.lock */ = {
+		C2EA6A50AE7E57D18EEF5A8F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,14 +217,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		CD2009EBD2BB4D52EE3473B2 /* 📦 Copy Pods Resources */ = {
+		CD2009EBD2BB4D52EE3473B2 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

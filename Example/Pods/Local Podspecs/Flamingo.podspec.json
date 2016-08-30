@@ -5,6 +5,7 @@
   "description": "Based on Alamofire, ObjectMapper and Cache",
   "homepage": "https://github.com/elegion/Flamingo",
   "license": "MIT",
+  "screenshots": "https://github.com/elegion/ios-Flamingo/blob/master/logo.png",
   "authors": {
     "Geor Kasapidi": "georgy.kasapidi@e-legion.com"
   },
@@ -23,13 +24,13 @@
   ],
   "dependencies": {
     "Alamofire": [
-      "~> 3.4.0"
+      "~> 3.4.2"
     ],
     "Cache": [
-      "~> 1.3.0"
+      "~> 1.5.1"
     ],
     "ObjectMapper": [
-      "~> 1.2.0"
+      "~> 1.4.0"
     ]
   }
 }
