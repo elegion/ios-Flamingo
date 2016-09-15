@@ -17,7 +17,8 @@ Pod::Spec.new do |s|
 
   s.frameworks              = 'Foundation', 'UIKit'
 
-  s.dependency                'Alamofire', '~> 3.4.2'
+  s.dependency                'Alamofire', '~> 3.5.0'
   s.dependency                'Cache', '~> 1.5.1'
   s.dependency                'ObjectMapper', '~> 1.4.0'
+  s.dependency                'CryptoSwift', '~> 0.5.2'
 end
