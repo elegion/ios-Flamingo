@@ -29,7 +29,7 @@ public final class NetworkDefaultOfflineCacheManager: NetworkOfflineCacheManager
     }
     
     public func cacheKeyFromRequest(request: NSURLRequest) -> String {
-        return (request.HTTPMethod! + request.URL!.absoluteString).md5()
+        return (request.HTTPMethod! + request.URL!.absoluteString!).md5()
     }
     
     public func responseDataForRequest(request: NSURLRequest) -> NSData? {
