@@ -20,7 +20,7 @@ public protocol NetworkOfflineCacheManager: class {
 
 public final class NetworkDefaultOfflineCacheManager: NetworkOfflineCacheManager {
     
-    fileprivate let syncCache: SyncHybridCache
+    private let syncCache: SyncHybridCache
     
     public required init(cacheName: String) {
         let cache = HybridCache(name: cacheName)

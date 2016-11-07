@@ -11,7 +11,7 @@ import Alamofire
 
 public final class NetworkMockOperation<T> {
     
-    fileprivate let dispatchTimer: DispatchSourceTimer
+    private let dispatchTimer: DispatchSourceTimer
     
     public init(URLRequest: Foundation.URLRequest,
                 mock: NetworkRequestMock,

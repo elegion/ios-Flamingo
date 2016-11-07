@@ -21,10 +21,10 @@ public protocol NetworkClient: class {
 
 open class NetworkDefaultClient: NetworkClient {
     
-    fileprivate static let operationQueue = DispatchQueue(label: "com.flamingo.operation-queue", attributes: DispatchQueue.Attributes.concurrent)
+    private static let operationQueue = DispatchQueue(label: "com.flamingo.operation-queue", attributes: DispatchQueue.Attributes.concurrent)
     
-    fileprivate let configuration: NetworkConfiguration
-    fileprivate let offlineCacheManager: NetworkOfflineCacheManager?
+    private let configuration: NetworkConfiguration
+    private let offlineCacheManager: NetworkOfflineCacheManager?
     
     open let networkManager: SessionManager
     
