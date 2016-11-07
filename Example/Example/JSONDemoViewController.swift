@@ -35,17 +35,17 @@ class JSONDemoViewController: UIViewController {
     
     // MARK: Network
     
-    private var networkClient: NetworkClient!
+    fileprivate var networkClient: NetworkClient!
     
-    private func setupNetwork() {
+    fileprivate func setupNetwork() {
         let configuration = NetworkDefaultConfiguration(baseURL: "http://jsonplaceholder.typicode.com/", useMocks: true, debugMode: true)
         let cacheManager = NetworkDefaultOfflineCacheManager(cacheName: "network_cache")
         
         networkClient = NetworkDefaultClient(configuration: configuration, offlineCacheManager: cacheManager)
     }
     
-    private func loadUsersUsingMock(useMock: Bool) {
-        if loadingIndicator.isAnimating() {
+    fileprivate func loadUsersUsingMock(_ useMock: Bool) {
+        if loadingIndicator.isAnimating {
             return
         }
         
@@ -53,8 +53,8 @@ class JSONDemoViewController: UIViewController {
         
         let request = UsersRequest(useMock: useMock)
         
-        networkClient.sendRequest(request) { (users, error, context) in
-            let json = users?.toJSONString(true)
+        try! networkClient.sendRequest(request) { (users, error, context) in
+            let json = users?.toJSONString(prettyPrint: true)
             
             self.textView.text = json
             

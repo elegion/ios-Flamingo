@@ -12,7 +12,7 @@ import Flamingo
 
 struct UsersRequest: NetworkRequest {
     
-    private let useMock: Bool
+    fileprivate let useMock: Bool
     
     init(useMock: Bool = true) {
         self.useMock = useMock;
@@ -20,7 +20,7 @@ struct UsersRequest: NetworkRequest {
     
     //MARK: - Implementation
     
-    var URL: URLStringConvertible {
+    var URL: URLConvertible {
         return "users"
     }
     
@@ -28,8 +28,8 @@ struct UsersRequest: NetworkRequest {
         return true
     }
     
-    var responseSerializer: ResponseSerializer<[User], NSError> {
-        return ResponseSerializer<User, NSError>.arrayResponseSerializer()
+    var responseSerializer: DataResponseSerializer<[User]> {
+        return DataResponseSerializer<User>.arrayResponseSerializer()
     }
     
     var mockObject: NetworkRequestMock? {

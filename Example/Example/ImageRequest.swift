@@ -13,7 +13,7 @@ import Flamingo
 
 struct ImageRequest: NetworkRequest {
     
-    private let useMock: Bool
+    fileprivate let useMock: Bool
     
     init(useMock: Bool = true) {
         self.useMock = useMock;
@@ -21,16 +21,16 @@ struct ImageRequest: NetworkRequest {
     
     // implementation
     
-    var URL: URLStringConvertible {
+    var URL: URLConvertible {
         return "320/480?q=\(arc4random())"
     }
     
-    var baseURL: URLStringConvertible? {
+    var baseURL: URLConvertible? {
         return "http://lorempixel.com"
     }
     
-    var responseSerializer: ResponseSerializer<UIImage, NSError> {
-        return Request.imageResponseSerializer()
+    var responseSerializer: DataResponseSerializer<Image> {
+        return DataRequest.imageResponseSerializer()
     }
     
     var mockObject: NetworkRequestMock? {

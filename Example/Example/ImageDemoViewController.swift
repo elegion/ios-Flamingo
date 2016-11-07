@@ -32,17 +32,17 @@ class ImageDemoViewController: UIViewController {
     
     // MARK: Network
     
-    private var networkClient: NetworkClient!
+    fileprivate var networkClient: NetworkClient!
     
-    private func setupNetwork() {
-        let configuration = NetworkDefaultConfiguration(baseURL: nil, debugMode: true, useMocks: true)
+    fileprivate func setupNetwork() {
+        let configuration = NetworkDefaultConfiguration(baseURL: nil, useMocks: true, debugMode: true)
         let cacheManager = NetworkDefaultOfflineCacheManager(cacheName: "network_cache")
         
         networkClient = NetworkDefaultClient(configuration: configuration, offlineCacheManager: cacheManager)
     }
     
-    private func loadImageUsingMock(useMock: Bool) {
-        if loadingIndicator.isAnimating() {
+    fileprivate func loadImageUsingMock(_ useMock: Bool) {
+        if loadingIndicator.isAnimating {
             return
         }
         
@@ -50,7 +50,7 @@ class ImageDemoViewController: UIViewController {
         
         let request = ImageRequest(useMock: useMock)
         
-        networkClient.sendRequest(request) { (image, error, context) in
+        try! networkClient.sendRequest(request) { (image, error, context) in
             self.imageView.image = image
             
             self.loadingIndicator.stopAnimating()
