@@ -22,7 +22,7 @@ public final class NetworkMockOperation<T> {
         
         let timer = DispatchSource.makeTimerSource(flags: [], queue: dispatchQueue)
         
-        timer.scheduleOneshot(deadline: DispatchTime(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + UInt64((Double(NSEC_PER_SEC) * mock.responseDelay))))
+        timer.scheduleOneshot(deadline: DispatchTime.now() + .nanoseconds(Int(mock.responseDelay * Double(NSEC_PER_SEC))))
         
         timer.setEventHandler { 
             let data = mock.responseData()
