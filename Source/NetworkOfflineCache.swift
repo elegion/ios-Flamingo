@@ -11,10 +11,10 @@ import Cache
 
 public protocol NetworkOfflineCacheManager: class {
 
-    func cacheKeyFromRequest(request: NSURLRequest) -> String
-    func responseDataForRequest(request: NSURLRequest) -> NSData?
-    func setResponseData(responseData: NSData, forRequest request: NSURLRequest)
-    func clearDataForRequest(request: NSURLRequest)
+    func cacheKeyFromRequest(_ request: URLRequest) -> String
+    func responseDataForRequest(_ request: URLRequest) -> Data?
+    func setResponseData(_ responseData: Data, forRequest request: URLRequest)
+    func clearDataForRequest(_ request: URLRequest)
     func clearCache()
 }
 
@@ -28,19 +28,19 @@ public final class NetworkDefaultOfflineCacheManager: NetworkOfflineCacheManager
         syncCache = SyncHybridCache(cache)
     }
     
-    public func cacheKeyFromRequest(request: NSURLRequest) -> String {
-        return (request.HTTPMethod! + request.URL!.absoluteString).md5()
+    public func cacheKeyFromRequest(_ request: URLRequest) -> String {
+        return (request.httpMethod! + request.url!.absoluteString).md5()
     }
     
-    public func responseDataForRequest(request: NSURLRequest) -> NSData? {
+    public func responseDataForRequest(_ request: URLRequest) -> Data? {
         return syncCache.object(cacheKeyFromRequest(request))
     }
     
-    public func setResponseData(responseData: NSData, forRequest request: NSURLRequest) {
+    public func setResponseData(_ responseData: Data, forRequest request: URLRequest) {
         syncCache.add(cacheKeyFromRequest(request), object: responseData)
     }
     
-    public func clearDataForRequest(request: NSURLRequest) {
+    public func clearDataForRequest(_ request: URLRequest) {
         syncCache.remove(cacheKeyFromRequest(request))
     }
     

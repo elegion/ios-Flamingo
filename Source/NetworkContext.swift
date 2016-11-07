@@ -10,14 +10,14 @@ import Foundation
 
 public struct NetworkContext {
     
-    public let request: NSURLRequest?
-    public let response: NSHTTPURLResponse?
-    public let data: NSData?
+    public let request: URLRequest?
+    public let response: HTTPURLResponse?
+    public let data: Data?
     public let error: NSError?
     
-    init(request: NSURLRequest?,
-         response: NSHTTPURLResponse?,
-         data: NSData?,
+    init(request: URLRequest?,
+         response: HTTPURLResponse?,
+         data: Data?,
          error: NSError?) {
         
         self.request = request

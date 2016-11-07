@@ -9,37 +9,43 @@
 import Foundation
 import Alamofire
 
-public protocol NetworkClient: class {
-    
-    func sendRequest<T: NetworkRequest>(networkRequest: T, completionHandler: ((T.T?, NSError?, NetworkContext?) -> Void)?) -> CancelableOperation
+private enum Error: Swift.Error {
+    case inavlidRequestError
 }
 
-public class NetworkDefaultClient: NetworkClient {
+public protocol NetworkClient: class {
     
-    private static let operationQueue = dispatch_queue_create("com.flamingo.operation-queue", DISPATCH_QUEUE_CONCURRENT)
+    @discardableResult
+    func sendRequest<T: NetworkRequest>(_ networkRequest: T, completionHandler: ((T.T?, NSError?, NetworkContext?) -> Void)?) throws -> CancelableOperation
+}
+
+open class NetworkDefaultClient: NetworkClient {
+    
+    private static let operationQueue = DispatchQueue(label: "com.flamingo.operation-queue", attributes: DispatchQueue.Attributes.concurrent)
     
     private let configuration: NetworkConfiguration
     private let offlineCacheManager: NetworkOfflineCacheManager?
     
-    public let networkManager: Manager
+    open let networkManager: SessionManager
     
     public init(configuration: NetworkConfiguration,
                 offlineCacheManager: NetworkOfflineCacheManager? = nil,
-                networkManager: Manager = Manager.sharedInstance) {
+                networkManager: SessionManager = SessionManager.default) {
         
         self.configuration = configuration
         self.offlineCacheManager = offlineCacheManager
         self.networkManager = networkManager
     }
     
-    public func sendRequest<T : NetworkRequest>(networkRequest: T, completionHandler: ((T.T?, NSError?, NetworkContext?) -> Void)?) -> CancelableOperation {
-        let URLRequest = mutableURLRequestFromNetworkRequest(networkRequest)
+    open func sendRequest<T : NetworkRequest>(_ networkRequest: T, completionHandler: ((T.T?, NSError?, NetworkContext?) -> Void)?) throws -> CancelableOperation {
+        
+        let urlRequest: URLRequest = try urlRequestFromNetworkRequest(networkRequest)
         
         let _completionQueue = networkRequest.completionQueue ?? self.configuration.completionQueue
         
         if configuration.useMocks {
             if let mock = networkRequest.mockObject {
-                let mockOperation = NetworkMockOperation(URLRequest: URLRequest,
+                let mockOperation = NetworkMockOperation(URLRequest: urlRequest,
                                                          mock: mock,
                                                          dispatchQueue: NetworkDefaultClient.operationQueue,
                                                          completionQueue: _completionQueue,
@@ -54,40 +60,46 @@ public class NetworkDefaultClient: NetworkClient {
         
         let _useCache = networkRequest.useCache && self.offlineCacheManager != nil
         
-        let _request = networkManager.request(URLRequest).validate().response(queue: _completionQueue) { (request, response, data, error) in
+        let _request = networkManager.request(urlRequest).validate().response(queue: _completionQueue) {
+            (nResponse) in
+            
+            let request = nResponse.request
+            let response = nResponse.response
+            let data = nResponse.data
+            let error = nResponse.error as? NSError
             
             let context = NetworkContext(request: request, response: response, data: data, error: error)
             
-            var _data: NSData? = data
+            var _data: Data? = data
             
             if _useCache && self.shouldUseCachedResponseDataIfError(error) {
-                dispatch_sync(NetworkDefaultClient.operationQueue, {
-                    _data = self.offlineCacheManager!.responseDataForRequest(URLRequest)
-                })
+                NetworkDefaultClient.operationQueue.sync {
+                    _data = self.offlineCacheManager!.responseDataForRequest(urlRequest)
+                }
             }
             
-            dispatch_async(NetworkDefaultClient.operationQueue, {
+            NetworkDefaultClient.operationQueue.async {
                 let result = networkRequest.responseSerializer.serializeResponse(request, response, _data, nil)
                 
                 switch result {
-                case .Success(let value):
+                case .success(let value):
                     if _useCache {
-                        self.offlineCacheManager!.setResponseData(_data!, forRequest: URLRequest)
+                        self.offlineCacheManager!.setResponseData(_data!, forRequest: urlRequest)
                     }
                     
                     if let completionHandler = completionHandler {
-                        dispatch_async(_completionQueue, {
+                        _completionQueue.async {
                             completionHandler(value, error, context)
-                        })
+                        }
                     }
-                case .Failure(let _error):
+                case .failure(let _error):
                     if let completionHandler = completionHandler {
-                        dispatch_async(_completionQueue, {
-                            completionHandler(nil, _error, context)
-                        })
+                        _completionQueue.async {
+                            completionHandler(nil, _error as NSError, context)
+                        }
                     }
                 }
-            })
+            }
         }
         
         if configuration.debugMode {
@@ -101,37 +113,48 @@ public class NetworkDefaultClient: NetworkClient {
         return _request
     }
     
-    public func mutableURLRequestFromNetworkRequest<T : NetworkRequest>(networkRequest: T) -> NSMutableURLRequest {
+    open func urlRequestFromNetworkRequest<T : NetworkRequest>(_ networkRequest: T) throws -> URLRequest {
         let _baseURL = networkRequest.baseURL ?? configuration.baseURL
         
-        let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: networkRequest.URL.URLString, relativeToURL: _baseURL != nil ? NSURL(string: _baseURL!.URLString) : nil)!)
+        guard let urlString = try? networkRequest.URL.asURL().absoluteString,
+              let baseURL = try? _baseURL?.asURL(),
+              let url = URL(string: urlString, relativeTo: baseURL) else {
+                throw Error.inavlidRequestError
+        }
         
-        mutableURLRequest.timeoutInterval = networkRequest.timeoutInterval ?? configuration.defaultTimeoutInterval
+        var urlRequest = URLRequest(url: url)
         
-        mutableURLRequest.HTTPMethod = networkRequest.method.rawValue
+        urlRequest.timeoutInterval = networkRequest.timeoutInterval ?? configuration.defaultTimeoutInterval
+        
+        urlRequest.httpMethod = networkRequest.method.rawValue
         
         if let headers = networkRequest.headers {
             for (headerName, headerValue) in headers {
-                mutableURLRequest.setValue(headerValue, forHTTPHeaderField: headerName)
+                urlRequest.setValue(headerValue, forHTTPHeaderField: headerName)
             }
         }
         
         if let customHeaders = customHeadersForRequest(networkRequest) {
             for (headerName, headerValue) in customHeaders {
-                mutableURLRequest.setValue(headerValue, forHTTPHeaderField: headerName)
+                urlRequest.setValue(headerValue, forHTTPHeaderField: headerName)
             }
         }
         
-        let encodedMutableURLRequest = networkRequest.parametersEncoding.encode(mutableURLRequest, parameters: networkRequest.parameters).0
+        let encodedMutableURLRequest: URLRequest
+        do {
+            encodedMutableURLRequest = try networkRequest.parametersEncoding.encode(urlRequest, with: networkRequest.parameters)
+        } catch {
+            throw Error.inavlidRequestError
+        }
         
         return encodedMutableURLRequest
     }
     
-    public func customHeadersForRequest<T : NetworkRequest>(networkRequest: T) -> [String : String]? {
+    open func customHeadersForRequest<T : NetworkRequest>(_ networkRequest: T) -> [String : String]? {
         return nil
     }
     
-    public func shouldUseCachedResponseDataIfError(error: NSError?) -> Bool {
+    open func shouldUseCachedResponseDataIfError(_ error: NSError?) -> Bool {
         if let error = error {
             return error.isNetworkConnectionError
         }

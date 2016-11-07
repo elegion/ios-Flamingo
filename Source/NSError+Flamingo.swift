@@ -27,7 +27,7 @@ extension NSError {
             }
         }
         
-        if let underlyingError = (userInfo as! [String : AnyObject])[NSUnderlyingErrorKey] as? NSError {
+        if let underlyingError = (userInfo as? [String : Any])?[NSUnderlyingErrorKey] as? NSError {
             return underlyingError.isNetworkConnectionError
         } else {
             return false

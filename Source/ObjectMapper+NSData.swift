@@ -11,21 +11,21 @@ import ObjectMapper
 
 public extension Mappable {
     
-    public func toNSData() -> NSData {
-        return try! NSJSONSerialization.dataWithJSONObject(toJSON(), options: NSJSONWritingOptions())
+    public func toNSData() -> Data {
+        return try! JSONSerialization.data(withJSONObject: toJSON(), options: [])
     }
 }
 
 public extension Array where Element: Mappable {
     
-    public func toNSData() -> NSData {
-        return try! NSJSONSerialization.dataWithJSONObject(toJSON(), options: NSJSONWritingOptions())
+    public func toNSData() -> Data {
+        return try! JSONSerialization.data(withJSONObject: toJSON(), options: [])
     }
 }
 
 public extension Set where Element: Mappable {
     
-    public func toNSData() -> NSData {
-        return try! NSJSONSerialization.dataWithJSONObject(toJSON(), options: NSJSONWritingOptions())
+    public func toNSData() -> Data {
+        return try! JSONSerialization.data(withJSONObject: toJSON(), options: [])
     }
 }

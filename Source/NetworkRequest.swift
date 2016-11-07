@@ -13,34 +13,34 @@ public protocol NetworkRequest {
     
     associatedtype T
     
-    var URL: URLStringConvertible { get }
-    var method: Alamofire.Method { get }
-    var parameters: [String : AnyObject]? { get }
+    var URL: URLConvertible { get }
+    var method: HTTPMethod { get }
+    var parameters: [String : Any]? { get }
     var parametersEncoding: ParameterEncoding { get }
-    var baseURL: URLStringConvertible? { get }
+    var baseURL: URLConvertible? { get }
     var headers: [String : String]? { get }
     var useCache: Bool { get }
-    var responseSerializer: ResponseSerializer<T, NSError> { get }
+    var responseSerializer: DataResponseSerializer<T> { get }
     var mockObject: NetworkRequestMock? { get }
-    var timeoutInterval: NSTimeInterval? { get }
-    var completionQueue: dispatch_queue_t? { get }
+    var timeoutInterval: TimeInterval? { get }
+    var completionQueue: DispatchQueue? { get }
 }
 
 public extension NetworkRequest {
     
-    public var method: Alamofire.Method {
-        return .GET
+    public var method: HTTPMethod {
+        return .get
     }
     
-    public var parameters: [String : AnyObject]? {
+    public var parameters: [String : Any]? {
         return nil
     }
     
     public var parametersEncoding: ParameterEncoding {
-        return .URL
+        return URLEncoding()
     }
     
-    public var baseURL: URLStringConvertible? {
+    public var baseURL: URLConvertible? {
         return nil
     }
     
@@ -56,11 +56,11 @@ public extension NetworkRequest {
         return nil
     }
     
-    public var timeoutInterval: NSTimeInterval? {
+    public var timeoutInterval: TimeInterval? {
         return nil
     }
     
-    public var completionQueue: dispatch_queue_t? {
+    public var completionQueue: DispatchQueue? {
         return nil
     }
 }

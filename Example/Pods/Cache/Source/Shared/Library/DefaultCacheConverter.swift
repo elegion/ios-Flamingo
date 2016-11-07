@@ -3,8 +3,8 @@ import Foundation
 /**
  Encoding error type
  */
-public enum EncodingError: ErrorType {
-  case InvalidSize
+public enum EncodingError: Error {
+  case invalidSize
 }
 
 /**
@@ -12,7 +12,7 @@ public enum EncodingError: ErrorType {
  but do it on your own risk. With this approach decoding will not work if the NSData length
  doesn't match the type size. This can commonly happen if you try to read the data after
  updates in the type's structure, so there is a different-sized version of the same type.
- Also note that sizeof() and sizeofValue() may return different values on different devices.
+ Also note that `size` and `size(ofValue:)` may return different values on different devices.
  */
 public struct DefaultCacheConverter<T> {
 
@@ -25,13 +25,13 @@ public struct DefaultCacheConverter<T> {
    - Parameter data: Data to decode from
    - Returns: A generic type or throws
    */
-  public func decode(data: NSData) throws -> T {
-    guard data.length == sizeof(T) else {
-      throw EncodingError.InvalidSize
+  public func decode(_ data: Data) throws -> T {
+    guard data.count == MemoryLayout<T>.size else {
+      throw EncodingError.invalidSize
     }
 
-    let pointer = UnsafeMutablePointer<T>.alloc(1)
-    data.getBytes(pointer, length: data.length)
+    let pointer = UnsafeMutablePointer<T>.allocate(capacity: 1)
+    (data as NSData).getBytes(pointer, length: data.count)
 
     return pointer.move()
   }
@@ -42,10 +42,12 @@ public struct DefaultCacheConverter<T> {
    - Parameter value: A generic value
    - Returns: A NSData or throws
    */
-  public func encode(value: T) throws -> NSData {
+  public func encode(_ value: T) throws -> Data {
     var value = value
-    return withUnsafePointer(&value) { p in
-      NSData(bytes: p, length: sizeofValue(value))
+    return withUnsafePointer(to: &value) {
+      $0.withMemoryRebound(to: UInt8.self, capacity: 1) { bytes in
+        Data(bytes: bytes, count: MemoryLayout.size(ofValue: value))
+      }
     }
   }
 }

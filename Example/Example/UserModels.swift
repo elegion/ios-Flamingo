@@ -14,7 +14,7 @@ class GeoLocation: Mappable {
     var lng: String!
     
     init() {}
-    required init?(_ map: Map) {}
+    required init?(map: Map) {}
     
     func mapping(map: Map) {
         lat     <- map["lat"]
@@ -30,7 +30,7 @@ class Address: Mappable {
     var location: GeoLocation!
     
     init() {}
-    required init?(_ map: Map) {}
+    required init?(map: Map) {}
     
     func mapping(map: Map) {
         street      <- map["street"]
@@ -47,7 +47,7 @@ class Company: Mappable {
     var bs: String!
     
     init() {}
-    required init?(_ map: Map) {}
+    required init?(map: Map) {}
     
     func mapping(map: Map) {
         name            <- map["name"]
@@ -67,7 +67,7 @@ class User: Mappable {
     var company: Company!
     
     init() {}
-    required init?(_ map: Map) {}
+    required init?(map: Map) {}
     
     func mapping(map: Map) {
         userId      <- map["id"]

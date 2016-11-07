@@ -1,20 +1,21 @@
 import Foundation
 
-public class Commerce: Generator {
+public final class Commerce: Generator {
 
   public func color() -> String {
     return generate("commerce.color")
   }
 
-  public func department(maximum maximum: Int = 3, fixedAmount: Bool = false) -> String {
+  public func department(maximum: Int = 3, fixedAmount: Bool = false) -> String {
     let amount = fixedAmount ? maximum : 1 + Int(arc4random_uniform(UInt32(maximum)))
 
     let fetchedCategories = categories(amount)
     let count = fetchedCategories.count
 
     var department = ""
+
     if count > 1 {
-      department = mergeCategories(fetchedCategories)
+      department = merge(categories: fetchedCategories)
     } else if count == 1 {
       department = fetchedCategories[0]
     }
@@ -23,7 +24,9 @@ public class Commerce: Generator {
   }
 
   public func productName() -> String {
-    return generate("commerce.product_name.adjective") + " " + generate("commerce.product_name.material") + " " + generate("commerce.product_name.product")
+    return generate("commerce.product_name.adjective") + " "
+      + generate("commerce.product_name.material") + " "
+      + generate("commerce.product_name.product")
   }
 
   public func price() -> Double {
@@ -33,10 +36,12 @@ public class Commerce: Generator {
 
   // MARK: - Helpers
 
-  func categories(amount: Int) -> [String] {
+  public func categories(_ amount: Int) -> [String] {
     var categories: [String] = []
+
     while categories.count < amount {
       let category = generate("commerce.department")
+
       if !categories.contains(category) {
         categories.append(category)
       }
@@ -45,10 +50,10 @@ public class Commerce: Generator {
     return categories
   }
 
-  func mergeCategories(categories: [String]) -> String {
+  public func merge(categories: [String]) -> String {
     let separator = generate("separator")
-    let commaSeparated = categories[0..<categories.count - 1].joinWithSeparator(", ")
-    
+    let commaSeparated = categories[0..<categories.count - 1].joined(separator: ", ")
+
     return commaSeparated + separator + categories.last!
   }
 }
