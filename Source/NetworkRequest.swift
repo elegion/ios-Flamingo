@@ -15,7 +15,7 @@ public protocol NetworkRequest {
     
     var URL: URLConvertible { get }
     var method: HTTPMethod { get }
-    var parameters: [String : AnyObject]? { get }
+    var parameters: [String : Any]? { get }
     var parametersEncoding: ParameterEncoding { get }
     var baseURL: URLConvertible? { get }
     var headers: [String : String]? { get }
@@ -32,7 +32,7 @@ public extension NetworkRequest {
         return .get
     }
     
-    public var parameters: [String : AnyObject]? {
+    public var parameters: [String : Any]? {
         return nil
     }
     
