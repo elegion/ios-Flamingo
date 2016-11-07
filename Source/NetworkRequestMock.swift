@@ -10,20 +10,20 @@ import Foundation
 
 public protocol NetworkRequestMock {
     
-    var responseDelay: NSTimeInterval { get }
+    var responseDelay: TimeInterval { get }
     var mimeType: String { get }
     
-    func responseData() -> NSData?
+    func responseData() -> Data?
     func responseError() -> NSError?
 }
 
 public extension NetworkRequestMock {
     
-    public var responseDelay: NSTimeInterval {
+    public var responseDelay: TimeInterval {
         return 1
     }
     
-    public func responseData() -> NSData? {
+    public func responseData() -> Data? {
         return nil
     }
     

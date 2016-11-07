@@ -11,55 +11,55 @@ import Alamofire
 
 public final class NetworkMockOperation<T> {
     
-    private let dispatchTimer: dispatch_source_t
+    fileprivate let dispatchTimer: DispatchSourceTimer
     
-    public init(URLRequest: NSURLRequest,
+    public init(URLRequest: Foundation.URLRequest,
                 mock: NetworkRequestMock,
-                dispatchQueue: dispatch_queue_t,
-                completionQueue: dispatch_queue_t,
-                responseSerializer: ResponseSerializer<T, NSError>,
+                dispatchQueue: DispatchQueue,
+                completionQueue: DispatchQueue,
+                responseSerializer: DataResponseSerializer<T>,
                 completionHandler: ((T?, NSError?, NetworkContext?) -> Void)?) {
         
-        let timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatchQueue)
+        let timer = DispatchSource.makeTimerSource(flags: [], queue: dispatchQueue)
         
-        dispatch_source_set_timer(timer, dispatch_time(DISPATCH_TIME_NOW, Int64(mock.responseDelay * Double(NSEC_PER_SEC))), DISPATCH_TIME_FOREVER, NSEC_PER_SEC / 10)
+        timer.scheduleOneshot(deadline: DispatchTime(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + UInt64((Double(NSEC_PER_SEC) * mock.responseDelay))))
         
-        dispatch_source_set_event_handler(timer) {
+        timer.setEventHandler { 
             let data = mock.responseData()
             let error = mock.responseError()
             
-            let response = NSHTTPURLResponse(URL: URLRequest.URL!,
-                                             MIMEType: mock.mimeType,
-                                             expectedContentLength: -1,
-                                             textEncodingName: nil)
+            let response = HTTPURLResponse(url: URLRequest.url!,
+                                           mimeType: mock.mimeType,
+                                           expectedContentLength: -1,
+                                           textEncodingName: nil)
             
             let result = responseSerializer.serializeResponse(nil, response, data, nil)
             
             switch result {
-            case .Success(let value):
+            case .success(let value):
                 if let completionHandler = completionHandler {
-                    dispatch_async(completionQueue, {
+                    completionQueue.async {
                         completionHandler(value, error, nil)
-                    })
+                    }
                 }
-            case .Failure(let error):
+            case .failure(let error):
                 if let completionHandler = completionHandler {
-                    dispatch_async(completionQueue, {
-                        completionHandler(nil, error, nil)
-                    })
+                    completionQueue.async {
+                        completionHandler(nil, error as NSError, nil)
+                    }
                 }
             }
             
-            dispatch_suspend(timer)
+            timer.suspend()
         }
         
-        dispatch_source_set_cancel_handler(timer) {
+        timer.setCancelHandler { 
             let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorCancelled, userInfo: nil)
             
             if let completionHandler = completionHandler {
-                dispatch_async(completionQueue, {
+                completionQueue.async {
                     completionHandler(nil, error, nil)
-                })
+                }
             }
         }
         
@@ -67,10 +67,10 @@ public final class NetworkMockOperation<T> {
     }
     
     public func cancel() {
-        dispatch_source_cancel(dispatchTimer)
+        dispatchTimer.cancel()
     }
     
     public func resume() {
-        dispatch_resume(dispatchTimer)
+        dispatchTimer.resume()
     }
 }

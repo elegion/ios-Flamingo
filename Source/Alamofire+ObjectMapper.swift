@@ -15,7 +15,7 @@ public struct ObjectMapperError {
     public static let Domain = "com.objectmapper.error"
     
     public enum Code: Int {
-        case MappingFailed = 1
+        case mappingFailed = 1
     }
     
     public static func errorWithCode(code: Code, failureReason: String) -> NSError {
@@ -25,54 +25,54 @@ public struct ObjectMapperError {
     }
 }
 
-public extension ResponseSerializer where Value: Mappable {
+public extension DataResponseSerializer where Value: Mappable {
     
-    public static func dictionaryResponseSerializer() -> ResponseSerializer<Value, NSError> {
-        return ResponseSerializer<Value, NSError> { request, response, data, error in
+    public static func dictionaryResponseSerializer() -> DataResponseSerializer<Value> {
+        return DataResponseSerializer<Value> { request, response, data, error in
             guard error == nil else {
-                return .Failure(error!)
+                return .failure(error!)
             }
             
-            let jsonSerializer = Request.JSONResponseSerializer()
-            
-            let result = jsonSerializer.serializeResponse(request, response, data, error)
-            
+            let result = Request.serializeResponseJSON(options: [], response: response, data: data, error: error)
+
             switch(result) {
-            case .Success(let value):
-                if let responseObject = Mapper<Value>().map(value) {
-                    return .Success(responseObject)
+            case .success(let value):
+                if let json = value as? [String: Any] {
+                    if let responseObject = Mapper<Value>().map(JSON: json) {
+                        return .success(responseObject)
+                    }
                 }
                 
-                let mappingError = ObjectMapperError.errorWithCode(.MappingFailed, failureReason: "Object \(value) could not be mapped into object of type \(Value.self)")
+                let mappingError = ObjectMapperError.errorWithCode(code: .mappingFailed, failureReason: "Object \(value) could not be mapped into object of type \(Value.self)")
                 
-                return .Failure(mappingError)
-            case .Failure(let error):
-                return .Failure(error)
+                return .failure(mappingError)
+            case .failure(let error):
+                return .failure(error)
             }
         }
     }
     
-    public static func arrayResponseSerializer() -> ResponseSerializer<[Value], NSError> {
-        return ResponseSerializer<[Value], NSError> { request, response, data, error in
+    public static func arrayResponseSerializer() -> DataResponseSerializer<[Value]> {
+        return DataResponseSerializer<[Value]> { request, response, data, error in
             guard error == nil else {
-                return .Failure(error!)
+                return .failure(error!)
             }
             
-            let jsonSerializer = Request.JSONResponseSerializer()
-            
-            let result = jsonSerializer.serializeResponse(request, response, data, error)
+            let result = Request.serializeResponseJSON(options: [], response: response, data: data, error: error)
             
             switch(result) {
-            case .Success(let value):
-                if let responseObject = Mapper<Value>().mapArray(value) {
-                    return .Success(responseObject)
+            case .success(let value):
+                if let jsonArray = value as? [[String: Any]] {
+                    if let responseObject = Mapper<Value>().mapArray(JSONArray: jsonArray) {
+                        return .success(responseObject)
+                    }
                 }
                 
-                let mappingError = ObjectMapperError.errorWithCode(.MappingFailed, failureReason: "Object \(value) could not be mapped into array of objects of type \(Value.self)")
+                let mappingError = ObjectMapperError.errorWithCode(code: .mappingFailed, failureReason: "Object \(value) could not be mapped into array of objects of type \(Value.self)")
                 
-                return .Failure(mappingError)
-            case .Failure(let error):
-                return .Failure(error)
+                return .failure(mappingError)
+            case .failure(let error):
+                return .failure(error)
             }
         }
     }

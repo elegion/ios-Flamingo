@@ -11,26 +11,26 @@ import Alamofire
 
 public protocol NetworkConfiguration {
     
-    var baseURL: URLStringConvertible? { get }
+    var baseURL: URLConvertible? { get }
     var useMocks: Bool { get }
     var debugMode: Bool { get }
-    var completionQueue: dispatch_queue_t { get }
-    var defaultTimeoutInterval: NSTimeInterval { get }
+    var completionQueue: DispatchQueue { get }
+    var defaultTimeoutInterval: TimeInterval { get }
 }
 
 public struct NetworkDefaultConfiguration: NetworkConfiguration {
     
-    public let baseURL: URLStringConvertible?
+    public let baseURL: URLConvertible?
     public let useMocks: Bool
     public let debugMode: Bool
-    public let completionQueue: dispatch_queue_t
-    public let defaultTimeoutInterval: NSTimeInterval
+    public let completionQueue: DispatchQueue
+    public let defaultTimeoutInterval: TimeInterval
     
-    public init(baseURL: URLStringConvertible? = nil,
+    public init(baseURL: URLConvertible? = nil,
                 useMocks: Bool = false,
                 debugMode: Bool = false,
-                completionQueue: dispatch_queue_t = dispatch_get_main_queue(),
-                defaultTimeoutInterval: NSTimeInterval = 60.0) {
+                completionQueue: DispatchQueue = DispatchQueue.main,
+                defaultTimeoutInterval: TimeInterval = 60.0) {
         
         self.baseURL = baseURL
         self.useMocks = useMocks
