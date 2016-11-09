@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                    = 'Flamingo'
-  s.version                 = '0.1.2'
+  s.version                 = '0.1.3'
   s.summary                 = 'Swift network manager'
   s.description             = 'Based on Alamofire, ObjectMapper and Cache'
   s.homepage                = 'https://github.com/elegion/Flamingo'
@@ -12,6 +12,8 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target   = '8.0'
   s.requires_arc            = true
+
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '2.3' }
 
   s.source_files            = 'Source'
 
