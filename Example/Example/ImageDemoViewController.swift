@@ -50,7 +50,7 @@ class ImageDemoViewController: UIViewController {
         
         let request = ImageRequest(useMock: useMock)
         
-        try! networkClient.sendRequest(request) { (image, error, context) in
+        networkClient.sendRequest(request) { (image, error, context) in
             self.imageView.image = image
             
             self.loadingIndicator.stopAnimating()

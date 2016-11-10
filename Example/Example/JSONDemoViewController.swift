@@ -53,7 +53,7 @@ class JSONDemoViewController: UIViewController {
         
         let request = UsersRequest(useMock: useMock)
         
-        try! networkClient.sendRequest(request) { (users, error, context) in
+        networkClient.sendRequest(request) { (users, error, context) in
             let json = users?.toJSONString(prettyPrint: true)
             
             self.textView.text = json

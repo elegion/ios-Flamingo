@@ -16,7 +16,7 @@ private enum Error: Swift.Error {
 public protocol NetworkClient: class {
     
     @discardableResult
-    func sendRequest<T: NetworkRequest>(_ networkRequest: T, completionHandler: ((T.T?, NSError?, NetworkContext?) -> Void)?) throws -> CancelableOperation
+    func sendRequest<T: NetworkRequest>(_ networkRequest: T, completionHandler: ((T.T?, NSError?, NetworkContext?) -> Void)?) -> CancelableOperation?
 }
 
 open class NetworkDefaultClient: NetworkClient {
@@ -37,9 +37,17 @@ open class NetworkDefaultClient: NetworkClient {
         self.networkManager = networkManager
     }
     
-    open func sendRequest<T : NetworkRequest>(_ networkRequest: T, completionHandler: ((T.T?, NSError?, NetworkContext?) -> Void)?) throws -> CancelableOperation {
+    @discardableResult
+    open func sendRequest<T : NetworkRequest>(_ networkRequest: T, completionHandler: ((T.T?, NSError?, NetworkContext?) -> Void)?) -> CancelableOperation? {
         
-        let urlRequest: URLRequest = try urlRequestFromNetworkRequest(networkRequest)
+        let urlRequest: URLRequest
+        do {
+            urlRequest = try urlRequestFromNetworkRequest(networkRequest)
+        } catch {
+            completionHandler?(nil, error as NSError, nil)
+            
+            return nil
+        }
         
         let _completionQueue = networkRequest.completionQueue ?? self.configuration.completionQueue
         
