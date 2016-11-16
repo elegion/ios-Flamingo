@@ -19,6 +19,7 @@
 		8F7CEBBB1CE9B14700D6CCBA /* Alamofire+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBBA1CE9B14700D6CCBA /* Alamofire+ObjectMapper.swift */; };
 		8F7CEBBD1CE9B1DC00D6CCBA /* ObjectMapper+NSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBBC1CE9B1DC00D6CCBA /* ObjectMapper+NSData.swift */; };
 		8F7FCA9C1D5CEB21003552CB /* NetworkContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7FCA9B1D5CEB21003552CB /* NetworkContext.swift */; };
+		942E27DA1DDB0F0E00E267D3 /* UploadMultipartRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942E27D91DDB0F0E00E267D3 /* UploadMultipartRequest.swift */; };
 		D802B7AAFA9688D25EBB3AF6 /* Pods_Flamingo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7BAE7B9D52B3E98ED2B2AE /* Pods_Flamingo.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		8F7CEBBA1CE9B14700D6CCBA /* Alamofire+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire+ObjectMapper.swift"; sourceTree = "<group>"; };
 		8F7CEBBC1CE9B1DC00D6CCBA /* ObjectMapper+NSData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ObjectMapper+NSData.swift"; sourceTree = "<group>"; };
 		8F7FCA9B1D5CEB21003552CB /* NetworkContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkContext.swift; sourceTree = "<group>"; };
+		942E27D91DDB0F0E00E267D3 /* UploadMultipartRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadMultipartRequest.swift; sourceTree = "<group>"; };
 		D10E15E46B4C5C5AC9D71363 /* Pods-Flamingo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flamingo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Flamingo/Pods-Flamingo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +101,7 @@
 				8F7FCA9B1D5CEB21003552CB /* NetworkContext.swift */,
 				8F7CEBA51CE9B03F00D6CCBA /* NetworkOfflineCache.swift */,
 				8F51C3941D10972C001AB5F0 /* NetworkRequest.swift */,
+				942E27D91DDB0F0E00E267D3 /* UploadMultipartRequest.swift */,
 				8F0F6F5D1D109A4D00DD911F /* NetworkRequestMock.swift */,
 				8F7CEBB91CE9B0C800D6CCBA /* Utils */,
 			);
@@ -251,6 +254,7 @@
 				37FB15461D11ED7A001B69C2 /* NSError+Flamingo.swift in Sources */,
 				8F7FCA9C1D5CEB21003552CB /* NetworkContext.swift in Sources */,
 				8F7CEBBD1CE9B1DC00D6CCBA /* ObjectMapper+NSData.swift in Sources */,
+				942E27DA1DDB0F0E00E267D3 /* UploadMultipartRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
