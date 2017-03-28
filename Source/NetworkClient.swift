@@ -74,7 +74,7 @@ open class NetworkDefaultClient: NetworkClient {
             let request = nResponse.request
             let response = nResponse.response
             let data = nResponse.data
-            let error = nResponse.error as? NSError
+            let error = nResponse.error as NSError?
             
             let context = NetworkContext(request: request, response: response, data: data, error: error)
             
