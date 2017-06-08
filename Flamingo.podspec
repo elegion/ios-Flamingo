@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                    = 'Flamingo'
-  s.version                 = '0.2.2'
+  s.version                 = '0.2.3'
   s.summary                 = 'Swift network manager'
   s.description             = 'Based on Alamofire, ObjectMapper and Cache'
   s.homepage                = 'https://github.com/elegion/Flamingo'
