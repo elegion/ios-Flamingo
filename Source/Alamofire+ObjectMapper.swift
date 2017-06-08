@@ -63,7 +63,8 @@ public extension DataResponseSerializer where Value: Mappable {
             switch(result) {
             case .success(let value):
                 if let jsonArray = value as? [[String: Any]] {
-                    if let responseObject = Mapper<Value>().mapArray(JSONArray: jsonArray) {
+                    let responseObject = Mapper<Value>().mapArray(JSONArray: jsonArray)
+                    if responseObject.count == jsonArray.count {
                         return .success(responseObject)
                     }
                 }
