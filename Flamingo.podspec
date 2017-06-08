@@ -19,5 +19,5 @@ Pod::Spec.new do |s|
 
   s.dependency                'Alamofire', '~> 4.4.0'
   s.dependency                'Cache', '~> 2.2.2'
-  s.dependency                'ObjectMapper', '~> 2.2.5'
+  s.dependency                'ObjectMapper', '~> 2.2.7'
 end
