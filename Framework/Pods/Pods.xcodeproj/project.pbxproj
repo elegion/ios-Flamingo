@@ -7,45 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		007823613E48EA1829DD72DA721E42FA /* EnumOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = E336257576AD5F4150C3603BD4F53979 /* EnumOperators.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		00A322513B163A48519FA703E574B04A /* SHA2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E441E91EDA5917288E35FE3126F3A865 /* SHA2.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		00E153632A414101E0A66AE23569802B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D780DF5D154B118F2218F879CF44742 /* Result.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		032F83842FDD248C3DC8A5E930E6E7CC /* NSDecimalNumberTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B5E571091E9F97679C8D19ACC96C1B /* NSDecimalNumberTransform.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		05C8EA17E32F887073AED9D0D4563CB4 /* HexColorTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E21CB6CA1421B519F09652718C495 /* HexColorTransform.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		04715BBA026ADADD5E4AFE2805B7DFDB /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70826E9340F548527936015A36A12794 /* URLTransform.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0746286F316B416BDE0861708323A5A7 /* ChaCha20+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79D3FDF4046543483A520F2C165DD0 /* ChaCha20+Foundation.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		079D990738735591330332B5F2551AE4 /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB22D63AB47546771F626CA54C3B4BC /* NetworkReachabilityManager.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		07BA17A9C13D0C8372FC0686BE57A6F3 /* HexColorTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E21CB6CA1421B519F09652718C495 /* HexColorTransform.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		07CAB08D66ED5A9E89645012260E47A1 /* PBKDF1.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A7C60B36ACDD5516073DE24F1F92EE /* PBKDF1.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		09849C400EE44D703E942A0A84D4C616 /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9019AD115B924A90B17345B87D69D0CB /* FromJSON.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0AB1F022E119F5DB2DE31E888C7B9852 /* String+FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CD2941D51899D3EBAC1B389781340 /* String+FoundationExtension.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0B665A7A81B1BA83AB383AA7B92CE58D /* Utils+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423FC69E89E349CB107F98D32A31711B /* Utils+Foundation.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0C8704DFBF7C59BD3330A1A1B8553F99 /* String+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCE8B3FA466A5FF417F288C0C29956B /* String+Cache.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0F04175B8386748B3A6CE530DBA8039F /* BlockCipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8032A4D841C7DCE6A731DB9EE55772 /* BlockCipher.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		0FD9988513E86483DABE419954201C03 /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70826E9340F548527936015A36A12794 /* URLTransform.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		14149132243FB043916BAFC143067E9F /* CustomDateFormatTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F341D4AC75C34C9B7AC9029867D9C6FC /* CustomDateFormatTransform.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		0F83C18CED233F9537CA5146861C293E /* DateFormatterTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AC87050D6331D18DE20038FFE77550 /* DateFormatterTransform.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		14CECE238604E1D44104E5BCD14EB2BE /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246C00D7C1DB477A8D4B72D7A2542009 /* SessionDelegate.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		164781197625A3149B3BDBCAA2AC8CC3 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBCA5830D9500094A5EA2173A018CD0C /* Validation.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		1952179652F315E481E6B8DE83A4A090 /* SyncHybridCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6E0666BEC38AAAB1C2BBF584726203 /* SyncHybridCache.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		1A1FC099CB98C521DB16945BE5EAE069 /* UInt32+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD89C12630043EA1AA61D574A8F621F /* UInt32+Extension.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		1A73D8849F732D283389A7D128F43047 /* SHA3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468F38D13AB1395D037A41BF2161A19 /* SHA3.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		1ABACA59D8C192F00D1965A3AF9D5627 /* DataTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950D3278DC52A081716F08B6679C5E7B /* DataTransform.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		1B9EDEDC964E6B08F78920B4F4B9DB84 /* Alamofire-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CDB1D438C4E07F1E1B41384E495224D0 /* Alamofire-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		204944D67267632DD7CD4BEFB60AC389 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8421C8C050B0BE4C9827D9043F8546 /* Response.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		21FF88F0838215567407C3636B9CC8FE /* CustomDateFormatTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F341D4AC75C34C9B7AC9029867D9C6FC /* CustomDateFormatTransform.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		235AFA9EBB0DE544E383123061B55304 /* Cache-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 455EC3F4E33ABCEF4EE76CE3723B4DD6 /* Cache-dummy.m */; };
 		23B05F29803529B5FB8FD9EDA32DFB50 /* StorageAware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D7DB8F0DADCE0AC6FCEBFE8BC01F6A /* StorageAware.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		241A384C1F60EF32A91DC8587E312448 /* ISO8601DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D308BFB97640E9A8D1871915FB8A85 /* ISO8601DateTransform.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		282C137A58C38E47B60A9A41BB598B06 /* ImmutableMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FC3FDD604243B55C304E139EAEFDF6 /* ImmutableMappable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		29E8BD99F3B11B3A08A3A1DEFB5AB7FC /* PKCS7.swift in Sources */ = {isa = PBXBuildFile; fileRef = F026FFE7FC88D7BD4543EB419C166210 /* PKCS7.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		2B58B070F9D7324583D01EE906BC918C /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC7F64F6BF8E57ED200DE12BDB27B1 /* SessionManager.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		2D9FE94651E95F973CC224D23ABDC1EB /* DictionaryTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CBE0959D12B63E0840FF9548C0ECB3 /* DictionaryTransform.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		2F745F0BBB39648D7EF3A6A44A496DE1 /* Capsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97ECB4C3A13673D0C2E99819938C4F53 /* Capsule.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		306DA24D67350A39547CC800092DC4BD /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC543AE742D15EAAE4D9AA58809F76A1 /* Config.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		3260F83749281E8846B73D6E1E4C9429 /* Expiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856D96C35B413C932EA93168175561F1 /* Expiry.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		33061752A1CF47854EFA84440102E281 /* ToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD74D3F7DA1E4C663FB3155806E5550 /* ToJSON.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		343B30C989188B77FB1149FED753A63C /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB23C1240774D97F008F91FC1BDB217D /* ServerTrustPolicy.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		351A58374B952CD795E19A5C1DA52C01 /* TransformType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7253EF0E0769DB0EB1BF3CA27CD25137 /* TransformType.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		3794F36FCBD2F263912BDBDD39B82219 /* DictionaryTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CBE0959D12B63E0840FF9548C0ECB3 /* DictionaryTransform.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		37D7FFC8B873CCBBC84E0912840FC2FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4392316BF1DF3D38D9C0FD4A699CD3BE /* Foundation.framework */; };
 		39054D1152ECC70DB30CCE846EC3403F /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2F7CD43971EA8960C7AD54B4B913FC /* MD5.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		39C841FDEE6D05C312302A81A245F9F5 /* PBKDF2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986B4E1E05F0378162C077A9877F429B /* PBKDF2.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		3A82D03946951D62CF0229973CBB25B4 /* CryptoSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FA8499ED85CD5521E4EF2FC70690CC9B /* CryptoSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B492F098CB67195C324583FD861D3FE /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06753A03A1960AAB46F0F4DFFAD9B61B /* String+Extension.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		3D1DB031941AD961EAD599CC289A3646 /* Poly1305.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451D38E4180B1DBDCEDEAE316008F330 /* Poly1305.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		3DA3479ADE38766C4D8A2AD8DB1757E2 /* TransformOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D51F2CF267E8BA6FFE7C1A07F6B14F /* TransformOperators.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		41F967C8B0CE33C42B77A9EA1A571893 /* ISO8601DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D308BFB97640E9A8D1871915FB8A85 /* ISO8601DateTransform.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		468441EC0DC43FF4C4D7DBF77EC5126F /* Cache-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2431164E58CF24E10666C0F07CB68B6D /* Cache-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4A1F98791076AD3D5E412F3DBF435AA3 /* Cachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A78BF6A2692C18BBE793964D5B8061 /* Cachable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		4BEE39668E7D1F993CA028E11789B5C8 /* Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E817F239F666FD87377FCC3EEFA107A5 /* Cipher.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -54,11 +55,9 @@
 		519ADD007D0369D8965E26247EAAF67D /* BlockModeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF084C273414B1090855BA48641B11F /* BlockModeOptions.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5435028EC81B87DBDFC8EB6E44501F02 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1AEFBCF90755750536602137F277AFA /* Operators.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		58812AABBC0A1E7AE019752424DF31A7 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B65E764C475FBB24AAA21223A32B632 /* MultipartFormData.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		5C954628B190310937CC681768EB26BF /* MapError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B595F00563FDA51E2617442CAF474E2 /* MapError.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5CA745024E6D5B16A37B6E95B7FBF7EF /* BasicHybridCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4729250857BDB677A5BAC64DE2517278 /* BasicHybridCache.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5E25BCD30BDE2E7A68D1A6FAF7253AD4 /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCC863E3D59C375948489ABEE9F5F5D /* DispatchQueue+Alamofire.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5F1FD7E98F9609FF130B321D53EB97A6 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDD875648194A87526574B89807FC90 /* Cache.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		637509190305D1AE0F26655ECFD702AB /* ToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD74D3F7DA1E4C663FB3155806E5550 /* ToJSON.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		6540CC4D369A32F6DE54AFA8D5D6FAF9 /* Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 355719A7D93DDE884B5BFCD079E273ED /* Alamofire-dummy.m */; };
 		65A26680E238DA4FF574CBB202A1FA53 /* Pods-Flamingo-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BA7613B453CE1D68CC22EB24A90E1B19 /* Pods-Flamingo-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66F734FC6334768AC0E7705D03D99E21 /* CSArrayType+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A913FC7FB073D1D78A8DB6DD86A6759A /* CSArrayType+Foundation.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -66,20 +65,22 @@
 		67FBB6520D054DD2925EEA9D0406F144 /* ZeroPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937676C6E5DBBE88DB537B5F4A32D238 /* ZeroPadding.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		6BA793BBDAF474B929C19D025D95326F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4392316BF1DF3D38D9C0FD4A699CD3BE /* Foundation.framework */; };
 		6D111B9D80DA0F0A0C48529F63871941 /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DA00B89C3A68D4FE4CE4E077B295C4 /* Padding.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		6F155D063EA07D8689F7B51DC792E11E /* TransformOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D51F2CF267E8BA6FFE7C1A07F6B14F /* TransformOperators.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		6FBEA1F189C935F606F7EB9DDD2798D2 /* Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64846AB8B05B667A06A17356148C465C /* Mappable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		700261E027E0707F6EC4BFAE1CA5A9AB /* JSON+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B7A0A5F26AC2503C20A109E66BC90F /* JSON+Cache.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		7248C3D4FD3328D15E52C4C793D91110 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486308B99DC1E26180ABE6F513FB52E1 /* Map.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		74F676602843918E4F075D976416C272 /* RandomAccessBlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48788E3C490D01DEE930CFB3C5EC3C45 /* RandomAccessBlockModeWorker.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		78F4229B4A746A38341474FEB9DADB25 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EAFA053CD7DA81DD690F4CFB046A1CA /* ParameterEncoding.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		7D675526A49B60644339A00BC09EEFBB /* TransformOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E15512F9E7DC4C3790C6DA605B808B /* TransformOf.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		7DFEF328F25C30C845121D2979FFEA8D /* DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B77819AA475A1BA25A9B3B316FA9C /* DateTransform.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		7E07F34462D624F8BD9C0A1E58DDAFB2 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897CE48E589321E119346548959C7A63 /* Mapper.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		7F6915CF5EDF499D94EB0AD054F1C26D /* AES+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4171029130D79037AF0325C250F845F /* AES+Foundation.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		81AFD35CAB59A19C1A15B30B361EE823 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77BB9EB728B32D2008C55BC46EDC497 /* Array+Extension.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		84FC17D2C3E7C7955A3698878A61C79E /* Bit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FFF0D12960DFEBBF3EA3B159D7BE30 /* Bit.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		859DF9CE7A9677721A2AA38C75F5EFAB /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A2F476ABE8BEE612466773AE605229 /* Generics.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		8BA8D5CED29ACCE8A7E37A5EF80352C7 /* UIImage+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3A06ED1E8A8CDC35CF81CE14C98B4E /* UIImage+Cache.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		8DB8AE2676B2EB2896F339F102D763DA /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833611E3EC09B3AD6726E78D6F5F8077 /* Operators.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		8F5C0849D2757FC5A7C81B81BA3813C3 /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC94166C8EA5936B185D36AEAEC2F1D /* ResponseSerialization.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		8FE62BE65EBCD73ECEC4A527EB833D2D /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649EFD7CA8C58ADF970BAEB54AA5590C /* Authenticator.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		92C2E0CCD55F87510D5F13950CB39A55 /* StorageKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABA1DCD4776DADE8501F155E4393399 /* StorageKind.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		930325F48EFB96FE4650DB75E8A69EA4 /* DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B77819AA475A1BA25A9B3B316FA9C /* DateTransform.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		93ABABC407E8FA3B00AFDDC2C2A01336 /* NoPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F38D404696E263EE2FD010CD488968 /* NoPadding.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		94426CA5915E01204434CE3342EA850E /* CTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF29543057344CAFA09691DE0140AC28 /* CTR.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		96342F4C51F6E88D6C32FD71AEA143CC /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C8EF54A5C110E9DC9694E43EAE8471 /* Utils.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -92,7 +93,6 @@
 		A128DBCF691E0F4D2AC3EEA36F7BD562 /* ObjectMapper-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 93E8E699B1D5B4AD75509EFBDAC75087 /* ObjectMapper-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A1D4B2226A7C2C4AFB5BCABCFBE86DB2 /* UInt16+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A629449A242D33F6F72A1B6F0B71A119 /* UInt16+Extension.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		A221CAD01739355F5538C146D92D0820 /* Blowfish.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD501BEB7827A61A4130B238A181855E /* Blowfish.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		A58651BF62E2E5265674CDCC7BCE1116 /* EnumTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8827F8C427F32F7FF2E8F36CFD1BD95C /* EnumTransform.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		A59733C7F7B0B225B4801A5A398A024F /* Rabbit+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D9872DCF24805396FC02432FA3A7D7 /* Rabbit+Foundation.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		A5AE9F243E8B09D31FA806038D03B295 /* IntegerConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52116A06E2BA385B095CE5C289AA43C /* IntegerConvertible.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		A64AB13A207469766D3E592E86E35611 /* Blowfish+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156C1AD6EC6BAB40EF43EB4FE57649E3 /* Blowfish+Foundation.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -100,7 +100,7 @@
 		A848BC825C24039254926A9222E6F25C /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E474F98017375A03B769DC1A7E81F0 /* HMAC.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		AB7834524BE77A799EFF8BB85AB35B9A /* RandomAccessCryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20CD6BBD418637374B79BCFB323D6B /* RandomAccessCryptor.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		AD2C576F50E67B2417C1D17FBF5E32B2 /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7D55E8558A8BC0BB6AB32674D5ACD3 /* AFError.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		AEEAC36848F35ECB5DDBB96817FA9798 /* TransformType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7253EF0E0769DB0EB1BF3CA27CD25137 /* TransformType.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		AEFB4BBF6A11B01B933838A316E6D236 /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9019AD115B924A90B17345B87D69D0CB /* FromJSON.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		AF342F595F8B4017F3F803BD7D5CF236 /* OFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95AB7EB9403D567EBC08AAF7878EE4F /* OFB.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		B01D1E95EDCD2C69A4C977B71E768533 /* Checksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576A22F7443B3F1AA997E2463B183614 /* Checksum.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		B22C70FE60B190D8EB745D5DB65ABBA0 /* BlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CEFD3A4A8EC524D5130318AD6052E9 /* BlockModeWorker.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -114,13 +114,14 @@
 		B807012B9CD30AF5EDE8CE259944B692 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A53C27862C496F913FAE2D8D139C190 /* Updatable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		B878C067C34F992FF5BF5F8AC964B4BC /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFBF5235C7F3BD951339F2B705A5073 /* SHA1.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		BDDA64A9364834FEEB2E21A912F4A554 /* UInt64+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51DAABAEF6F52E65F7666D53CDE1087 /* UInt64+Extension.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		BE2F71DF73E7C24E4A20A5BB1DB943BE /* EnumOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = E336257576AD5F4150C3603BD4F53979 /* EnumOperators.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C032056B223220AF0E5E12972804EECF /* CSArrayType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BB0B5C5464CA710700E04BF181607E /* CSArrayType+Extensions.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		C3E4E8088240EA0ABD00B052ABCA2B86 /* Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64846AB8B05B667A06A17356148C465C /* Mappable.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		C09C5AAA555F7F593BB5668E59AF34AD /* DataTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950D3278DC52A081716F08B6679C5E7B /* DataTransform.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C58678113A434D46E1D70D1CE24E6CFE /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878ABB68229117886EA28D4F62A965C6 /* AES.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		C58A7B52B3A399AC2744EE5989DB1C63 /* TransformOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E15512F9E7DC4C3790C6DA605B808B /* TransformOf.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C5FD57751548EFFA6567AFD2EB47CD56 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D1019595CE299E83E40433DA5B20F2 /* Request.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C62D5EA0F01A874C867CC0923216F9FF /* PCBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC9F2B8682F0AD5B4486C43EBCDC867 /* PCBC.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C6A832C52A113E1D2691B5B54F2A3E90 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6EAC319B501F3F8BBE778D3605268D5 /* CryptoSwift.framework */; };
+		C8684D7F0E0234D3DBC179333910F4A6 /* EnumTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8827F8C427F32F7FF2E8F36CFD1BD95C /* EnumTransform.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C9B6A3C2AC2FD90591342D7AF03AC57E /* Cryptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA10096910CFB6070A37E75B556FD71 /* Cryptors.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		CB872E12CAD900CBAD10338F901B4CBD /* CryptoSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F51680500942E41F43B92E8742562720 /* CryptoSwift-dummy.m */; };
 		CFAC7757075C007BA6ACF4C7E0FE6A07 /* NSDate+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99739910BF83D083FE925C265AB79BE9 /* NSDate+Cache.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -128,22 +129,21 @@
 		D5686072DEC1A0E14F8C100FCC873F73 /* TaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C9F764BE829B61A34CC7F1A06BBF00 /* TaskDelegate.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		DA8070AA9696822F0242CC298668AFF7 /* ObjectMapper-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A56591EE9BF3C06733334A34A4CBF /* ObjectMapper-dummy.m */; };
 		DB3269A01DCA1287FC0E761AC49A3FDC /* HMAC+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B193D26BD6DEFF722588BC205B37A5A /* HMAC+Foundation.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		DC650D835B2B8D4FC3A38CB4D24A1A85 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833611E3EC09B3AD6726E78D6F5F8077 /* Operators.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		E198F398404F07805E5189165F3C1E64 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7320B08382507BE02D8711AD8A271DB5 /* Timeline.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		E520E054EC0F14A17E432ACE1FF85EE1 /* BlockMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958C5D112EC6DCFDAE33799CEC260D82 /* BlockMode.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		E701A774EF85C584975701175AB99E91 /* SyncCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C7E97B3413F38029DB7103A4736AFE /* SyncCache.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		E8508E0D379A670358FD7CC40F16887E /* ImmutableMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FC3FDD604243B55C304E139EAEFDF6 /* ImmutableMappable.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		E9FE571042B3B096F88497D4CE15AAF7 /* DateFormatterTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AC87050D6331D18DE20038FFE77550 /* DateFormatterTransform.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		EBA0781A1E2822CF7DFD56ACD394A63E /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA38BFF1E5D76727657C5CFBC7EF70C /* Alamofire.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		EECCF719268E2412E9F7F0600D3752C2 /* BatchedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4061890AA937D518BDAB674D84AFCE /* BatchedCollection.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		EF05F5CDF5023CF06DFBD8542C8A3199 /* DefaultCacheConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E787B225002653478E43D380655B05F5 /* DefaultCacheConverter.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		EF81D44C94794A9A8E5A0DFB53F9B436 /* CFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33768B73648CD074870FDB4B5DA0FFB /* CFB.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		F002A236C56114229C6703D862109F94 /* CBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2187FEAC0A8AA20669B8377D30BD8A9A /* CBC.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		F06E16362EED4856E7C29F27AA0F6AAF /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897CE48E589321E119346548959C7A63 /* Mapper.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		F15CBB8970898F05CD1DA04BF205708A /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4803BF5F9E00CDD9EFED9850087C506 /* Data+Extension.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		F172E9E5A58C396886DE5040B8982D0A /* ECB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128682E96B34AF7B5AAD1E0166ED4FBA /* ECB.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F36495525F247AD2D687B7D2BE4CA5B2 /* NSDecimalNumberTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B5E571091E9F97679C8D19ACC96C1B /* NSDecimalNumberTransform.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		F63A8AE3965415C98CA765BF399BAB6E /* Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87561DFCD52CB7EE39DFC2108D5BF3A /* Digest.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		F6762237CF373757ABB1FAC83E9D2C18 /* IntegerOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EF21395677846BD7C605D6A5C290F6 /* IntegerOperators.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F7423985F2F36672B0676F7C22C88878 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486308B99DC1E26180ABE6F513FB52E1 /* Map.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F7BB44E34433F080716BFB48FEF617A7 /* IntegerOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EF21395677846BD7C605D6A5C290F6 /* IntegerOperators.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F8793AC47379BDC2F7646F966D82968D /* MapError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B595F00563FDA51E2617442CAF474E2 /* MapError.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		F92F57D4331BEEB08B5CFFF86A19611C /* NSData+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DB74094D9E8E2F63B7656BB4EAEA27 /* NSData+Cache.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		FD88C64129AFC2B914E8EB21216F6F88 /* RandomBytesSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B60A192D73C18C731970B2C4992D13 /* RandomBytesSequence.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 /* End PBXBuildFile section */
@@ -860,30 +860,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14149132243FB043916BAFC143067E9F /* CustomDateFormatTransform.swift in Sources */,
-				1ABACA59D8C192F00D1965A3AF9D5627 /* DataTransform.swift in Sources */,
-				E9FE571042B3B096F88497D4CE15AAF7 /* DateFormatterTransform.swift in Sources */,
-				930325F48EFB96FE4650DB75E8A69EA4 /* DateTransform.swift in Sources */,
-				2D9FE94651E95F973CC224D23ABDC1EB /* DictionaryTransform.swift in Sources */,
-				BE2F71DF73E7C24E4A20A5BB1DB943BE /* EnumOperators.swift in Sources */,
-				A58651BF62E2E5265674CDCC7BCE1116 /* EnumTransform.swift in Sources */,
-				09849C400EE44D703E942A0A84D4C616 /* FromJSON.swift in Sources */,
-				05C8EA17E32F887073AED9D0D4563CB4 /* HexColorTransform.swift in Sources */,
-				E8508E0D379A670358FD7CC40F16887E /* ImmutableMappable.swift in Sources */,
-				F6762237CF373757ABB1FAC83E9D2C18 /* IntegerOperators.swift in Sources */,
-				41F967C8B0CE33C42B77A9EA1A571893 /* ISO8601DateTransform.swift in Sources */,
-				7248C3D4FD3328D15E52C4C793D91110 /* Map.swift in Sources */,
-				5C954628B190310937CC681768EB26BF /* MapError.swift in Sources */,
-				C3E4E8088240EA0ABD00B052ABCA2B86 /* Mappable.swift in Sources */,
-				F06E16362EED4856E7C29F27AA0F6AAF /* Mapper.swift in Sources */,
-				032F83842FDD248C3DC8A5E930E6E7CC /* NSDecimalNumberTransform.swift in Sources */,
+				21FF88F0838215567407C3636B9CC8FE /* CustomDateFormatTransform.swift in Sources */,
+				C09C5AAA555F7F593BB5668E59AF34AD /* DataTransform.swift in Sources */,
+				0F83C18CED233F9537CA5146861C293E /* DateFormatterTransform.swift in Sources */,
+				7DFEF328F25C30C845121D2979FFEA8D /* DateTransform.swift in Sources */,
+				3794F36FCBD2F263912BDBDD39B82219 /* DictionaryTransform.swift in Sources */,
+				007823613E48EA1829DD72DA721E42FA /* EnumOperators.swift in Sources */,
+				C8684D7F0E0234D3DBC179333910F4A6 /* EnumTransform.swift in Sources */,
+				AEFB4BBF6A11B01B933838A316E6D236 /* FromJSON.swift in Sources */,
+				07BA17A9C13D0C8372FC0686BE57A6F3 /* HexColorTransform.swift in Sources */,
+				282C137A58C38E47B60A9A41BB598B06 /* ImmutableMappable.swift in Sources */,
+				F7BB44E34433F080716BFB48FEF617A7 /* IntegerOperators.swift in Sources */,
+				241A384C1F60EF32A91DC8587E312448 /* ISO8601DateTransform.swift in Sources */,
+				F7423985F2F36672B0676F7C22C88878 /* Map.swift in Sources */,
+				F8793AC47379BDC2F7646F966D82968D /* MapError.swift in Sources */,
+				6FBEA1F189C935F606F7EB9DDD2798D2 /* Mappable.swift in Sources */,
+				7E07F34462D624F8BD9C0A1E58DDAFB2 /* Mapper.swift in Sources */,
+				F36495525F247AD2D687B7D2BE4CA5B2 /* NSDecimalNumberTransform.swift in Sources */,
 				DA8070AA9696822F0242CC298668AFF7 /* ObjectMapper-dummy.m in Sources */,
-				DC650D835B2B8D4FC3A38CB4D24A1A85 /* Operators.swift in Sources */,
-				637509190305D1AE0F26655ECFD702AB /* ToJSON.swift in Sources */,
-				7D675526A49B60644339A00BC09EEFBB /* TransformOf.swift in Sources */,
-				3DA3479ADE38766C4D8A2AD8DB1757E2 /* TransformOperators.swift in Sources */,
-				AEEAC36848F35ECB5DDBB96817FA9798 /* TransformType.swift in Sources */,
-				0FD9988513E86483DABE419954201C03 /* URLTransform.swift in Sources */,
+				8DB8AE2676B2EB2896F339F102D763DA /* Operators.swift in Sources */,
+				33061752A1CF47854EFA84440102E281 /* ToJSON.swift in Sources */,
+				C58A7B52B3A399AC2744EE5989DB1C63 /* TransformOf.swift in Sources */,
+				6F155D063EA07D8689F7B51DC792E11E /* TransformOperators.swift in Sources */,
+				351A58374B952CD795E19A5C1DA52C01 /* TransformType.swift in Sources */,
+				04715BBA026ADADD5E4AFE2805B7DFDB /* URLTransform.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
