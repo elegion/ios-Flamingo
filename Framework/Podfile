@@ -4,6 +4,6 @@ target 'Flamingo' do
 	use_frameworks!
 
 	pod 'Alamofire', '~> 4.4.0'
-	pod 'Cache', '~> 2.2.2'
+	pod 'Cache', '~> 3.3.0'
 	pod 'ObjectMapper', '~> 2.2.7'
 end

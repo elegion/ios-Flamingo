@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                    = 'Flamingo'
-  s.version                 = '0.2.4'
+  s.version                 = '0.3.0'
   s.summary                 = 'Swift network manager'
   s.description             = 'Based on Alamofire, ObjectMapper and Cache'
   s.homepage                = 'https://github.com/elegion/Flamingo'
@@ -18,6 +18,6 @@ Pod::Spec.new do |s|
   s.frameworks              = 'Foundation', 'UIKit'
 
   s.dependency                'Alamofire', '~> 4.4.0'
-  s.dependency                'Cache', '~> 2.2.2'
+  s.dependency                'Cache', '~> 3.3.0'
   s.dependency                'ObjectMapper', '~> 2.2.7'
 end

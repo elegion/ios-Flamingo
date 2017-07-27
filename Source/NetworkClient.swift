@@ -11,6 +11,7 @@ import Alamofire
 
 private enum Error: Swift.Error {
     case inavlidRequestError
+    case setResponseError
 }
 
 public protocol NetworkClient: class {
@@ -92,7 +93,16 @@ open class NetworkDefaultClient: NetworkClient {
                 switch result {
                 case .success(let value):
                     if _useCache {
-                        self.offlineCacheManager!.setResponseData(_data!, forRequest: urlRequest)
+                        do {
+                            try self.offlineCacheManager!.setResponseData(_data!, forRequest: urlRequest)
+                        }
+                        catch {
+                            if let completionHandler = completionHandler {
+                                _completionQueue.async {
+                                    completionHandler(nil, Error.setResponseError as NSError, context)
+                                }
+                            }
+                        }
                     }
                     
                     if let completionHandler = completionHandler {
