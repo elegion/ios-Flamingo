@@ -14,9 +14,9 @@ public protocol NetworkOfflineCacheManager: class {
 
     func cacheKeyFromRequest(_ request: URLRequest) -> String
     func responseDataForRequest(_ request: URLRequest) -> Data?
-    func setResponseData(_ responseData: Data, forRequest request: URLRequest)
-    func clearDataForRequest(_ request: URLRequest)
-    func clearCache()
+    func setResponseData(_ responseData: Data, forRequest request: URLRequest) throws
+    func clearDataForRequest(_ request: URLRequest) throws
+    func clearCache() throws
 }
 
 public final class NetworkDefaultOfflineCacheManager: NetworkOfflineCacheManager {
@@ -35,15 +35,15 @@ public final class NetworkDefaultOfflineCacheManager: NetworkOfflineCacheManager
         return syncCache.object(forKey: cacheKeyFromRequest(request))
     }
     
-    public func setResponseData(_ responseData: Data, forRequest request: URLRequest) {
-        try? syncCache.addObject(responseData, forKey: cacheKeyFromRequest(request))
+    public func setResponseData(_ responseData: Data, forRequest request: URLRequest) throws {
+        try syncCache.addObject(responseData, forKey: cacheKeyFromRequest(request))
     }
     
-    public func clearDataForRequest(_ request: URLRequest) {
-        try? syncCache.removeObject(forKey: cacheKeyFromRequest(request))
+    public func clearDataForRequest(_ request: URLRequest) throws {
+        try syncCache.removeObject(forKey: cacheKeyFromRequest(request))
     }
     
-    public func clearCache() {
-        try? syncCache.clear()
+    public func clearCache() throws {
+        try syncCache.clear()
     }
 }
