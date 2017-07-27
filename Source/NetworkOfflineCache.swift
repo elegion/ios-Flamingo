@@ -12,7 +12,8 @@ public protocol NetworkOfflineCacheManager: class {
 
     func cacheKeyFromRequest(_ request: URLRequest) -> String
     func responseDataForRequest(_ request: URLRequest) -> Data?
-    func setResponseData(_ responseData: Data, forRequest request: URLRequest)
-    func clearDataForRequest(_ request: URLRequest)
-    func clearCache()
+    func setResponseData(_ responseData: Data, forRequest request: URLRequest) throws
+    func clearDataForRequest(_ request: URLRequest) throws
+    func clearCache() throws
+
 }

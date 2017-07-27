@@ -8,5 +8,5 @@ target 'Example' do
 	pod 'Flamingo', :path => '../'
 	pod 'AlamofireImage', '~> 3.1.0'
 	pod 'Fakery', '~> 2.0.0'
-    pod 'Cache', '~> 2.2.2'
+	pod 'Cache', '~> 3.3.0'
 end
