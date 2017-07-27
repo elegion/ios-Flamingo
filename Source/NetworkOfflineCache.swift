@@ -8,6 +8,7 @@
 
 import Foundation
 import Cache
+import SwiftHash
 
 public protocol NetworkOfflineCacheManager: class {
 
@@ -20,31 +21,29 @@ public protocol NetworkOfflineCacheManager: class {
 
 public final class NetworkDefaultOfflineCacheManager: NetworkOfflineCacheManager {
     
-    private let syncCache: SyncHybridCache
+    private let syncCache: HybridCache
     
     public required init(cacheName: String) {
-        let cache = HybridCache(name: cacheName)
-        
-        syncCache = SyncHybridCache(cache)
+        syncCache = HybridCache(name: cacheName)
     }
     
     public func cacheKeyFromRequest(_ request: URLRequest) -> String {
-        return (request.httpMethod! + request.url!.absoluteString).md5()
+        return MD5(request.httpMethod! + request.url!.absoluteString)
     }
     
     public func responseDataForRequest(_ request: URLRequest) -> Data? {
-        return syncCache.object(cacheKeyFromRequest(request))
+        return syncCache.object(forKey: cacheKeyFromRequest(request))
     }
     
     public func setResponseData(_ responseData: Data, forRequest request: URLRequest) {
-        syncCache.add(cacheKeyFromRequest(request), object: responseData)
+        try? syncCache.addObject(responseData, forKey: cacheKeyFromRequest(request))
     }
     
     public func clearDataForRequest(_ request: URLRequest) {
-        syncCache.remove(cacheKeyFromRequest(request))
+        try? syncCache.removeObject(forKey: cacheKeyFromRequest(request))
     }
     
     public func clearCache() {
-        syncCache.clear()
+        try? syncCache.clear()
     }
 }
