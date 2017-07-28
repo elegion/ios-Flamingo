@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		33223EDBDCD4B1D3820E4E19 /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9948B69825BF9B59F5F2D514 /* Pods_Example.framework */; };
-		7481CDBC1F278CE700CFECEF /* Flamingo+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7481CDBB1F278CE700CFECEF /* Flamingo+Cache.swift */; };
+		745E5B781F2B44650007C171 /* ObjectMapper+NSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745E5B771F2B44650007C171 /* ObjectMapper+NSData.swift */; };
+		7481CDBC1F278CE700CFECEF /* NetworkDefaultOfflineCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7481CDBB1F278CE700CFECEF /* NetworkDefaultOfflineCacheManager.swift */; };
+		74D4AD651F2B23660002BADB /* ObjectMapperWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D4AD641F2B23660002BADB /* ObjectMapperWrapper.swift */; };
 		8F1B4AB91D0D8E6000BEEC8C /* UsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1B4AB81D0D8E6000BEEC8C /* UsersRequest.swift */; };
 		8F1B4ABC1D0D95B000BEEC8C /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1B4ABB1D0D95B000BEEC8C /* ImageRequest.swift */; };
 		8F7CEBCB1CE9B2A000D6CCBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBCA1CE9B2A000D6CCBA /* AppDelegate.swift */; };
@@ -26,7 +28,9 @@
 
 /* Begin PBXFileReference section */
 		356712F42FB575B7DFEFD01F /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
-		7481CDBB1F278CE700CFECEF /* Flamingo+Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Flamingo+Cache.swift"; sourceTree = "<group>"; };
+		745E5B771F2B44650007C171 /* ObjectMapper+NSData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ObjectMapper+NSData.swift"; sourceTree = "<group>"; };
+		7481CDBB1F278CE700CFECEF /* NetworkDefaultOfflineCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDefaultOfflineCacheManager.swift; sourceTree = "<group>"; };
+		74D4AD641F2B23660002BADB /* ObjectMapperWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectMapperWrapper.swift; sourceTree = "<group>"; };
 		8F1B4AB81D0D8E6000BEEC8C /* UsersRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersRequest.swift; sourceTree = "<group>"; };
 		8F1B4ABB1D0D95B000BEEC8C /* ImageRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRequest.swift; sourceTree = "<group>"; };
 		8F7CEBC71CE9B2A000D6CCBA /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,7 +65,9 @@
 		7481CDBA1F278C4B00CFECEF /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				7481CDBB1F278CE700CFECEF /* Flamingo+Cache.swift */,
+				7481CDBB1F278CE700CFECEF /* NetworkDefaultOfflineCacheManager.swift */,
+				74D4AD641F2B23660002BADB /* ObjectMapperWrapper.swift */,
+				745E5B771F2B44650007C171 /* ObjectMapper+NSData.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -278,8 +284,10 @@
 				8F1B4AB91D0D8E6000BEEC8C /* UsersRequest.swift in Sources */,
 				8FC9EDED1CE9BFE400C807DA /* UserModels.swift in Sources */,
 				8FC9EDF51CE9CB3600C807DA /* ImageDemoViewController.swift in Sources */,
-				7481CDBC1F278CE700CFECEF /* Flamingo+Cache.swift in Sources */,
+				74D4AD651F2B23660002BADB /* ObjectMapperWrapper.swift in Sources */,
+				7481CDBC1F278CE700CFECEF /* NetworkDefaultOfflineCacheManager.swift in Sources */,
 				8FC9EDF11CE9C7C800C807DA /* UsersMock.swift in Sources */,
+				745E5B781F2B44650007C171 /* ObjectMapper+NSData.swift in Sources */,
 				8F7CEBDE1CE9B4CC00D6CCBA /* JSONDemoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,6 +1,6 @@
 //
-//  Flamingo+Cache.swift
-//  Flamingo
+//  NetworkDefaultOfflineCacheManager.swift
+//  Example
 //
 //  Created by Ildar Gilfanov on 25/07/2017.
 //  Copyright © 2017 ELN. All rights reserved.

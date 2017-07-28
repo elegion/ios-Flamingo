@@ -8,11 +8,10 @@
 
 import Foundation
 import Alamofire
-import ObjectMapper
 
-public struct ObjectMapperError {
+public struct MappingError {
     
-    public static let Domain = "com.objectmapper.error"
+    public static let Domain = "com.flamingo.error"
     
     public enum Code: Int {
         case mappingFailed = 1
@@ -27,7 +26,7 @@ public struct ObjectMapperError {
 
 public extension DataResponseSerializer where Value: Mappable {
     
-    public static func dictionaryResponseSerializer() -> DataResponseSerializer<Value> {
+    public static func dictionaryResponseSerializer<M>(mapper: M) -> DataResponseSerializer<Value> where M: Mapper, M.T == Value {
         return DataResponseSerializer<Value> { request, response, data, error in
             guard error == nil else {
                 return .failure(error!)
@@ -38,12 +37,12 @@ public extension DataResponseSerializer where Value: Mappable {
             switch(result) {
             case .success(let value):
                 if let json = value as? [String: Any] {
-                    if let responseObject = Mapper<Value>().map(JSON: json) {
+                    if let responseObject: Value = mapper.map(JSON: json) {
                         return .success(responseObject)
                     }
                 }
                 
-                let mappingError = ObjectMapperError.errorWithCode(code: .mappingFailed, failureReason: "Object \(value) could not be mapped into object of type \(Value.self)")
+                let mappingError = MappingError.errorWithCode(code: .mappingFailed, failureReason: "Object \(value) could not be mapped into object of type \(Value.self)")
                 
                 return .failure(mappingError)
             case .failure(let error):
@@ -52,7 +51,7 @@ public extension DataResponseSerializer where Value: Mappable {
         }
     }
     
-    public static func arrayResponseSerializer() -> DataResponseSerializer<[Value]> {
+    public static func arrayResponseSerializer<M>(mapper: M) -> DataResponseSerializer<[Value]> where M: Mapper, M.T == Value  {
         return DataResponseSerializer<[Value]> { request, response, data, error in
             guard error == nil else {
                 return .failure(error!)
@@ -63,13 +62,13 @@ public extension DataResponseSerializer where Value: Mappable {
             switch(result) {
             case .success(let value):
                 if let jsonArray = value as? [[String: Any]] {
-                    let responseObject = Mapper<Value>().mapArray(JSONArray: jsonArray)
+                    let responseObject: [Value] = mapper.mapArray(JSONArray: jsonArray)
                     if responseObject.count == jsonArray.count {
                         return .success(responseObject)
                     }
                 }
                 
-                let mappingError = ObjectMapperError.errorWithCode(code: .mappingFailed, failureReason: "Object \(value) could not be mapped into array of objects of type \(Value.self)")
+                let mappingError = MappingError.errorWithCode(code: .mappingFailed, failureReason: "Object \(value) could not be mapped into array of objects of type \(Value.self)")
                 
                 return .failure(mappingError)
             case .failure(let error):

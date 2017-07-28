@@ -9,4 +9,5 @@ target 'Example' do
 	pod 'AlamofireImage', '~> 3.1.0'
 	pod 'Fakery', '~> 2.0.0'
 	pod 'Cache', '~> 3.3.0'
+	pod 'ObjectMapper', '~> 2.2.7'
 end

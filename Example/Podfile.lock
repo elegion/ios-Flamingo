@@ -7,7 +7,6 @@ PODS:
   - Fakery (2.0.0)
   - Flamingo (1.0):
     - Alamofire (~> 4.4.0)
-    - ObjectMapper (~> 2.2.7)
   - ObjectMapper (2.2.7)
   - SwiftHash (1.4.0)
 
@@ -16,6 +15,7 @@ DEPENDENCIES:
   - Cache (~> 3.3.0)
   - Fakery (~> 2.0.0)
   - Flamingo (from `../`)
+  - ObjectMapper (~> 2.2.7)
 
 EXTERNAL SOURCES:
   Flamingo:
@@ -26,10 +26,10 @@ SPEC CHECKSUMS:
   AlamofireImage: bb8c8351c51cb1633bb6be69b6dbbaff37ce65b7
   Cache: 871805a8a7268feac34f5c10c54506801f0bd4cd
   Fakery: 97b99c23937d2e025d9135c75e2b17351ccd5031
-  Flamingo: 6deb83bc7d191aab7324c49b4304f8468177fa53
+  Flamingo: 42a3eafddb025b3781af95dd51c772e986a5a529
   ObjectMapper: 65abcfd9a61cf7396cbd14a4fb22fddfcc46577e
   SwiftHash: acf0f29032309a5c7a7f625595eade1aca97aca2
 
-PODFILE CHECKSUM: eeef3a0006b17e4d823d0ba565562163b72d197d
+PODFILE CHECKSUM: e9ff7fca245e8cc6f3a6f694a11af6526a591b1e
 
 COCOAPODS: 1.2.1

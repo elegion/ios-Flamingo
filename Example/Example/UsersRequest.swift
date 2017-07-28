@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 import Flamingo
+import ObjectMapper
 
 struct UsersRequest: NetworkRequest {
     
@@ -29,7 +30,8 @@ struct UsersRequest: NetworkRequest {
     }
     
     var responseSerializer: DataResponseSerializer<[User]> {
-        return DataResponseSerializer<User>.arrayResponseSerializer()
+        let wrapper = ObjectMapperWrapper(ObjectMapper.Mapper<User>())
+        return DataResponseSerializer<User>.arrayResponseSerializer(mapper: wrapper)
     }
     
     var mockObject: NetworkRequestMock? {

@@ -8,8 +8,9 @@
 
 import Foundation
 import ObjectMapper
+import Flamingo
 
-class GeoLocation: Mappable {
+class GeoLocation: ObjectMapper.Mappable, Flamingo.Mappable {
     var lat: String!
     var lng: String!
     
@@ -22,7 +23,7 @@ class GeoLocation: Mappable {
     }
 }
 
-class Address: Mappable {
+class Address: ObjectMapper.Mappable, Flamingo.Mappable {
     var street: String!
     var suite: String!
     var city: String!
@@ -41,7 +42,7 @@ class Address: Mappable {
     }
 }
 
-class Company: Mappable {
+class Company: ObjectMapper.Mappable, Flamingo.Mappable {
     var name: String!
     var catchPhrase: String!
     var bs: String!
@@ -56,7 +57,7 @@ class Company: Mappable {
     }
 }
 
-class User: Mappable {
+class User: ObjectMapper.Mappable, Flamingo.Mappable {
     var userId: Int!
     var name: String!
     var userName: String!
