@@ -1,172 +1,121 @@
 //
 //  NetworkClient.swift
-//  Flamingo
+//  Flamingo 1.0
 //
-//  Created by Георгий Касапиди on 16.05.16.
-//  Copyright © 2016 ELN. All rights reserved.
+//  Created by Ilya Kulebyakin on 9/11/17.
+//  Copyright © 2017 e-Legion. All rights reserved.
 //
 
 import Foundation
-import Alamofire
-
-private enum Error: Swift.Error {
-    case inavlidRequestError
-}
 
 public protocol NetworkClient: class {
     
     @discardableResult
-    func sendRequest<T: NetworkRequest>(_ networkRequest: T, completionHandler: ((T.T?, NSError?, NetworkContext?) -> Void)?) -> CancelableOperation?
+    func sendRequest<Request: NetworkRequest>(_ networkRequest: Request, completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation?
+    
 }
 
 open class NetworkDefaultClient: NetworkClient {
-    
     private static let operationQueue = DispatchQueue(label: "com.flamingo.operation-queue", attributes: DispatchQueue.Attributes.concurrent)
     
     private let configuration: NetworkConfiguration
-    private let offlineCacheManager: NetworkOfflineCacheManager?
     
-    open let networkManager: SessionManager
+    open var session: URLSession
     
     public init(configuration: NetworkConfiguration,
-                offlineCacheManager: NetworkOfflineCacheManager? = nil,
-                networkManager: SessionManager = SessionManager.default) {
+                session: URLSession) {
         
         self.configuration = configuration
-        self.offlineCacheManager = offlineCacheManager
-        self.networkManager = networkManager
+        self.session = session
+    }
+    
+    private func completionQueue<Request: NetworkRequest>(for request: Request) -> DispatchQueue {
+        return request.completionQueue ?? configuration.completionQueue
+    }
+    
+    private func complete<Request: NetworkRequest>(request: Request, with completion: @escaping () -> Void) {
+        completionQueue(for: request).async {
+            completion()
+        }
     }
     
     @discardableResult
-    open func sendRequest<T : NetworkRequest>(_ networkRequest: T, completionHandler: ((T.T?, NSError?, NetworkContext?) -> Void)?) -> CancelableOperation? {
-        
+    public func sendRequest<Request>(_ networkRequest: Request, completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation? where Request : NetworkRequest {
         let urlRequest: URLRequest
         do {
-            urlRequest = try urlRequestFromNetworkRequest(networkRequest)
+            urlRequest = try self.urlRequest(from: networkRequest)
         } catch {
-            completionHandler?(nil, error as NSError, nil)
+            complete(request: networkRequest, with: {
+                completionHandler?(.error(error), nil)
+            })
             
             return nil
         }
         
-        let _completionQueue = networkRequest.completionQueue ?? self.configuration.completionQueue
-        
-        if configuration.useMocks {
-            if let mock = networkRequest.mockObject {
-                let mockOperation = NetworkMockOperation(URLRequest: urlRequest,
-                                                         mock: mock,
-                                                         dispatchQueue: NetworkDefaultClient.operationQueue,
-                                                         completionQueue: _completionQueue,
-                                                         responseSerializer: networkRequest.responseSerializer,
-                                                         completionHandler: completionHandler)
-                
-                mockOperation.resume()
-                
-                return mockOperation
+        let handler = self.requestHandler(with: networkRequest, urlRequest: urlRequest, completion: completionHandler)
+        let task = session.dataTask(with: urlRequest, completionHandler: handler)
+        task.resume()
+        return task
+    }
+    
+    private func requestHandler<Request: NetworkRequest>(with networkRequest: Request,
+                                                         urlRequest: URLRequest,
+                                                         completion: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> (Data?, URLResponse?, Swift.Error?) -> Void {
+        return {
+            data, response, error in
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                self.complete(request: networkRequest, with: {
+                    completion?(.error(Error.unableToGenerateContext), nil)
+                })
+                return
             }
-        }
-        
-        let _useCache = networkRequest.useCache && self.offlineCacheManager != nil
-        
-        let _request = networkManager.request(urlRequest).validate().response(queue: _completionQueue) {
-            (nResponse) in
+            let context = NetworkContext(request: urlRequest, response: httpResponse, data: data, error: error as NSError?)
             
-            let request = nResponse.request
-            let response = nResponse.response
-            let data = nResponse.data
-            let error = nResponse.error as NSError?
-            
-            let context = NetworkContext(request: request, response: response, data: data, error: error)
-            
-            var _data: Data? = data
-            
-            if _useCache && self.shouldUseCachedResponseDataIfError(error) {
-                NetworkDefaultClient.operationQueue.sync {
-                    _data = self.offlineCacheManager!.responseDataForRequest(urlRequest)
-                }
-            }
-            
-            NetworkDefaultClient.operationQueue.async {
-                let result = networkRequest.responseSerializer.serializeResponse(request, response, _data, nil)
+            type(of: self).operationQueue.async {
+                let result = networkRequest.responseSerializer.serialize(request: urlRequest, response: httpResponse, data: data, error: error)
                 
                 switch result {
                 case .success(let value):
-                    if _useCache {
-                        self.offlineCacheManager!.setResponseData(_data!, forRequest: urlRequest)
-                    }
-                    
-                    if let completionHandler = completionHandler {
-                        _completionQueue.async {
-                            completionHandler(value, error, context)
-                        }
-                    }
-                case .failure(let _error):
-                    if let completionHandler = completionHandler {
-                        _completionQueue.async {
-                            completionHandler(nil, _error as NSError, context)
-                        }
-                    }
+                    self.complete(request: networkRequest, with: {
+                        completion?(.success(value), context)
+                    })
+                case .error(let error):
+                    self.complete(request: networkRequest, with: {
+                        completion?(.error(error), context)
+                    })
                 }
             }
         }
-        
-        if configuration.debugMode {
-            debugPrint(_request)
-        }
-        
-        if !networkManager.startRequestsImmediately {
-            _request.resume()
-        }
-        
-        return _request
     }
     
-    open func urlRequestFromNetworkRequest<T : NetworkRequest>(_ networkRequest: T) throws -> URLRequest {
+    open func urlRequest<T: NetworkRequest>(from networkRequest: T) throws -> URLRequest {
         let _baseURL = networkRequest.baseURL ?? configuration.baseURL
         
-        guard let urlString = try? networkRequest.URL.asURL().absoluteString,
-              let baseURL = try? _baseURL?.asURL(),
-              let url = URL(string: urlString, relativeTo: baseURL) else {
-                throw Error.inavlidRequestError
+        let urlString = try networkRequest.URL.asURL().absoluteString
+        guard let baseURL = try _baseURL?.asURL(),
+            let url = URL(string: urlString, relativeTo: baseURL) else {
+                throw Error.invalidRequest
         }
         
         var urlRequest = URLRequest(url: url)
-        
-        urlRequest.timeoutInterval = networkRequest.timeoutInterval ?? configuration.defaultTimeoutInterval
-        
         urlRequest.httpMethod = networkRequest.method.rawValue
         
-        if let headers = networkRequest.headers {
-            for (headerName, headerValue) in headers {
-                urlRequest.setValue(headerValue, forHTTPHeaderField: headerName)
-            }
+        for (name, value) in (networkRequest.headers ?? [:]) {
+            urlRequest.setValue(value, forHTTPHeaderField: name)
+        }
+        for (name, value) in (customHeadersForRequest(networkRequest) ?? [:]) {
+            urlRequest.setValue(value, forHTTPHeaderField: name)
         }
         
-        if let customHeaders = customHeadersForRequest(networkRequest) {
-            for (headerName, headerValue) in customHeaders {
-                urlRequest.setValue(headerValue, forHTTPHeaderField: headerName)
-            }
-        }
+        try networkRequest.parametersEncoder.encode(parameters: networkRequest.parameters, to: &urlRequest)
         
-        let encodedMutableURLRequest: URLRequest
-        do {
-            encodedMutableURLRequest = try networkRequest.parametersEncoding.encode(urlRequest, with: networkRequest.parameters)
-        } catch {
-            throw Error.inavlidRequestError
-        }
+        return urlRequest
         
-        return encodedMutableURLRequest
     }
     
     open func customHeadersForRequest<T : NetworkRequest>(_ networkRequest: T) -> [String : String]? {
         return nil
     }
     
-    open func shouldUseCachedResponseDataIfError(_ error: NSError?) -> Bool {
-        if let error = error {
-            return error.isNetworkConnectionError
-        }
-        
-        return false
-    }
 }

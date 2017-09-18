@@ -1,29 +1,22 @@
 //
 //  CancelableOperation.swift
-//  Flamingo
+//  Flamingo 1.0
 //
-//  Created by Георгий Касапиди on 16.05.16.
-//  Copyright © 2016 ELN. All rights reserved.
+//  Created by Ilya Kulebyakin on 9/15/17.
+//  Copyright © 2017 e-Legion. All rights reserved.
 //
 
 import Foundation
-import Alamofire
 
 public protocol CancelableOperation {
     
     func cancelOperation()
 }
 
-extension Request: CancelableOperation {
+extension URLSessionDataTask: CancelableOperation {
     
     public func cancelOperation() {
         cancel()
     }
-}
-
-extension NetworkMockOperation: CancelableOperation {
     
-    public func cancelOperation() {
-        cancel()
-    }
 }

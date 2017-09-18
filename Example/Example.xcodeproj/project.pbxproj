@@ -9,24 +9,18 @@
 /* Begin PBXBuildFile section */
 		33223EDBDCD4B1D3820E4E19 /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9948B69825BF9B59F5F2D514 /* Pods_Example.framework */; };
 		8F1B4AB91D0D8E6000BEEC8C /* UsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1B4AB81D0D8E6000BEEC8C /* UsersRequest.swift */; };
-		8F1B4ABC1D0D95B000BEEC8C /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1B4ABB1D0D95B000BEEC8C /* ImageRequest.swift */; };
 		8F7CEBCB1CE9B2A000D6CCBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBCA1CE9B2A000D6CCBA /* AppDelegate.swift */; };
 		8F7CEBD21CE9B2A000D6CCBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F7CEBD11CE9B2A000D6CCBA /* Assets.xcassets */; };
 		8F7CEBDE1CE9B4CC00D6CCBA /* JSONDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBDC1CE9B4CC00D6CCBA /* JSONDemoViewController.swift */; };
 		8F7CEBDF1CE9B4CC00D6CCBA /* JSONDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F7CEBDD1CE9B4CC00D6CCBA /* JSONDemoViewController.xib */; };
 		8FC9EDED1CE9BFE400C807DA /* UserModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC9EDEC1CE9BFE400C807DA /* UserModels.swift */; };
 		8FC9EDEF1CE9C47400C807DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FC9EDEE1CE9C47400C807DA /* LaunchScreen.storyboard */; };
-		8FC9EDF11CE9C7C800C807DA /* UsersMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC9EDF01CE9C7C800C807DA /* UsersMock.swift */; };
-		8FC9EDF51CE9CB3600C807DA /* ImageDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC9EDF31CE9CB3600C807DA /* ImageDemoViewController.swift */; };
-		8FC9EDF61CE9CB3600C807DA /* ImageDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FC9EDF41CE9CB3600C807DA /* ImageDemoViewController.xib */; };
 		8FC9EDF91CE9F39200C807DA /* demo_image.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 8FC9EDF81CE9F39200C807DA /* demo_image.jpeg */; };
-		8FC9EDFB1CE9F3A900C807DA /* ImageMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC9EDFA1CE9F3A900C807DA /* ImageMock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		356712F42FB575B7DFEFD01F /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
 		8F1B4AB81D0D8E6000BEEC8C /* UsersRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersRequest.swift; sourceTree = "<group>"; };
-		8F1B4ABB1D0D95B000BEEC8C /* ImageRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRequest.swift; sourceTree = "<group>"; };
 		8F7CEBC71CE9B2A000D6CCBA /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F7CEBCA1CE9B2A000D6CCBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F7CEBD11CE9B2A000D6CCBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -35,11 +29,7 @@
 		8F7CEBDD1CE9B4CC00D6CCBA /* JSONDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JSONDemoViewController.xib; sourceTree = "<group>"; };
 		8FC9EDEC1CE9BFE400C807DA /* UserModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModels.swift; sourceTree = "<group>"; };
 		8FC9EDEE1CE9C47400C807DA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8FC9EDF01CE9C7C800C807DA /* UsersMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersMock.swift; sourceTree = "<group>"; };
-		8FC9EDF31CE9CB3600C807DA /* ImageDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDemoViewController.swift; sourceTree = "<group>"; };
-		8FC9EDF41CE9CB3600C807DA /* ImageDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageDemoViewController.xib; sourceTree = "<group>"; };
 		8FC9EDF81CE9F39200C807DA /* demo_image.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = demo_image.jpeg; sourceTree = "<group>"; };
-		8FC9EDFA1CE9F3A900C807DA /* ImageMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageMock.swift; sourceTree = "<group>"; };
 		9948B69825BF9B59F5F2D514 /* Pods_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C196946332D3C8BEBEB987F0 /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,7 +68,6 @@
 			isa = PBXGroup;
 			children = (
 				8FC9EDF71CE9F38400C807DA /* Resources */,
-				8FC9EDF21CE9CB1E00C807DA /* Image Demo */,
 				8FC9EDEB1CE9BF9700C807DA /* JSON Demo */,
 				8F7CEBCA1CE9B2A000D6CCBA /* AppDelegate.swift */,
 				8F7CEBD61CE9B2A000D6CCBA /* Info.plist */,
@@ -93,21 +82,9 @@
 				8F7CEBDC1CE9B4CC00D6CCBA /* JSONDemoViewController.swift */,
 				8F7CEBDD1CE9B4CC00D6CCBA /* JSONDemoViewController.xib */,
 				8FC9EDEC1CE9BFE400C807DA /* UserModels.swift */,
-				8FC9EDF01CE9C7C800C807DA /* UsersMock.swift */,
 				8F1B4AB81D0D8E6000BEEC8C /* UsersRequest.swift */,
 			);
 			name = "JSON Demo";
-			sourceTree = "<group>";
-		};
-		8FC9EDF21CE9CB1E00C807DA /* Image Demo */ = {
-			isa = PBXGroup;
-			children = (
-				8FC9EDF31CE9CB3600C807DA /* ImageDemoViewController.swift */,
-				8FC9EDF41CE9CB3600C807DA /* ImageDemoViewController.xib */,
-				8FC9EDFA1CE9F3A900C807DA /* ImageMock.swift */,
-				8F1B4ABB1D0D95B000BEEC8C /* ImageRequest.swift */,
-			);
-			name = "Image Demo";
 			sourceTree = "<group>";
 		};
 		8FC9EDF71CE9F38400C807DA /* Resources */ = {
@@ -171,7 +148,7 @@
 				TargetAttributes = {
 					8F7CEBC61CE9B2A000D6CCBA = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0900;
 					};
 				};
 			};
@@ -202,7 +179,6 @@
 				8FC9EDEF1CE9C47400C807DA /* LaunchScreen.storyboard in Resources */,
 				8F7CEBD21CE9B2A000D6CCBA /* Assets.xcassets in Resources */,
 				8F7CEBDF1CE9B4CC00D6CCBA /* JSONDemoViewController.xib in Resources */,
-				8FC9EDF61CE9CB3600C807DA /* ImageDemoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,7 +212,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		BD1CCA72B1CE530BCE398CF3 /* [CP] Embed Pods Frameworks */ = {
@@ -262,12 +238,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F7CEBCB1CE9B2A000D6CCBA /* AppDelegate.swift in Sources */,
-				8F1B4ABC1D0D95B000BEEC8C /* ImageRequest.swift in Sources */,
-				8FC9EDFB1CE9F3A900C807DA /* ImageMock.swift in Sources */,
 				8F1B4AB91D0D8E6000BEEC8C /* UsersRequest.swift in Sources */,
 				8FC9EDED1CE9BFE400C807DA /* UserModels.swift in Sources */,
-				8FC9EDF51CE9CB3600C807DA /* ImageDemoViewController.swift in Sources */,
-				8FC9EDF11CE9C7C800C807DA /* UsersMock.swift in Sources */,
 				8F7CEBDE1CE9B4CC00D6CCBA /* JSONDemoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -373,7 +345,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.e-legion.flamingo-example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -387,7 +360,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.e-legion.flamingo-example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

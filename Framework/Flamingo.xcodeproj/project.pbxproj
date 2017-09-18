@@ -7,69 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		37FB15461D11ED7A001B69C2 /* NSError+Flamingo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FB15451D11ED7A001B69C2 /* NSError+Flamingo.swift */; };
-		8F0F6F5E1D109A4D00DD911F /* NetworkRequestMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0F6F5D1D109A4D00DD911F /* NetworkRequestMock.swift */; };
-		8F0F6F601D109A7400DD911F /* NetworkMockOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0F6F5F1D109A7400DD911F /* NetworkMockOperation.swift */; };
-		8F51C3951D10972C001AB5F0 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F51C3941D10972C001AB5F0 /* NetworkRequest.swift */; };
 		8F7CEB9B1CE9AFCD00D6CCBA /* Flamingo.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F7CEB9A1CE9AFCD00D6CCBA /* Flamingo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8F7CEBAF1CE9B03F00D6CCBA /* NetworkOfflineCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBA51CE9B03F00D6CCBA /* NetworkOfflineCache.swift */; };
-		8F7CEBB01CE9B03F00D6CCBA /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBA61CE9B03F00D6CCBA /* NetworkClient.swift */; };
-		8F7CEBB21CE9B03F00D6CCBA /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBA81CE9B03F00D6CCBA /* NetworkConfiguration.swift */; };
-		8F7CEBB81CE9B08F00D6CCBA /* CancelableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBB71CE9B08F00D6CCBA /* CancelableOperation.swift */; };
-		8F7CEBBB1CE9B14700D6CCBA /* Alamofire+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBBA1CE9B14700D6CCBA /* Alamofire+ObjectMapper.swift */; };
-		8F7CEBBD1CE9B1DC00D6CCBA /* ObjectMapper+NSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CEBBC1CE9B1DC00D6CCBA /* ObjectMapper+NSData.swift */; };
-		8F7FCA9C1D5CEB21003552CB /* NetworkContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7FCA9B1D5CEB21003552CB /* NetworkContext.swift */; };
-		D802B7AAFA9688D25EBB3AF6 /* Pods_Flamingo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7BAE7B9D52B3E98ED2B2AE /* Pods_Flamingo.framework */; };
+		FE80C35D1F6FE5420060141B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C35B1F6FE4080060141B /* Result.swift */; };
+		FE80C35E1F6FE5450060141B /* CancelableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3531F6FE4080060141B /* CancelableOperation.swift */; };
+		FE80C35F1F6FE5470060141B /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3591F6FE4080060141B /* NetworkConfiguration.swift */; };
+		FE80C3601F6FE5490060141B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3541F6FE4080060141B /* Error.swift */; };
+		FE80C3611F6FE54B0060141B /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3581F6FE4080060141B /* NetworkClient.swift */; };
+		FE80C3621F6FE54D0060141B /* NetworkContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3561F6FE4080060141B /* NetworkContext.swift */; };
+		FE80C3631F6FE54F0060141B /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C35C1F6FE4080060141B /* NetworkRequest.swift */; };
+		FE80C3641F6FE5510060141B /* ParametersEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3551F6FE4080060141B /* ParametersEncoding.swift */; };
+		FE80C3651F6FE5560060141B /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C35A1F6FE4080060141B /* ResponseSerialization.swift */; };
+		FE80C3661F6FE5570060141B /* URLConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3571F6FE4080060141B /* URLConvertible.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		03FF46BFC6D2EF0F7ED1A270 /* Pods-Flamingo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flamingo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Flamingo/Pods-Flamingo.release.xcconfig"; sourceTree = "<group>"; };
-		37FB15451D11ED7A001B69C2 /* NSError+Flamingo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+Flamingo.swift"; sourceTree = "<group>"; };
-		5E7BAE7B9D52B3E98ED2B2AE /* Pods_Flamingo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flamingo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8F0F6F5D1D109A4D00DD911F /* NetworkRequestMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequestMock.swift; sourceTree = "<group>"; };
-		8F0F6F5F1D109A7400DD911F /* NetworkMockOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMockOperation.swift; sourceTree = "<group>"; };
-		8F51C3941D10972C001AB5F0 /* NetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		8F7CEB971CE9AFCD00D6CCBA /* Flamingo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flamingo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F7CEB9A1CE9AFCD00D6CCBA /* Flamingo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flamingo.h; sourceTree = "<group>"; };
 		8F7CEB9C1CE9AFCD00D6CCBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8F7CEBA51CE9B03F00D6CCBA /* NetworkOfflineCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkOfflineCache.swift; sourceTree = "<group>"; };
-		8F7CEBA61CE9B03F00D6CCBA /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
-		8F7CEBA81CE9B03F00D6CCBA /* NetworkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
-		8F7CEBB71CE9B08F00D6CCBA /* CancelableOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelableOperation.swift; sourceTree = "<group>"; };
-		8F7CEBBA1CE9B14700D6CCBA /* Alamofire+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire+ObjectMapper.swift"; sourceTree = "<group>"; };
-		8F7CEBBC1CE9B1DC00D6CCBA /* ObjectMapper+NSData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ObjectMapper+NSData.swift"; sourceTree = "<group>"; };
-		8F7FCA9B1D5CEB21003552CB /* NetworkContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkContext.swift; sourceTree = "<group>"; };
-		D10E15E46B4C5C5AC9D71363 /* Pods-Flamingo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flamingo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Flamingo/Pods-Flamingo.debug.xcconfig"; sourceTree = "<group>"; };
+		FE80C3531F6FE4080060141B /* CancelableOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelableOperation.swift; sourceTree = "<group>"; };
+		FE80C3541F6FE4080060141B /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		FE80C3551F6FE4080060141B /* ParametersEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersEncoding.swift; sourceTree = "<group>"; };
+		FE80C3561F6FE4080060141B /* NetworkContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkContext.swift; sourceTree = "<group>"; };
+		FE80C3571F6FE4080060141B /* URLConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConvertible.swift; sourceTree = "<group>"; };
+		FE80C3581F6FE4080060141B /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		FE80C3591F6FE4080060141B /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
+		FE80C35A1F6FE4080060141B /* ResponseSerialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseSerialization.swift; sourceTree = "<group>"; };
+		FE80C35B1F6FE4080060141B /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		FE80C35C1F6FE4080060141B /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFrameworksBuildPhase section */
-		8F7CEB931CE9AFCD00D6CCBA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D802B7AAFA9688D25EBB3AF6 /* Pods_Flamingo.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
 /* Begin PBXGroup section */
-		1DDAA9AA184BD92DC17BFF4F /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				D10E15E46B4C5C5AC9D71363 /* Pods-Flamingo.debug.xcconfig */,
-				03FF46BFC6D2EF0F7ED1A270 /* Pods-Flamingo.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		8F7CEB8D1CE9AFCD00D6CCBA = {
 			isa = PBXGroup;
 			children = (
 				8F7CEB991CE9AFCD00D6CCBA /* Flamingo */,
 				8F7CEB981CE9AFCD00D6CCBA /* Products */,
-				1DDAA9AA184BD92DC17BFF4F /* Pods */,
-				A33CFDE4765E8556494C03AE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,12 +66,15 @@
 		8F7CEBA21CE9B03F00D6CCBA /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				8F7CEBA61CE9B03F00D6CCBA /* NetworkClient.swift */,
-				8F7CEBA81CE9B03F00D6CCBA /* NetworkConfiguration.swift */,
-				8F7FCA9B1D5CEB21003552CB /* NetworkContext.swift */,
-				8F7CEBA51CE9B03F00D6CCBA /* NetworkOfflineCache.swift */,
-				8F51C3941D10972C001AB5F0 /* NetworkRequest.swift */,
-				8F0F6F5D1D109A4D00DD911F /* NetworkRequestMock.swift */,
+				FE80C3531F6FE4080060141B /* CancelableOperation.swift */,
+				FE80C3591F6FE4080060141B /* NetworkConfiguration.swift */,
+				FE80C3541F6FE4080060141B /* Error.swift */,
+				FE80C3581F6FE4080060141B /* NetworkClient.swift */,
+				FE80C3561F6FE4080060141B /* NetworkContext.swift */,
+				FE80C35C1F6FE4080060141B /* NetworkRequest.swift */,
+				FE80C3551F6FE4080060141B /* ParametersEncoding.swift */,
+				FE80C35A1F6FE4080060141B /* ResponseSerialization.swift */,
+				FE80C3571F6FE4080060141B /* URLConvertible.swift */,
 				8F7CEBB91CE9B0C800D6CCBA /* Utils */,
 			);
 			name = Source;
@@ -109,21 +84,9 @@
 		8F7CEBB91CE9B0C800D6CCBA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				8F7CEBBA1CE9B14700D6CCBA /* Alamofire+ObjectMapper.swift */,
-				8F7CEBB71CE9B08F00D6CCBA /* CancelableOperation.swift */,
-				8F0F6F5F1D109A7400DD911F /* NetworkMockOperation.swift */,
-				37FB15451D11ED7A001B69C2 /* NSError+Flamingo.swift */,
-				8F7CEBBC1CE9B1DC00D6CCBA /* ObjectMapper+NSData.swift */,
+				FE80C35B1F6FE4080060141B /* Result.swift */,
 			);
 			name = Utils;
-			sourceTree = "<group>";
-		};
-		A33CFDE4765E8556494C03AE /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				5E7BAE7B9D52B3E98ED2B2AE /* Pods_Flamingo.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,12 +107,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8F7CEB9F1CE9AFCD00D6CCBA /* Build configuration list for PBXNativeTarget "Flamingo" */;
 			buildPhases = (
-				C2EA6A50AE7E57D18EEF5A8F /* [CP] Check Pods Manifest.lock */,
 				8F7CEB921CE9AFCD00D6CCBA /* Sources */,
-				8F7CEB931CE9AFCD00D6CCBA /* Frameworks */,
 				8F7CEB941CE9AFCD00D6CCBA /* Headers */,
 				8F7CEB951CE9AFCD00D6CCBA /* Resources */,
-				CD2009EBD2BB4D52EE3473B2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -171,7 +131,7 @@
 				TargetAttributes = {
 					8F7CEB961CE9AFCD00D6CCBA = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = "";
 					};
 				};
 			};
@@ -202,55 +162,21 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		C2EA6A50AE7E57D18EEF5A8F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		CD2009EBD2BB4D52EE3473B2 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Flamingo/Pods-Flamingo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		8F7CEB921CE9AFCD00D6CCBA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F7CEBBB1CE9B14700D6CCBA /* Alamofire+ObjectMapper.swift in Sources */,
-				8F0F6F5E1D109A4D00DD911F /* NetworkRequestMock.swift in Sources */,
-				8F7CEBAF1CE9B03F00D6CCBA /* NetworkOfflineCache.swift in Sources */,
-				8F0F6F601D109A7400DD911F /* NetworkMockOperation.swift in Sources */,
-				8F7CEBB81CE9B08F00D6CCBA /* CancelableOperation.swift in Sources */,
-				8F7CEBB01CE9B03F00D6CCBA /* NetworkClient.swift in Sources */,
-				8F7CEBB21CE9B03F00D6CCBA /* NetworkConfiguration.swift in Sources */,
-				8F51C3951D10972C001AB5F0 /* NetworkRequest.swift in Sources */,
-				37FB15461D11ED7A001B69C2 /* NSError+Flamingo.swift in Sources */,
-				8F7FCA9C1D5CEB21003552CB /* NetworkContext.swift in Sources */,
-				8F7CEBBD1CE9B1DC00D6CCBA /* ObjectMapper+NSData.swift in Sources */,
+				FE80C3631F6FE54F0060141B /* NetworkRequest.swift in Sources */,
+				FE80C3601F6FE5490060141B /* Error.swift in Sources */,
+				FE80C3611F6FE54B0060141B /* NetworkClient.swift in Sources */,
+				FE80C3621F6FE54D0060141B /* NetworkContext.swift in Sources */,
+				FE80C3651F6FE5560060141B /* ResponseSerialization.swift in Sources */,
+				FE80C35D1F6FE5420060141B /* Result.swift in Sources */,
+				FE80C35E1F6FE5450060141B /* CancelableOperation.swift in Sources */,
+				FE80C3641F6FE5510060141B /* ParametersEncoding.swift in Sources */,
+				FE80C35F1F6FE5470060141B /* NetworkConfiguration.swift in Sources */,
+				FE80C3661F6FE5570060141B /* URLConvertible.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,8 +281,8 @@
 		};
 		8F7CEBA01CE9AFCD00D6CCBA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D10E15E46B4C5C5AC9D71363 /* Pods-Flamingo.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -369,14 +295,16 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.e-legion.flamingo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		8F7CEBA11CE9AFCD00D6CCBA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03FF46BFC6D2EF0F7ED1A270 /* Pods-Flamingo.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -389,7 +317,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.e-legion.flamingo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

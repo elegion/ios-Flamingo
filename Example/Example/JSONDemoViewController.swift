@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 import Flamingo
 
 class JSONDemoViewController: UIViewController {
@@ -38,10 +37,9 @@ class JSONDemoViewController: UIViewController {
     fileprivate var networkClient: NetworkClient!
     
     fileprivate func setupNetwork() {
-        let configuration = NetworkDefaultConfiguration(baseURL: "http://jsonplaceholder.typicode.com/", useMocks: true, debugMode: true)
-        let cacheManager = NetworkDefaultOfflineCacheManager(cacheName: "network_cache")
+        let configuration = NetworkDefaultConfiguration(baseURL: "http://jsonplaceholder.typicode.com/")
         
-        networkClient = NetworkDefaultClient(configuration: configuration, offlineCacheManager: cacheManager)
+        networkClient = NetworkDefaultClient(configuration: configuration, session: .shared)
     }
     
     fileprivate func loadUsersUsingMock(_ useMock: Bool) {
@@ -53,10 +51,18 @@ class JSONDemoViewController: UIViewController {
         
         let request = UsersRequest(useMock: useMock)
         
-        networkClient.sendRequest(request) { (users, error, context) in
-            let json = users?.toJSONString(prettyPrint: true)
+        networkClient.sendRequest(request) {
+            (result, context) in
             
-            self.textView.text = json
+            switch result {
+            case .success(let users):
+                let encoder = JSONEncoder()
+                encoder.outputFormatting = .prettyPrinted
+                let encoded = try? encoder.encode(users)
+                self.textView.text = String(data: encoded!, encoding: .utf8)
+            case .error:
+                break
+            }
             
             self.loadingIndicator.stopAnimating()
         }

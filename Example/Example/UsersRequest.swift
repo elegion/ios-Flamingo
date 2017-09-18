@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 import Flamingo
 
 struct UsersRequest: NetworkRequest {
@@ -28,11 +27,7 @@ struct UsersRequest: NetworkRequest {
         return true
     }
     
-    var responseSerializer: DataResponseSerializer<[User]> {
-        return DataResponseSerializer<User>.arrayResponseSerializer()
-    }
-    
-    var mockObject: NetworkRequestMock? {
-        return useMock ? UsersMock() : nil
+    var responseSerializer: CodableJSONSerializer<[User]> {
+        return CodableJSONSerializer<[User]>()
     }
 }

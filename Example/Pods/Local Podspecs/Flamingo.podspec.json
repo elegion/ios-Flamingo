@@ -1,6 +1,6 @@
 {
   "name": "Flamingo",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "summary": "Swift network manager",
   "description": "Based on Alamofire, ObjectMapper and Cache",
   "homepage": "https://github.com/elegion/Flamingo",
@@ -11,7 +11,7 @@
   "screenshots": "https://raw.githubusercontent.com/elegion/ios-Flamingo/master/logo.png",
   "source": {
     "git": "https://github.com/elegion/ios-Flamingo.git",
-    "tag": "v0.2.2"
+    "tag": "v1.0.0"
   },
   "platforms": {
     "ios": "9.0"
@@ -21,16 +21,5 @@
   "frameworks": [
     "Foundation",
     "UIKit"
-  ],
-  "dependencies": {
-    "Alamofire": [
-      "~> 4.4.0"
-    ],
-    "Cache": [
-      "~> 2.2.2"
-    ],
-    "ObjectMapper": [
-      "~> 2.2.5"
-    ]
-  }
+  ]
 }

@@ -1,66 +1,53 @@
 //
 //  NetworkRequest.swift
-//  Flamingo
+//  Flamingo 1.0
 //
-//  Created by Георгий Касапиди on 14.06.16.
-//  Copyright © 2016 ELN. All rights reserved.
+//  Created by Ilya Kulebyakin on 9/11/17.
+//  Copyright © 2017 e-Legion. All rights reserved.
 //
 
 import Foundation
-import Alamofire
 
 public protocol NetworkRequest {
     
-    associatedtype T
+    associatedtype ResponseSerializer: ResponseSerialization
+    typealias Response = ResponseSerializer.Serialized
     
     var URL: URLConvertible { get }
     var method: HTTPMethod { get }
-    var parameters: [String : Any]? { get }
-    var parametersEncoding: ParameterEncoding { get }
+    var parameters: [String: Any?]? { get }
+    var parametersEncoder: ParametersEncoder { get }
+    var headers: [String: String?]? { get }
     var baseURL: URLConvertible? { get }
-    var headers: [String : String]? { get }
-    var useCache: Bool { get }
-    var responseSerializer: DataResponseSerializer<T> { get }
-    var mockObject: NetworkRequestMock? { get }
-    var timeoutInterval: TimeInterval? { get }
+    var responseSerializer: ResponseSerializer { get }
     var completionQueue: DispatchQueue? { get }
+    
 }
 
 public extension NetworkRequest {
     
-    public var method: HTTPMethod {
+    var method: HTTPMethod {
         return .get
     }
     
-    public var parameters: [String : Any]? {
+    var parameters: [String: Any?]? {
         return nil
     }
     
-    public var parametersEncoding: ParameterEncoding {
-        return URLEncoding()
+    var parametersEncoder: ParametersEncoder {
+        return URLParametersEncoder()
     }
     
-    public var baseURL: URLConvertible? {
+    var headers: [String: String?]? {
         return nil
     }
     
-    public var headers: [String : String]? {
+    var baseURL: URLConvertible? {
         return nil
     }
     
-    public var useCache: Bool {
-        return false
+    var completionQueue: DispatchQueue? {
+        return .main
     }
     
-    public var mockObject: NetworkRequestMock? {
-        return nil
-    }
-    
-    public var timeoutInterval: TimeInterval? {
-        return nil
-    }
-    
-    public var completionQueue: DispatchQueue? {
-        return nil
-    }
 }
