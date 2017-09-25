@@ -10,42 +10,72 @@ import Foundation
 
 public protocol ParametersEncoder {
     
-    func encode(parameters: [String: Any?]?, to request: inout URLRequest) throws
+    func encode(parameters: [String: Any]?, to request: inout URLRequest) throws
     
 }
 
 public struct URLParametersEncoder: ParametersEncoder {
     
-    public func encode(parameters: [String : Any?]?, to request: inout URLRequest) throws {
-        guard let stringParameters = parameters as? [String: String?] else {
+    public init() { }
+    
+    public func encode(parameters: [String : Any]?, to request: inout URLRequest) throws {
+        guard let parameters = parameters, !parameters.isEmpty else {
             return
         }
-        guard let requestURL = request.url else {
+        guard let url = request.url, var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
             throw Error.parametersEncodingError(.unableToRetrieveRequestURL)
         }
-        
-        let items = stringParameters.map(URLQueryItem.init)
-        var urlComponents = URLComponents(url: requestURL, resolvingAgainstBaseURL: false)
-        if urlComponents?.queryItems != nil {
-            urlComponents?.queryItems?.append(contentsOf: items)
+        let queryItems = parameters.flatMap(self.queryComponents)
+        if urlComponents.queryItems == nil || urlComponents.queryItems?.isEmpty == true {
+            urlComponents.queryItems = queryItems
         } else {
-            urlComponents?.queryItems = items
+            urlComponents.queryItems?.append(contentsOf: queryItems)
         }
-        
-        guard let resultURL = urlComponents?.url else {
-            throw Error.parametersEncodingError(.unableToAssembleURLAfterAddingURLQueryItems)
+        if let resultURL = urlComponents.url {
+            request.url = resultURL
         }
-        
-        request.url = resultURL
     }
     
+    public func queryComponents(fromKey key: String, value: Any) -> [URLQueryItem] {
+        var components: [URLQueryItem] = []
+        
+        if let dictionary = value as? [String: Any] {
+            for (nestedKey, value) in dictionary {
+                components += queryComponents(fromKey: "\(key)[\(nestedKey)]", value: value)
+            }
+        } else if let array = value as? [Any] {
+            for value in array {
+                components += queryComponents(fromKey: "\(key)[]", value: value)
+            }
+        } else if let bool = value as? Bool {
+            components.append(URLQueryItem.init(name: escape(key), value: bool ? "1" : "0"))
+        } else {
+            components.append(URLQueryItem(name:escape(key), value: escape("\(value)")))
+        }
+        
+        return components
+    }
+    
+    public func escape(_ string: String) -> String {
+        let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
+        let subDelimitersToEncode = "!$&'()*+,;="
+        
+        var allowedCharacterSet = CharacterSet.urlQueryAllowed
+        allowedCharacterSet.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
+        
+        return string.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) ?? string
+    }
 }
 
 public struct JSONParametersEncoder: ParametersEncoder {
     
-    var encodingOptions: JSONSerialization.WritingOptions = []
+    var encodingOptions: JSONSerialization.WritingOptions
     
-    public func encode(parameters: [String : Any?]?, to request: inout URLRequest) throws {
+    public init(encodingOptions: JSONSerialization.WritingOptions = []) {
+        self.encodingOptions = encodingOptions
+    }
+    
+    public func encode(parameters: [String : Any]?, to request: inout URLRequest) throws {
         guard let parameters = parameters else { return }
         
         do {
