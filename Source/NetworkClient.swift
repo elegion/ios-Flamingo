@@ -40,7 +40,7 @@ open class NetworkDefaultClient: NetworkClient {
     }
     
     @discardableResult
-    public func sendRequest<Request>(_ networkRequest: Request, completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation? where Request : NetworkRequest {
+    open func sendRequest<Request>(_ networkRequest: Request, completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation? where Request : NetworkRequest {
         let urlRequest: URLRequest
         do {
             urlRequest = try self.urlRequest(from: networkRequest)
