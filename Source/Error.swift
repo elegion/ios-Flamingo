@@ -22,18 +22,16 @@ public enum Error: Swift.Error {
         case unacceptableContentType(acceptableContentTypes: [String], responseContentType: String)
         case unacceptableStatusCode(code: Int)
     }
+
+    public enum ParametersEncodingErrorReason {
+        case jsonEncodingFailed(Swift.Error)
+        case unableToRetrieveRequestURL
+        case unableToAssembleURLAfterAddingURLQueryItems
+    }
     
     case invalidRequest
     case unableToGenerateContext
     case unableToRetrieveDataAndError
     case parametersEncodingError(ParametersEncodingErrorReason)
     case responseValidationFailed(reason: ResponseValidationFailureReason)    
-}
-
-public enum ParametersEncodingErrorReason {
-    
-    case jsonEncodingFailed(Swift.Error)
-    case unableToRetrieveRequestURL
-    case unableToAssembleURLAfterAddingURLQueryItems
-    
 }

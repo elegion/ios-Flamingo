@@ -62,7 +62,18 @@ open class NetworkDefaultClient: NetworkClient {
                                                          urlRequest: URLRequest,
                                                          completion: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> (Data?, URLResponse?, Swift.Error?) -> Void {
         return {
-            data, response, error in
+            [unowned self] data, response, error in
+
+            if let response = response,
+                self.configuration.debugMode {
+                if let data = data,
+                    let dataAsString = String(data: data, encoding: .utf8) {
+
+                    self.debugPrint(response, dataAsString)
+                } else {
+                    self.debugPrint(response)
+                }
+            }
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 self.complete(request: networkRequest, with: {
@@ -121,11 +132,13 @@ open class NetworkDefaultClient: NetworkClient {
         try networkRequest.parametersEncoder.encode(parameters: networkRequest.parameters, to: &urlRequest)
         
         return urlRequest
-        
     }
     
     open func customHeadersForRequest<T : NetworkRequest>(_ networkRequest: T) -> [String : String]? {
         return nil
     }
-    
+
+    public func debugPrint(_ items: Any...) {
+        Swift.debugPrint(String(describing: type(of: self).self), items)
+    }
 }
