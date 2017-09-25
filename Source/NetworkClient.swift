@@ -70,16 +70,17 @@ open class NetworkDefaultClient: NetworkClient {
                 })
                 return
             }
+            
+            let context = NetworkContext(request: urlRequest, response: httpResponse, data: data, error: error as NSError?)
 
             let validator = Validator(request: urlRequest, response: httpResponse, data: data)
             validator.validate()
             if let validationError = validator.validationErrors.first {
                 self.complete(request: networkRequest, with: {
-                    completion?(.error(validationError), nil)
+                    completion?(.error(validationError), context)
                 })
                 return
             }
-            let context = NetworkContext(request: urlRequest, response: httpResponse, data: data, error: error as NSError?)
             
             type(of: self).operationQueue.async {
                 let result = networkRequest.responseSerializer.serialize(request: urlRequest, response: httpResponse, data: data, error: error)
