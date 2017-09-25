@@ -17,7 +17,7 @@ fileprivate struct MockData: Codable {
 fileprivate class TestRequest: NetworkRequest {
 
     var URL: URLConvertible {
-        return "/5185415ba171ea3a00704eed"
+        return "v2/59c956433f0000910183f797"
     }
 
     var method: HTTPMethod {
@@ -41,7 +41,7 @@ class ValidationTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        let configuration = NetworkDefaultConfiguration(baseURL: "http://www.mocky.io/v2/")
+        let configuration = NetworkDefaultConfiguration(baseURL: "http://www.mocky.io/")
         client = NetworkDefaultClient(configuration: configuration, session: .shared)
     }
     
@@ -63,7 +63,7 @@ class ValidationTests: XCTestCase {
                 XCTFail("Should be error")
             case .error(let error):
                 if let statusCode = context?.response?.statusCode {
-                    XCTAssertEqual(statusCode, 404, "Not correct status code")
+                    XCTAssertEqual(statusCode, 301, "Not correct status code")
                 } else {
                     XCTFail("Should be another error, \(error)")
                 }
