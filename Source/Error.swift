@@ -9,12 +9,25 @@
 import Foundation
 
 public enum Error: Swift.Error {
+
+    /// The underlying reason the response validation error occurred.
+    ///
+    /// - missingContentType:      The response did not contain a `Content-Type` and the `acceptableContentTypes`
+    ///                            provided did not contain wildcard type.
+    /// - unacceptableContentType: The response `Content-Type` did not match any type in the provided
+    ///                            `acceptableContentTypes`.
+    /// - unacceptableStatusCode:  The response status code was not acceptable.
+    public enum ResponseValidationFailureReason {
+        case missingContentType(acceptableContentTypes: [String])
+        case unacceptableContentType(acceptableContentTypes: [String], responseContentType: String)
+        case unacceptableStatusCode(code: Int)
+    }
     
     case invalidRequest
     case unableToGenerateContext
     case unableToRetrieveDataAndError
     case parametersEncodingError(ParametersEncodingErrorReason)
-    
+    case responseValidationFailed(reason: ResponseValidationFailureReason)    
 }
 
 public enum ParametersEncodingErrorReason {

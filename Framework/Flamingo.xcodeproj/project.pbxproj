@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8F7CEB9B1CE9AFCD00D6CCBA /* Flamingo.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F7CEB9A1CE9AFCD00D6CCBA /* Flamingo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		94EE07DE1F7976F40095D039 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EE07DD1F7976F40095D039 /* Validation.swift */; };
 		FE80C35D1F6FE5420060141B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C35B1F6FE4080060141B /* Result.swift */; };
 		FE80C35E1F6FE5450060141B /* CancelableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3531F6FE4080060141B /* CancelableOperation.swift */; };
 		FE80C35F1F6FE5470060141B /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3591F6FE4080060141B /* NetworkConfiguration.swift */; };
@@ -24,6 +25,7 @@
 		8F7CEB971CE9AFCD00D6CCBA /* Flamingo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flamingo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F7CEB9A1CE9AFCD00D6CCBA /* Flamingo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flamingo.h; sourceTree = "<group>"; };
 		8F7CEB9C1CE9AFCD00D6CCBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94EE07DD1F7976F40095D039 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		FE80C3531F6FE4080060141B /* CancelableOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelableOperation.swift; sourceTree = "<group>"; };
 		FE80C3541F6FE4080060141B /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		FE80C3551F6FE4080060141B /* ParametersEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersEncoding.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				FE80C35A1F6FE4080060141B /* ResponseSerialization.swift */,
 				FE80C3571F6FE4080060141B /* URLConvertible.swift */,
 				8F7CEBB91CE9B0C800D6CCBA /* Utils */,
+				94EE07DD1F7976F40095D039 /* Validation.swift */,
 			);
 			name = Source;
 			path = ../../Source;
@@ -169,6 +172,7 @@
 			files = (
 				FE80C3631F6FE54F0060141B /* NetworkRequest.swift in Sources */,
 				FE80C3601F6FE5490060141B /* Error.swift in Sources */,
+				94EE07DE1F7976F40095D039 /* Validation.swift in Sources */,
 				FE80C3611F6FE54B0060141B /* NetworkClient.swift in Sources */,
 				FE80C3621F6FE54D0060141B /* NetworkContext.swift in Sources */,
 				FE80C3651F6FE5560060141B /* ResponseSerialization.swift in Sources */,

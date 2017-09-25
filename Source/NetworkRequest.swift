@@ -21,7 +21,6 @@ public protocol NetworkRequest {
     var baseURL: URLConvertible? { get }
     var responseSerializer: ResponseSerializer { get }
     var completionQueue: DispatchQueue? { get }
-    
 }
 
 public extension NetworkRequest {
