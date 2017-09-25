@@ -19,6 +19,8 @@ public struct DataResponseSerializer: ResponseSerialization {
     
     public typealias Serialized = Data
     
+    public init() { }
+    
     public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<Data> {
         if let data  = data {
             return .success(data)
@@ -57,8 +59,15 @@ public struct CodableJSONSerializer<Serialized: Decodable>: ResponseSerializatio
     
     let decoder: JSONDecoder
     
-    public init(decoder: JSONDecoder = JSONDecoder()) {
+    public init(decoder: JSONDecoder) {
         self.decoder = decoder
+    }
+    
+    public init(dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate, dataDecodingStrategy: JSONDecoder.DataDecodingStrategy = .base64, nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy = .throw) {
+        self.init(decoder: JSONDecoder())
+        decoder.dateDecodingStrategy = dateDecodingStrategy
+        decoder.dataDecodingStrategy = dataDecodingStrategy
+        decoder.nonConformingFloatDecodingStrategy = nonConformingFloatDecodingStrategy
     }
     
     public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<Serialized> {
