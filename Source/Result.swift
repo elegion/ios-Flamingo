@@ -15,9 +15,9 @@ public enum Result<Value> {
     
 }
 
-extension Result {
+public extension Result {
     
-    var value: Value? {
+    public var value: Value? {
         switch self {
         case .success(let result):
             return result
@@ -26,12 +26,21 @@ extension Result {
         }
     }
     
-    var error: Swift.Error? {
+    public var error: Swift.Error? {
         switch self {
         case .success:
             return nil
         case .error(let result):
             return result
+        }
+    }
+    
+    public var isSuccess: Bool {
+        switch self {
+        case .success:
+            return true
+        case .error:
+            return false
         }
     }
     
