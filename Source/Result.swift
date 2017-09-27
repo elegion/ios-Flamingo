@@ -8,17 +8,18 @@
 
 import Foundation
 
-public enum Result<Value, ErrorValue: Swift.Error> {
-    public struct Error {
-        let inResponse: Swift.Error
-        let typed: ErrorValue?
-        init(_ inResponse: Swift.Error, _ typed: ErrorValue?) {
-            self.inResponse = inResponse
-            self.typed = typed
-        }
+public struct ResultError<E: Swift.Error> {
+    public let inResponse: Swift.Error
+    public let typed: E?
+    init(_ inResponse: Swift.Error, _ typed: E?) {
+        self.inResponse = inResponse
+        self.typed = typed
     }
+}
+
+public enum Result<Value, ErrorValue: Swift.Error> {
     case success(Value)
-    case error(Error)
+    case error(ResultError<ErrorValue>)
 }
 
 public extension Result {

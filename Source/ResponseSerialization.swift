@@ -23,12 +23,12 @@ public struct DataResponseSerializer: ResponseSerialization {
     public init() { }
     
     public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<Data, ErrorType> {
-        if let data  = data {
+        if let data = data {
             return .success(data)
         } else if let error = error {
-            return .error(Result.Error(error, nil))
+            return .error(ResultError(error, nil))
         } else {
-            return .error(Result.Error(Error.unableToRetrieveDataAndError, nil))
+            return .error(ResultError(Error.unableToRetrieveDataAndError, nil))
         }
     }
     
@@ -49,9 +49,9 @@ public struct StringResponseSerializer: ResponseSerialization {
         if let data = data, let resultString = String(data: data, encoding: encoding) {
             return .success(resultString)
         } else if let error = error {
-            return .error(Result.Error(error, nil))
+            return .error(ResultError(error, nil))
         } else {
-            return .error(Result.Error(Error.unableToRetrieveDataAndError, nil))
+            return .error(ResultError(Error.unableToRetrieveDataAndError, nil))
         }
     }
     
@@ -78,7 +78,7 @@ public struct CodableJSONSerializer<Serialized: Decodable, ErrorType: Swift.Erro
     
     public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<Serialized, ErrorType> {
         guard let data = data else {
-            return .error(Result.Error(error ?? Error.unableToRetrieveDataAndError, nil))
+            return .error(ResultError(error ?? Error.unableToRetrieveDataAndError, nil))
         }
         
         let result: Serialized
@@ -86,7 +86,7 @@ public struct CodableJSONSerializer<Serialized: Decodable, ErrorType: Swift.Erro
             result = try decoder.decode(Serialized.self, from: data)
         } catch {
             let typedError = try? decoder.decode(ErrorType.self, from: data)
-            return .error(Result.Error(error, typedError))
+            return .error(ResultError(error, typedError))
         }
         
         return .success(result)

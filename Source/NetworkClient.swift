@@ -46,7 +46,7 @@ open class NetworkDefaultClient: NetworkClient {
             urlRequest = try self.urlRequest(from: networkRequest)
         } catch {
             complete(request: networkRequest, with: {
-                completionHandler?(.error(Result.Error(error, nil)), nil)
+                completionHandler?(.error(ResultError(error, nil)), nil)
             })
             
             return nil
@@ -77,7 +77,7 @@ open class NetworkDefaultClient: NetworkClient {
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 self.complete(request: networkRequest, with: {
-                    completion?(.error(Result.Error(Error.unableToGenerateContext, nil)), nil)
+                    completion?(.error(ResultError(Error.unableToGenerateContext, nil)), nil)
                 })
                 return
             }
@@ -88,7 +88,7 @@ open class NetworkDefaultClient: NetworkClient {
             validator.validate()
             if let validationError = validator.validationErrors.first {
                 self.complete(request: networkRequest, with: {
-                    completion?(.error(Result.Error(validationError, nil)), context)
+                    completion?(.error(ResultError(validationError, nil)), context)
                 })
                 return
             }
