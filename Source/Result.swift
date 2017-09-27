@@ -8,12 +8,15 @@
 
 import Foundation
 
-public struct ResultError<E: Swift.Error> {
+public struct ResultError<Value: Swift.Error> {
     public let inResponse: Swift.Error
-    public let typed: E?
-    init(_ inResponse: Swift.Error, _ typed: E?) {
+    public let typed: Value?
+    init(_ inResponse: Swift.Error, _ typed: Value?) {
         self.inResponse = inResponse
         self.typed = typed
+    }
+    public var localizedDescription: String {
+        return typed?.localizedDescription ?? inResponse.localizedDescription
     }
 }
 
@@ -39,6 +42,15 @@ public extension Result {
             return nil
         case .error(let result):
             return result.typed ?? result.inResponse
+        }
+    }
+
+    public var typedError: ErrorValue? {
+        switch self {
+        case .success:
+            return nil
+        case .error(let error):
+            return error.typed
         }
     }
     

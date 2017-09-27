@@ -65,7 +65,7 @@ class ValidationTests: XCTestCase {
                 if let statusCode = context?.response?.statusCode {
                     XCTAssertEqual(statusCode, 301, "Not correct status code")
                 } else {
-                    XCTFail("Should be another error, \(error)")
+                    XCTFail("Should be another error, \(error.localizedDescription)")
                 }
             }
             asyncExpectation.fulfill()

@@ -58,7 +58,6 @@ public struct StringResponseSerializer: ResponseSerialization {
 }
 
 public struct DecodableError: Swift.Error, Decodable {
-
 }
 
 public struct CodableJSONSerializer<Serialized: Decodable, ErrorType: Swift.Error>: ResponseSerialization where ErrorType: Decodable {
