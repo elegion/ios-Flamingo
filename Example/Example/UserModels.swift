@@ -8,28 +8,25 @@
 
 import Foundation
 
-class GeoLocation: Codable {
+struct GeoLocation: Codable {
     var lat: String
     var lng: String
-    
 }
 
-class Address: Codable {
+struct Address: Codable {
     var street: String
     var suite: String
     var city: String
     var geo: GeoLocation
-    
 }
 
-class Company: Codable {
+struct Company: Codable {
     var name: String
     var catchPhrase: String
     var bs: String
-
 }
 
-class User: Codable {
+struct User: Codable {
     var id: Int
     var name: String
     var username: String

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8F7CEB9B1CE9AFCD00D6CCBA /* Flamingo.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F7CEB9A1CE9AFCD00D6CCBA /* Flamingo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		948F043C1F7C294D00ED720E /* UserModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948F043A1F7C294D00ED720E /* UserModels.swift */; };
+		948F043D1F7C294D00ED720E /* UsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948F043B1F7C294D00ED720E /* UsersRequest.swift */; };
+		948F043F1F7C297900ED720E /* GetDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948F043E1F7C297900ED720E /* GetDataTests.swift */; };
 		94E20C9C1F7982F90017D46C /* ValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E20C9B1F7982F90017D46C /* ValidationTests.swift */; };
 		94E20C9E1F7982F90017D46C /* Flamingo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F7CEB971CE9AFCD00D6CCBA /* Flamingo.framework */; };
 		94EE07DE1F7976F40095D039 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EE07DD1F7976F40095D039 /* Validation.swift */; };
@@ -37,6 +40,9 @@
 		8F7CEB971CE9AFCD00D6CCBA /* Flamingo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flamingo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F7CEB9A1CE9AFCD00D6CCBA /* Flamingo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flamingo.h; sourceTree = "<group>"; };
 		8F7CEB9C1CE9AFCD00D6CCBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		948F043A1F7C294D00ED720E /* UserModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserModels.swift; path = ../../Example/Example/UserModels.swift; sourceTree = "<group>"; };
+		948F043B1F7C294D00ED720E /* UsersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UsersRequest.swift; path = ../../Example/Example/UsersRequest.swift; sourceTree = "<group>"; };
+		948F043E1F7C297900ED720E /* GetDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataTests.swift; sourceTree = "<group>"; };
 		94E20C991F7982F90017D46C /* FlamingoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlamingoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E20C9B1F7982F90017D46C /* ValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTests.swift; sourceTree = "<group>"; };
 		94E20C9D1F7982F90017D46C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -123,8 +129,11 @@
 		94E20C9A1F7982F90017D46C /* FlamingoTests */ = {
 			isa = PBXGroup;
 			children = (
-				94E20C9B1F7982F90017D46C /* ValidationTests.swift */,
 				94E20C9D1F7982F90017D46C /* Info.plist */,
+				948F043A1F7C294D00ED720E /* UserModels.swift */,
+				948F043B1F7C294D00ED720E /* UsersRequest.swift */,
+				94E20C9B1F7982F90017D46C /* ValidationTests.swift */,
+				948F043E1F7C297900ED720E /* GetDataTests.swift */,
 			);
 			path = FlamingoTests;
 			sourceTree = "<group>";
@@ -257,6 +266,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				948F043C1F7C294D00ED720E /* UserModels.swift in Sources */,
+				948F043D1F7C294D00ED720E /* UsersRequest.swift in Sources */,
+				948F043F1F7C297900ED720E /* GetDataTests.swift in Sources */,
 				94E20C9C1F7982F90017D46C /* ValidationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
