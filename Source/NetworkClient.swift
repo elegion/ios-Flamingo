@@ -95,17 +95,10 @@ open class NetworkDefaultClient: NetworkClient {
             
             type(of: self).operationQueue.async {
                 let result = networkRequest.responseSerializer.serialize(request: urlRequest, response: httpResponse, data: data, error: error)
-                
-                switch result {
-                case .success(let value):
-                    self.complete(request: networkRequest, with: {
-                        completion?(.success(value), context)
-                    })
-                case .error(let error):
-                    self.complete(request: networkRequest, with: {
-                        completion?(.error(error), context)
-                    })
-                }
+
+                self.complete(request: networkRequest, with: {
+                    completion?(result, context)
+                })
             }
         }
     }
