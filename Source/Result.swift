@@ -8,11 +8,17 @@
 
 import Foundation
 
-public enum Result<Value> {
-    
+public enum Result<Value, ErrorValue: Swift.Error> {
+    public struct Error {
+        let inResponse: Swift.Error
+        let typed: ErrorValue?
+        init(_ inResponse: Swift.Error, _ typed: ErrorValue?) {
+            self.inResponse = inResponse
+            self.typed = typed
+        }
+    }
     case success(Value)
-    case error(Swift.Error)
-    
+    case error(Error)
 }
 
 public extension Result {
@@ -31,7 +37,7 @@ public extension Result {
         case .success:
             return nil
         case .error(let result):
-            return result
+            return result.typed ?? result.inResponse
         }
     }
     

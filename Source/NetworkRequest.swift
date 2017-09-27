@@ -12,6 +12,7 @@ public protocol NetworkRequest {
     
     associatedtype ResponseSerializer: ResponseSerialization
     typealias Response = ResponseSerializer.Serialized
+    typealias ErrorType = ResponseSerializer.ErrorType
     
     var URL: URLConvertible { get }
     var method: HTTPMethod { get }

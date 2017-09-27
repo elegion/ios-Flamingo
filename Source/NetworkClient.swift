@@ -11,7 +11,7 @@ import Foundation
 public protocol NetworkClient: class {
     
     @discardableResult
-    func sendRequest<Request: NetworkRequest>(_ networkRequest: Request, completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation?
+    func sendRequest<Request: NetworkRequest>(_ networkRequest: Request, completionHandler: ((Result<Request.Response, Request.ErrorType>, NetworkContext?) -> Void)?) -> CancelableOperation?
     
 }
 
@@ -40,13 +40,13 @@ open class NetworkDefaultClient: NetworkClient {
     }
     
     @discardableResult
-    open func sendRequest<Request>(_ networkRequest: Request, completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation? where Request : NetworkRequest {
+    open func sendRequest<Request>(_ networkRequest: Request, completionHandler: ((Result<Request.Response, Request.ErrorType>, NetworkContext?) -> Void)?) -> CancelableOperation? where Request : NetworkRequest {
         let urlRequest: URLRequest
         do {
             urlRequest = try self.urlRequest(from: networkRequest)
         } catch {
             complete(request: networkRequest, with: {
-                completionHandler?(.error(error), nil)
+                completionHandler?(.error(Result.Error(error, nil)), nil)
             })
             
             return nil
@@ -60,7 +60,7 @@ open class NetworkDefaultClient: NetworkClient {
     
     private func requestHandler<Request: NetworkRequest>(with networkRequest: Request,
                                                          urlRequest: URLRequest,
-                                                         completion: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> (Data?, URLResponse?, Swift.Error?) -> Void {
+                                                         completion: ((Result<Request.Response, Request.ErrorType>, NetworkContext?) -> Void)?) -> (Data?, URLResponse?, Swift.Error?) -> Void {
         return {
             [unowned self] data, response, error in
 
@@ -77,7 +77,7 @@ open class NetworkDefaultClient: NetworkClient {
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 self.complete(request: networkRequest, with: {
-                    completion?(.error(Error.unableToGenerateContext), nil)
+                    completion?(.error(Result.Error(Error.unableToGenerateContext, nil)), nil)
                 })
                 return
             }
@@ -88,7 +88,7 @@ open class NetworkDefaultClient: NetworkClient {
             validator.validate()
             if let validationError = validator.validationErrors.first {
                 self.complete(request: networkRequest, with: {
-                    completion?(.error(validationError), context)
+                    completion?(.error(Result.Error(validationError, nil)), context)
                 })
                 return
             }

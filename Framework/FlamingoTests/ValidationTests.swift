@@ -28,9 +28,9 @@ fileprivate class TestRequest: NetworkRequest {
         return JSONParametersEncoder()
     }
 
-    typealias ResponseSerializer = CodableJSONSerializer<MockData>
+    typealias ResponseSerializer = CodableJSONSerializer<MockData, DecodableError>
 
-    var responseSerializer: CodableJSONSerializer<MockData> {
+    var responseSerializer: CodableJSONSerializer<MockData, DecodableError> {
         return ResponseSerializer()
     }
 }
