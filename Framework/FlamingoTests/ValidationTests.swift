@@ -7,14 +7,13 @@
 //
 
 import XCTest
-import Flamingo
-import Foundation
+@testable import Flamingo
 
-fileprivate struct MockData: Codable {
+private struct MockData: Codable {
 
 }
 
-fileprivate class TestRequest: NetworkRequest {
+private class TestRequest: NetworkRequest {
 
     var URL: URLConvertible {
         return "v2/59c956433f0000910183f797"
@@ -38,25 +37,24 @@ fileprivate class TestRequest: NetworkRequest {
 class ValidationTests: XCTestCase {
 
     var client: NetworkClient!
-    
+
     override func setUp() {
         super.setUp()
         let configuration = NetworkDefaultConfiguration(baseURL: "http://www.mocky.io/")
         client = NetworkDefaultClient(configuration: configuration, session: .shared)
     }
-    
+
     override func tearDown() {
         client = nil
         super.tearDown()
     }
-    
+
     func testResponseStatusCode() {
 
         let asyncExpectation = expectation(description: "Async")
 
         let request = TestRequest()
-        client.sendRequest(request) {
-            (result, context) in
+        client.sendRequest(request) { (result, context) in
 
             switch result {
             case .success:
@@ -71,9 +69,6 @@ class ValidationTests: XCTestCase {
             asyncExpectation.fulfill()
         }
 
-        waitForExpectations(timeout: 10) {
-            (_) in
-
-        }
+        waitForExpectations(timeout: 10) { (_) in }
     }
 }
