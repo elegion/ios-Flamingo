@@ -9,7 +9,7 @@
 import XCTest
 @testable import Flamingo
 
-struct Stub: Decodable, Comparable {
+private struct Stub: Decodable, Comparable {
     var key: String
 
     static func < (lhs: Stub, rhs: Stub) -> Bool {
