@@ -9,12 +9,8 @@
 import XCTest
 @testable import Flamingo
 
-private struct Stub: Decodable, Comparable {
+private struct Stub: Decodable, Equatable {
     var key: String
-
-    static func < (lhs: Stub, rhs: Stub) -> Bool {
-        return lhs.key < rhs.key
-    }
 
     static func == (lhs: Stub, rhs: Stub) -> Bool {
         return lhs.key == rhs.key
@@ -33,7 +29,7 @@ class CodableJSONSerializerTestCase: XCTestCase {
     private let request: URLRequest? = nil
     private let response: HTTPURLResponse? = nil
 
-    public func test_serializeData_datasEquals() {
+    public func test_serializeData_expectedValidData() {
         let expected = Stub(key: "value")
         let serializedData = "{\"key\":\"value\"}".data(using: .utf8)
         let error: SomeError? = nil

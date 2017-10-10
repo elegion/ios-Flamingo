@@ -22,7 +22,7 @@ class DataResponseSerializerTestCase: XCTestCase {
     private let request: URLRequest? = nil
     private let response: HTTPURLResponse? = nil
 
-    public func test_serializeData_datasEquals() {
+    public func test_serializeData_expectedValidData() {
         let serializedData = Data()
         let error: SomeError? = nil
         let expected = serializedData

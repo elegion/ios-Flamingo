@@ -9,15 +9,11 @@
 import XCTest
 @testable import Flamingo
 
-private struct SomeStruct: Comparable, Equatable, Decodable {
+private struct SomeStruct: Equatable, Decodable {
     var key: String
 
     static func == (lhs: SomeStruct, rhs: SomeStruct) -> Bool {
         return lhs.key == rhs.key
-    }
-
-    static func < (lhs: SomeStruct, rhs: SomeStruct) -> Bool {
-        return lhs.key < rhs.key
     }
 }
 
@@ -44,25 +40,24 @@ class JSONSerializerTestCase: XCTestCase {
         XCTAssertNotNil(serializer)
     }
 
-    public func test_deserializeString() {
+    public func test_deserializeString_expectedValidStruct() {
         let serializer = self.serializer
         let actual: Result<SomeStruct> = serializer.deserialize(string: self.jsonString)
 
         XCTAssertEqual(self.defaultExpected, actual.value!)
     }
 
-    public func test_deserializeWrongString() {
+    public func test_deserializeWrongString_expectedErrorResult() {
         let serializer = self.serializer
         let actual: Result<SomeStruct> = serializer.deserialize(string: "")
 
         XCTAssertFalse(actual.isSuccess)
     }
 
-    public func test_deserializeData() {
+    public func test_deserializeData_expectedValidStruct() {
         let serializer = self.serializer
         let actual: Result<SomeStruct> = serializer.deserialize(data: self.jsonData)
 
         XCTAssertEqual(self.defaultExpected, actual.value!)
     }
-
 }

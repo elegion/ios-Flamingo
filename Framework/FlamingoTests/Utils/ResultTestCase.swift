@@ -10,7 +10,6 @@ import XCTest
 @testable import Flamingo
 
 class ResultTestCase: XCTestCase {
-
     private enum StubError: Swift.Error {
         case someError
     }
@@ -27,40 +26,40 @@ class ResultTestCase: XCTestCase {
         return .error(StubError.someError)
     }
 
-    public func test_checkGettingValue_onSuccess() {
+    public func test_checkGettingValueOnSuccessResult_expectedValueInstance() {
         let expected = Consts.successValue
         let actual = successResult().value
 
         XCTAssertEqual(expected, actual)
     }
 
-    public func test_checkGettingValue_onError() {
+    public func test_checkGettingValueOnErrorResult_expectedNil() {
         let actual = errorResult().value
 
         XCTAssertNil(actual)
     }
 
-    public func test_checkGettingError_onSuccess() {
+    public func test_checkGettingErrorOnSuccessResult_expectedNil() {
         let actual = successResult().error
 
         XCTAssertNil(actual)
 
     }
 
-    public func test_checkGettingError_onError() {
+    public func test_checkGettingErrorOnErrorResult_expectedErrorInstance() {
         let expected = StubError.someError
         let actual = (errorResult().error as? StubError)!
 
         XCTAssertEqual(expected, actual)
     }
 
-    public func test_checkingSuccess_onSuccess() {
+    public func test_checkingSuccessOnSuccessResult_expectedTrue() {
         let actual = successResult().isSuccess
 
         XCTAssertTrue(actual)
     }
 
-    public func test_checkingSuccess_onError() {
+    public func test_checkingSuccessOnErrorResult_expectedFalse() {
         let actual = errorResult().isSuccess
 
         XCTAssertFalse(actual)

@@ -21,8 +21,8 @@ class StringResponseSerializerTestCase: XCTestCase {
     private let request: URLRequest? = nil
     private let response: HTTPURLResponse? = nil
 
-    public func test_serializeData_datasEquals() {
-        let expected = "{\"key\":\"value\"}"
+    public func test_serializeData_expectedValidData() {
+        let expected = "string for serialization"
         let serializedData = expected.data(using: .utf8)
         let error: SomeError? = nil
 

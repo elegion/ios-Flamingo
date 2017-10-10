@@ -10,12 +10,11 @@ import XCTest
 @testable import Flamingo
 
 class JSONParametersEncoderTestCase: XCTestCase {
-
     typealias DataType = [String: [String: [String: String]]]
 
     private let urlString: String = "http://e-legion.com"
 
-    private func request() -> URLRequest {
+    private var request: URLRequest {
         let url = URL(string: self.urlString)!
 
         return URLRequest(url: url)
@@ -25,8 +24,8 @@ class JSONParametersEncoderTestCase: XCTestCase {
         return JSONParametersEncoder()
     }
 
-    public func test_() {
-        let expected: DataType = [
+    private var data: DataType {
+        return [
             "root": [
                 "dictionary": [
                     "key&1": "value1",
@@ -35,8 +34,25 @@ class JSONParametersEncoderTestCase: XCTestCase {
                 ]
             ]
         ]
+    }
 
-        var request = self.request()
+    public func test_encodeDataAndSetToHttpBody_expectedValidJSON() {
+        let expected = self.data
+
+        var request = self.request
+        let encoder = self.encoder
+
+        try? encoder.encode(parameters: expected, to: &request)
+
+        let data = try? JSONSerialization.jsonObject(with: request.httpBody!, options: [])
+
+        XCTAssertNotNil(data)
+    }
+
+    public func test_encodeDataAndSetToHttpBody_expectedSameDataAsInitialValue() {
+        let expected = self.data
+
+        var request = self.request
         let encoder = self.encoder
 
         try? encoder.encode(parameters: expected, to: &request)
@@ -46,5 +62,4 @@ class JSONParametersEncoderTestCase: XCTestCase {
 
         XCTAssertTrue((expected as NSDictionary).isEqual(to: actual!))
     }
-
 }

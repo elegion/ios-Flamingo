@@ -10,8 +10,7 @@ import XCTest
 @testable import Flamingo
 
 class URLConvertableTestCase: XCTestCase {
-
-    public func test_convertingValidString_URLExpected() {
+    public func test_convertingValidString_expectedURL() {
         let site = "http://e-legion.com/"
         let expected = URL(string: site)
 
@@ -20,26 +19,25 @@ class URLConvertableTestCase: XCTestCase {
         XCTAssertEqual(expected, actual)
     }
 
-    public func test_convertingInvalidString_MustThrows() {
+    public func test_convertingInvalidString_MustThrowsConversionError() {
         let site = "some string"
 
         do {
             _ = try site.asURL()
         } catch URLConvertableError.stringToURLConversionError {
             return
-        } catch let error {
+        } catch {
             XCTFail("Error `\(error)` raised!")
         }
 
         XCTFail("Error not raised!")
     }
 
-    public func test_convertingUrl_URLExpected() {
+    public func test_convertingUrl_expectedURL() {
         let expected = URL(string: "http://e-legion.com/")!
 
         let actual = try? expected.asURL()
 
         XCTAssertEqual(expected, actual)
     }
-
 }
