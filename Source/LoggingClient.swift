@@ -11,6 +11,7 @@ import Foundation
 class LoggingClient: NetworkClient {
     private let client: NetworkClient
     private let logger: Logger
+    private var useLogger: Bool = false
 
     init(for client: NetworkClient, logger: Logger) {
         self.client = client
@@ -18,17 +19,31 @@ class LoggingClient: NetworkClient {
     }
 
     func sendRequest<Request>(_ networkRequest: Request, completionHandler: ((Result<Request.ResponseSerializer.Serialized>, NetworkContext?) -> Void)?) -> CancelableOperation? where Request: NetworkRequest {
-        self.logger.log("Send request", context: [
-            "request": networkRequest
-        ])
+        let canLogging = self.useLogger
+
+        if canLogging {
+            self.logger.log("Send request", context: [
+                "request": networkRequest
+            ])
+        }
 
         return self.client.sendRequest(networkRequest, completionHandler: { result, context in
-            self.logger.log("Complete request", context: [
-                "result": result,
-                "context": context as Any
-            ])
+            if canLogging {
+                self.logger.log("Complete request", context: [
+                    "result": result,
+                    "context": context as Any
+                ])
+            }
 
             completionHandler?(result, context)
         })
+    }
+
+    func enableLogging() {
+        self.useLogger = true
+    }
+
+    func disableLogging() {
+        self.useLogger = false
     }
 }

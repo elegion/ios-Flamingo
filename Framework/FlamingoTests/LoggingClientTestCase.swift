@@ -73,8 +73,10 @@ class LoggingClientTestCase: XCTestCase {
     private func client(_ mockClient: NetworkClient? = nil, logger mockLogger: Logger? = nil) -> LoggingClient {
         let client = mockClient ?? self.configuredMockClient
         let logger = mockLogger ?? self.mockLogger
+        let loggingClient = LoggingClient(for: client, logger: logger)
+        loggingClient.enableLogging()
 
-        return LoggingClient(for: client, logger: logger)
+        return loggingClient
     }
 
     private var request: StubRequest {
@@ -114,6 +116,40 @@ class LoggingClientTestCase: XCTestCase {
 
             expectation.fulfill()
         }
+
+        self.waitForExpectations(timeout: 5, handler: nil)
+    }
+
+    public func test_disableLogging_expectedFalse() {
+        let expectation = self.expectation(description: #function)
+        let logger = self.mockLogger
+        let client = self.client(logger: logger)
+        client.disableLogging()
+        let request = self.request
+
+        _ = client.sendRequest(request) { _, _ in
+            XCTAssertFalse(logger.logSended)
+
+            expectation.fulfill()
+        }
+
+        self.waitForExpectations(timeout: 5, handler: nil)
+    }
+
+    public func test_saveDisablingForRequest_expectedFalse() {
+        let expectation = self.expectation(description: #function)
+        let logger = self.mockLogger
+        let client = self.client(logger: logger)
+        client.disableLogging()
+        let request = self.request
+
+        _ = client.sendRequest(request) { _, _ in
+            XCTAssertFalse(logger.logSended)
+
+            expectation.fulfill()
+        }
+
+        client.enableLogging()
 
         self.waitForExpectations(timeout: 5, handler: nil)
     }
