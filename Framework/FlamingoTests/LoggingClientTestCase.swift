@@ -31,7 +31,7 @@ private class MockClient: NetworkClient {
 private class MockLogger: Logger {
     private(set) var logSended: Bool = false
 
-    public func log(_ message: String, context: [String: Any]?) {
+    public func log(_ message: String, context: [String: Any?]?) {
         self.logSended = true
     }
 }

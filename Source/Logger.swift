@@ -9,5 +9,5 @@
 import Foundation
 
 public protocol Logger {
-    func log(_ message: String, context: [String: Any]?)
+    func log(_ message: String, context: [String: Any?]?)
 }
