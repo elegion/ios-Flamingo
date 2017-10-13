@@ -75,25 +75,25 @@ open class NetworkDefaultClient: NetworkClient {
                 }
             }
             
-            guard let httpResponse = response as? HTTPURLResponse else {
-                self.complete(request: networkRequest, with: {
-                    completion?(.error(Error.unableToGenerateContext), nil)
-                })
-                return
-            }
-            
-            let context = NetworkContext(request: urlRequest, response: httpResponse, data: data, error: error as NSError?)
-
-            let validator = Validator(request: urlRequest, response: httpResponse, data: data)
-            validator.validate()
-            if let validationError = validator.validationErrors.first {
-                self.complete(request: networkRequest, with: {
-                    completion?(.error(validationError), context)
-                })
-                return
-            }
-            
             type(of: self).operationQueue.async {
+                let context = NetworkContext(request: urlRequest, response: response as? HTTPURLResponse, data: data, error: error as NSError?)
+                
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    self.complete(request: networkRequest, with: {
+                        completion?(.error(Error.unableToRetrieveHTTPResponse), context)
+                    })
+                    return
+                }
+                
+                let validator = Validator(request: urlRequest, response: httpResponse, data: data)
+                validator.validate()
+                if let validationError = validator.validationErrors.first {
+                    self.complete(request: networkRequest, with: {
+                        completion?(.error(validationError), context)
+                    })
+                    return
+                }
+                
                 let result = networkRequest.responseSerializer.serialize(request: urlRequest, response: httpResponse, data: data, error: error)
                 
                 switch result {
