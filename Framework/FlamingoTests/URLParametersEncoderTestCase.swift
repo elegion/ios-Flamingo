@@ -41,7 +41,8 @@ class URLParametersEncoderTestCase: XCTestCase {
                         "key4": "value4",
                         "key5": 5,
                         "key6": false
-                    ]
+                    ],
+                    "dictionary3": nil
                 ],
                 "int": 12,
                 "bool": true,
