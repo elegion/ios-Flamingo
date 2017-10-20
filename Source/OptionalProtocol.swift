@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol OptionalProtocol {
+internal protocol OptionalProtocol {
     func isNone() -> Bool
     func isSome() -> Bool
 
