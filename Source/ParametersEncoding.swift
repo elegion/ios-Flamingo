@@ -48,22 +48,24 @@ public struct URLParametersEncoder: ParametersEncoder {
                 components += queryComponents(fromKey: "\(key)[]", value: value)
             }
         } else if let bool = value as? Bool {
-            components.append(URLQueryItem.init(name: escape(key), value: bool ? "1" : "0"))
+            components.append(URLQueryItem.init(name: key, value: bool ? "1" : "0"))
         } else {
-            components.append(URLQueryItem(name:escape(key), value: escape("\(value)")))
+            if self.isOptional(value) {
+                if let optionalValue = value as? OptionalProtocol {
+                    if optionalValue.isSome() {
+                        components.append(URLQueryItem(name: key, value: "\(optionalValue.value)"))
+                    }
+                }
+            } else {
+                components.append(URLQueryItem(name: key, value: "\(value)"))
+            }
         }
         
         return components
     }
-    
-    public func escape(_ string: String) -> String {
-        let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
-        let subDelimitersToEncode = "!$&'()*+,;="
-        
-        var allowedCharacterSet = CharacterSet.urlQueryAllowed
-        allowedCharacterSet.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
-        
-        return string.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) ?? string
+
+    private func isOptional(_ value: Any) -> Bool {
+        return Mirror(reflecting: value).displayStyle == .optional
     }
 }
 
