@@ -11,6 +11,8 @@
 		94E20C9C1F7982F90017D46C /* ValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E20C9B1F7982F90017D46C /* ValidationTests.swift */; };
 		94E20C9E1F7982F90017D46C /* Flamingo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F7CEB971CE9AFCD00D6CCBA /* Flamingo.framework */; };
 		94EE07DE1F7976F40095D039 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EE07DD1F7976F40095D039 /* Validation.swift */; };
+		E26F78951F99F7C6007D13D1 /* OptionalProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26F78941F99F7C6007D13D1 /* OptionalProtocol.swift */; };
+		E26F78971F9A06ED007D13D1 /* OptionalProtocolTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26F78961F9A06ED007D13D1 /* OptionalProtocolTestCase.swift */; };
 		FE80C35D1F6FE5420060141B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C35B1F6FE4080060141B /* Result.swift */; };
 		FE80C35E1F6FE5450060141B /* CancelableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3531F6FE4080060141B /* CancelableOperation.swift */; };
 		FE80C35F1F6FE5470060141B /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3591F6FE4080060141B /* NetworkConfiguration.swift */; };
@@ -41,6 +43,8 @@
 		94E20C9B1F7982F90017D46C /* ValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTests.swift; sourceTree = "<group>"; };
 		94E20C9D1F7982F90017D46C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94EE07DD1F7976F40095D039 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		E26F78941F99F7C6007D13D1 /* OptionalProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalProtocol.swift; sourceTree = "<group>"; };
+		E26F78961F9A06ED007D13D1 /* OptionalProtocolTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalProtocolTestCase.swift; sourceTree = "<group>"; };
 		E2BC881B1F7E5124005CA524 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		E2BC881C1F7E5124005CA524 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = .swiftlint.yml; path = ../.swiftlint.yml; sourceTree = "<group>"; };
 		E2BC881D1F7E5124005CA524 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitignore; path = ../.gitignore; sourceTree = "<group>"; };
@@ -102,11 +106,12 @@
 			isa = PBXGroup;
 			children = (
 				FE80C3531F6FE4080060141B /* CancelableOperation.swift */,
-				FE80C3591F6FE4080060141B /* NetworkConfiguration.swift */,
 				FE80C3541F6FE4080060141B /* Error.swift */,
 				FE80C3581F6FE4080060141B /* NetworkClient.swift */,
+				FE80C3591F6FE4080060141B /* NetworkConfiguration.swift */,
 				FE80C3561F6FE4080060141B /* NetworkContext.swift */,
 				FE80C35C1F6FE4080060141B /* NetworkRequest.swift */,
+				E26F78941F99F7C6007D13D1 /* OptionalProtocol.swift */,
 				FE80C3551F6FE4080060141B /* ParametersEncoding.swift */,
 				FE80C35A1F6FE4080060141B /* ResponseSerialization.swift */,
 				FE80C3571F6FE4080060141B /* URLConvertible.swift */,
@@ -128,8 +133,9 @@
 		94E20C9A1F7982F90017D46C /* FlamingoTests */ = {
 			isa = PBXGroup;
 			children = (
-				94E20C9B1F7982F90017D46C /* ValidationTests.swift */,
 				94E20C9D1F7982F90017D46C /* Info.plist */,
+				E26F78961F9A06ED007D13D1 /* OptionalProtocolTestCase.swift */,
+				94E20C9B1F7982F90017D46C /* ValidationTests.swift */,
 			);
 			path = FlamingoTests;
 			sourceTree = "<group>";
@@ -279,6 +285,7 @@
 				FE80C3611F6FE54B0060141B /* NetworkClient.swift in Sources */,
 				FE80C3621F6FE54D0060141B /* NetworkContext.swift in Sources */,
 				FE80C3651F6FE5560060141B /* ResponseSerialization.swift in Sources */,
+				E26F78951F99F7C6007D13D1 /* OptionalProtocol.swift in Sources */,
 				FE80C35D1F6FE5420060141B /* Result.swift in Sources */,
 				FE80C35E1F6FE5450060141B /* CancelableOperation.swift in Sources */,
 				FE80C3641F6FE5510060141B /* ParametersEncoding.swift in Sources */,
@@ -291,6 +298,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E26F78971F9A06ED007D13D1 /* OptionalProtocolTestCase.swift in Sources */,
 				94E20C9C1F7982F90017D46C /* ValidationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
