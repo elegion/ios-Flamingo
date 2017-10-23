@@ -10,24 +10,25 @@ import Foundation
 public protocol ResponseSerialization {
     
     associatedtype Serialized
+    associatedtype ErrorType: Swift.Error
     
-    func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<Serialized>
-    
+    func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<Serialized, ErrorType>
 }
 
 public struct DataResponseSerializer: ResponseSerialization {
-    
+
     public typealias Serialized = Data
+    public typealias ErrorType = Error
     
     public init() { }
     
-    public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<Data> {
-        if let data  = data {
+    public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<Data, ErrorType> {
+        if let data = data {
             return .success(data)
         } else if let error = error {
-            return .error(error)
+            return .error(ResultError(error, nil))
         } else {
-            return .error(Error.unableToRetrieveDataAndError)
+            return .error(ResultError(Error.unableToRetrieveDataAndError, nil))
         }
     }
     
@@ -36,6 +37,7 @@ public struct DataResponseSerializer: ResponseSerialization {
 public struct StringResponseSerializer: ResponseSerialization {
     
     public typealias Serialized = String
+    public typealias ErrorType = Error
     
     let encoding: String.Encoding
     
@@ -43,19 +45,22 @@ public struct StringResponseSerializer: ResponseSerialization {
         self.encoding = encoding
     }
     
-    public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<String> {
+    public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<String, ErrorType> {
         if let data = data, let resultString = String(data: data, encoding: encoding) {
             return .success(resultString)
         } else if let error = error {
-            return .error(error)
+            return .error(ResultError(error, nil))
         } else {
-            return .error(Error.unableToRetrieveDataAndError)
+            return .error(ResultError(Error.unableToRetrieveDataAndError, nil))
         }
     }
     
 }
 
-public struct CodableJSONSerializer<Serialized: Decodable>: ResponseSerialization {
+public struct DecodableError: Swift.Error, Decodable {
+}
+
+public struct CodableJSONSerializer<Serialized: Decodable, ErrorType: Swift.Error>: ResponseSerialization where ErrorType: Decodable {
     
     let decoder: JSONDecoder
     
@@ -70,16 +75,17 @@ public struct CodableJSONSerializer<Serialized: Decodable>: ResponseSerializatio
         decoder.nonConformingFloatDecodingStrategy = nonConformingFloatDecodingStrategy
     }
     
-    public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<Serialized> {
+    public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<Serialized, ErrorType> {
         guard let data = data else {
-            return .error(error ?? Error.unableToRetrieveDataAndError)
+            return .error(ResultError(error ?? Error.unableToRetrieveDataAndError, nil))
         }
         
         let result: Serialized
         do {
             result = try decoder.decode(Serialized.self, from: data)
         } catch {
-            return .error(error)
+            let typedError = try? decoder.decode(ErrorType.self, from: data)
+            return .error(ResultError(error, typedError))
         }
         
         return .success(result)

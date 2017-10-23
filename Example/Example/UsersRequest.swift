@@ -26,8 +26,10 @@ struct UsersRequest: NetworkRequest {
     var useCache: Bool {
         return true
     }
+
+    typealias ResponseSerializer = CodableJSONSerializer<[User], DecodableError>
     
-    var responseSerializer: CodableJSONSerializer<[User]> {
-        return CodableJSONSerializer<[User]>()
+    var responseSerializer: ResponseSerializer {
+        return ResponseSerializer()
     }
 }

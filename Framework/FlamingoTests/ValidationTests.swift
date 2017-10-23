@@ -27,9 +27,9 @@ private class TestRequest: NetworkRequest {
         return JSONParametersEncoder()
     }
 
-    typealias ResponseSerializer = CodableJSONSerializer<MockData>
+    typealias ResponseSerializer = CodableJSONSerializer<MockData, DecodableError>
 
-    var responseSerializer: CodableJSONSerializer<MockData> {
+    var responseSerializer: CodableJSONSerializer<MockData, DecodableError> {
         return ResponseSerializer()
     }
 }
@@ -63,7 +63,7 @@ class ValidationTests: XCTestCase {
                 if let statusCode = context?.response?.statusCode {
                     XCTAssertEqual(statusCode, 301, "Not correct status code")
                 } else {
-                    XCTFail("Should be another error, \(error)")
+                    XCTFail("Should be another error, \(error.localizedDescription)")
                 }
             }
             asyncExpectation.fulfill()

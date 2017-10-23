@@ -11,7 +11,7 @@ import Foundation
 public protocol NetworkClient: class {
     
     @discardableResult
-    func sendRequest<Request: NetworkRequest>(_ networkRequest: Request, completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation?
+    func sendRequest<Request: NetworkRequest>(_ networkRequest: Request, completionHandler: ((Result<Request.Response, Request.ErrorType>, NetworkContext?) -> Void)?) -> CancelableOperation?
     
 }
 
@@ -40,13 +40,13 @@ open class NetworkDefaultClient: NetworkClient {
     }
     
     @discardableResult
-    open func sendRequest<Request>(_ networkRequest: Request, completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation? where Request : NetworkRequest {
+    open func sendRequest<Request>(_ networkRequest: Request, completionHandler: ((Result<Request.Response, Request.ErrorType>, NetworkContext?) -> Void)?) -> CancelableOperation? where Request : NetworkRequest {
         let urlRequest: URLRequest
         do {
             urlRequest = try self.urlRequest(from: networkRequest)
         } catch {
             complete(request: networkRequest, with: {
-                completionHandler?(.error(error), nil)
+                completionHandler?(.error(ResultError(error, nil)), nil)
             })
             
             return nil
@@ -60,7 +60,7 @@ open class NetworkDefaultClient: NetworkClient {
     
     private func requestHandler<Request: NetworkRequest>(with networkRequest: Request,
                                                          urlRequest: URLRequest,
-                                                         completion: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> (Data?, URLResponse?, Swift.Error?) -> Void {
+                                                         completion: ((Result<Request.Response, Request.ErrorType>, NetworkContext?) -> Void)?) -> (Data?, URLResponse?, Swift.Error?) -> Void {
         return {
             [unowned self] data, response, error in
 
@@ -76,36 +76,29 @@ open class NetworkDefaultClient: NetworkClient {
             }
             
             type(of: self).operationQueue.async {
-                let context = NetworkContext(request: urlRequest, response: response as? HTTPURLResponse, data: data, error: error as NSError?)
+                let context = NetworkContext(request: urlRequest, response: response as? HTTPURLResponse, data: data)
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
                     self.complete(request: networkRequest, with: {
-                        completion?(.error(Error.unableToRetrieveHTTPResponse), context)
-                    })
-                    return
-                }
-                
-                let validator = Validator(request: urlRequest, response: httpResponse, data: data)
-                validator.validate()
-                if let validationError = validator.validationErrors.first {
-                    self.complete(request: networkRequest, with: {
-                        completion?(.error(validationError), context)
+                        completion?(.error(ResultError(Error.unableToRetrieveHTTPResponse, nil)), context)
                     })
                     return
                 }
                 
                 let result = networkRequest.responseSerializer.serialize(request: urlRequest, response: httpResponse, data: data, error: error)
-                
-                switch result {
-                case .success(let value):
+
+                let validator = Validator(request: urlRequest, response: httpResponse, data: data)
+                validator.validate()
+                if let validationError = validator.validationErrors.first {
                     self.complete(request: networkRequest, with: {
-                        completion?(.success(value), context)
+                        completion?(.error(ResultError(validationError, result.typedError)), context)
                     })
-                case .error(let error):
-                    self.complete(request: networkRequest, with: {
-                        completion?(.error(error), context)
-                    })
+                    return
                 }
+
+                self.complete(request: networkRequest, with: {
+                    completion?(result, context)
+                })
             }
         }
     }
@@ -128,6 +121,7 @@ open class NetworkDefaultClient: NetworkClient {
         for (name, value) in (customHeadersForRequest(networkRequest) ?? [:]) {
             urlRequest.setValue(value, forHTTPHeaderField: name)
         }
+        urlRequest.timeoutInterval = configuration.defaultTimeoutInterval
         
         try networkRequest.parametersEncoder.encode(parameters: networkRequest.parameters, to: &urlRequest)
         
