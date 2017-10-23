@@ -10,15 +10,15 @@ import XCTest
 import Flamingo
 
 class GetDataTests: XCTestCase {
-    
+
     var client: NetworkClient!
-    
+
     override func setUp() {
         super.setUp()
         let configuration = NetworkDefaultConfiguration(baseURL: "http://jsonplaceholder.typicode.com/")
         client = NetworkDefaultClient(configuration: configuration, session: .shared)
     }
-    
+
     override func tearDown() {
         client = nil
         super.tearDown()
@@ -29,7 +29,7 @@ class GetDataTests: XCTestCase {
         let request = UsersRequest(useMock: false)
 
         client.sendRequest(request) {
-            (result, context) in
+            (result, _) in
 
             switch result {
             case .success(let users):

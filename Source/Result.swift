@@ -45,7 +45,7 @@ public extension Result {
         }
     }
 
-    public var typedError: ErrorValue? {
+    internal var typedError: ErrorValue? {
         switch self {
         case .success:
             return nil

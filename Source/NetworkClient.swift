@@ -76,27 +76,16 @@ open class NetworkDefaultClient: NetworkClient {
             }
             
             type(of: self).operationQueue.async {
-                let context = NetworkContext(request: urlRequest, response: response as? HTTPURLResponse, data: data, error: error as NSError?)
+                let context = NetworkContext(request: urlRequest, response: response as? HTTPURLResponse, data: data)
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
                     self.complete(request: networkRequest, with: {
-                        completion?(.error(Error.unableToRetrieveHTTPResponse), context)
-                    })
-                    return
-                }
-                
-                let validator = Validator(request: urlRequest, response: httpResponse, data: data)
-                validator.validate()
-                if let validationError = validator.validationErrors.first {
-                    self.complete(request: networkRequest, with: {
-                        completion?(.error(validationError), context)
+                        completion?(.error(ResultError(Error.unableToRetrieveHTTPResponse, nil)), context)
                     })
                     return
                 }
                 
                 let result = networkRequest.responseSerializer.serialize(request: urlRequest, response: httpResponse, data: data, error: error)
-
-                let context = NetworkContext(request: urlRequest, response: httpResponse, data: data, error: error as NSError?)
 
                 let validator = Validator(request: urlRequest, response: httpResponse, data: data)
                 validator.validate()
