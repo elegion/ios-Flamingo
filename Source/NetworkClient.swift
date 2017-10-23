@@ -132,6 +132,7 @@ open class NetworkDefaultClient: NetworkClient {
         for (name, value) in (customHeadersForRequest(networkRequest) ?? [:]) {
             urlRequest.setValue(value, forHTTPHeaderField: name)
         }
+        urlRequest.timeoutInterval = configuration.defaultTimeoutInterval
         
         try networkRequest.parametersEncoder.encode(parameters: networkRequest.parameters, to: &urlRequest)
         
