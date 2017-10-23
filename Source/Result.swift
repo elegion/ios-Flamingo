@@ -11,7 +11,7 @@ import Foundation
 public struct ResultError<Value: Swift.Error> {
     public let inResponse: Swift.Error
     public let typed: Value?
-    init(_ inResponse: Swift.Error, _ typed: Value?) {
+    public init(_ inResponse: Swift.Error, _ typed: Value?) {
         self.inResponse = inResponse
         self.typed = typed
     }
