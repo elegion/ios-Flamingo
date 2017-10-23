@@ -30,8 +30,8 @@ public enum Error: Swift.Error {
     }
     
     case invalidRequest
-    case unableToGenerateContext
     case unableToRetrieveDataAndError
+    case unableToRetrieveHTTPResponse
     case parametersEncodingError(ParametersEncodingErrorReason)
     case responseValidationFailed(reason: ResponseValidationFailureReason)    
 }
