@@ -64,21 +64,10 @@ open class NetworkDefaultClient: NetworkClient {
         return {
             [unowned self] data, response, error in
 
-            if let response = response,
-                self.configuration.debugMode {
-                if let data = data,
-                    let dataAsString = String(data: data, encoding: .utf8) {
-
-                    self.debugPrint(response, dataAsString)
-                } else {
-                    self.debugPrint(response)
-                }
-            }
-            
             type(of: self).operationQueue.async {
-                let context = NetworkContext(request: urlRequest, response: response as? HTTPURLResponse, data: data, error: error as NSError?)
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
+                    let context = NetworkContext(request: urlRequest, response: response as? HTTPURLResponse, data: data, error: Error.unableToRetrieveHTTPResponse as NSError)
                     self.complete(request: networkRequest, with: {
                         completion?(.error(Error.unableToRetrieveHTTPResponse), context)
                     })
@@ -88,12 +77,14 @@ open class NetworkDefaultClient: NetworkClient {
                 let validator = Validator(request: urlRequest, response: httpResponse, data: data)
                 validator.validate()
                 if let validationError = validator.validationErrors.first {
+                    let context = NetworkContext(request: urlRequest, response: response as? HTTPURLResponse, data: data, error: validationError as NSError)
                     self.complete(request: networkRequest, with: {
                         completion?(.error(validationError), context)
                     })
                     return
                 }
-                
+
+                let context = NetworkContext(request: urlRequest, response: response as? HTTPURLResponse, data: data, error: error as NSError?)
                 let result = networkRequest.responseSerializer.serialize(request: urlRequest, response: httpResponse, data: data, error: error)
                 
                 switch result {
@@ -128,6 +119,7 @@ open class NetworkDefaultClient: NetworkClient {
         for (name, value) in (customHeadersForRequest(networkRequest) ?? [:]) {
             urlRequest.setValue(value, forHTTPHeaderField: name)
         }
+        urlRequest.timeoutInterval = configuration.defaultTimeoutInterval
         
         try networkRequest.parametersEncoder.encode(parameters: networkRequest.parameters, to: &urlRequest)
         
@@ -136,9 +128,5 @@ open class NetworkDefaultClient: NetworkClient {
     
     open func customHeadersForRequest<T : NetworkRequest>(_ networkRequest: T) -> [String : String]? {
         return nil
-    }
-
-    public func debugPrint(_ items: Any...) {
-        Swift.debugPrint(String(describing: type(of: self).self), items)
     }
 }
