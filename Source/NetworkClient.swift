@@ -55,7 +55,6 @@ open class NetworkDefaultClient: NetworkClient {
         let handler = self.requestHandler(with: networkRequest, urlRequest: urlRequest, completion: completionHandler)
         let task = session.dataTask(with: urlRequest, completionHandler: handler)
         task.resume()
-        Swift.debugPrint(urlRequest.cURLRepresentation(session: session))
         return task
     }
     
@@ -65,17 +64,6 @@ open class NetworkDefaultClient: NetworkClient {
         return {
             [unowned self] data, response, error in
 
-            if let response = response,
-                self.configuration.debugMode {
-                if let data = data,
-                    let dataAsString = String(data: data, encoding: .utf8) {
-
-                    self.debugPrint(response, dataAsString)
-                } else {
-                    self.debugPrint(response)
-                }
-            }
-            
             type(of: self).operationQueue.async {
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
@@ -140,9 +128,5 @@ open class NetworkDefaultClient: NetworkClient {
     
     open func customHeadersForRequest<T : NetworkRequest>(_ networkRequest: T) -> [String : String]? {
         return nil
-    }
-
-    public func debugPrint(_ items: Any...) {
-        Swift.debugPrint(String(describing: type(of: self).self), items)
     }
 }
