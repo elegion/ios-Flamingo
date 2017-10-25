@@ -55,6 +55,7 @@ open class NetworkDefaultClient: NetworkClient {
         let handler = self.requestHandler(with: networkRequest, urlRequest: urlRequest, completion: completionHandler)
         let task = session.dataTask(with: urlRequest, completionHandler: handler)
         task.resume()
+        Swift.debugPrint(urlRequest.cURLRepresentation(session: session))
         return task
     }
     
