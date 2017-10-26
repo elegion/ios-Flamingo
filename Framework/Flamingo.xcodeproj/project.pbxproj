@@ -15,6 +15,12 @@
 		E26F78951F99F7C6007D13D1 /* OptionalProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26F78941F99F7C6007D13D1 /* OptionalProtocol.swift */; };
 		E26F78971F9A06ED007D13D1 /* OptionalProtocolTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26F78961F9A06ED007D13D1 /* OptionalProtocolTestCase.swift */; };
 		E2A3E5CD1F9777090085D6D5 /* URLParametersEncoderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3E5CC1F9777090085D6D5 /* URLParametersEncoderTestCase.swift */; };
+		E2DAC7161FA20D8500793F3E /* CodableJSONSerializerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DAC7111FA20D8500793F3E /* CodableJSONSerializerTestCase.swift */; };
+		E2DAC7171FA20D8500793F3E /* DataResponseSerializerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DAC7121FA20D8500793F3E /* DataResponseSerializerTestCase.swift */; };
+		E2DAC7181FA20D8500793F3E /* StringResponseSerializerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DAC7131FA20D8500793F3E /* StringResponseSerializerTestCase.swift */; };
+		E2DAC7191FA20D8500793F3E /* ResultTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DAC7151FA20D8500793F3E /* ResultTestCase.swift */; };
+		E2DAC71C1FA20D9600793F3E /* URLConvertableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DAC71A1FA20D9600793F3E /* URLConvertableTestCase.swift */; };
+		E2DAC71D1FA20D9600793F3E /* JSONParametersEncoderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DAC71B1FA20D9600793F3E /* JSONParametersEncoderTestCase.swift */; };
 		FE80C35D1F6FE5420060141B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C35B1F6FE4080060141B /* Result.swift */; };
 		FE80C35E1F6FE5450060141B /* CancelableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3531F6FE4080060141B /* CancelableOperation.swift */; };
 		FE80C35F1F6FE5470060141B /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3591F6FE4080060141B /* NetworkConfiguration.swift */; };
@@ -53,6 +59,12 @@
 		E2BC881C1F7E5124005CA524 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = .swiftlint.yml; path = ../.swiftlint.yml; sourceTree = "<group>"; };
 		E2BC881D1F7E5124005CA524 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitignore; path = ../.gitignore; sourceTree = "<group>"; };
 		E2BC881E1F7E5124005CA524 /* Flamingo.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = Flamingo.podspec; path = ../Flamingo.podspec; sourceTree = "<group>"; };
+		E2DAC7111FA20D8500793F3E /* CodableJSONSerializerTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableJSONSerializerTestCase.swift; sourceTree = "<group>"; };
+		E2DAC7121FA20D8500793F3E /* DataResponseSerializerTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataResponseSerializerTestCase.swift; sourceTree = "<group>"; };
+		E2DAC7131FA20D8500793F3E /* StringResponseSerializerTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringResponseSerializerTestCase.swift; sourceTree = "<group>"; };
+		E2DAC7151FA20D8500793F3E /* ResultTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultTestCase.swift; sourceTree = "<group>"; };
+		E2DAC71A1FA20D9600793F3E /* URLConvertableTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConvertableTestCase.swift; sourceTree = "<group>"; };
+		E2DAC71B1FA20D9600793F3E /* JSONParametersEncoderTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParametersEncoderTestCase.swift; sourceTree = "<group>"; };
 		FE80C3531F6FE4080060141B /* CancelableOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelableOperation.swift; sourceTree = "<group>"; };
 		FE80C3541F6FE4080060141B /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		FE80C3551F6FE4080060141B /* ParametersEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersEncoding.swift; sourceTree = "<group>"; };
@@ -138,8 +150,12 @@
 		94E20C9A1F7982F90017D46C /* FlamingoTests */ = {
 			isa = PBXGroup;
 			children = (
+				E2DAC7101FA20D8500793F3E /* ResponseSerializers */,
+				E2DAC7141FA20D8500793F3E /* Utils */,
 				94E20C9D1F7982F90017D46C /* Info.plist */,
+				E2DAC71B1FA20D9600793F3E /* JSONParametersEncoderTestCase.swift */,
 				E26F78961F9A06ED007D13D1 /* OptionalProtocolTestCase.swift */,
+				E2DAC71A1FA20D9600793F3E /* URLConvertableTestCase.swift */,
 				E2A3E5CC1F9777090085D6D5 /* URLParametersEncoderTestCase.swift */,
 				94E20C9B1F7982F90017D46C /* ValidationTests.swift */,
 			);
@@ -156,6 +172,24 @@
 			);
 			name = "Supporting Files";
 			path = "../Supporting Files";
+			sourceTree = "<group>";
+		};
+		E2DAC7101FA20D8500793F3E /* ResponseSerializers */ = {
+			isa = PBXGroup;
+			children = (
+				E2DAC7111FA20D8500793F3E /* CodableJSONSerializerTestCase.swift */,
+				E2DAC7121FA20D8500793F3E /* DataResponseSerializerTestCase.swift */,
+				E2DAC7131FA20D8500793F3E /* StringResponseSerializerTestCase.swift */,
+			);
+			path = ResponseSerializers;
+			sourceTree = "<group>";
+		};
+		E2DAC7141FA20D8500793F3E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E2DAC7151FA20D8500793F3E /* ResultTestCase.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,7 +339,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2DAC71D1FA20D9600793F3E /* JSONParametersEncoderTestCase.swift in Sources */,
+				E2DAC7171FA20D8500793F3E /* DataResponseSerializerTestCase.swift in Sources */,
+				E2DAC7191FA20D8500793F3E /* ResultTestCase.swift in Sources */,
+				E2DAC7161FA20D8500793F3E /* CodableJSONSerializerTestCase.swift in Sources */,
+				E2DAC71C1FA20D9600793F3E /* URLConvertableTestCase.swift in Sources */,
 				E26F78971F9A06ED007D13D1 /* OptionalProtocolTestCase.swift in Sources */,
+				E2DAC7181FA20D8500793F3E /* StringResponseSerializerTestCase.swift in Sources */,
 				E2A3E5CD1F9777090085D6D5 /* URLParametersEncoderTestCase.swift in Sources */,
 				94E20C9C1F7982F90017D46C /* ValidationTests.swift in Sources */,
 			);
