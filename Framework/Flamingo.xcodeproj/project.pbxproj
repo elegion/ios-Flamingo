@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F8B23521FC84B1900B0D4D9 /* ObserversManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8B23511FC84B1900B0D4D9 /* ObserversManager.swift */; };
 		8F7CEB9B1CE9AFCD00D6CCBA /* Flamingo.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F7CEB9A1CE9AFCD00D6CCBA /* Flamingo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		94BF3D421FA0A1CA00909B27 /* URLRequest+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF3D411FA0A1CA00909B27 /* URLRequest+Description.swift */; };
 		94E20C9C1F7982F90017D46C /* ValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E20C9B1F7982F90017D46C /* ValidationTests.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F8B23511FC84B1900B0D4D9 /* ObserversManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserversManager.swift; sourceTree = "<group>"; };
 		8F7CEB971CE9AFCD00D6CCBA /* Flamingo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flamingo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F7CEB9A1CE9AFCD00D6CCBA /* Flamingo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flamingo.h; sourceTree = "<group>"; };
 		8F7CEB9C1CE9AFCD00D6CCBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				FE80C3571F6FE4080060141B /* URLConvertible.swift */,
 				8F7CEBB91CE9B0C800D6CCBA /* Utils */,
 				94EE07DD1F7976F40095D039 /* Validation.swift */,
+				3F8B23511FC84B1900B0D4D9 /* ObserversManager.swift */,
 			);
 			name = Source;
 			path = ../../Source;
@@ -290,6 +293,7 @@
 				FE80C3631F6FE54F0060141B /* NetworkRequest.swift in Sources */,
 				FE80C3601F6FE5490060141B /* Error.swift in Sources */,
 				94EE07DE1F7976F40095D039 /* Validation.swift in Sources */,
+				3F8B23521FC84B1900B0D4D9 /* ObserversManager.swift in Sources */,
 				FE80C3611F6FE54B0060141B /* NetworkClient.swift in Sources */,
 				FE80C3621F6FE54D0060141B /* NetworkContext.swift in Sources */,
 				FE80C3651F6FE5560060141B /* ResponseSerialization.swift in Sources */,
