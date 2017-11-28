@@ -33,7 +33,7 @@ extension Validator {
     /// - failure: The validation failed encountering the provided error.
     public enum ValidationResult {
         case success
-        case failure(Error)
+        case error(Error)
     }
 
     fileprivate struct MIMEType {
@@ -91,7 +91,7 @@ extension Validator {
             return .success
         } else {
             let reason: ErrorReason = .unacceptableStatusCode(code: response.statusCode)
-            return .failure(Error.responseValidationFailed(reason: reason))
+            return .error(Error.responseValidationFailed(reason: reason))
         }
     }
 
@@ -121,7 +121,7 @@ extension Validator {
                     return Error.responseValidationFailed(reason: reason)
                 }()
 
-                return .failure(error)
+                return .error(error)
         }
 
         for contentType in acceptableContentTypes {
@@ -139,7 +139,7 @@ extension Validator {
             return Error.responseValidationFailed(reason: reason)
         }()
 
-        return .failure(error)
+        return .error(error)
     }
 
 
@@ -159,7 +159,7 @@ extension Validator {
 
         if let response = self.response,
             let data = self.data,
-            case let .failure(error) = validation(self.request, response, data) {
+            case let .error(error) = validation(self.request, response, data) {
             self.validationErrors.append(error)
         }
 

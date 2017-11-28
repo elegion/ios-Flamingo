@@ -28,10 +28,27 @@ public enum Error: Swift.Error {
         case unableToRetrieveRequestURL
         case unableToAssembleURLAfterAddingURLQueryItems
     }
+
+    public enum StubClientFactoryErrorReason {
+        case fileNotExists(String)
+        case cannotAccessToFile(String)
+        case wrongListFormat
+    }
+
+    public enum StubClientErrorReason {
+        case stubNotFound
+    }
+
+    public enum NetworkClientErrorReason {
+        case stubsNotConfigured
+    }
     
     case invalidRequest
     case unableToRetrieveDataAndError
     case unableToRetrieveHTTPResponse
     case parametersEncodingError(ParametersEncodingErrorReason)
-    case responseValidationFailed(reason: ResponseValidationFailureReason)    
+    case responseValidationFailed(reason: ResponseValidationFailureReason)
+    case stubClientFactoryError(StubClientFactoryErrorReason)
+    case stubClientError(StubClientErrorReason)
+    case networkClientError(NetworkClientErrorReason)
 }

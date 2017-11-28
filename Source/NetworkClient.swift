@@ -9,13 +9,33 @@
 import Foundation
 
 public protocol NetworkClient: class {
-    
+
     @discardableResult
     func sendRequest<Request: NetworkRequest>(_ networkRequest: Request, completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation?
-    
+
 }
 
-open class NetworkDefaultClient: NetworkClient {
+public protocol StubbableClient: class {
+    var stubs: StubsSession? { get set }
+    var stubsErrorBehavior: StubsErrorBehavior { get set }
+
+    func enableStubs()
+    func disableStubs()
+}
+
+public enum StubsErrorBehavior {
+    case useRealClient
+    case returnError
+}
+
+open class NetworkDefaultClient: NetworkClient, StubbableClient {
+
+    public var stubs: StubsSession?
+
+    public var stubsErrorBehavior: StubsErrorBehavior = .returnError
+
+    private var useStubs: Bool = false
+
     private static let operationQueue = DispatchQueue(label: "com.flamingo.operation-queue", attributes: DispatchQueue.Attributes.concurrent)
     
     private let configuration: NetworkConfiguration
@@ -48,14 +68,33 @@ open class NetworkDefaultClient: NetworkClient {
             complete(request: networkRequest, with: {
                 completionHandler?(.error(error), nil)
             })
-            
+
             return nil
         }
-        
+
         let handler = self.requestHandler(with: networkRequest, urlRequest: urlRequest, completion: completionHandler)
-        let task = session.dataTask(with: urlRequest, completionHandler: handler)
-        task.resume()
-        return task
+
+        if !self.useStubs {
+            return self.sendRealRequest(with: urlRequest, completionHandler: handler)
+        } else {
+            guard let stubs = self.stubs else {
+                complete(request: networkRequest, with: {
+                    completionHandler?(.error(Error.networkClientError(.stubsNotConfigured)), nil)
+                })
+
+                return nil
+            }
+
+            return stubs.dataTask(with: urlRequest, completionHandler: { data, response, error in
+                if error != nil && self.stubsErrorBehavior == .useRealClient {
+                    _ = self.sendRealRequest(with: urlRequest, completionHandler: handler)
+
+                    return
+                }
+
+                handler(data, response, error)
+            })
+        }
     }
     
     private func requestHandler<Request: NetworkRequest>(with networkRequest: Request,
@@ -100,7 +139,14 @@ open class NetworkDefaultClient: NetworkClient {
             }
         }
     }
-    
+
+    private func sendRealRequest(with request: URLRequest, completionHandler handler: @escaping CompletionHandler) -> URLSessionDataTask {
+        let task = session.dataTask(with: request, completionHandler: handler)
+        task.resume()
+
+        return task
+    }
+
     open func urlRequest<T: NetworkRequest>(from networkRequest: T) throws -> URLRequest {
         let _baseURL = networkRequest.baseURL ?? configuration.baseURL
         
@@ -128,5 +174,17 @@ open class NetworkDefaultClient: NetworkClient {
     
     open func customHeadersForRequest<T : NetworkRequest>(_ networkRequest: T) -> [String : String]? {
         return nil
+    }
+
+    public func debugPrint(_ items: Any...) {
+        Swift.debugPrint(String(describing: type(of: self).self), items)
+    }
+
+    public func enableStubs() {
+        self.useStubs = true
+    }
+
+    public func disableStubs() {
+        self.useStubs = false
     }
 }

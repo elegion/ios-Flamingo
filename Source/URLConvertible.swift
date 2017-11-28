@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum HTTPMethod: String {
+public enum HTTPMethod: String, Decodable {
     
     case get = "GET"
     case post = "POST"
