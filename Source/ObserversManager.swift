@@ -8,8 +8,12 @@
 
 import Foundation
 
-public protocol NetworkClientManageable {
+public typealias VoidClosure = () -> Void
 
+public protocol NetworkClientManageable {
+    
+    func process(input: VoidClosure?, output: VoidClosure?)
+    var canProcess: Bool { get }
 }
 
 public struct NetworkClientObserverModel {
@@ -29,6 +33,18 @@ open class ObserversManager {
             observersStorage?.sort {
                 return $0.priority > $1.priority
             }
+        }
+    }
+    
+    public func process(input: VoidClosure?, output: VoidClosure?) {
+        if let observersStorage = observersStorage {
+            
+            for observerModel in observersStorage {
+                if observerModel.observer.canProcess {
+                    observerModel.observer.process(input: input, output: output)
+                }
+            }
+            
         }
     }
     
