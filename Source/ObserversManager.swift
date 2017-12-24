@@ -12,7 +12,7 @@ public typealias NetworkClientManageable = NetworkClientLoggable&NetworkClientMa
 
 public protocol NetworkClientLoggable {
     
-    func log(response: Result<AnyObject>?)
+    func manageLog(response: Result<AnyObject>?)
     
 }
 
@@ -68,7 +68,7 @@ open class ObserversManager {
         }
         
         for logger in loggersStorage {
-            logger.observer.log(response: mappingResult)
+            logger.observer.manageLog(response: mappingResult)
         }
             
         
