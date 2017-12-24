@@ -8,44 +8,95 @@
 
 import Foundation
 
-public typealias VoidClosure = () -> Void
+public typealias NetworkClientManageable = NetworkClientLoggable&NetworkClientMapable
 
-public protocol NetworkClientManageable {
+public protocol NetworkClientLoggable {
     
-    func process(input: VoidClosure?, output: VoidClosure?)
-    var canProcess: Bool { get }
+    func log(response: Result<AnyObject>?)
+    
+}
+
+public protocol NetworkClientMapable {
+    
+    func mapResponse() -> Result<AnyObject>?
+    
+}
+
+public enum NetworkClientObserverType {
+    
+    case undefined
+    case logger
+    case mapper
+    
 }
 
 public struct NetworkClientObserverModel {
     var observer: NetworkClientManageable
     var priority: Int
+    var type: NetworkClientObserverType
     
-    public init(observer: NetworkClientManageable, priority: Int) {
+    public init(observer: NetworkClientManageable, type: NetworkClientObserverType, priority: Int) {
         self.observer = observer
         self.priority = priority
+        self.type = type
     }
 }
 
 open class ObserversManager {
     
-    public var observersStorage: [NetworkClientObserverModel]? {
+    private var isPrepared = false
+    
+    public var observersStorage: [NetworkClientObserverModel] = [] {
         didSet {
-            observersStorage?.sort {
-                return $0.priority > $1.priority
-            }
+            isPrepared = false
         }
     }
     
-    public func process(input: VoidClosure?, output: VoidClosure?) {
-        if let observersStorage = observersStorage {
+    private var loggersStorage: [NetworkClientObserverModel] = []
+    private var mappersStorage: [NetworkClientObserverModel] = []
+    
+    public func process() -> Result<AnyObject>? {
+        prepareForManageIfNeeded()
+        
+        var mappingResult: Result<AnyObject>?
+        for mapper in mappersStorage {
+            mappingResult = mapper.observer.mapResponse()
             
-            for observerModel in observersStorage {
-                if observerModel.observer.canProcess {
-                    observerModel.observer.process(input: input, output: output)
-                }
+            if mappingResult != nil {
+                break
             }
-            
         }
+        
+        for logger in loggersStorage {
+            logger.observer.log(response: mappingResult)
+        }
+            
+        
+        return mappingResult
+    }
+    
+    private func prepareForManageIfNeeded() {
+        guard !isPrepared else {
+            return
+        }
+        
+        loggersStorage = observersStorage.filter({
+            $0.type == .logger
+        }).sorted {
+            (lhs, rhs) in
+            
+            lhs.priority < rhs.priority
+        }
+        
+        mappersStorage = observersStorage.filter({
+            $0.type == .mapper
+        }).sorted {
+            (lhs, rhs) in
+            
+            lhs.priority < rhs.priority
+        }
+        
+        isPrepared = true
     }
     
 }
