@@ -41,7 +41,6 @@ class SimpleLoggerTestCase: XCTestCase {
         let logger = self.logger
 
         [
-            ["nil": nil],
             ["dictionary": ["key": "value"]],
             ["array": [1, 2, 3]],
             ["number": 1],

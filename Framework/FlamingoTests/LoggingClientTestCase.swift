@@ -16,23 +16,41 @@ private class MockClient: NetworkClient {
     }
 
     public var responseResult: Result<StubModel>?
-    public var context: NetworkContext?
+    public let context = NetworkContext(request: nil, response: nil, data: nil, error: nil)
+
+    private var reporters = ObserversArray<NetworkClientReporter>()
 
     func sendRequest<Request: NetworkRequest>(_ networkRequest: Request,
                                               completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation? {
         self.sendRequestExecuted = true
         self.queue.async {
-            completionHandler?((self.responseResult! as? Result<Request.Response>)!, self.context)
+            [weak self] in
+            guard let sself = self else {
+                return
+            }
+            sself.reporters.invoke(invocation: {
+                (reporter) in
+                reporter.didRecieveResponse(for: networkRequest, context: sself.context)
+            })
+            completionHandler?((sself.responseResult as? Result<Request.Response>)!, sself.context)
         }
 
         return nil
+    }
+
+    func addReporter(_ reporter: NetworkClientReporter) {
+        reporters.addObserver(observer: reporter)
+    }
+
+    func removeReporter(_ reporter: NetworkClientReporter) {
+        reporters.removeObserver(observer: reporter)
     }
 }
 
 private class MockLogger: Logger {
     private(set) var logSended: Bool = false
 
-    public func log(_ message: String, context: [String: Any?]?) {
+    public func log(_ message: String, context: [String: Any]?) {
         self.logSended = true
     }
 }
@@ -71,13 +89,15 @@ class LoggingClientTestCase: XCTestCase {
         return StubModel(field: 0)
     }
 
-    private func client(_ mockClient: NetworkClient? = nil, logger mockLogger: Logger? = nil) -> LoggingClient {
+    private func client(_ mockClient: NetworkClient? = nil,
+                        logger mockLogger: Logger? = nil) -> (NetworkClient, LoggingClient) {
         let client = mockClient ?? self.configuredMockClient
         let logger = mockLogger ?? self.mockLogger
-        let loggingClient = LoggingClient(for: client, logger: logger)
-        loggingClient.enableLogging()
+        let loggingClient = LoggingClient(logger: logger)
+        loggingClient.useLogger = true
+        client.addReporter(loggingClient)
 
-        return loggingClient
+        return (client, loggingClient)
     }
 
     private var request: StubRequest {
@@ -94,10 +114,10 @@ class LoggingClientTestCase: XCTestCase {
         let expectation = self.expectation(description: #function)
         let mockClient = self.mockClient
         mockClient.responseResult = .success(self.stubModel)
-        let client = self.client(mockClient)
+        let clients = self.client(mockClient)
         let request = self.request
 
-        _ = client.sendRequest(request) { _, _ in
+        _ = clients.0.sendRequest(request) { _, _ in
             XCTAssertTrue(mockClient.sendRequestExecuted)
 
             expectation.fulfill()
@@ -109,10 +129,10 @@ class LoggingClientTestCase: XCTestCase {
     public func test_checkLogging_expectedTrue() {
         let expectation = self.expectation(description: #function)
         let mockLogger = self.mockLogger
-        let client = self.client(logger: mockLogger)
+        let clients = self.client(logger: mockLogger)
         let request = self.request
 
-        _ = client.sendRequest(request) { _, _ in
+        _ = clients.0.sendRequest(request) { _, _ in
             XCTAssertTrue(mockLogger.logSended)
 
             expectation.fulfill()
@@ -124,11 +144,11 @@ class LoggingClientTestCase: XCTestCase {
     public func test_disableLogging_expectedFalse() {
         let expectation = self.expectation(description: #function)
         let logger = self.mockLogger
-        let client = self.client(logger: logger)
-        client.disableLogging()
+        let clients = self.client(logger: logger)
+        clients.1.useLogger = false
         let request = self.request
 
-        _ = client.sendRequest(request) { _, _ in
+        _ = clients.0.sendRequest(request) { _, _ in
             XCTAssertFalse(logger.logSended)
 
             expectation.fulfill()
@@ -140,17 +160,17 @@ class LoggingClientTestCase: XCTestCase {
     public func test_saveDisablingForRequest_expectedFalse() {
         let expectation = self.expectation(description: #function)
         let logger = self.mockLogger
-        let client = self.client(logger: logger)
-        client.disableLogging()
+        let clients = self.client(logger: logger)
+        clients.1.useLogger = false
         let request = self.request
 
-        _ = client.sendRequest(request) { _, _ in
+        _ = clients.0.sendRequest(request) { _, _ in
             XCTAssertFalse(logger.logSended)
 
             expectation.fulfill()
         }
 
-        client.enableLogging()
+        clients.1.useLogger = true
 
         self.waitForExpectations(timeout: 5, handler: nil)
     }

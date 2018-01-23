@@ -12,7 +12,8 @@ public protocol NetworkClient: class {
     
     @discardableResult
     func sendRequest<Request: NetworkRequest>(_ networkRequest: Request, completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation?
-    
+    func addReporter(_ reporter: NetworkClientReporter)
+    func removeReporter(_ reporter: NetworkClientReporter)
 }
 
 open class NetworkDefaultClient: NetworkClient {
