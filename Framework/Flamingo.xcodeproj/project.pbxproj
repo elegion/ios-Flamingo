@@ -11,6 +11,7 @@
 		9488CB04201782F300D7151D /* NetworkClientReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488CB03201782F300D7151D /* NetworkClientReporter.swift */; };
 		9488CB062017837600D7151D /* Observers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488CB052017837600D7151D /* Observers.swift */; };
 		9488CB082017963900D7151D /* NetworkClientReporterCallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488CB072017963900D7151D /* NetworkClientReporterCallTests.swift */; };
+		9488CB0A2017995000D7151D /* NetworkClientMutater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488CB092017995000D7151D /* NetworkClientMutater.swift */; };
 		94BF3D421FA0A1CA00909B27 /* URLRequest+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF3D411FA0A1CA00909B27 /* URLRequest+Description.swift */; };
 		94E20C9C1F7982F90017D46C /* ValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E20C9B1F7982F90017D46C /* ValidationTests.swift */; };
 		94E20C9E1F7982F90017D46C /* Flamingo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F7CEB971CE9AFCD00D6CCBA /* Flamingo.framework */; };
@@ -52,6 +53,7 @@
 		9488CB03201782F300D7151D /* NetworkClientReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientReporter.swift; sourceTree = "<group>"; };
 		9488CB052017837600D7151D /* Observers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observers.swift; sourceTree = "<group>"; };
 		9488CB072017963900D7151D /* NetworkClientReporterCallTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientReporterCallTests.swift; sourceTree = "<group>"; };
+		9488CB092017995000D7151D /* NetworkClientMutater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientMutater.swift; sourceTree = "<group>"; };
 		94BF3D411FA0A1CA00909B27 /* URLRequest+Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Description.swift"; sourceTree = "<group>"; };
 		94E20C991F7982F90017D46C /* FlamingoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlamingoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E20C9B1F7982F90017D46C /* ValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTests.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				9488CB03201782F300D7151D /* NetworkClientReporter.swift */,
+				9488CB092017995000D7151D /* NetworkClientMutater.swift */,
 			);
 			name = ClientMiddleware;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9488CB0A2017995000D7151D /* NetworkClientMutater.swift in Sources */,
 				FE80C3631F6FE54F0060141B /* NetworkRequest.swift in Sources */,
 				FE80C3601F6FE5490060141B /* Error.swift in Sources */,
 				94EE07DE1F7976F40095D039 /* Validation.swift in Sources */,

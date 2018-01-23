@@ -24,6 +24,8 @@ open class NetworkDefaultClient: NetworkClient {
     open var session: URLSession
 
     private var reporters = ObserversArray<NetworkClientReporter>()
+
+    private var mutaters = ObserversArray<NetworkClientMutater>()
     
     public init(configuration: NetworkConfiguration,
                 session: URLSession) {
@@ -54,15 +56,28 @@ open class NetworkDefaultClient: NetworkClient {
             
             return nil
         }
-        
-        let handler = self.requestHandler(with: networkRequest, urlRequest: urlRequest, completion: completionHandler)
-        let task = session.dataTask(with: urlRequest, completionHandler: handler)
-        task.resume()
-        reporters.invoke {
-            (reporter) in
+        reporters.iterate {
+            (reporter, _) in
             reporter.willSendRequest(networkRequest)
         }
-        return task
+        
+        let handler = self.requestHandler(with: networkRequest, urlRequest: urlRequest, completion: completionHandler)
+        var foundReponse = false
+        mutaters.iterate {
+            (mutater, i) in
+            if !foundReponse,
+                let responseTuple = mutater.reponse(for: networkRequest) {
+                handler(responseTuple.data, responseTuple.response, responseTuple.error)
+                foundReponse = true
+            }
+        }
+        if !foundReponse {
+            let task = session.dataTask(with: urlRequest, completionHandler: handler)
+            task.resume()
+            return task
+        } else {
+            return nil
+        }
     }
 
     public func addReporter(_ reporter: NetworkClientReporter) {
@@ -71,6 +86,14 @@ open class NetworkDefaultClient: NetworkClient {
 
     public func removeReporter(_ reporter: NetworkClientReporter) {
         reporters.removeObserver(observer: reporter)
+    }
+
+    public func addMutater(_ mutater: NetworkClientMutater) {
+        mutaters.addObserver(observer: mutater)
+    }
+
+    public func removeMutater(_ mutater: NetworkClientMutater) {
+        mutaters.removeObserver(observer: mutater)
     }
     
     private func requestHandler<Request: NetworkRequest>(with networkRequest: Request,
@@ -92,8 +115,8 @@ open class NetworkDefaultClient: NetworkClient {
                     self?.complete(request: networkRequest, with: {
                         let context = NetworkContext(request: urlRequest, response: httpResponse, data: data, error: finalError as NSError?)
 
-                        self?.reporters.invoke {
-                            (reporter) in
+                        self?.reporters.iterate {
+                            (reporter, _) in
                             reporter.didRecieveResponse(for: networkRequest, context: context)
                         }
                         
@@ -126,8 +149,8 @@ open class NetworkDefaultClient: NetworkClient {
                 switch result {
                 case .success(let value):
                     sself.complete(request: networkRequest, with: {
-                        self?.reporters.invoke {
-                            (reporter) in
+                        self?.reporters.iterate {
+                            (reporter, _) in
                             reporter.didRecieveResponse(for: networkRequest, context: context)
                         }
 

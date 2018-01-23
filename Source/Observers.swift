@@ -29,12 +29,12 @@ internal class ObserversArray<T> {
         }
     }
 
-    internal func invoke(invocation: (T) -> Void) {
-        for (_, observerPointer) in weakPointers.enumerated() {
+    internal func iterate(invocation: (T, Int) -> Void) {
+        for (i, observerPointer) in weakPointers.enumerated() {
 
             if let observer = observerPointer.value {
                 // swiftlint:disable:next force_cast
-                invocation(observer as! T)
+                invocation(observer as! T, i)
             } else {
                 if let indexToRemove = weakPointers.index(where: { $0 === observerPointer }) {
                     weakPointers.remove(at: indexToRemove)
