@@ -167,10 +167,9 @@ class LoggingClientTestCase: XCTestCase {
         _ = clients.0.sendRequest(request) { _, _ in
             XCTAssertFalse(logger.logSended)
 
+            clients.1.useLogger = true
             expectation.fulfill()
         }
-
-        clients.1.useLogger = true
 
         self.waitForExpectations(timeout: 5, handler: nil)
     }
