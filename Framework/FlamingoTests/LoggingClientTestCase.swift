@@ -18,7 +18,8 @@ private class MockClient: NetworkClient {
     public var responseResult: Result<StubModel>?
     public var context: NetworkContext?
 
-    func sendRequest<Request: NetworkRequest>(_ networkRequest: Request, completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation? {
+    func sendRequest<Request: NetworkRequest>(_ networkRequest: Request,
+                                              completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation? {
         self.sendRequestExecuted = true
         self.queue.async {
             completionHandler?((self.responseResult! as? Result<Request.Response>)!, self.context)

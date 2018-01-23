@@ -22,7 +22,7 @@ open class NetworkDefaultClient: NetworkClient {
     
     open var session: URLSession
 
-    private var reportes = ObserversArray<NetworkClientReporter>()
+    private var reporters = ObserversArray<NetworkClientReporter>()
     
     public init(configuration: NetworkConfiguration,
                 session: URLSession) {
@@ -57,11 +57,19 @@ open class NetworkDefaultClient: NetworkClient {
         let handler = self.requestHandler(with: networkRequest, urlRequest: urlRequest, completion: completionHandler)
         let task = session.dataTask(with: urlRequest, completionHandler: handler)
         task.resume()
-        reportes.invoke {
+        reporters.invoke {
             (reporter) in
             reporter.willSendRequest(networkRequest)
         }
         return task
+    }
+
+    public func addReporter(_ reporter: NetworkClientReporter) {
+        reporters.addObserver(observer: reporter)
+    }
+
+    public func removeReporter(_ reporter: NetworkClientReporter) {
+        reporters.removeObserver(observer: reporter)
     }
     
     private func requestHandler<Request: NetworkRequest>(with networkRequest: Request,
@@ -72,7 +80,7 @@ open class NetworkDefaultClient: NetworkClient {
 
             type(of: self).operationQueue.async {
 
-                self.reportes.invoke {
+                self.reporters.invoke {
                     (reporter) in
                     reporter.didRecieveResponse(response, error: error)
                 }

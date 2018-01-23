@@ -23,7 +23,7 @@ private class TestRequest: NetworkRequest {
         return .put
     }
 
-    var parameters: [String : Any]? {
+    var parameters: [String: Any]? {
         return ["some_param": 12]
     }
 
