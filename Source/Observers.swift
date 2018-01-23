@@ -8,19 +8,19 @@
 
 import Foundation
 
-public class ObserversArray<T> {
+internal class ObserversArray<T> {
 
     private var weakPointers = [WeakWrapper]()
 
-    public init() {
+    internal init() {
 
     }
 
-    public func addObserver(observer: T) {
+    internal func addObserver(observer: T) {
         weakPointers.append(WeakWrapper(value: observer as AnyObject))
     }
 
-    public func removeObserver(observer: T) {
+    internal func removeObserver(observer: T) {
 
         for (index, delegateInArray) in weakPointers.enumerated() {
             if delegateInArray.value === (observer as AnyObject) {
@@ -29,7 +29,7 @@ public class ObserversArray<T> {
         }
     }
 
-    public func invoke(invocation: (T) -> Void) {
+    internal func invoke(invocation: (T) -> Void) {
         for (_, observerPointer) in weakPointers.enumerated() {
 
             if let observer = observerPointer.value {

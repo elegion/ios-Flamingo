@@ -8,42 +8,33 @@
 
 import Foundation
 
-class LoggingClient: NetworkClient {
-    private let client: NetworkClient
+open class LoggingClient: NetworkClientReporter {
     private let logger: Logger
-    private var useLogger: Bool = false
+    open var useLogger: Bool = true
 
-    init(for client: NetworkClient, logger: Logger) {
-        self.client = client
+    public init(logger: Logger) {
         self.logger = logger
     }
 
-    func sendRequest<Request>(_ networkRequest: Request, completionHandler: ((Result<Request.ResponseSerializer.Serialized>, NetworkContext?) -> Void)?) -> CancelableOperation? where Request: NetworkRequest {
-        let canLogging = self.useLogger
+    // MARK: - NetworkClientReporter
 
-        if canLogging {
-            self.logger.log("Send request", context: [
-                "request": networkRequest
-            ])
+    open func willSendRequest<Request>(_ networkRequest: Request) where Request : NetworkRequest {
+        guard useLogger else {
+            return
         }
 
-        return self.client.sendRequest(networkRequest, completionHandler: { result, context in
-            if canLogging {
-                self.logger.log("Complete request", context: [
-                    "result": result,
-                    "context": context as Any
-                ])
-            }
-
-            completionHandler?(result, context)
-        })
+        logger.log("Send request", context: [
+            "request": networkRequest
+            ])
     }
 
-    func enableLogging() {
-        self.useLogger = true
-    }
+    open func didRecieveResponse<Request>(for request: Request, context: NetworkContext) where Request : NetworkRequest {
+        guard useLogger else {
+            return
+        }
 
-    func disableLogging() {
-        self.useLogger = false
+        let context: [String: Any] = ["request": request,
+                                      "context": context]
+        logger.log("Complete request", context: context)
     }
 }

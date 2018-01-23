@@ -124,11 +124,12 @@ open class NetworkDefaultClient: NetworkClient {
                 
                 switch result {
                 case .success(let value):
-                    sself.reporters.invoke {
-                        (reporter) in
-                        reporter.didRecieveResponse(for: networkRequest, context: context)
-                    }
                     sself.complete(request: networkRequest, with: {
+                        self?.reporters.invoke {
+                            (reporter) in
+                            reporter.didRecieveResponse(for: networkRequest, context: context)
+                        }
+
                         completion?(.success(value), context)
                     })
                 case .error(let error):
