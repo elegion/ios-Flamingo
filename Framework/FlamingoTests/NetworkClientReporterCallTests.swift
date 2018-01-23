@@ -95,7 +95,7 @@ class NetworkClientReporterCallTests: XCTestCase {
         }
 
         waitForExpectations(timeout: 10) {
-            [unowned self] (_) in
+            (_) in
 
             XCTAssertTrue(reporter1.willSendCalled)
             XCTAssertTrue(reporter1.didRecieveCalled)
