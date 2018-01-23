@@ -84,41 +84,56 @@ open class NetworkDefaultClient: NetworkClient {
                     return
                 }
 
-                sself.reporters.invoke {
-                    (reporter) in
-                    reporter.didRecieveResponse(response, error: error)
-                }
-                
-                guard let httpResponse = response as? HTTPURLResponse else {
-                    let context = NetworkContext(request: urlRequest, response: response as? HTTPURLResponse, data: data, error: Error.unableToRetrieveHTTPResponse as NSError)
-                    sself.complete(request: networkRequest, with: {
-                        completion?(.error(Error.unableToRetrieveHTTPResponse), context)
+                var finalError: Swift.Error? = error
+                let httpResponse = response as? HTTPURLResponse
+
+                let failureClosure = {
+                    self?.complete(request: networkRequest, with: {
+                        let context = NetworkContext(request: urlRequest, response: httpResponse, data: data, error: finalError as NSError?)
+
+                        self?.reporters.invoke {
+                            (reporter) in
+                            reporter.didRecieveResponse(for: networkRequest, context: context)
+                        }
+                        
+                        completion?(.error(finalError ?? Error.invalidRequest), context)
                     })
+                }
+
+                if error != nil {
+                    failureClosure()
+                    return
+                }
+
+                if httpResponse == nil {
+                    finalError = Error.unableToRetrieveHTTPResponse
+                    failureClosure()
                     return
                 }
                 
                 let validator = Validator(request: urlRequest, response: httpResponse, data: data)
                 validator.validate()
                 if let validationError = validator.validationErrors.first {
-                    let context = NetworkContext(request: urlRequest, response: response as? HTTPURLResponse, data: data, error: validationError as NSError)
-                    sself.complete(request: networkRequest, with: {
-                        completion?(.error(validationError), context)
-                    })
+                    finalError = validationError
+                    failureClosure()
                     return
                 }
 
-                let context = NetworkContext(request: urlRequest, response: response as? HTTPURLResponse, data: data, error: error as NSError?)
+                let context = NetworkContext(request: urlRequest, response: httpResponse, data: data, error: finalError as NSError?)
                 let result = networkRequest.responseSerializer.serialize(request: urlRequest, response: httpResponse, data: data, error: error)
                 
                 switch result {
                 case .success(let value):
+                    sself.reporters.invoke {
+                        (reporter) in
+                        reporter.didRecieveResponse(for: networkRequest, context: context)
+                    }
                     sself.complete(request: networkRequest, with: {
                         completion?(.success(value), context)
                     })
                 case .error(let error):
-                    sself.complete(request: networkRequest, with: {
-                        completion?(.error(error), context)
-                    })
+                    finalError = error
+                    failureClosure()
                 }
             }
         }
