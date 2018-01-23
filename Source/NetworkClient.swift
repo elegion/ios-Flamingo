@@ -76,18 +76,22 @@ open class NetworkDefaultClient: NetworkClient {
                                                          urlRequest: URLRequest,
                                                          completion: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> (Data?, URLResponse?, Swift.Error?) -> Void {
         return {
-            [unowned self] data, response, error in
+            [weak self] data, response, error in
 
-            type(of: self).operationQueue.async {
+            NetworkDefaultClient.operationQueue.async {
 
-                self.reporters.invoke {
+                guard let sself = self else {
+                    return
+                }
+
+                sself.reporters.invoke {
                     (reporter) in
                     reporter.didRecieveResponse(response, error: error)
                 }
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
                     let context = NetworkContext(request: urlRequest, response: response as? HTTPURLResponse, data: data, error: Error.unableToRetrieveHTTPResponse as NSError)
-                    self.complete(request: networkRequest, with: {
+                    sself.complete(request: networkRequest, with: {
                         completion?(.error(Error.unableToRetrieveHTTPResponse), context)
                     })
                     return
@@ -97,7 +101,7 @@ open class NetworkDefaultClient: NetworkClient {
                 validator.validate()
                 if let validationError = validator.validationErrors.first {
                     let context = NetworkContext(request: urlRequest, response: response as? HTTPURLResponse, data: data, error: validationError as NSError)
-                    self.complete(request: networkRequest, with: {
+                    sself.complete(request: networkRequest, with: {
                         completion?(.error(validationError), context)
                     })
                     return
@@ -108,11 +112,11 @@ open class NetworkDefaultClient: NetworkClient {
                 
                 switch result {
                 case .success(let value):
-                    self.complete(request: networkRequest, with: {
+                    sself.complete(request: networkRequest, with: {
                         completion?(.success(value), context)
                     })
                 case .error(let error):
-                    self.complete(request: networkRequest, with: {
+                    sself.complete(request: networkRequest, with: {
                         completion?(.error(error), context)
                     })
                 }
