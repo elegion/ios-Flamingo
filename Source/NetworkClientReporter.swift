@@ -10,5 +10,5 @@ import Foundation
 
 public protocol NetworkClientReporter: class {
     func willSendRequest(_ networkRequest: NetworkRequest)
-    func didRecieveResponse(_ urlResponse: URLResponse)
+    func didRecieveResponse(_ urlResponse: URLResponse?, error: Swift.Error?)
 }

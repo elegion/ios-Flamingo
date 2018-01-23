@@ -57,6 +57,10 @@ open class NetworkDefaultClient: NetworkClient {
         let handler = self.requestHandler(with: networkRequest, urlRequest: urlRequest, completion: completionHandler)
         let task = session.dataTask(with: urlRequest, completionHandler: handler)
         task.resume()
+        reportes.invoke {
+            (reporter) in
+            reporter.willSendRequest(networkRequest)
+        }
         return task
     }
     
@@ -67,6 +71,11 @@ open class NetworkDefaultClient: NetworkClient {
             [unowned self] data, response, error in
 
             type(of: self).operationQueue.async {
+
+                self.reportes.invoke {
+                    (reporter) in
+                    reporter.didRecieveResponse(response, error: error)
+                }
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
                     let context = NetworkContext(request: urlRequest, response: response as? HTTPURLResponse, data: data, error: Error.unableToRetrieveHTTPResponse as NSError)
