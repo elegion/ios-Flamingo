@@ -21,6 +21,8 @@ open class NetworkDefaultClient: NetworkClient {
     private let configuration: NetworkConfiguration
     
     open var session: URLSession
+
+    private var reportes = ObserversArray<NetworkClientReporter>()
     
     public init(configuration: NetworkConfiguration,
                 session: URLSession) {
