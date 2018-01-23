@@ -28,8 +28,8 @@ private class MockClient: NetworkClient {
             guard let sself = self else {
                 return
             }
-            sself.reporters.invoke(invocation: {
-                (reporter) in
+            sself.reporters.iterate(invocation: {
+                (reporter, _) in
                 reporter.didRecieveResponse(for: networkRequest, context: sself.context)
             })
             completionHandler?((sself.responseResult as? Result<Request.Response>)!, sself.context)
