@@ -8,14 +8,14 @@
 
 import Foundation
 
-class SimpleLogger: Logger {
+public class SimpleLogger: Logger {
     private let appName: String
 
-    init(appName: String) {
+    public init(appName: String) {
         self.appName = appName
     }
 
-    func log(_ message: String, context: [String: Any]? = nil) {
+    public func log(_ message: String, context: [String: Any]? = nil) {
         let date = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
@@ -23,8 +23,7 @@ class SimpleLogger: Logger {
         var start = "\(formattedDate) \(self.appName): \(message)"
         if let context = context,
             !context.isEmpty {
-            start += ", context: {\(String(describing: context))}"
-            start += ", context: {\(context)}"
+            start += ", {\(context)}"
         }
 
         print(start)

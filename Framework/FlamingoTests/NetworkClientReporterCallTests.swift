@@ -80,7 +80,7 @@ class NetworkClientReporterCallTests: XCTestCase {
     func test_reporterCalls() {
         let logger1 = MockLogger()
         let reporter1 = MockReporter(logger: logger1)
-        let reporter2 = MockReporter(logger: MockLogger())
+        let reporter2 = MockReporter(logger: SimpleLogger(appName: #file))
         client.addReporter(reporter1)
         client.addReporter(reporter2)
 
