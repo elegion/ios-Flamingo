@@ -20,14 +20,12 @@ private class Address: Codable {
     var suite: String
     var city: String
     var geo: GeoLocation
-
 }
 
 private class Company: Codable {
     var name: String
     var catchPhrase: String
     var bs: String
-
 }
 
 private class User: Codable {
@@ -44,6 +42,7 @@ private class User: Codable {
 private struct UsersRequest: NetworkRequest {
 
     init() {
+
     }
 
     // MARK: - Implementation
