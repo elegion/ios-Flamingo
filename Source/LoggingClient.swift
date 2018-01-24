@@ -18,23 +18,23 @@ open class LoggingClient: NetworkClientReporter {
 
     // MARK: - NetworkClientReporter
 
-    open func willSendRequest<Request>(_ networkRequest: Request) where Request : NetworkRequest {
+    open func willSendRequest<Request>(_ networkRequest: Request) where Request: NetworkRequest {
         guard useLogger else {
             return
         }
 
         logger.log("Send request", context: [
-            "request": networkRequest
+            "request": networkRequest,
             ])
     }
 
-    open func didRecieveResponse<Request>(for request: Request, context: NetworkContext) where Request : NetworkRequest {
+    open func didRecieveResponse<Request>(for request: Request, context: NetworkContext) where Request: NetworkRequest {
         guard useLogger else {
             return
         }
 
         let context: [String: Any] = ["request": request,
-                                      "context": context]
+                                      "context": context,]
         logger.log("Complete request", context: context)
     }
 }

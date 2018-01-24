@@ -64,14 +64,14 @@ private struct UsersRequest: NetworkRequest {
 class RealRequestsTests: XCTestCase {
 
     var networkClient: NetworkClient!
-    
+
     override func setUp() {
         super.setUp()
         let configuration = NetworkDefaultConfiguration(baseURL: "http://jsonplaceholder.typicode.com/")
 
         networkClient = NetworkDefaultClient(configuration: configuration, session: .shared)
     }
-    
+
     override func tearDown() {
         networkClient = nil
         super.tearDown()
@@ -82,7 +82,7 @@ class RealRequestsTests: XCTestCase {
         let request = UsersRequest()
 
         networkClient.sendRequest(request) {
-            [weak self] (result, _) in
+            (result, _) in
 
             switch result {
             case .success(let users):

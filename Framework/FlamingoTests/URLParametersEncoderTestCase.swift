@@ -33,22 +33,22 @@ class URLParametersEncoderTestCase: XCTestCase {
                 "dictionary": [
                     "key&1": "value1",
                     "key2": "value2",
-                    "key3": "value3"
+                    "key3": "value3",
                 ],
                 "array": [ 1, 2, 3 ],
                 "nested_dictionary": [
                     "dictionary2": [
                         "key4": "value4",
                         "key5": 5,
-                        "key6": false
+                        "key6": false,
                     ],
-                    "dictionary3": nil
+                    "dictionary3": nil,
                 ],
                 "int": 12,
                 "bool": true,
                 "string": "string!@#$%^&*()_+=-[]{};'\":,./<>?`~\\",
-                "null": nil
-            ]
+                "null": nil,
+            ],
         ]
 
         var request = self.request()
@@ -81,7 +81,7 @@ class URLParametersEncoderTestCase: XCTestCase {
         let expected = URL(string: self.urlString + "?some_query&key=value")!.absoluteString
 
         let data = [
-            "key": "value"
+            "key": "value",
         ]
 
         var request = self.request(query)

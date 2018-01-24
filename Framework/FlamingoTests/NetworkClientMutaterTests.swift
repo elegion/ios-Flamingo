@@ -12,7 +12,7 @@ import Flamingo
 private final class MockMutater: NetworkClientMutater {
     var responseReplaceWasCalled: Bool = false
 
-    func reponse<Request>(for request: Request) -> NetworkClientMutater.RawResponseTuple? where Request : NetworkRequest {
+    func reponse<Request>(for request: Request) -> NetworkClientMutater.RawResponseTuple? where Request: NetworkRequest {
         responseReplaceWasCalled = true
         return nil
     }
@@ -21,7 +21,7 @@ private final class MockMutater: NetworkClientMutater {
 class NetworkClientMutaterTests: XCTestCase {
 
     var networkClient: NetworkClientMutable!
-    
+
     override func setUp() {
         super.setUp()
 
@@ -41,10 +41,10 @@ class NetworkClientMutaterTests: XCTestCase {
         networkClient.addMutater(mutater1)
         networkClient.addMutater(mutater2)
 
-        let asyncExpectation = expectation(description: "Async")
+        let asyncExpectation = expectation(description: #function)
 
         networkClient.removeMutater(mutater2)
-        let request = TestRequest()
+        let request = ReailFailedTestRequest()
         networkClient.sendRequest(request) { (_, _) in
             asyncExpectation.fulfill()
         }

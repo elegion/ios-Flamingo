@@ -9,11 +9,11 @@
 import XCTest
 @testable import Flamingo
 
-struct MockData: Codable {
+struct MockEmptyData: Codable {
 
 }
 
-class TestRequest: NetworkRequest {
+class ReailFailedTestRequest: NetworkRequest {
 
     var URL: URLConvertible {
         return "v2/59c956433f0000910183f797"
@@ -31,9 +31,9 @@ class TestRequest: NetworkRequest {
         return JSONParametersEncoder()
     }
 
-    typealias ResponseSerializer = CodableJSONSerializer<MockData>
+    typealias ResponseSerializer = CodableJSONSerializer<MockEmptyData>
 
-    var responseSerializer: CodableJSONSerializer<MockData> {
+    var responseSerializer: CodableJSONSerializer<MockEmptyData> {
         return ResponseSerializer()
     }
 }
@@ -57,7 +57,7 @@ class ValidationTests: XCTestCase {
 
         let asyncExpectation = expectation(description: "Async")
 
-        let request = TestRequest()
+        let request = ReailFailedTestRequest()
         client.sendRequest(request) { (result, context) in
 
             switch result {

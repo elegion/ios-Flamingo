@@ -46,7 +46,7 @@ class SimpleLoggerTestCase: XCTestCase {
             ["number": 1],
             ["string": "string"],
             ["bool": true],
-            ["object": self]
+            ["object": self],
         ].forEach { context in
             logger.log(SimpleLoggerTestCase.Consts.message, context: context)
         }

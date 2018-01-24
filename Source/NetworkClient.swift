@@ -51,7 +51,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
     }
     
     @discardableResult
-    open func sendRequest<Request>(_ networkRequest: Request, completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation? where Request : NetworkRequest {
+    open func sendRequest<Request>(_ networkRequest: Request, completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation? where Request: NetworkRequest {
         let urlRequest: URLRequest
         do {
             urlRequest = try self.urlRequest(from: networkRequest)
@@ -195,7 +195,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
         return urlRequest
     }
     
-    open func customHeadersForRequest<T : NetworkRequest>(_ networkRequest: T) -> [String : String]? {
+    open func customHeadersForRequest<T: NetworkRequest>(_ networkRequest: T) -> [String: String]? {
         return nil
     }
 }
