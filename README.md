@@ -34,7 +34,7 @@ github "elegion/ios-Flamingo"
 Create default network configuration:
 
 ```swift
-        let configuration = NetworkDefaultConfiguration(baseURL: "http://jsonplaceholder.typicode.com/")
+let configuration = NetworkDefaultConfiguration(baseURL: "http://jsonplaceholder.typicode.com/")
 ```
 
 #### Setup network client
@@ -80,8 +80,9 @@ struct UsersRequest: NetworkRequest {
     var responseSerializer: CodableJSONSerializer<[User]> {
         return CodableJSONSerializer<[User]>()
     }
+    ...
 }
-...
+
 class Address: Codable {
     var street: String
     var suite: String
