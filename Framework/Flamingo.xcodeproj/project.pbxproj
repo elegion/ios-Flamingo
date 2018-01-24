@@ -75,6 +75,7 @@
 		E2BC881C1F7E5124005CA524 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = .swiftlint.yml; path = ../.swiftlint.yml; sourceTree = "<group>"; };
 		E2BC881D1F7E5124005CA524 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitignore; path = ../.gitignore; sourceTree = "<group>"; };
 		E2BC881E1F7E5124005CA524 /* Flamingo.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = Flamingo.podspec; path = ../Flamingo.podspec; sourceTree = "<group>"; };
+		E2DAC70F1FA1F5BA00793F3E /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = .travis.yml; path = ../.travis.yml; sourceTree = "<group>"; };
 		FE80C3531F6FE4080060141B /* CancelableOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelableOperation.swift; sourceTree = "<group>"; };
 		FE80C3541F6FE4080060141B /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		FE80C3551F6FE4080060141B /* ParametersEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersEncoding.swift; sourceTree = "<group>"; };
@@ -200,6 +201,7 @@
 			children = (
 				E2BC881D1F7E5124005CA524 /* .gitignore */,
 				E2BC881C1F7E5124005CA524 /* .swiftlint.yml */,
+				E2DAC70F1FA1F5BA00793F3E /* .travis.yml */,
 				E2BC881E1F7E5124005CA524 /* Flamingo.podspec */,
 				E2BC881B1F7E5124005CA524 /* README.md */,
 			);

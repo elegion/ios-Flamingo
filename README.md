@@ -1,5 +1,8 @@
 ![Flamingo](https://github.com/elegion/ios-Flamingo/blob/master/logo.png)
 
+[![Build Status](https://travis-ci.org/elegion/ios-Flamingo.svg?branch=master)](https://travis-ci.org/elegion/ios-Flamingo)
+[![License](https://img.shields.io/github/license/elegion/Flamingo.svg)](LICENSE)
+
 ## Description
 
 Lightweight and easy to use Swift network manager. Based on `URLSession` and `Swift.Codable`.
