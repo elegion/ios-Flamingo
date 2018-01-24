@@ -57,7 +57,7 @@ class NetworkClientReporterCallTests: XCTestCase {
 
         let asyncExpectation = expectation(description: #function)
 
-        let request = ReailFailedTestRequest()
+        let request = RealFailedTestRequest()
         client.removeReporter(reporter2)
         client.sendRequest(request) {
             (_, _) in
