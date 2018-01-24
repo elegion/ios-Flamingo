@@ -16,7 +16,13 @@ public protocol NetworkClient: class {
     func removeReporter(_ reporter: NetworkClientReporter)
 }
 
-open class NetworkDefaultClient: NetworkClient {
+public protocol NetworkClientMutable: NetworkClient {
+
+    func addMutater(_ mutater: NetworkClientMutater)
+    func removeMutater(_ mutater: NetworkClientMutater)
+}
+
+open class NetworkDefaultClient: NetworkClientMutable {
     private static let operationQueue = DispatchQueue(label: "com.flamingo.operation-queue", attributes: DispatchQueue.Attributes.concurrent)
     
     private let configuration: NetworkConfiguration
@@ -62,16 +68,16 @@ open class NetworkDefaultClient: NetworkClient {
         }
         
         let handler = self.requestHandler(with: networkRequest, urlRequest: urlRequest, completion: completionHandler)
-        var foundReponse = false
+        var foundResponse = false
         mutaters.iterate {
-            (mutater, i) in
-            if !foundReponse,
+            (mutater, _) in
+            if !foundResponse,
                 let responseTuple = mutater.reponse(for: networkRequest) {
                 handler(responseTuple.data, responseTuple.response, responseTuple.error)
-                foundReponse = true
+                foundResponse = true
             }
         }
-        if !foundReponse {
+        if !foundResponse {
             let task = session.dataTask(with: urlRequest, completionHandler: handler)
             task.resume()
             return task

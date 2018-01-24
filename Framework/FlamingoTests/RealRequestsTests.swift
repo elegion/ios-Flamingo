@@ -73,6 +73,7 @@ class RealRequestsTests: XCTestCase {
     }
     
     override func tearDown() {
+        networkClient = nil
         super.tearDown()
     }
 

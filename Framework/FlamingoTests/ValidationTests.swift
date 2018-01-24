@@ -9,11 +9,11 @@
 import XCTest
 @testable import Flamingo
 
-private struct MockData: Codable {
+struct MockData: Codable {
 
 }
 
-private class TestRequest: NetworkRequest {
+class TestRequest: NetworkRequest {
 
     var URL: URLConvertible {
         return "v2/59c956433f0000910183f797"

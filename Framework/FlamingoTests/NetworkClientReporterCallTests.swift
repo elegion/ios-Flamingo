@@ -10,35 +10,6 @@ import Foundation
 import XCTest
 @testable import Flamingo
 
-private struct MockData: Codable {
-
-}
-
-private class TestRequest: NetworkRequest {
-
-    var URL: URLConvertible {
-        return "v2/59c956433f0000910183f797"
-    }
-
-    var method: HTTPMethod {
-        return .put
-    }
-
-    var parameters: [String: Any]? {
-        return ["some_param": 12]
-    }
-
-    var parametersEncoder: ParametersEncoder {
-        return JSONParametersEncoder()
-    }
-
-    typealias ResponseSerializer = CodableJSONSerializer<MockData>
-
-    var responseSerializer: CodableJSONSerializer<MockData> {
-        return ResponseSerializer()
-    }
-}
-
 private class MockLogger: Logger {
     private(set) var logSended: Bool = false
 
