@@ -94,9 +94,11 @@ class NetworkClientMutaterTests: XCTestCase {
     }
 
     func test_mutateAndPriority() {
+        let mutater0 = MockEmptyMutater()
         let mutater1 = MockMutater()
         let mutater2 = MockEmptyMutater()
 
+        networkClient.addMutater(mutater0)
         networkClient.addMutater(mutater1)
         networkClient.addMutater(mutater2)
 
@@ -122,6 +124,7 @@ class NetworkClientMutaterTests: XCTestCase {
                 XCTFail("Task shouldn't be called")
                 XCTAssertNotEqual(task.state, .completed)
             }
+            XCTAssertTrue(mutater0.responseReplaceWasCalled)
             XCTAssertFalse(mutater2.responseReplaceWasCalled)
         }
     }

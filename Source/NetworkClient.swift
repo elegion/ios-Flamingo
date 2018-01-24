@@ -94,6 +94,10 @@ open class NetworkDefaultClient: NetworkClientMutable {
         reporters.removeObserver(observer: reporter)
     }
 
+    /// Add another mutater
+    ///
+    /// Priority will be the same as you add them
+    /// - Parameter mutater: NetworkClientMutater conformance
     public func addMutater(_ mutater: NetworkClientMutater) {
         mutaters.addObserver(observer: mutater)
     }
