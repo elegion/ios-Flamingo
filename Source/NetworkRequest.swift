@@ -51,7 +51,7 @@ public extension NetworkRequest {
     
 }
 
-extension NetworkRequest {
+public extension NetworkRequest {
     var description: String {
         return """
             Request: \(String(describing: type(of: self))),
