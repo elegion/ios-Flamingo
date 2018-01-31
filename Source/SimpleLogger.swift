@@ -8,14 +8,14 @@
 
 import Foundation
 
-public class SimpleLogger: Logger {
+open class SimpleLogger: Logger {
     private let appName: String
 
     public init(appName: String) {
         self.appName = appName
     }
 
-    public func log(_ message: String, context: [String: Any]? = nil) {
+    open func log(_ message: String, context: [String: Any]? = nil) {
         let date = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
