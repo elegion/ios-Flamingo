@@ -58,24 +58,24 @@ private final class MockMutater: NetworkClientMutater {
 
 class NetworkClientMutaterTests: XCTestCase {
 
-    var networkClient: NetworkClientMutable!
-
     override func setUp() {
         super.setUp()
-
-        let configuration = NetworkDefaultConfiguration(baseURL: "http://www.mocky.io/")
-        networkClient = NetworkDefaultClient(configuration: configuration, session: .shared)
     }
 
     override func tearDown() {
-        networkClient = nil
         super.tearDown()
+    }
+
+    var networkClient: NetworkDefaultClient {
+        let configuration = NetworkDefaultConfiguration(baseURL: "http://www.mocky.io/")
+        return NetworkDefaultClient(configuration: configuration, session: .shared)
     }
 
     func test_mutaterCalls() {
         let mutater1 = MockEmptyMutater()
         let mutater2 = MockEmptyMutater()
 
+        let networkClient = self.networkClient
         networkClient.addMutater(mutater1)
         networkClient.addMutater(mutater2)
 
@@ -97,6 +97,7 @@ class NetworkClientMutaterTests: XCTestCase {
         let mutater0 = MockEmptyMutater()
         let mutater1 = MockMutater()
         let mutater2 = MockEmptyMutater()
+        let networkClient = self.networkClient
 
         networkClient.addMutater(mutater0)
         networkClient.addMutater(mutater1)
@@ -127,5 +128,23 @@ class NetworkClientMutaterTests: XCTestCase {
             XCTAssertTrue(mutater0.responseReplaceWasCalled)
             XCTAssertFalse(mutater2.responseReplaceWasCalled)
         }
+    }
+
+    func test_notParallelJobs() {
+        let mutater0 = MockMutater()
+
+        let configuration = NetworkDefaultConfiguration(baseURL: "http://www.mocky.io/", parallel: false)
+        let networkClient = NetworkDefaultClient(configuration: configuration, session: .shared)
+        networkClient.addMutater(mutater0)
+
+        var wasCalledResponse = false
+        let request = RealFailedTestRequest()
+        networkClient.sendRequest(request) {
+            (_, _) in
+
+            wasCalledResponse = true
+        }
+
+        XCTAssertTrue(wasCalledResponse)
     }
 }
