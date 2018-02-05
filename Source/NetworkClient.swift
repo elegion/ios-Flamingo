@@ -45,7 +45,11 @@ open class NetworkDefaultClient: NetworkClientMutable {
     }
     
     private func complete<Request: NetworkRequest>(request: Request, with completion: @escaping () -> Void) {
-        completionQueue(for: request).async {
+        if configuration.parallel {
+            completionQueue(for: request).async {
+                completion()
+            }
+        } else {
             completion()
         }
     }
@@ -112,53 +116,51 @@ open class NetworkDefaultClient: NetworkClientMutable {
         return {
             [weak self] data, response, error in
 
-            NetworkDefaultClient.operationQueue.async {
+            let failureClosure = {
+                (finalError: Swift.Error?, httpResponse: HTTPURLResponse?) in
 
-                guard let sself = self else {
-                    return
-                }
+                self?.complete(request: networkRequest, with: {
+                    let context = NetworkContext(request: urlRequest, response: httpResponse, data: data, error: finalError as NSError?)
+
+                    self?.reporters.iterate {
+                        (reporter, _) in
+                        reporter.didRecieveResponse(for: networkRequest, context: context)
+                    }
+
+                    completion?(.error(finalError ?? Error.invalidRequest), context)
+                })
+            }
+
+            let jobClosure = {
 
                 var finalError: Swift.Error? = error
                 let httpResponse = response as? HTTPURLResponse
 
-                let failureClosure = {
-                    self?.complete(request: networkRequest, with: {
-                        let context = NetworkContext(request: urlRequest, response: httpResponse, data: data, error: finalError as NSError?)
-
-                        self?.reporters.iterate {
-                            (reporter, _) in
-                            reporter.didRecieveResponse(for: networkRequest, context: context)
-                        }
-                        
-                        completion?(.error(finalError ?? Error.invalidRequest), context)
-                    })
-                }
-
                 if error != nil {
-                    failureClosure()
+                    failureClosure(finalError, httpResponse)
                     return
                 }
 
                 if httpResponse == nil {
                     finalError = Error.unableToRetrieveHTTPResponse
-                    failureClosure()
+                    failureClosure(finalError, httpResponse)
                     return
                 }
-                
+
                 let validator = Validator(request: urlRequest, response: httpResponse, data: data)
                 validator.validate()
                 if let validationError = validator.validationErrors.first {
                     finalError = validationError
-                    failureClosure()
+                    failureClosure(finalError, httpResponse)
                     return
                 }
 
                 let context = NetworkContext(request: urlRequest, response: httpResponse, data: data, error: finalError as NSError?)
                 let result = networkRequest.responseSerializer.serialize(request: urlRequest, response: httpResponse, data: data, error: error)
-                
+
                 switch result {
                 case .success(let value):
-                    sself.complete(request: networkRequest, with: {
+                    self?.complete(request: networkRequest, with: {
                         self?.reporters.iterate {
                             (reporter, _) in
                             reporter.didRecieveResponse(for: networkRequest, context: context)
@@ -168,8 +170,15 @@ open class NetworkDefaultClient: NetworkClientMutable {
                     })
                 case .error(let error):
                     finalError = error
-                    failureClosure()
+                    failureClosure(finalError, httpResponse)
                 }
+            }
+
+            if let configuration = self?.configuration,
+                configuration.parallel {
+                NetworkDefaultClient.operationQueue.async(execute: jobClosure)
+            } else {
+                jobClosure()
             }
         }
     }

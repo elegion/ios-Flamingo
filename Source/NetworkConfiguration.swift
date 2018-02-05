@@ -14,6 +14,7 @@ public protocol NetworkConfiguration {
     var completionQueue: DispatchQueue { get }
     var defaultTimeoutInterval: TimeInterval { get }
     var debugMode: Bool { get }
+    var parallel: Bool { get }
 }
 
 public struct NetworkDefaultConfiguration: NetworkConfiguration {
@@ -22,15 +23,18 @@ public struct NetworkDefaultConfiguration: NetworkConfiguration {
     public let completionQueue: DispatchQueue
     public let defaultTimeoutInterval: TimeInterval
     public let debugMode: Bool
+    public let parallel: Bool
     
     public init(baseURL: URLConvertible? = nil,
                 completionQueue: DispatchQueue = .main,
                 debugMode: Bool = true,
-                defaultTimeoutInterval: TimeInterval = 60.0) {
+                defaultTimeoutInterval: TimeInterval = 60.0,
+                parallel: Bool = true) {
         
         self.baseURL = baseURL
         self.completionQueue = completionQueue
         self.debugMode = debugMode
         self.defaultTimeoutInterval = defaultTimeoutInterval
+        self.parallel = parallel
     }
 }
