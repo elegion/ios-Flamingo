@@ -171,9 +171,13 @@ let configuration = NetworkCustomConfiguration(baseURL: "http://jsonplaceholder.
 
 If you need to use offline mode cache in case of custom errors, you can subclass `NetworkDefaultClient` and override `shouldUseCachedResponseDataIfError` method.
 
+### Codable extensions
+
+https://github.com/jamesruston/CodableExtensions is integrated, so you don't need to embed it as framework.
+
 ## Requirements
 
-Swift 2.2, xCode 7.3
+Swift 4.1, xCode 9.1
 
 ## Author
 
