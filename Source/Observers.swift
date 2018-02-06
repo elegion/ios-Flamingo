@@ -15,47 +15,58 @@ public enum StoragePolicy {
 
 internal class ObserversArray<T> {
 
-    private var weakPointers = [WeakWrapper]()
-    private var strongPointers = [T]()
+    private enum StorageType {
+        case weak(WeakWrapper)
+        case strong(T)
+    }
+
+    private var pointers = [StorageType]()
 
     internal init() {
 
     }
 
     internal func addObserver(observer: T, storagePolicy: StoragePolicy = .weak) {
+        let storageItem: StorageType
         switch storagePolicy {
         case .weak:
-            weakPointers.append(WeakWrapper(value: observer as AnyObject))
+            storageItem = .weak(WeakWrapper(value: observer as AnyObject))
         case .strong:
-            strongPointers.append(observer)
+            storageItem = .strong(observer)
         }
+        pointers.append(storageItem)
     }
 
     internal func removeObserver(observer: T) {
-        if let index = weakPointers.index(where: { $0.value === (observer as AnyObject) }) {
-            weakPointers.remove(at: index)
-        }
+        let findClosure = {
+            (item: StorageType) -> Bool in
 
-        if let index = strongPointers.index(where: { ($0 as AnyObject) === (observer as AnyObject) }) {
-            strongPointers.remove(at: index)
+            switch item {
+            case .weak(let wrapper):
+                return wrapper.value === (observer as AnyObject)
+            case .strong(let pointer):
+                return (pointer as AnyObject) === (observer as AnyObject)
+            }
+        }
+        if let index = pointers.index(where: findClosure) {
+            pointers.remove(at: index)
         }
     }
 
     internal func iterate(invocation: (T, Int) -> Void) {
-        for (i, observerPointer) in weakPointers.enumerated() {
+        for (i, storageItem) in pointers.enumerated() {
 
-            if let observer = observerPointer.value {
-                // swiftlint:disable:next force_cast
-                invocation(observer as! T, i)
-            } else {
-                if let indexToRemove = weakPointers.index(where: { $0 === observerPointer }) {
-                    weakPointers.remove(at: indexToRemove)
+            switch storageItem {
+            case .strong(let pointer):
+                invocation(pointer, i)
+            case .weak(let wrapper):
+                if let observer = wrapper.value {
+                    // swiftlint:disable:next force_cast
+                    invocation(observer as! T, i)
+                } else {
+                    pointers.remove(at: i)
                 }
             }
-        }
-
-        for (i, observer) in strongPointers.enumerated() {
-            invocation(observer, i + weakPointers.count)
         }
     }
 }
