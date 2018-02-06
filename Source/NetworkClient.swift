@@ -67,7 +67,7 @@ open class NetworkDefaultClient: NetworkClient {
             type(of: self).operationQueue.async {
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
-                    let context = NetworkContext(request: urlRequest, response: response as? HTTPURLResponse, data: data, error: Error.unableToRetrieveHTTPResponse as NSError)
+                    let context = NetworkContext(request: urlRequest, response: response as? HTTPURLResponse, data: data, error: error as NSError?)
                     self.complete(request: networkRequest, with: {
                         completion?(.error(Error.unableToRetrieveHTTPResponse), context)
                     })
