@@ -8,24 +8,36 @@
 
 import Foundation
 
+public enum StoragePolicy {
+    case weak
+    case strong
+}
+
 internal class ObserversArray<T> {
 
     private var weakPointers = [WeakWrapper]()
+    private var strongPointers = [T]()
 
     internal init() {
 
     }
 
-    internal func addObserver(observer: T) {
-        weakPointers.append(WeakWrapper(value: observer as AnyObject))
+    internal func addObserver(observer: T, storagePolicy: StoragePolicy = .weak) {
+        switch storagePolicy {
+        case .weak:
+            weakPointers.append(WeakWrapper(value: observer as AnyObject))
+        case .strong:
+            strongPointers.append(observer)
+        }
     }
 
     internal func removeObserver(observer: T) {
+        if let index = weakPointers.index(where: { $0.value === (observer as AnyObject) }) {
+            weakPointers.remove(at: index)
+        }
 
-        for (index, delegateInArray) in weakPointers.enumerated() {
-            if delegateInArray.value === (observer as AnyObject) {
-                weakPointers.remove(at: index)
-            }
+        if let index = strongPointers.index(where: { ($0 as AnyObject) === (observer as AnyObject) }) {
+            strongPointers.remove(at: index)
         }
     }
 
@@ -40,6 +52,10 @@ internal class ObserversArray<T> {
                     weakPointers.remove(at: indexToRemove)
                 }
             }
+        }
+
+        for (i, observer) in strongPointers.enumerated() {
+            invocation(observer, i + weakPointers.count)
         }
     }
 }

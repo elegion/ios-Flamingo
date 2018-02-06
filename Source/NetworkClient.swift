@@ -12,13 +12,13 @@ public protocol NetworkClient: class {
     
     @discardableResult
     func sendRequest<Request: NetworkRequest>(_ networkRequest: Request, completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation?
-    func addReporter(_ reporter: NetworkClientReporter)
+    func addReporter(_ reporter: NetworkClientReporter, storagePolicy: StoragePolicy)
     func removeReporter(_ reporter: NetworkClientReporter)
 }
 
 public protocol NetworkClientMutable: NetworkClient {
 
-    func addMutater(_ mutater: NetworkClientMutater)
+    func addMutater(_ mutater: NetworkClientMutater, storagePolicy: StoragePolicy)
     func removeMutater(_ mutater: NetworkClientMutater)
 }
 
@@ -90,7 +90,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
         }
     }
 
-    public func addReporter(_ reporter: NetworkClientReporter) {
+    public func addReporter(_ reporter: NetworkClientReporter, storagePolicy: StoragePolicy = .weak) {
         reporters.addObserver(observer: reporter)
     }
 
@@ -102,7 +102,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
     ///
     /// Priority will be the same as you add them
     /// - Parameter mutater: NetworkClientMutater conformance
-    public func addMutater(_ mutater: NetworkClientMutater) {
+    public func addMutater(_ mutater: NetworkClientMutater, storagePolicy: StoragePolicy = .weak) {
         mutaters.addObserver(observer: mutater)
     }
 
