@@ -15,11 +15,15 @@ open class SimpleLogger: Logger {
         self.appName = appName
     }
 
+    private static let dateFormatter: DateFormatter = {
+        let result = DateFormatter()
+        result.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
+        return result
+    }()
+
     open func log(_ message: String, context: [String: Any]? = nil) {
         let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
-        let formattedDate = formatter.string(from: date)
+        let formattedDate = SimpleLogger.dateFormatter.string(from: date)
         var start = "\(formattedDate) \(self.appName): \(message)"
         if let context = context,
             !context.isEmpty {

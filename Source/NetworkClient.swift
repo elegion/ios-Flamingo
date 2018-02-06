@@ -142,7 +142,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
                 }
 
                 if httpResponse == nil {
-                    finalError = Error.unableToRetrieveHTTPResponse
+                    finalError = error ?? Error.unableToRetrieveHTTPResponse
                     failureClosure(finalError, httpResponse)
                     return
                 }
