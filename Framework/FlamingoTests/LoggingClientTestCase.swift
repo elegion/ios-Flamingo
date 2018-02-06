@@ -38,8 +38,8 @@ private class MockClient: NetworkClient {
         return nil
     }
 
-    func addReporter(_ reporter: NetworkClientReporter) {
-        reporters.addObserver(observer: reporter)
+    func addReporter(_ reporter: NetworkClientReporter, storagePolicy: StoragePolicy) {
+        reporters.addObserver(observer: reporter, storagePolicy: storagePolicy)
     }
 
     func removeReporter(_ reporter: NetworkClientReporter) {
@@ -95,7 +95,7 @@ class LoggingClientTestCase: XCTestCase {
         let logger = mockLogger ?? self.mockLogger
         let loggingClient = LoggingClient(logger: logger)
         loggingClient.useLogger = true
-        client.addReporter(loggingClient)
+        client.addReporter(loggingClient, storagePolicy: .weak)
 
         return (client, loggingClient)
     }

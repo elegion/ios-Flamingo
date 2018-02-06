@@ -52,8 +52,8 @@ class NetworkClientReporterCallTests: XCTestCase {
         let logger1 = MockLogger()
         let reporter1 = MockReporter(logger: logger1)
         let reporter2 = MockReporter(logger: SimpleLogger(appName: #file))
-        client.addReporter(reporter1)
-        client.addReporter(reporter2)
+        client.addReporter(reporter1, storagePolicy: .weak)
+        client.addReporter(reporter2, storagePolicy: .weak)
 
         let asyncExpectation = expectation(description: #function)
 
