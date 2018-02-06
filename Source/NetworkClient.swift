@@ -76,7 +76,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
         mutaters.iterate {
             (mutater, _) in
             if !foundResponse,
-                let responseTuple = mutater.reponse(for: networkRequest) {
+                let responseTuple = mutater.response(for: networkRequest) {
                 handler(responseTuple.data, responseTuple.response, responseTuple.error)
                 foundResponse = true
             }

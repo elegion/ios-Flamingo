@@ -11,5 +11,5 @@ import Foundation
 public protocol NetworkClientMutater: class {
     typealias RawResponseTuple = (data: Data?, response: URLResponse?, error: Swift.Error?)
 
-    func reponse<Request: NetworkRequest>(for request: Request) -> RawResponseTuple?
+    func response<Request: NetworkRequest>(for request: Request) -> RawResponseTuple?
 }

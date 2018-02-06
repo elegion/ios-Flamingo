@@ -12,7 +12,7 @@ import Flamingo
 private final class MockEmptyMutater: NetworkClientMutater {
     var responseReplaceWasCalled: Bool = false
 
-    func reponse<Request>(for request: Request) -> NetworkClientMutater.RawResponseTuple? where Request: NetworkRequest {
+    func response<Request>(for request: Request) -> NetworkClientMutater.RawResponseTuple? where Request: NetworkRequest {
         responseReplaceWasCalled = true
         return nil
     }
@@ -35,7 +35,7 @@ private final class MockMutater: NetworkClientMutater {
     let testData = "Response is mocked"
     let testStatusCode = 212
 
-    func reponse<Request>(for request: Request) -> NetworkClientMutater.RawResponseTuple? where Request: NetworkRequest {
+    func response<Request>(for request: Request) -> NetworkClientMutater.RawResponseTuple? where Request: NetworkRequest {
         if request.URL == mockableRequest.URL &&
             request.parameters == mockableRequest.parameters &&
             request.baseURL == mockableRequest.baseURL &&
