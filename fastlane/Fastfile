@@ -32,7 +32,10 @@ lane :release do |options|
     exit
   end
 
-  commit_version_bump(message: "Version Bump to #{version}\n\n[ci skip]", xcodeproj: ENV['xcode_project'])
+  commit_version_bump(
+    message: "Version Bump to #{version}\n\n[ci skip]", 
+    xcodeproj: ENV['xcode_project'],
+    include: "Flamingo.podspec")
 
   tag = "v#{options[:version]}"
   add_git_tag(tag: tag, force: true)
