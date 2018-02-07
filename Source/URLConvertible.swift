@@ -30,7 +30,6 @@ enum URLConvertableError: Swift.Error {
 public protocol URLConvertible {
     
     func asURL() throws -> URL
-    
 }
 
 extension String: URLConvertible {
@@ -46,5 +45,33 @@ extension String: URLConvertible {
 extension URL: URLConvertible {
     public func asURL() throws -> URL {
         return self
+    }
+}
+
+extension URLConvertible {
+
+    public static func ==(lhs: URLConvertible, rhs: URLConvertible) -> Bool {
+        do {
+            return (try lhs.asURL()) == (try rhs.asURL())
+        } catch {
+            return false
+        }
+    }
+}
+
+extension Optional where Wrapped == URLConvertible {
+    public static func ==(lhs: Optional, rhs: Optional) -> Bool {
+        switch (lhs, rhs) {
+        case (.none, .none):
+            return true
+        case (.some(let left), .some(let right)):
+            do {
+                return (try left.asURL()) == (try right.asURL())
+            } catch {
+                return false
+            }
+        default:
+            return false
+        }
     }
 }

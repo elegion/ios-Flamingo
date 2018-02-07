@@ -85,8 +85,7 @@ extension Validator {
         statusCode acceptableStatusCodes: S,
         response: HTTPURLResponse)
         -> ValidationResult
-        where S.Iterator.Element == Int
-    {
+        where S.Iterator.Element == Int {
         if acceptableStatusCodes.contains(response.statusCode) {
             return .success
         } else {
@@ -102,8 +101,7 @@ extension Validator {
         response: HTTPURLResponse,
         data: Data?)
         -> ValidationResult
-        where S.Iterator.Element == String
-    {
+        where S.Iterator.Element == String {
         guard let data = data, data.count > 0 else { return .success }
 
         guard
@@ -141,7 +139,6 @@ extension Validator {
 
         return .failure(error)
     }
-
 
     /// A closure used to validate a request that takes a URL request, a URL response and data, and returns whether the
     /// request was valid.
@@ -205,6 +202,3 @@ extension Validator {
         return validate(statusCode: self.acceptableStatusCodes).validate(contentType: self.acceptableContentTypes)
     }
 }
-
-
-

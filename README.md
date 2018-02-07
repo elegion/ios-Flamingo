@@ -5,12 +5,11 @@
 
 ## Description
 
-Swift network manager. Based on `Alamofire`, `ObjectMapper` and `Cache`.
+Lightweight and easy to use Swift network manager. Based on `URLSession` and `Swift.Codable`.
+
 Supported features:
 * Performing http requests
 * Easy response mapping
-* Offline mode caching out-of-the-box
-* Request mocks
 
 ## Installation
 
@@ -23,6 +22,12 @@ source 'https://github.com/CocoaPods/Specs.git'
 pod 'Flamingo'
 ```
 
+With Carthage:
+
+```
+github "elegion/ios-Flamingo"
+```
+
 ## Usage
 
 ### Basic usage
@@ -32,19 +37,13 @@ pod 'Flamingo'
 Create default network configuration:
 
 ```swift
-let configuration = NetworkDefaultConfiguration()
-```
-```swift
-let configuration = NetworkDefaultConfiguration(baseURL: "http://jsonplaceholder.typicode.com/",
-                                                debugMode: true,
-                                                completionQueue: dispatch_get_main_queue(),
-                                                defaultTimeoutInterval: 10)
+let configuration = NetworkDefaultConfiguration(baseURL: "http://jsonplaceholder.typicode.com/")
 ```
 
 #### Setup network client
 
 ```swift
-let networkClient = NetworkDefaultClient(configuration: configuration)
+let networkClient = NetworkDefaultClient(configuration: configuration, session: .shared)
 ```
 
 #### Setup request info
@@ -53,128 +52,82 @@ Satisfy `NetworkRequest` protocol to add request (see more information below abo
 
 ```swift
 struct UsersRequest: NetworkRequest {
-    
-    var URL: URLStringConvertible {
+
+    init() {
+
+    }
+
+    // MARK: - Implementation
+
+    var URL: URLConvertible {
         return "users"
     }
-    
+
     var useCache: Bool {
         return true
     }
-    
-    var responseSerializer: ResponseSerializer<[User], NSError> {
-        return ResponseSerializer<User, NSError>.arrayResponseSerializer()
+
+    var responseSerializer: CodableJSONSerializer<[User]> {
+        return CodableJSONSerializer<[User]>()
     }
 }
 ```
 
 #### Map responses
 
-Map responses with `Alamofire` response serializers (`ResponseSerializer<T, NSError>`). There are standard JSON dictionary and array serializers over `ObjectMapper` providing easy mapping syntax including nested mapping (see `Alamofire+ObjectMapper`):
+Map responses with custom implementation of `ResponseSerialization` or use one of the predefined `DataResponseSerializer`, `StringResponseSerializer`, `CodableJSONSerializer`:
 
 ```swift
 struct UsersRequest: NetworkRequest {
     ...
-    var responseSerializer: ResponseSerializer<[User], NSError> {
-        return ResponseSerializer<User, NSError>.arrayResponseSerializer()
+    var responseSerializer: CodableJSONSerializer<[User]> {
+        return CodableJSONSerializer<[User]>()
     }
-}
-...
-class User: Mappable {
-    var userId: Int!
-    var address: Address!
-
-    init() {}
-    required init?(_ map: Map) {}
-    
-    func mapping(map: Map) {
-        userId      <- map["id"]
-        address     <- map["address"]
-    }
+    ...
 }
 
-class Address: Mappable {
-    var street: String!
+class Address: Codable {
+    var street: String
+    var suite: String
+    var city: String
+    var geo: GeoLocation
+}
 
-    init() {}
-    required init?(_ map: Map) {}
-    
-    func mapping(map: Map) {
-        street      <- map["street"]
-    }
+class Company: Codable {
+    var name: String
+    var catchPhrase: String
+    var bs: String
+}
+
+class User: Codable {
+    var id: Int
+    var name: String
+    var username: String
+    var email: String
+    var address: Address
+    var phone: String
+    var website: String
+    var company: Company
 }
 ```
 
-You can also create your own serializers. See `ResponseSerializer` for more details.
+You can also create your own serializers. See `ResponseSerialization` for more details.
 
 #### Send request
 
 ```swift
 let request = UsersRequest()
-networkClient.sendRequest(request) { (users, error) in
-    //Process response
-}
-```
 
-### Offline mode caching
+networkClient.sendRequest(request) {
+    (result, _) in
 
-Offline mode caching for requests allows to use the last successful response when receiving request error. To use it, initialize network client with `offlineCacheManager` parameter:
-
-```swift
-let cacheManager = NetworkDefaultOfflineCacheManager(cacheName: "network_cache")
-networkClient = NetworkDefaultClient(configuration: configuration, 
-                                     offlineCacheManager: cacheManager)
-```
-
-Then specify the flag in requests:
-
-```swift
-struct UsersRequest: NetworkRequest {
-    ...
-    var useCache: Bool {
-        return true
+    switch result {
+    case .success(let users):
+        XCTAssert(!users.isEmpty, "Users array is empty")
+    case .error(let error):
+        XCTFail("User not recieved, error: \(error)")
     }
-}
-```
-
-Successful server responses will be cached automatically. If you cache a response and receive a network error next time, both the cached response and the error wil be received in `sendRequest` completion closure.
-
-### Request mocks
-
-To enable mocks for request you should configure network client with `useMocks` flag:
-
-```swift
-let configuration = NetworkDefaultConfiguration(baseURL: "http://jsonplaceholder.typicode.com/", 
-                                                useMocks: true)
-```
-
-Then implement mock itself by satisfying `NetworkRequestMock` protocol:
-
-```swift
-struct UsersMock: NetworkRequestMock {
-    
-    var responseDelay: NSTimeInterval {
-        return 3
-    }
-    
-    var mimeType: String {
-        return "application/json"
-    }
-    
-    func responseData() -> NSData? {
-        //Return mock data
-    }
-}
-```
-
-Then specify mock object in request:
-
-```swift
-struct UsersRequest: NetworkRequest {
-    ...
-    var mockObject: NetworkRequestMock? {
-        return UsersMock()
-    }
+    asyncExpectation.fulfill()
 }
 ```
 
@@ -218,9 +171,13 @@ let configuration = NetworkCustomConfiguration(baseURL: "http://jsonplaceholder.
 
 If you need to use offline mode cache in case of custom errors, you can subclass `NetworkDefaultClient` and override `shouldUseCachedResponseDataIfError` method.
 
+### Codable extensions
+
+https://github.com/jamesruston/CodableExtensions is integrated, so you don't need to embed it as framework.
+
 ## Requirements
 
-Swift 2.2, xCode 7.3
+Swift 4.1, xCode 9.1
 
 ## Author
 
@@ -233,8 +190,8 @@ Flamingo is available under the MIT license. See the LICENSE file for more info.
 ## TODOs
 
 1) Documentation
-
-2) Carthage support
+2) Offline mode caching out-of-the-box
+3) Request mocks
 
 ## P.S.
 

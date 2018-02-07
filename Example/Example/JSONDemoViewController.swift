@@ -19,7 +19,7 @@ class JSONDemoViewController: UIViewController {
         
         title = "JSON Demo"
         
-        textView.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20)
+        textView.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         
         setupNetwork()
     }
