@@ -11,9 +11,11 @@ import Flamingo
 
 private final class MockEmptyMutater: NetworkClientMutater {
     var responseReplaceWasCalled: Bool = false
+    var wasCalledClosure: (() -> Void)?
 
     func response<Request>(for request: Request) -> NetworkClientMutater.RawResponseTuple? where Request: NetworkRequest {
         responseReplaceWasCalled = true
+        wasCalledClosure?()
         return nil
     }
 }
@@ -146,5 +148,29 @@ class NetworkClientMutaterTests: XCTestCase {
         }
 
         XCTAssertTrue(wasCalledResponse)
+    }
+
+    func test_storagePolicy() {
+        var wasCalled1 = false
+        var wasCalled2 = false
+        var mutater1: MockEmptyMutater! = MockEmptyMutater()
+        var mutater2: MockEmptyMutater! = MockEmptyMutater()
+        let configuration = NetworkDefaultConfiguration(baseURL: "http://www.mocky.io/", parallel: false)
+        let networkClient = NetworkDefaultClient(configuration: configuration, session: .shared)
+        networkClient.addMutater(mutater1, storagePolicy: .weak)
+        networkClient.addMutater(mutater2, storagePolicy: .strong)
+        mutater1.wasCalledClosure = {
+            wasCalled1 = true
+        }
+        mutater2.wasCalledClosure = {
+            wasCalled2 = true
+        }
+        mutater1 = nil
+        mutater2 = nil
+
+        let stubRequest = StubRequest()
+        networkClient.sendRequest(stubRequest, completionHandler: nil)
+        XCTAssertFalse(wasCalled1)
+        XCTAssertTrue(wasCalled2)
     }
 }

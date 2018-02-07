@@ -55,11 +55,11 @@ private class MockLogger: Logger {
     }
 }
 
-private struct StubModel: Decodable {
+struct StubModel: Decodable {
     var field: Int
 }
 
-private struct StubRequest: NetworkRequest {
+struct StubRequest: NetworkRequest {
     var responseSerializer: CodableJSONSerializer<StubModel> {
         return CodableJSONSerializer()
     }

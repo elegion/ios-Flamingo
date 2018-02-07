@@ -19,11 +19,13 @@ private class MockLogger: Logger {
 }
 
 private class MockReporter: LoggingClient {
+    var willSendCallClosure: (() -> Void)?
     private(set) var willSendCalled: Bool = false
     private(set) var didRecieveCalled: Bool = false
 
     override func willSendRequest<Request>(_ networkRequest: Request) where Request: NetworkRequest {
         willSendCalled = true
+        willSendCallClosure?()
         super.willSendRequest(networkRequest)
     }
 
@@ -74,5 +76,29 @@ class NetworkClientReporterCallTests: XCTestCase {
             XCTAssertFalse(reporter2.didRecieveCalled)
             XCTAssertTrue(logger1.logSended, "Logs are not sended")
         }
+    }
+
+    func test_storagePolicy() {
+        var wasCalled1 = false
+        var wasCalled2 = false
+        var reporter1: MockReporter! = MockReporter(logger: SimpleLogger(appName: #file))
+        var reporter2: MockReporter! = MockReporter(logger: SimpleLogger(appName: #file))
+        let configuration = NetworkDefaultConfiguration(baseURL: "http://www.mocky.io/", parallel: false)
+        let networkClient = NetworkDefaultClient(configuration: configuration, session: .shared)
+        networkClient.addReporter(reporter1, storagePolicy: .weak)
+        networkClient.addReporter(reporter2, storagePolicy: .strong)
+        reporter1.willSendCallClosure = {
+            wasCalled1 = true
+        }
+        reporter2.willSendCallClosure = {
+            wasCalled2 = true
+        }
+        reporter1 = nil
+        reporter2 = nil
+
+        let stubRequest = StubRequest()
+        networkClient.sendRequest(stubRequest, completionHandler: nil)
+        XCTAssertFalse(wasCalled1)
+        XCTAssertTrue(wasCalled2)
     }
 }

@@ -91,7 +91,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
     }
 
     public func addReporter(_ reporter: NetworkClientReporter, storagePolicy: StoragePolicy = .weak) {
-        reporters.addObserver(observer: reporter)
+        reporters.addObserver(observer: reporter, storagePolicy: storagePolicy)
     }
 
     public func removeReporter(_ reporter: NetworkClientReporter) {
@@ -103,7 +103,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
     /// Priority will be the same as you add them
     /// - Parameter mutater: NetworkClientMutater conformance
     public func addMutater(_ mutater: NetworkClientMutater, storagePolicy: StoragePolicy = .weak) {
-        mutaters.addObserver(observer: mutater)
+        mutaters.addObserver(observer: mutater, storagePolicy: storagePolicy)
     }
 
     public func removeMutater(_ mutater: NetworkClientMutater) {
