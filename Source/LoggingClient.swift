@@ -33,15 +33,8 @@ open class LoggingClient: NetworkClientReporter {
             return
         }
 
-        var dataAsString: String?
-        if let data = context.data {
-            dataAsString = String(data: data, encoding: .utf8)
-        }
-        var context: [String: Any] = ["request": request,
+        let context: [String: Any] = ["request": request,
                                       "context": context]
-        if let dataAsString = dataAsString {
-            context["data as string"] = dataAsString
-        }
         logger.log("Complete request", context: context)
     }
 }

@@ -16,7 +16,7 @@ private class MockClient: NetworkClient {
     }
 
     public var responseResult: Result<StubModel>?
-    public let context = NetworkContext(request: nil, response: nil, data: nil, error: nil)
+    public var context = NetworkContext(request: nil, response: nil, data: nil, error: nil)
 
     private var reporters = ObserversArray<NetworkClientReporter>()
 
@@ -55,7 +55,7 @@ private class MockLogger: Logger {
     }
 }
 
-struct StubModel: Decodable {
+struct StubModel: Codable {
     var field: Int
 }
 
@@ -168,6 +168,28 @@ class LoggingClientTestCase: XCTestCase {
             XCTAssertFalse(logger.logSended)
 
             clients.1.useLogger = true
+            expectation.fulfill()
+        }
+
+        self.waitForExpectations(timeout: 5, handler: nil)
+    }
+
+    func test_logToConsole() {
+        let mockClient = self.mockClient
+        let dataString = """
+Hey! "Name": {Here is data as string}
+"""
+        mockClient.context = NetworkContext(request: nil,
+                                            response: nil,
+                                            data: dataString.data(using: .utf8), error: nil)
+        mockClient.responseResult = .success(self.stubModel)
+        let expectation = self.expectation(description: #function)
+        let logger = SimpleLogger(appName: String(describing: LoggingClientTestCase.self))
+        let clients = self.client(mockClient, logger: logger)
+        let request = self.request
+
+        _ = clients.0.sendRequest(request) { _, _ in
+
             expectation.fulfill()
         }
 
