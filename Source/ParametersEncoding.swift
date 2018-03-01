@@ -18,7 +18,7 @@ public struct URLParametersEncoder: ParametersEncoder {
     
     public init() { }
     
-    public func encode(parameters: [String : Any]?, to request: inout URLRequest) throws {
+    public func encode(parameters: [String: Any]?, to request: inout URLRequest) throws {
         guard let parameters = parameters, !parameters.isEmpty else {
             return
         }
@@ -71,7 +71,7 @@ public struct JSONParametersEncoder: ParametersEncoder {
         self.encodingOptions = encodingOptions
     }
     
-    public func encode(parameters: [String : Any]?, to request: inout URLRequest) throws {
+    public func encode(parameters: [String: Any]?, to request: inout URLRequest) throws {
         guard let parameters = parameters else { return }
         
         do {

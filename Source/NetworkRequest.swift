@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol NetworkRequest {
+public protocol NetworkRequest: CustomStringConvertible {
     
     associatedtype ResponseSerializer: ResponseSerialization
     typealias Response = ResponseSerializer.Serialized
@@ -49,4 +49,17 @@ public extension NetworkRequest {
         return .main
     }
     
+}
+
+public extension NetworkRequest {
+    var description: String {
+        return """
+            Request: \(String(describing: type(of: self))),
+               url: \(self.URL) (baseurl: \(String(describing: self.baseURL))),
+               method: \(self.method),
+               parameters: \(String(describing: self.parameters)),
+               headers: \(String(describing: self.headers))
+        
+        """
+    }
 }

@@ -45,3 +45,12 @@ public extension Result {
     }
     
 }
+
+extension Result: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case let .success(value): return "Result.success(\(value))"
+        case let .error(error): return "Result.error(\(error))"
+        }
+    }
+}

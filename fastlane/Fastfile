@@ -1,0 +1,47 @@
+#!/usr/bin/ruby
+fastlane_version "2.64.0"
+$:.unshift File.dirname(__FILE__)
+require 'utils.rb'
+
+ENV['xcode_project'] = "Framework/Flamingo.xcodeproj"
+
+desc '#### MAIN LANE ####'
+desc 'Release new version'
+desc 'Required argument :version specifies version to be releasee'
+desc 'Example: fastlane release version:1.3.4'
+lane :release do |options|
+
+  if_empty(options[:version]) {
+    UI.error("Version is a required argument!")
+    exit
+  }
+
+  version = "#{options[:version]}"
+
+  increment_version_number(
+    version_number: version, 
+    xcodeproj: ENV['xcode_project'])
+
+  version_bump_podspec(path: "Flamingo.podspec", version_number: version)
+
+  begin
+    local_branch_name = get_git_local_branch
+    remote_branch_name = get_git_remote_branch(nil)
+  rescue => e
+    UI.error(e.message)
+    exit
+  end
+
+  commit_version_bump(
+    message: "Version Bump to #{version}\n\n[ci skip]", 
+    xcodeproj: ENV['xcode_project'],
+    include: "Flamingo.podspec")
+
+  tag = "v#{options[:version]}"
+  add_git_tag(tag: tag, force: true)
+  sh "git push origin #{tag.shellescape}"
+  push_to_git_remote(remote: "origin", local_branch: local_branch_name, remote_branch: remote_branch_name, tags: false)
+
+  pod_push(path: "Flamingo.podspec", repo: "https://github.com/elegion/ios-podspecs.git")
+
+end

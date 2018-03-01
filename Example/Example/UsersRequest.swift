@@ -14,10 +14,10 @@ struct UsersRequest: NetworkRequest {
     fileprivate let useMock: Bool
     
     init(useMock: Bool = true) {
-        self.useMock = useMock;
+        self.useMock = useMock
     }
     
-    //MARK: - Implementation
+    // MARK: - Implementation
     
     var URL: URLConvertible {
         return "users"
