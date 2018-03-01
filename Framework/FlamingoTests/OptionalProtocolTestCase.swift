@@ -50,6 +50,6 @@ class OptionalProtocolTestCase: XCTestCase {
         let expected = Consts.optionalValue
         let actual = self.optionalSome.value
 
-        XCTAssertEqual(expected, (actual as? Int)!)
+        XCTAssertEqual(expected, (actual as? Int))
     }
 }

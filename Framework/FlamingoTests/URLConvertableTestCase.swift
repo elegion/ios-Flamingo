@@ -34,10 +34,14 @@ class URLConvertableTestCase: XCTestCase {
     }
 
     public func test_convertingUrl_expectedURL() {
-        let expected = URL(string: "http://e-legion.com/")!
+        let expected = URL(string: "http://e-legion.com/")
 
-        let actual = try? expected.asURL()
+        do {
+            let actual = try expected?.asURL()
 
-        XCTAssertEqual(expected, actual)
+            XCTAssertEqual(expected, actual)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
     }
 }

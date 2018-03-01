@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8F7CEB9B1CE9AFCD00D6CCBA /* Flamingo.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F7CEB9A1CE9AFCD00D6CCBA /* Flamingo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9451028120487652006E9070 /* lintRules.yml in Resources */ = {isa = PBXBuildFile; fileRef = 9451028020487652006E9070 /* lintRules.yml */; };
 		94650F77204429A20003C8B9 /* Fastfile in Resources */ = {isa = PBXBuildFile; fileRef = 94650F76204429A20003C8B9 /* Fastfile */; };
 		9482F3AA2028EFE400812758 /* CodableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9482F3A72028EFE400812758 /* CodableExtensions.swift */; };
 		9482F3AB2028EFE400812758 /* RegexCodeableTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9482F3A82028EFE400812758 /* RegexCodeableTransformer.swift */; };
@@ -76,6 +77,7 @@
 		8F7CEB971CE9AFCD00D6CCBA /* Flamingo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flamingo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F7CEB9A1CE9AFCD00D6CCBA /* Flamingo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flamingo.h; sourceTree = "<group>"; };
 		8F7CEB9C1CE9AFCD00D6CCBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9451028020487652006E9070 /* lintRules.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = lintRules.yml; path = ../fastlane/lintRules.yml; sourceTree = "<group>"; };
 		94650F76204429A20003C8B9 /* Fastfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = Fastfile; path = ../fastlane/Fastfile; sourceTree = "<group>"; };
 		9482F3A72028EFE400812758 /* CodableExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableExtensions.swift; sourceTree = "<group>"; };
 		9482F3A82028EFE400812758 /* RegexCodeableTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexCodeableTransformer.swift; sourceTree = "<group>"; };
@@ -120,7 +122,6 @@
 		E284B6C31FA21D01001B2123 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		E2A3E5CC1F9777090085D6D5 /* URLParametersEncoderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParametersEncoderTestCase.swift; sourceTree = "<group>"; };
 		E2BC881B1F7E5124005CA524 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		E2BC881C1F7E5124005CA524 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = .swiftlint.yml; path = ../.swiftlint.yml; sourceTree = "<group>"; };
 		E2BC881D1F7E5124005CA524 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitignore; path = ../.gitignore; sourceTree = "<group>"; };
 		E2BC881E1F7E5124005CA524 /* Flamingo.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = Flamingo.podspec; path = ../Flamingo.podspec; sourceTree = "<group>"; };
 		E2DAC70F1FA1F5BA00793F3E /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = .travis.yml; path = ../.travis.yml; sourceTree = "<group>"; };
@@ -318,9 +319,9 @@
 		E2BC881A1F7E50E2005CA524 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9451028020487652006E9070 /* lintRules.yml */,
 				94650F76204429A20003C8B9 /* Fastfile */,
 				E2BC881D1F7E5124005CA524 /* .gitignore */,
-				E2BC881C1F7E5124005CA524 /* .swiftlint.yml */,
 				E2DAC70F1FA1F5BA00793F3E /* .travis.yml */,
 				E2BC881E1F7E5124005CA524 /* Flamingo.podspec */,
 				E2BC881B1F7E5124005CA524 /* README.md */,
@@ -424,6 +425,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94650F77204429A20003C8B9 /* Fastfile in Resources */,
+				9451028120487652006E9070 /* lintRules.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,7 +452,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint --config ../fastlane/lintRules.yml\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 

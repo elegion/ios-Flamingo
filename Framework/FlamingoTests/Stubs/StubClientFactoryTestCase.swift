@@ -9,6 +9,10 @@
 import XCTest
 @testable import Flamingo
 
+private func expectedFileFor(_ name: String) -> String? {
+    return Bundle(for: StubClientFactoryTestCase.self).path(forResource: name, ofType: nil)
+}
+
 class StubClientFactoryTestCase: XCTestCase {
     private var method: String {
         return "method"
@@ -47,15 +51,25 @@ class StubClientFactoryTestCase: XCTestCase {
     }
 
     public func test_createFromFile_expectedClient() {
-        let expectedFileName = Bundle(for: type(of: self)).path(forResource: "StubsList.json", ofType: nil)!
+        guard let expectedFileName = expectedFileFor("StubsList.json") else {
+            XCTFail(" ")
+            return
+        }
 
-        let client = (try? StubsSessionFactory.session(fromFile: expectedFileName))!
+        do {
+            let client = try StubsSessionFactory.session(fromFile: expectedFileName)
 
-        XCTAssertNotNil(client)
+            XCTAssertNotNil(client)
+        } catch {
+            XCTFail(" ")
+        }
     }
 
     public func test_mappingFromFileWithBadFormat_expectedClient() {
-        let expectedFileName = Bundle(for: type(of: self)).path(forResource: "WrongList.json", ofType: nil)!
+        guard let expectedFileName = expectedFileFor("WrongList.json") else {
+            XCTFail(" ")
+            return
+        }
 
         XCTAssertException(
             _ = try StubsSessionFactory.session(fromFile: expectedFileName),

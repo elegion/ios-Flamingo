@@ -123,7 +123,7 @@ class StubClientTestCase: XCTestCase {
 
     public func test_detectingExcistingStubByRequest_expectedTrue() {
         let regex = "s.*url"
-        let url = URL(string: "some_url/")!
+        let url = URL(string: "some_url/") ?? URL(fileURLWithPath: "")
         let method = HTTPMethod.get
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
@@ -137,7 +137,7 @@ class StubClientTestCase: XCTestCase {
     }
 
     public func test_detectingExcistingStubByRequest_expectedFalse() {
-        let url = URL(string: "some_url/")!
+        let url = URL(string: "some_url/") ?? URL(fileURLWithPath: "")
         let regex = "s.*url"
         let method = HTTPMethod.get
         let checkedMethod = HTTPMethod.post
@@ -163,14 +163,16 @@ class StubClientTestCase: XCTestCase {
         let client = self.client
             .add(self.url, method: method, stub: self.stub)
 
-        let request = URLRequest(url: URL(string: self.url)!)
+        let request = URLRequest(url: URL(string: self.url) ?? URL(fileURLWithPath: ""))
 
-        _ = client.dataTask(with: request) { data, response, _ in
-            let response = (response as? HTTPURLResponse)!
+        _ = client.dataTask(with: request) {
+            data, response, _ in
+
+            let response = (response as? HTTPURLResponse)
 
             XCTAssertEqual(expectedData, data)
-            XCTAssertEqual(expectedStatusCode, StatusCodes(rawValue: response.statusCode)!)
-            XCTAssertEqual(expectedHeaders, (response.allHeaderFields as? [String: String])!)
+            XCTAssertEqual(expectedStatusCode, StatusCodes(rawValue: response?.statusCode ?? -1))
+            XCTAssertEqual(expectedHeaders, (response?.allHeaderFields as? [String: String]) ?? [:])
 
             expectation.fulfill()
         }
@@ -182,15 +184,25 @@ class StubClientTestCase: XCTestCase {
         let expectation = self.expectation(description: #function)
 
         let client = self.client
-        let request = URLRequest(url: URL(string: self.url)!)
+        if let url = URL(string: self.url) {
+            let request = URLRequest(url: url)
 
-        _ = client.dataTask(with: request) { _, _, error in
-            switch error! {
-            case Flamingo.Error.stubClientError(.stubNotFound): break
-            default: XCTFail("Must throws Flamingo.Error.stubClientError(.stubNotFound) error!")
+            _ = client.dataTask(with: request) {
+                _, _, error in
+
+                XCTAssertNotNil(error)
+
+                if let error = error {
+                    switch error {
+                    case Flamingo.Error.stubClientError(.stubNotFound):
+                        break
+                    default:
+                        XCTFail("Must throws Flamingo.Error.stubClientError(.stubNotFound) error!")
+                    }
+
+                    expectation.fulfill()
+                }
             }
-
-            expectation.fulfill()
         }
 
         self.waitForExpectations(timeout: 5, handler: nil)

@@ -48,7 +48,7 @@ class ResultTestCase: XCTestCase {
 
     public func test_checkGettingErrorOnErrorResult_expectedErrorInstance() {
         let expected = StubError.someError
-        let actual = (errorResult().error as? StubError)!
+        let actual = (errorResult().error as? StubError)
 
         XCTAssertEqual(expected, actual)
     }

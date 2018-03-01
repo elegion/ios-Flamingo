@@ -31,7 +31,7 @@ class StringResponseSerializerTestCase: XCTestCase {
                                                data: serializedData,
                                                error: error)
 
-        XCTAssertEqual(expected, actual.value!)
+        XCTAssertEqual(expected, actual.value)
     }
 
     public func test_serializeDataWithError_expectedError() {
@@ -44,7 +44,7 @@ class StringResponseSerializerTestCase: XCTestCase {
                                                data: serializedData,
                                                error: error)
 
-        XCTAssertEqual(expected, (actual.error! as? SomeError)!)
+        XCTAssertEqual(expected, (actual.error as? SomeError))
     }
 
     public func test_serializeDataNoErrorNoData_expectedError() {
@@ -57,7 +57,11 @@ class StringResponseSerializerTestCase: XCTestCase {
                                                data: serializedData,
                                                error: error)
 
-        XCTAssertTrue((expected as NSError).isEqual(actual.error! as NSError))
+        guard let actError = actual.error else {
+            XCTFail(" ")
+            return
+        }
+        XCTAssertTrue((expected as NSError).isEqual(actError as NSError))
     }
 
 }

@@ -15,7 +15,7 @@ class JSONParametersEncoderTestCase: XCTestCase {
     private let urlString: String = "http://e-legion.com"
 
     private var request: URLRequest {
-        let url = URL(string: self.urlString)!
+        let url = URL(string: self.urlString) ?? URL(fileURLWithPath: "")
 
         return URLRequest(url: url)
     }
@@ -30,9 +30,9 @@ class JSONParametersEncoderTestCase: XCTestCase {
                 "dictionary": [
                     "key&1": "value1",
                     "key2": "value2",
-                    "key3": "value3"
-                ]
-            ]
+                    "key3": "value3",
+                ],
+            ],
         ]
     }
 
@@ -42,11 +42,19 @@ class JSONParametersEncoderTestCase: XCTestCase {
         var request = self.request
         let encoder = self.encoder
 
-        try? encoder.encode(parameters: expected, to: &request)
+        do {
+            try encoder.encode(parameters: expected, to: &request)
 
-        let data = try? JSONSerialization.jsonObject(with: request.httpBody!, options: [])
+            if let body = request.httpBody {
+                let data = try JSONSerialization.jsonObject(with: body, options: [])
 
-        XCTAssertNotNil(data)
+                XCTAssertNotNil(data)
+            } else {
+                XCTFail(" ")
+            }
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
     }
 
     public func test_encodeDataAndSetToHttpBody_expectedSameDataAsInitialValue() {
@@ -55,11 +63,19 @@ class JSONParametersEncoderTestCase: XCTestCase {
         var request = self.request
         let encoder = self.encoder
 
-        try? encoder.encode(parameters: expected, to: &request)
+        do {
+            try? encoder.encode(parameters: expected, to: &request)
 
-        let decoder = JSONDecoder()
-        let actual = try? decoder.decode(DataType.self, from: request.httpBody!)
+            let decoder = JSONDecoder()
+            guard let body = request.httpBody else {
+                XCTFail(" ")
+                return
+            }
+            let actual = try decoder.decode(DataType.self, from: body)
 
-        XCTAssertTrue((expected as NSDictionary).isEqual(to: actual!))
+            XCTAssertTrue((expected as NSDictionary).isEqual(to: actual))
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
     }
 }

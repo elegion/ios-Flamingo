@@ -27,7 +27,7 @@ class JSONSerializerTestCase: XCTestCase {
     }
 
     private var jsonData: Data {
-        return self.jsonString.data(using: .utf8)!
+        return self.jsonString.data(using: .utf8) ?? Data()
     }
 
     private var defaultExpected: SomeStruct {
@@ -44,7 +44,7 @@ class JSONSerializerTestCase: XCTestCase {
         let serializer = self.serializer
         let actual: Result<SomeStruct> = serializer.deserialize(string: self.jsonString)
 
-        XCTAssertEqual(self.defaultExpected, actual.value!)
+        XCTAssertEqual(self.defaultExpected, actual.value)
     }
 
     public func test_deserializeWrongString_expectedErrorResult() {
@@ -58,6 +58,6 @@ class JSONSerializerTestCase: XCTestCase {
         let serializer = self.serializer
         let actual: Result<SomeStruct> = serializer.deserialize(data: self.jsonData)
 
-        XCTAssertEqual(self.defaultExpected, actual.value!)
+        XCTAssertEqual(self.defaultExpected, actual.value)
     }
 }

@@ -14,10 +14,10 @@ private class StubsSessionMock: StubsSession {
 
     func dataTask(with request: URLRequest, completionHandler: @escaping CompletionHandler) -> CancelableOperation? {
         DispatchQueue(label: "com.flamingo.operation-queue").async {
-            let url = URL(string: "/")!
+            let url = URL(fileURLWithPath: "")
             if self.hasMockAnswer {
                 let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "HTTP/1.1", headerFields: [:])
-                completionHandler(response_body().data(using: .utf8)!, response, nil)
+                completionHandler(response_body().data(using: .utf8), response, nil)
             } else {
                 completionHandler(nil, nil, Flamingo.Error.stubClientError(.stubNotFound))
             }
@@ -113,9 +113,11 @@ class NetworkClientStubs: NetworkClientBaseTestCase {
         client.enableStubs()
 
         let request = TestRequest()
-        client.sendRequest(request) { _, _ in
-            let stubs = (client.stubs! as? StubsSessionMock)!
-            XCTAssertTrue(stubs.affected)
+        client.sendRequest(request) {
+            _, _ in
+            
+            let stubs = (client.stubs as? StubsSessionMock)
+            XCTAssertTrue(stubs?.affected ?? false)
 
             expectation.fulfill()
         }
@@ -129,8 +131,11 @@ class NetworkClientStubs: NetworkClientBaseTestCase {
         client.enableStubs()
 
         let request = TestRequest()
-        client.sendRequest(request) { result, _ in
-            guard case let Flamingo.Error.networkClientError(error) = result.error! else {
+        client.sendRequest(request) {
+            result, _ in
+
+            guard let errorInRes = result.error,
+                case let Flamingo.Error.networkClientError(error) = errorInRes else {
                 XCTFail("Wrong error!")
                 expectation.fulfill()
                 return
@@ -155,11 +160,13 @@ class NetworkClientStubs: NetworkClientBaseTestCase {
         let client = self.configuredClient
         client.enableStubs()
         client.stubsErrorBehavior = .useRealClient
-        (client.stubs as? StubsSessionMock)!.hasMockAnswer = false
+        (client.stubs as? StubsSessionMock)?.hasMockAnswer = false
 
         let request = TestRequest()
-        client.sendRequest(request) { result, error in
-            XCTAssertTrue(result.error! is Swift.DecodingError)
+        client.sendRequest(request) {
+            result, error in
+
+            XCTAssertTrue(result.error is Swift.DecodingError)
 
             expectation.fulfill()
         }
@@ -172,7 +179,7 @@ class NetworkClientStubs: NetworkClientBaseTestCase {
         let client = self.configuredClient
         client.enableStubs()
         client.stubsErrorBehavior = .useRealClient
-        (client.stubs as? StubsSessionMock)!.hasMockAnswer = true
+        (client.stubs as? StubsSessionMock)?.hasMockAnswer = true
 
         let request = TestRequest()
         client.sendRequest(request) { result, _ in

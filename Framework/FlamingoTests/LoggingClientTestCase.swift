@@ -32,7 +32,9 @@ private class MockClient: NetworkClient {
                 (reporter, _) in
                 reporter.didRecieveResponse(for: networkRequest, context: sself.context)
             })
-            completionHandler?((sself.responseResult as? Result<Request.Response>)!, sself.context)
+            if let result = sself.responseResult as? Result<Request.Response> {
+                completionHandler?(result, sself.context)
+            }
         }
 
         return nil

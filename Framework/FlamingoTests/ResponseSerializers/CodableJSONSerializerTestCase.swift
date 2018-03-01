@@ -39,7 +39,7 @@ class CodableJSONSerializerTestCase: XCTestCase {
                                                data: serializedData,
                                                error: error)
 
-        XCTAssertEqual(expected, actual.value!)
+        XCTAssertEqual(expected, actual.value)
     }
 
     public func test_serializeDataWithError_expectedError() {
@@ -52,7 +52,7 @@ class CodableJSONSerializerTestCase: XCTestCase {
                                                data: serializedData,
                                                error: error)
 
-        XCTAssertEqual(expected, (actual.error! as? SomeError)!)
+        XCTAssertEqual(expected, (actual.error as? SomeError))
     }
 
     public func test_serializeDataNoErrorNoData_expectedError() {
@@ -63,8 +63,8 @@ class CodableJSONSerializerTestCase: XCTestCase {
         let actual = self.serializer.serialize(request: self.request,
                                                response: self.response,
                                                data: serializedData,
-                                               error: error)
+                                               error: error).error ?? NSError()
 
-        XCTAssertTrue((expected as NSError).isEqual(actual.error! as NSError))
+        XCTAssertTrue((expected as NSError).isEqual(actual as NSError))
     }
 }
