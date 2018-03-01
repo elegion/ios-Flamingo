@@ -127,7 +127,7 @@ public class StubDefaultSession: StubsSession {
                 return false
             }
 
-            let item = regex.firstMatch(in: url, options: [], range: NSRange(location: 0, length: url.characters.count))
+            let item = regex.firstMatch(in: url, options: [], range: NSRange(location: 0, length: url.count))
 
             return item != nil
         }

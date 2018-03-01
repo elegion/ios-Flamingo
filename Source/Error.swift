@@ -51,18 +51,43 @@ public enum Error: Swift.Error, LocalizedError {
         }
     }
 
-    public enum StubClientFactoryErrorReason {
+    public enum StubClientFactoryErrorReason: CustomStringConvertible {
         case fileNotExists(String)
         case cannotAccessToFile(String)
         case wrongListFormat
+
+        public var description: String {
+            switch self {
+            case .fileNotExists(let string):
+                return "File not exists. \(string)"
+            case .cannotAccessToFile(let string):
+                return "Cannot access to file. \(string)"
+            case .wrongListFormat:
+                return "Wrong list format"
+            }
+        }
     }
 
-    public enum StubClientErrorReason {
+    public enum StubClientErrorReason: CustomStringConvertible {
         case stubNotFound
+
+        public var description: String {
+            switch self {
+            case .stubNotFound:
+                return "Stub not found"
+            }
+        }
     }
 
-    public enum NetworkClientErrorReason {
+    public enum NetworkClientErrorReason: CustomStringConvertible {
         case stubsNotConfigured
+
+        public var description: String {
+            switch self {
+            case .stubsNotConfigured:
+                return "Stubs not configured"
+            }
+        }
     }
     
     case invalidRequest
@@ -86,6 +111,9 @@ public enum Error: Swift.Error, LocalizedError {
             return "Parameters encoding error. \(reason)"
         case .responseValidationFailed(reason: let reason):
             return "Response validation failed. \(reason)"
+            //TODO. check it later
+        default:
+            return ""
         }
     }
 
