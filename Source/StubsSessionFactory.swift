@@ -59,32 +59,53 @@ public enum StubError: Swift.Error, LocalizedError {
 }
 
 public struct RequestStub: Hashable {
-    public let url: String
+    public let url: URL
     public let method: HTTPMethod
-    public let params: String?
+    public let params: [String: Any]?
     public var hashValue: Int
 
-    init(url: String, method: HTTPMethod, params: String?) {
+    init(url: URL, method: HTTPMethod, params: [String: Any]?) {
         self.url = url
         self.method = method
         self.params = params
-        hashValue = "\(url)\(method)\(params ?? "")".hashValue
+        hashValue = "\(url)\(method)\(params ?? [:])".hashValue
     }
 
     public static func ==(lhs: RequestStub, rhs: RequestStub) -> Bool {
+        let equalParams = NSDictionary(dictionary: lhs.params ?? [:]).isEqual(to: rhs.params ?? [:])
         return lhs.url == rhs.url &&
             lhs.method == rhs.method &&
-            lhs.params == rhs.params
+            equalParams
     }
 }
 
 public struct RequestStubMap: Decodable {
-    public let url: String
+    public let url: URL
     public let method: HTTPMethod
-    public let params: String?
-    public let stub: ResponseStub
+    public let params: [String: Any]?
+    public let responseStub: ResponseStub
     public var requestStub: RequestStub {
         return RequestStub(url: url, method: method, params: params)
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case url
+        case method
+        case params
+        case responseStub = "stub"
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        url = try container.decode(.url)
+        method = try container.decode(.method)
+        let paramsAsString: String? = try container.decode(.params)
+        if let paramsAsData = paramsAsString?.data(using: .utf8) {
+            params = try JSONSerialization.jsonObject(with: paramsAsData, options: .allowFragments) as? [String: Any]
+        } else {
+            params = nil
+        }
+        responseStub = try container.decode(.responseStub)
     }
 }
 

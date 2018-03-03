@@ -21,7 +21,7 @@
                     "Content-Type": "application/json",
                     "Cache-control": "no-cache"
               },
-                "text": "some text"
+                "body": "some text"
             }
         }
     ]

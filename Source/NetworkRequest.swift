@@ -59,7 +59,6 @@ public extension NetworkRequest {
                method: \(self.method),
                parameters: \(self.parameters ?? [:])),
                headers: \(String(describing: self.headers))
-        
         """
     }
 }

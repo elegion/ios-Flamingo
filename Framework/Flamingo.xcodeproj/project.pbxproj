@@ -300,8 +300,8 @@
 			isa = PBXGroup;
 			children = (
 				E228339D1FA2197C000F479D /* ResponseStub.swift */,
-				E22833991FA21960000F479D /* StubsSession.swift */,
 				E228339A1FA21960000F479D /* StubsSessionFactory.swift */,
+				E22833991FA21960000F479D /* StubsSession.swift */,
 			);
 			name = StubClient;
 			sourceTree = "<group>";

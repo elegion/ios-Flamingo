@@ -24,31 +24,17 @@ private class StubTask: CancelableOperation {
     public func cancelOperation() {}
 }
 
-public class StubDefaultSession: StubsSession {
+public class StubDefaultSession: StubsSession, NetworkClientMutater {
 
-    private let operationQueue = DispatchQueue(
-        label: "com.flamingo.operation-queue",
-        attributes: DispatchQueue.Attributes.concurrent
-    )
-
-    private var stubs: Stubs
-
-    private var urls: [String] {
-        return self.stubs.keys.map({ $0.url })
-    }
-
-    init() {
-        self.stubs = [:]
-    }
+    private var stubs: Stubs = [:]
 
     public func add(_ key: RequestStub, stub: ResponseStub) {
-        let stubItem = [key: stub]
-        self.add(stubsStruct: stubItem)
+        stubs[key] = stub
     }
 
     public func add(stubs: [RequestStubMap]) {
         for i in stubs.indices {
-            self.stubs[stubs[i].requestStub] = stubs[i].stub
+            self.stubs[stubs[i].requestStub] = stubs[i].responseStub
         }
     }
 
@@ -60,7 +46,34 @@ public class StubDefaultSession: StubsSession {
         return stubs[key] != nil
     }
 
-    private func add(stubsStruct: Stubs) {
-        self.stubs.merge(stubsStruct) { $1 }
+    // MARK: - NetworkClientMutater
+
+    public func response<Request>(for request: Request) -> NetworkClientMutater.RawResponseTuple? where Request: NetworkRequest {
+        if let key = requestAsRequestStub(request),
+            let stub = stubs[key] {
+            return stub.rawResponseTuple(url: key.url)
+        }
+
+        return nil
     }
+}
+
+extension ResponseStub {
+    func rawResponseTuple(url: URL) -> NetworkClientMutater.RawResponseTuple {
+        let stubData = body
+
+        let response = HTTPURLResponse(
+            url: url,
+            statusCode: statusCode.rawValue,
+            httpVersion: "HTTP/1.1",
+            headerFields: headers
+        )
+
+        return (stubData, response, error?.nsError)
+    }
+}
+
+internal func requestAsRequestStub<Request>(_ request: Request) -> RequestStub? where Request: NetworkRequest {
+    let requestURL = (try? request.URL.asURL()) ?? URL(fileURLWithPath: "")
+    return RequestStub(url: requestURL, method: request.method, params: request.parameters)
 }
