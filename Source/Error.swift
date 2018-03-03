@@ -50,54 +50,12 @@ public enum Error: Swift.Error, LocalizedError {
             }
         }
     }
-
-    public enum StubClientFactoryErrorReason: CustomStringConvertible {
-        case fileNotExists(String)
-        case cannotAccessToFile(String)
-        case wrongListFormat
-
-        public var description: String {
-            switch self {
-            case .fileNotExists(let string):
-                return "File not exists. \(string)"
-            case .cannotAccessToFile(let string):
-                return "Cannot access to file. \(string)"
-            case .wrongListFormat:
-                return "Wrong list format"
-            }
-        }
-    }
-
-    public enum StubClientErrorReason: CustomStringConvertible {
-        case stubNotFound
-
-        public var description: String {
-            switch self {
-            case .stubNotFound:
-                return "Stub not found"
-            }
-        }
-    }
-
-    public enum NetworkClientErrorReason: CustomStringConvertible {
-        case stubsNotConfigured
-
-        public var description: String {
-            switch self {
-            case .stubsNotConfigured:
-                return "Stubs not configured"
-            }
-        }
-    }
     
     case invalidRequest
     case unableToRetrieveDataAndError
     case unableToRetrieveHTTPResponse
     case parametersEncodingError(ParametersEncodingErrorReason)
     case responseValidationFailed(reason: ResponseValidationFailureReason)
-    case stubClientFactoryError(StubClientFactoryErrorReason)
-    case stubClientError(StubClientErrorReason)
-    case networkClientError(NetworkClientErrorReason)
 
     public var localizedDescription: String {
         switch self {
@@ -111,9 +69,6 @@ public enum Error: Swift.Error, LocalizedError {
             return "Parameters encoding error. \(reason)"
         case .responseValidationFailed(reason: let reason):
             return "Response validation failed. \(reason)"
-            //TODO. check it later
-        default:
-            return ""
         }
     }
 

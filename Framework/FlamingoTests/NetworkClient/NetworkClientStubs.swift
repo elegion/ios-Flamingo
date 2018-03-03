@@ -34,7 +34,7 @@ private class StubsSessionMock: StubsSession {
         return self
     }
 
-    func add(stubs: [Stub]) -> Self {
+    func add(stubs: [RequestStubMap]) -> Self {
         return self
     }
 
@@ -136,12 +136,6 @@ class NetworkClientStubs: NetworkClientBaseTestCase {
 
             guard let errorInRes = result.error,
                 case let Flamingo.Error.networkClientError(error) = errorInRes else {
-                XCTFail("Wrong error!")
-                expectation.fulfill()
-                return
-            }
-
-            if error != Flamingo.Error.NetworkClientErrorReason.stubsNotConfigured {
                 XCTFail("Wrong error!")
                 expectation.fulfill()
                 return

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum StatusCodes: Int {
+public enum StatusCodes: Int, Decodable {
     case `continue` = 100
     case switchingProtocols = 101
     case ok = 200

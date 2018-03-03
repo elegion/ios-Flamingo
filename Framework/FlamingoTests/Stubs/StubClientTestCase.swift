@@ -37,8 +37,8 @@ class StubClientTestCase: XCTestCase {
     public func test_addingManyStubs() {
         let client = self.client
 
-        let stubItem = Stub(url: self.url, method: HTTPMethod.get, stub: self.stub)
-        let secondStubItem = Stub(url: self.url, method: HTTPMethod.post, stub: self.stub)
+        let stubItem = RequestStubMap(url: self.url, method: HTTPMethod.get, stub: self.stub)
+        let secondStubItem = RequestStubMap(url: self.url, method: HTTPMethod.post, stub: self.stub)
         let stubs = [stubItem]
         let secondStubs = [secondStubItem]
 

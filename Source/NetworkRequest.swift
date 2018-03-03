@@ -57,7 +57,7 @@ public extension NetworkRequest {
             Request: \(String(describing: type(of: self))),
                url: \(self.URL) (baseurl: \(String(describing: self.baseURL))),
                method: \(self.method),
-               parameters: \(String(describing: self.parameters)),
+               parameters: \(self.parameters ?? [:])),
                headers: \(String(describing: self.headers))
         
         """

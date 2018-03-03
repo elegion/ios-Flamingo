@@ -35,7 +35,7 @@ class StubClientFactoryTestCase: XCTestCase {
     }
 
     public func test_createClientWithDictionary_expectedClient() {
-        let stubMethod = Stub(url: self.method, method: HTTPMethod.get, stub: self.stub)
+        let stubMethod = RequestStubMap(url: self.method, method: HTTPMethod.get, stub: self.stub)
         let client = StubsSessionFactory.session(with: [stubMethod])
 
         XCTAssertNotNil(client)

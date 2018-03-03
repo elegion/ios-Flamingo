@@ -5,10 +5,10 @@
             "method": "POST",
             "stub": {
                 "statusCode": 200,
-                "headers": [
-                    {"Content-Type": "plain/text"},
-                    {"Cache-control": "no-cache"}
-                ],
+                "headers": {
+                  "Content-Type": "plain/text",
+                  "Cache-control": "no-cache"
+                },
                 "body": "text"
             }
         },
@@ -17,10 +17,10 @@
             "method": "GET",
             "stub": {
                 "statusCode": 200,
-                "headers": [
-                    {"Content-Type": "application/json"},
-                    {"Cache-control": "no-cache"}
-                ],
+              "headers": {
+                    "Content-Type": "application/json",
+                    "Cache-control": "no-cache"
+              },
                 "text": "some text"
             }
         }
