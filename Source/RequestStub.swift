@@ -28,11 +28,10 @@ public struct RequestStub: Hashable {
         self.init(url: requestURL, method: request.method, params: request.parameters)
     }
 
-
     public static func ==(lhs: RequestStub, rhs: RequestStub) -> Bool {
         let equalParams = NSDictionary(dictionary: lhs.params ?? [:]).isEqual(to: rhs.params ?? [:])
         return lhs.url == rhs.url &&
             lhs.method == rhs.method &&
-        equalParams
+            equalParams
     }
 }
