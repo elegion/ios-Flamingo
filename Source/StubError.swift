@@ -43,6 +43,7 @@ public enum StubError: Swift.Error, LocalizedError {
 
     case stubClientFactoryError(StubClientFactoryErrorReason)
     case stubClientError(StubClientErrorReason)
+    case fakeResponse
 
     public var localizedDescription: String {
         switch self {
@@ -50,6 +51,8 @@ public enum StubError: Swift.Error, LocalizedError {
             return "Stub client factory error. \(reason)"
         case .stubClientError(let reason):
             return "Stub client error. \(reason)"
+        case .fakeResponse:
+            return "Fake response"
         }
     }
 

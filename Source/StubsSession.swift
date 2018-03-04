@@ -10,6 +10,11 @@ import Foundation
 
 public typealias Stubs = [RequestStub: ResponseStub]
 
+public enum NotFoundStubBehavior {
+    case useRealClient
+    case giveError
+}
+
 public protocol StubsSession: NetworkClientMutater {
     func add(_ key: RequestStub, stub: ResponseStub)
     func add(stubs: Stubs)
@@ -22,6 +27,8 @@ private class StubTask: CancelableOperation {
 }
 
 public class StubsDefaultSession: StubsSession {
+
+    public var notFoundStubBehavior: NotFoundStubBehavior = .giveError
 
     private var stubs: Stubs = [:]
 
@@ -59,7 +66,18 @@ public class StubsDefaultSession: StubsSession {
             return stub.rawResponseTuple(url: key.url)
         }
 
-        return nil
+        switch notFoundStubBehavior {
+        case .giveError:
+            let response = HTTPURLResponse(
+                url: URL(fileURLWithPath: ""),
+                statusCode: 23,
+                httpVersion: "HTTP/1.1",
+                headerFields: nil
+            )
+            return (nil, response, StubError.fakeResponse)
+        case .useRealClient:
+            return nil
+        }
     }
 }
 
