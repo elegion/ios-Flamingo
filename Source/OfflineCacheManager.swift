@@ -13,17 +13,17 @@ open class OfflineCacheManager: NetworkClientReporter, NetworkClientMutater {
     let storagePolicy: URLCache.StoragePolicy
     unowned let networkClient: NetworkDefaultClient
 
-    init(cache: URLCache, storagePolicy: URLCache.StoragePolicy, networkClient: NetworkDefaultClient) {
+    public init(cache: URLCache, storagePolicy: URLCache.StoragePolicy, networkClient: NetworkDefaultClient) {
         self.cache = cache
         self.storagePolicy = storagePolicy
         self.networkClient = networkClient
     }
 
-    public func willSendRequest<Request>(_ networkRequest: Request) where Request : NetworkRequest {
+    open func willSendRequest<Request>(_ networkRequest: Request) where Request : NetworkRequest {
 
     }
 
-    public func didRecieveResponse<Request>(for request: Request, context: NetworkContext) where Request : NetworkRequest {
+    open func didRecieveResponse<Request>(for request: Request, context: NetworkContext) where Request : NetworkRequest {
         do {
             if let response = context.response,
                 let data = context.data {
@@ -40,7 +40,7 @@ open class OfflineCacheManager: NetworkClientReporter, NetworkClientMutater {
         }
     }
 
-    public func response<Request>(for request: Request) -> NetworkClientMutater.RawResponseTuple? where Request : NetworkRequest {
+    open func response<Request>(for request: Request) -> NetworkClientMutater.RawResponseTuple? where Request : NetworkRequest {
         do {
             let urlRequest = try networkClient.urlRequest(from: request)
             if let cached = cache.cachedResponse(for: urlRequest) {
