@@ -52,3 +52,10 @@ open class OfflineCacheManager: NetworkClientReporter, NetworkClientMutater {
         return nil
     }
 }
+
+extension NetworkDefaultClient {
+    public func addOfflineCacheManager(_ manager: OfflineCacheManager) {
+        addReporter(manager)
+        addMutater(manager)
+    }
+}

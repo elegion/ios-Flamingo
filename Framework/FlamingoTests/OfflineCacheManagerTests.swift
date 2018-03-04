@@ -31,13 +31,13 @@ class OfflineCacheManagerTests: XCTestCase {
         let request = UsersRequest()
 
         let urlCache = URLCache(memoryCapacity: 1 * 1024 * 1024, diskCapacity: 5 * 1024 * 1024, diskPath: nil)
+        urlCache.removeAllCachedResponses()
         let cacheManager = OfflineCacheManager(cache: urlCache,
                                                storagePolicy: .allowed,
                                                networkClient: networkClient)
-        networkClient.addReporter(cacheManager)
-        networkClient.addMutater(cacheManager)
+        networkClient.addOfflineCacheManager(cacheManager)
 
-        networkClient.sendRequest(request) {
+        let originalTask = networkClient.sendRequest(request) {
             [weak self] (result, _) in
 
             let task = self?.networkClient.sendRequest(request, completionHandler: {
@@ -54,6 +54,7 @@ class OfflineCacheManagerTests: XCTestCase {
             })
             XCTAssertNil(task)
         }
+        XCTAssertNotNil(originalTask)
 
         waitForExpectations(timeout: 10) {
             (_) in
