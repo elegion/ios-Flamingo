@@ -23,6 +23,21 @@
               },
               "body": "{\"haha\": value}"
             }
-        }
+        },
+          {
+              "url": "/method/errormethod",
+              "method": "PUT",
+              "stub": {
+                "statusCode": 401,
+                "headers": {
+                    "Cache-control": "no-cache"
+                },
+              "error": {
+                "domain": "123123",
+                "code": 123,
+                "message": "Some error message"
+              }
+             }
+          }
     ]
 }

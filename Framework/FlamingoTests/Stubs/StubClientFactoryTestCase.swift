@@ -89,6 +89,15 @@ class StubClientFactoryTestCase: XCTestCase {
             XCTAssertEqual(stubFile.stubs[1].responseStub.headers, ["Content-Type": "application/json",
                                                                     "Cache-control": "no-cache", ])
             XCTAssertEqual(stubFile.stubs[1].responseStub.body, "{\"haha\": value}".data(using: .utf8))
+
+            XCTAssertEqual(stubFile.stubs[2].url.absoluteString, "/method/errormethod")
+            XCTAssertEqual(stubFile.stubs[2].method.rawValue, "PUT")
+            XCTAssertEqual(stubFile.stubs[2].responseStub.statusCode, StatusCodes.unauthorized)
+            XCTAssertEqual(stubFile.stubs[2].responseStub.headers, ["Cache-control": "no-cache"])
+            XCTAssertEqual(stubFile.stubs[2].responseStub.body, nil)
+            XCTAssertEqual(stubFile.stubs[2].responseStub.error?.code, 123)
+            XCTAssertEqual(stubFile.stubs[2].responseStub.error?.domain, "123123")
+            XCTAssertEqual(stubFile.stubs[2].responseStub.error?.message, "Some error message")
         } catch {
             XCTFail("\(error)")
         }
@@ -111,8 +120,7 @@ class StubClientFactoryTestCase: XCTestCase {
 
 public func XCTAssertException(_ closure: @autoclosure () throws -> Void,
                                expectedError: Swift.Error,
-                               message: String? = nil
-    ) {
+                               message: String? = nil) {
     do {
         try closure()
     } catch {
