@@ -64,7 +64,7 @@ public struct RequestStub: Hashable {
     public let params: [String: Any]?
     public var hashValue: Int
 
-    init(url: URL, method: HTTPMethod, params: [String: Any]?) {
+    init(url: URL, method: HTTPMethod, params: [String: Any]? = nil) {
         self.url = url
         self.method = method
         self.params = params
@@ -106,6 +106,13 @@ public struct RequestStubMap: Decodable {
             params = nil
         }
         responseStub = try container.decode(.responseStub)
+    }
+
+    public init(url: URL, method: HTTPMethod, params: [String: Any]?, responseStub: ResponseStub) {
+        self.url = url
+        self.method = method
+        self.params = params
+        self.responseStub = responseStub
     }
 }
 
