@@ -54,7 +54,7 @@ public class StubsDefaultSession: StubsSession {
     // MARK: - NetworkClientMutater
 
     public func response<Request>(for request: Request) -> NetworkClientMutater.RawResponseTuple? where Request: NetworkRequest {
-        if let key = requestAsRequestStub(request),
+        if let key = RequestStub(request),
             let stub = stubs[key] {
             return stub.rawResponseTuple(url: key.url)
         }
@@ -76,9 +76,4 @@ extension ResponseStub {
 
         return (stubData, response, error?.nsError)
     }
-}
-
-internal func requestAsRequestStub<Request>(_ request: Request) -> RequestStub? where Request: NetworkRequest {
-    let requestURL = (try? request.URL.asURL()) ?? URL(fileURLWithPath: "")
-    return RequestStub(url: requestURL, method: request.method, params: request.parameters)
 }

@@ -21,6 +21,14 @@ public struct RequestStub: Hashable {
         hashValue = "\(url)\(method)\(params ?? [:])".hashValue
     }
 
+    public init?<Request: NetworkRequest>(_ request: Request) {
+        guard let requestURL = (try? request.URL.asURL()) else {
+            return nil
+        }
+        self.init(url: requestURL, method: request.method, params: request.parameters)
+    }
+
+
     public static func ==(lhs: RequestStub, rhs: RequestStub) -> Bool {
         let equalParams = NSDictionary(dictionary: lhs.params ?? [:]).isEqual(to: rhs.params ?? [:])
         return lhs.url == rhs.url &&
