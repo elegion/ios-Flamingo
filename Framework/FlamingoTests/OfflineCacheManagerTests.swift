@@ -32,6 +32,7 @@ class OfflineCacheManagerTests: XCTestCase {
 
         let urlCache = URLCache(memoryCapacity: 1 * 1024 * 1024, diskCapacity: 5 * 1024 * 1024, diskPath: nil)
         urlCache.removeAllCachedResponses()
+        sleep(1)
         let cacheManager = OfflineCacheManager(cache: urlCache,
                                                storagePolicy: .allowed,
                                                networkClient: networkClient)
