@@ -14,8 +14,8 @@ class StubClientTestCase: XCTestCase {
         return StubDefaultSession()
     }
 
-    private var url: String {
-        return "method"
+    private var url: URL {
+        return URL(string: "method")!
     }
 
     private var stub: ResponseStub {
@@ -31,180 +31,154 @@ class StubClientTestCase: XCTestCase {
     public func test_addingOneStub() {
         let client = self.client
 
-        _ = client.add(self.url, method: HTTPMethod.get, stub: self.stub)
+        _ = client.add(RequestStub(url: url, method: .get), stub: stub)
     }
 
     public func test_addingManyStubs() {
         let client = self.client
 
-        let stubItem = RequestStubMap(url: self.url, method: HTTPMethod.get, stub: self.stub)
-        let secondStubItem = RequestStubMap(url: self.url, method: HTTPMethod.post, stub: self.stub)
+        let stubItem = RequestStubMap(url: self.url, method: HTTPMethod.get, params: nil, responseStub: self.stub)
+        let secondStubItem = RequestStubMap(url: self.url, method: HTTPMethod.post, params: nil, responseStub: self.stub)
         let stubs = [stubItem]
         let secondStubs = [secondStubItem]
 
-        _ = client
-            .add(stubs: stubs)
-            .add(stubs: secondStubs)
+        client.add(stubs: stubs)
+        client.add(stubs: secondStubs)
     }
 
     public func test_detectExistingMockOnUnconfiguredClient_expectedFalse() {
         let client = self.client
 
-        let actual = client.hasStub("some_url/", method: HTTPMethod.get)
+        let actual = client.hasStub(RequestStub(url: URL(string: "some_url/")!, method: .get))
 
         XCTAssertFalse(actual)
     }
 
     public func test_detectExistingMockOnConfiguredClient_expectedTrue() {
-        let url = "some_url/"
+        let url = URL(string: "some_url/")!
         let method = HTTPMethod.get
 
         let client = self.client
-        _ = client.add(url, method: method, stub: self.stub)
+        let key = RequestStub(url: url, method: method, params: ["key": 1])
+        client.add(key, stub: stub)
 
-        let actual = client.hasStub(url, method: method)
-
-        XCTAssertTrue(actual)
+        XCTAssertTrue(client.hasStub(key))
     }
 
-    public func test_detectExistingRegexMockOnClient_expectedTrue() {
-        let url = "some_url/"
-        let regex = "s.*url"
-        let method = HTTPMethod.get
-
-        let client = self.client
-        _ = client.add(regex, method: method, stub: self.stub)
-
-        let actual = client.hasStub(url, method: method)
-
-        XCTAssertTrue(actual)
-    }
-
-    public func test_detectExistingMockOnClientCheckType_expectedFalse() {
-        let url = "some_url/"
-        let regex = "s.*url"
-        let method = HTTPMethod.get
-        let checkedMethod = HTTPMethod.post
-
-        let client = self.client
-        _ = client.add(regex, method: method, stub: self.stub)
-
-        let actual = client.hasStub(url, method: checkedMethod)
-
-        XCTAssertFalse(actual)
-    }
-
-    public func test_detectExcistingMockOnClientCheckType_expectedTrue() {
-        let url = "some_url/"
-        let regex = "s.*url"
-        let method = HTTPMethod.get
-        let checkedMethod = method
-
-        let client = self.client
-        _ = client.add(regex, method: method, stub: self.stub)
-
-        let actual = client.hasStub(url, method: checkedMethod)
-
-        XCTAssertTrue(actual)
-    }
+//    public func test_detectExistingRegexMockOnClient_expectedTrue() {
+//        let url = URL(string: "some_url/")!
+//        let regex = "s.*url"
+//        let method = HTTPMethod.get
+//
+//        let client = self.client
+//        _ = client.add(regex, method: method, stub: self.stub)
+//
+//        let actual = client.hasStub(url, method: method)
+//
+//        XCTAssertTrue(actual)
+//    }
+//
+//    public func test_detectExistingMockOnClientCheckType_expectedFalse() {
+//        let url = "some_url/"
+//        let regex = "s.*url"
+//        let method = HTTPMethod.get
+//        let checkedMethod = HTTPMethod.post
+//
+//        let client = self.client
+//        _ = client.add(regex, method: method, stub: self.stub)
+//
+//        let actual = client.hasStub(url, method: checkedMethod)
+//
+//        XCTAssertFalse(actual)
+//    }
+//
+//    public func test_detectExcistingMockOnClientCheckType_expectedTrue() {
+//        let url = "some_url/"
+//        let regex = "s.*url"
+//        let method = HTTPMethod.get
+//        let checkedMethod = method
+//
+//        let client = self.client
+//        _ = client.add(regex, method: method, stub: self.stub)
+//
+//        let actual = client.hasStub(url, method: checkedMethod)
+//
+//        XCTAssertTrue(actual)
+//    }
 
     public func test_removingStubByMethod_expectedFalse() {
-        let url = "some_url/"
         let method = HTTPMethod.get
 
+        let key = RequestStub(url: self.url, method: method, params: nil)
         let client = self.client
-        _ = client.add(self.url, method: method, stub: self.stub)
-            .remove(self.url, method: method)
+        client.add(key, stub: self.stub)
+        client.remove(key)
 
-        let actual = client.hasStub(url, method: method)
-
-        XCTAssertFalse(actual)
+        XCTAssertFalse(client.hasStub(key))
     }
 
-    public func test_detectingExcistingStubByRequest_expectedTrue() {
-        let regex = "s.*url"
-        let url = URL(string: "some_url/") ?? URL(fileURLWithPath: "")
-        let method = HTTPMethod.get
-        var request = URLRequest(url: url)
-        request.httpMethod = method.rawValue
+//    public func test_detectingExcistingStubByRequest_expectedTrue() {
+//        let regex = "s.*url"
+//        let url = URL(string: "some_url/") ?? URL(fileURLWithPath: "")
+//        let method = HTTPMethod.get
+//        var request = URLRequest(url: url)
+//        request.httpMethod = method.rawValue
+//
+//        let client = self.client
+//        _ = client.add(regex, method: method, stub: self.stub)
+//
+//        let actual = client.hasStub(request: request)
+//
+//        XCTAssertTrue(actual)
+//    }
+//
+//    public func test_detectingExcistingStubByRequest_expectedFalse() {
+//        let url = URL(string: "some_url/") ?? URL(fileURLWithPath: "")
+//        let regex = "s.*url"
+//        let method = HTTPMethod.get
+//        let checkedMethod = HTTPMethod.post
+//        var request = URLRequest(url: url)
+//        request.httpMethod = checkedMethod.rawValue
+//
+//        let client = self.client
+//        _ = client.add(regex, method: method, stub: self.stub)
+//
+//        let actual = client.hasStub(request: request)
+//
+//        XCTAssertFalse(actual)
+//    }
 
-        let client = self.client
-        _ = client.add(regex, method: method, stub: self.stub)
+    struct MMMRequest: NetworkRequest {
 
-        let actual = client.hasStub(request: request)
+        var URL: URLConvertible {
+            return "method"
+        }
 
-        XCTAssertTrue(actual)
+        var responseSerializer: StringResponseSerializer {
+            return StringResponseSerializer()
+        }
     }
 
-    public func test_detectingExcistingStubByRequest_expectedFalse() {
-        let url = URL(string: "some_url/") ?? URL(fileURLWithPath: "")
-        let regex = "s.*url"
-        let method = HTTPMethod.get
-        let checkedMethod = HTTPMethod.post
-        var request = URLRequest(url: url)
-        request.httpMethod = checkedMethod.rawValue
-
-        let client = self.client
-        _ = client.add(regex, method: method, stub: self.stub)
-
-        let actual = client.hasStub(request: request)
-
-        XCTAssertFalse(actual)
-    }
-
-    public func test_runStubTask_expectedResult() {
-        let expectation = self.expectation(description: #function)
+    func test_convertStubToMutaterRaw() {
 
         let expectedData = self.stub.body
         let expectedStatusCode = self.stub.statusCode
         let expectedHeaders = self.stub.headers
         let method = HTTPMethod.get
+        let expectedError = self.stub.error
 
+        let key = RequestStub(url: self.url, method: method, params: nil)
         let client = self.client
-            .add(self.url, method: method, stub: self.stub)
+        client.add(key, stub: self.stub)
 
-        let request = URLRequest(url: URL(string: self.url) ?? URL(fileURLWithPath: ""))
+        let request = MMMRequest()
 
-        _ = client.dataTask(with: request) {
-            data, response, _ in
+        let rawTuple = client.response(for: request)
+        let response = (rawTuple?.response as? HTTPURLResponse)
 
-            let response = (response as? HTTPURLResponse)
-
-            XCTAssertEqual(expectedData, data)
-            XCTAssertEqual(expectedStatusCode, StatusCodes(rawValue: response?.statusCode ?? -1))
-            XCTAssertEqual(expectedHeaders, (response?.allHeaderFields as? [String: String]) ?? [:])
-
-            expectation.fulfill()
-        }
-
-        self.waitForExpectations(timeout: 5, handler: nil)
-    }
-
-    public func test_runStubTaskOnUnconfiguredClient_expectedError() {
-        let expectation = self.expectation(description: #function)
-
-        let client = self.client
-        if let url = URL(string: self.url) {
-            let request = URLRequest(url: url)
-
-            _ = client.dataTask(with: request) {
-                _, _, error in
-
-                XCTAssertNotNil(error)
-
-                if let error = error {
-                    switch error {
-                    case Flamingo.Error.stubClientError(.stubNotFound):
-                        break
-                    default:
-                        XCTFail("Must throws Flamingo.Error.stubClientError(.stubNotFound) error!")
-                    }
-
-                    expectation.fulfill()
-                }
-            }
-        }
-
-        self.waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertEqual(expectedData, rawTuple?.data)
+        XCTAssertEqual(expectedStatusCode, StatusCodes(rawValue: response?.statusCode ?? -1))
+        XCTAssertEqual(expectedHeaders, (response?.allHeaderFields as? [String: String]) ?? [:])
+        XCTAssertEqual(expectedError?.nsError, rawTuple?.error as NSError?)
     }
 }

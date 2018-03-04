@@ -14,8 +14,8 @@ private func expectedFileFor(_ name: String) -> String? {
 }
 
 class StubClientFactoryTestCase: XCTestCase {
-    private var method: String {
-        return "method"
+    private var url: URL {
+        return URL(string: "method")!
     }
 
     private var stub: ResponseStub {
@@ -29,16 +29,20 @@ class StubClientFactoryTestCase: XCTestCase {
     }
 
     public func test_createClientWithOneMethod_expectedClient() {
-        let client = StubsSessionFactory.session(url: self.method, method: HTTPMethod.get, stub: self.stub)
+        let key = RequestStub(url: url, method: .get)
+        let client = StubsSessionFactory.session(key, stub: stub)
 
-        XCTAssertNotNil(client)
+        XCTAssertTrue(client.hasStub(key))
     }
 
     public func test_createClientWithDictionary_expectedClient() {
-        let stubMethod = RequestStubMap(url: self.method, method: HTTPMethod.get, stub: self.stub)
-        let client = StubsSessionFactory.session(with: [stubMethod])
+        let stubMethod = RequestStubMap(url: self.url, method: HTTPMethod.get, params: nil, responseStub: self.stub)
+        let stubMethod2 = RequestStubMap(url: URL(fileURLWithPath: "\\"), method: HTTPMethod.post, params: ["wqe": 234],
+                                         responseStub: self.stub)
+        let client = StubsSessionFactory.session(with: [stubMethod, stubMethod2])
 
-        XCTAssertNotNil(client)
+        XCTAssertTrue(client.hasStub(stubMethod.requestStub))
+        XCTAssertTrue(client.hasStub(stubMethod2.requestStub))
     }
 
     public func test_createFromNotExistsFile_expectedException() {
@@ -46,7 +50,7 @@ class StubClientFactoryTestCase: XCTestCase {
 
         XCTAssertException(
             _ = try StubsSessionFactory.session(fromFile: expectedFileName),
-            expectedError: Flamingo.Error.stubClientFactoryError(.fileNotExists(expectedFileName))
+            expectedError: StubError.stubClientFactoryError(.fileNotExists(expectedFileName))
         )
     }
 
@@ -61,7 +65,7 @@ class StubClientFactoryTestCase: XCTestCase {
 
             XCTAssertNotNil(client)
         } catch {
-            XCTFail(" ")
+            XCTFail("\(error)")
         }
     }
 
@@ -71,10 +75,12 @@ class StubClientFactoryTestCase: XCTestCase {
             return
         }
 
-        XCTAssertException(
-            _ = try StubsSessionFactory.session(fromFile: expectedFileName),
-            expectedError: Flamingo.Error.stubClientFactoryError(.wrongListFormat)
-        )
+        do {
+            _ = try StubsSessionFactory.session(fromFile: expectedFileName)
+            XCTFail(" ")
+        } catch {
+            XCTAssertTrue(error is Swift.DecodingError)
+        }
     }
 }
 

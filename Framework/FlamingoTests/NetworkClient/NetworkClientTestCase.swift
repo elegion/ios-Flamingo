@@ -9,10 +9,10 @@
 import XCTest
 @testable import Flamingo
 
-class NetworkClientTestCase: NetworkClientBaseTestCase {
+class NetworkClientTestCase: XCTestCase {
 
     public func test_instanciateClient_expectedClient() {
-        let client = self.client
+        let client = NetworkDefaultClientStubs.defaultForTest()
 
         XCTAssertNotNil(client)
     }

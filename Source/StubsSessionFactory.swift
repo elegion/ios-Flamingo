@@ -99,8 +99,9 @@ public struct RequestStubMap: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         url = try container.decode(.url)
         method = try container.decode(.method)
-        let paramsAsString: String? = try container.decode(.params)
-        if let paramsAsData = paramsAsString?.data(using: .utf8) {
+        if container.contains(.params),
+            let paramsAsString: String = try container.decode(.params),
+            let paramsAsData = paramsAsString.data(using: .utf8) {
             params = try JSONSerialization.jsonObject(with: paramsAsData, options: .allowFragments) as? [String: Any]
         } else {
             params = nil

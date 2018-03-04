@@ -21,7 +21,7 @@ public struct ErrorStub: Decodable {
     }
 }
 
-public struct ResponseStub: Decodable {
+public struct ResponseStub {
     public let statusCode: StatusCodes
     public let headers: [String: String] // https://tools.ietf.org/html/rfc2822#section-2.2 2.2. Header Fields
     public let body: Data?
@@ -39,21 +39,28 @@ public struct ResponseStub: Decodable {
     }
 }
 
-//extension ResponseStub: Decodable {
-//    enum Keys: String, CodingKey {
-//        case statusCode
-//        case headers
-//        case body
-//        case error
-//    }
-//
-//    public init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: Keys.self)
-//        let statusCode: StatusCodes = (try StatusCodes(rawValue: container.decode(Int.self, forKey: .statusCode)))!
-//        let headers: [String: String] = try container.decode(.headers)
-//        let body: Data? = try container.decode(String.self, forKey: .body).data(using: .utf8)!
-//        let error: ErrorStub? = try container.decode(.error)
-//
-//        self.init(statusCode: statusCode, headers: headers, body: body, error: error)
-//    }
-//}
+extension ResponseStub: Decodable {
+    enum Keys: String, CodingKey {
+        case statusCode
+        case headers
+        case body
+        case error
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Keys.self)
+        let statusCode: StatusCodes = (try StatusCodes(rawValue: container.decode(Int.self, forKey: .statusCode)))!
+        let headers: [String: String] = try container.decode(.headers)
+        var body: Data?
+        if container.contains(.body) {
+           body = try container.decode(String.self, forKey: .body).data(using: .utf8)
+        }
+        var error: ErrorStub?
+        if container.contains(.error) {
+           error = try container.decode(.error)
+        }
+
+        self.init(statusCode: statusCode, headers: headers, body: body, error: error)
+    }
+}
+

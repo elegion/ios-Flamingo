@@ -13,7 +13,7 @@ fileprivate typealias Stubs = [RequestStub: ResponseStub]
 public typealias RequestHandler<T> = (Result<T>, NetworkContext?) -> Void
 public typealias CompletionHandler = (Data?, URLResponse?, Swift.Error?) -> Swift.Void
 
-public protocol StubsSession {
+public protocol StubsSession: NetworkClientMutater {
     func add(_ key: RequestStub, stub: ResponseStub)
     func add(stubs: [RequestStubMap])
     func remove(_ key: RequestStub)
@@ -24,7 +24,7 @@ private class StubTask: CancelableOperation {
     public func cancelOperation() {}
 }
 
-public class StubDefaultSession: StubsSession, NetworkClientMutater {
+public class StubDefaultSession: StubsSession {
 
     private var stubs: Stubs = [:]
 
