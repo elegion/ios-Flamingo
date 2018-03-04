@@ -13,15 +13,15 @@
             }
         },
         {
-            "url": "/method/text",
+            "url": "/method/nottext",
             "method": "GET",
             "stub": {
-                "statusCode": 200,
+                "statusCode": 401,
               "headers": {
                     "Content-Type": "application/json",
                     "Cache-control": "no-cache"
               },
-                "body": "some text"
+              "body": "{\"haha\": value}"
             }
         }
     ]

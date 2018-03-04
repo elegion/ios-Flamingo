@@ -62,8 +62,33 @@ class StubClientFactoryTestCase: XCTestCase {
 
         do {
             let client = try StubsSessionFactory.session(fromFile: expectedFileName)
-
             XCTAssertNotNil(client)
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
+
+    public func test_stubsParsing() {
+        guard let expectedFileName = expectedFileFor("StubsList.json") else {
+            XCTFail(" ")
+            return
+        }
+
+        do {
+            let stubFile = try StubFile(fromFile: expectedFileName)
+            XCTAssertEqual(stubFile.stubs[0].url.absoluteString, "/method/text")
+            XCTAssertEqual(stubFile.stubs[0].method.rawValue, "POST")
+            XCTAssertEqual(stubFile.stubs[0].responseStub.statusCode, StatusCodes.ok)
+            XCTAssertEqual(stubFile.stubs[0].responseStub.headers, ["Content-Type": "plain/text",
+                                                                    "Cache-control": "no-cache", ])
+            XCTAssertEqual(stubFile.stubs[0].responseStub.body, "text".data(using: .utf8))
+
+            XCTAssertEqual(stubFile.stubs[1].url.absoluteString, "/method/nottext")
+            XCTAssertEqual(stubFile.stubs[1].method.rawValue, "GET")
+            XCTAssertEqual(stubFile.stubs[1].responseStub.statusCode, StatusCodes.unauthorized)
+            XCTAssertEqual(stubFile.stubs[1].responseStub.headers, ["Content-Type": "application/json",
+                                                                    "Cache-control": "no-cache", ])
+            XCTAssertEqual(stubFile.stubs[1].responseStub.body, "{\"haha\": value}".data(using: .utf8))
         } catch {
             XCTFail("\(error)")
         }
