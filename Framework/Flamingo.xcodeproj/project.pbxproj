@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8F7CEB9B1CE9AFCD00D6CCBA /* Flamingo.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F7CEB9A1CE9AFCD00D6CCBA /* Flamingo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9442635E204B99360053B7F7 /* OfflineCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9442635D204B99360053B7F7 /* OfflineCacheManager.swift */; };
 		9451028120487652006E9070 /* lintRules.yml in Resources */ = {isa = PBXBuildFile; fileRef = 9451028020487652006E9070 /* lintRules.yml */; };
 		94650F77204429A20003C8B9 /* Fastfile in Resources */ = {isa = PBXBuildFile; fileRef = 94650F76204429A20003C8B9 /* Fastfile */; };
 		9482F3AA2028EFE400812758 /* CodableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9482F3A72028EFE400812758 /* CodableExtensions.swift */; };
@@ -79,6 +80,7 @@
 		8F7CEB971CE9AFCD00D6CCBA /* Flamingo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flamingo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F7CEB9A1CE9AFCD00D6CCBA /* Flamingo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flamingo.h; sourceTree = "<group>"; };
 		8F7CEB9C1CE9AFCD00D6CCBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9442635D204B99360053B7F7 /* OfflineCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineCacheManager.swift; sourceTree = "<group>"; };
 		9451028020487652006E9070 /* lintRules.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = lintRules.yml; path = ../fastlane/lintRules.yml; sourceTree = "<group>"; };
 		94650F76204429A20003C8B9 /* Fastfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = Fastfile; path = ../fastlane/Fastfile; sourceTree = "<group>"; };
 		9482F3A72028EFE400812758 /* CodableExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableExtensions.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 		8F7CEBA21CE9B03F00D6CCBA /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				9442635C204B99290053B7F7 /* Cache */,
 				9482F3A62028EFD500812758 /* CodableExtensions */,
 				9488CB02201782B700D7151D /* ClientMiddleware */,
 				8F7CEBB91CE9B0C800D6CCBA /* Utils */,
@@ -216,6 +219,14 @@
 				9488CB052017837600D7151D /* Observers.swift */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		9442635C204B99290053B7F7 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				9442635D204B99360053B7F7 /* OfflineCacheManager.swift */,
+			);
+			name = Cache;
 			sourceTree = "<group>";
 		};
 		9482F3A62028EFD500812758 /* CodableExtensions */ = {
@@ -489,6 +500,7 @@
 				E22833971FA21943000F479D /* JSONSerializer.swift in Sources */,
 				94DCCAA8204B7BA7002A8B0B /* RequestStub.swift in Sources */,
 				FE80C35E1F6FE5450060141B /* CancelableOperation.swift in Sources */,
+				9442635E204B99360053B7F7 /* OfflineCacheManager.swift in Sources */,
 				FE80C3641F6FE5510060141B /* ParametersEncoding.swift in Sources */,
 				E228339E1FA2197C000F479D /* ResponseStub.swift in Sources */,
 				9482F3AC2028EFE400812758 /* DecodingContainerTransformer.swift in Sources */,
