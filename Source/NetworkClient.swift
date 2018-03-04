@@ -204,6 +204,9 @@ open class NetworkDefaultClient: NetworkClientMutable {
             urlRequest.setValue(value, forHTTPHeaderField: name)
         }
         urlRequest.timeoutInterval = configuration.defaultTimeoutInterval
+        if let cachePolicy = networkRequest.cachePolicy {
+            urlRequest.cachePolicy = cachePolicy
+        }
         
         try networkRequest.parametersEncoder.encode(parameters: networkRequest.parameters, to: &urlRequest)
         

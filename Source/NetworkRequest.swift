@@ -21,6 +21,7 @@ public protocol NetworkRequest: CustomStringConvertible {
     var baseURL: URLConvertible? { get }
     var responseSerializer: ResponseSerializer { get }
     var completionQueue: DispatchQueue? { get }
+    var cachePolicy: URLRequest.CachePolicy? { get }
 }
 
 public extension NetworkRequest {
@@ -48,7 +49,10 @@ public extension NetworkRequest {
     var completionQueue: DispatchQueue? {
         return .main
     }
-    
+
+    var cachePolicy: URLRequest.CachePolicy? {
+        return nil
+    }
 }
 
 public extension NetworkRequest {
