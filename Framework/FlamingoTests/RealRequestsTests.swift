@@ -9,26 +9,26 @@
 import XCTest
 import Flamingo
 
-private class GeoLocation: Codable {
+class GeoLocation: Codable {
     var lat: String
     var lng: String
 
 }
 
-private class Address: Codable {
+class Address: Codable {
     var street: String
     var suite: String
     var city: String
     var geo: GeoLocation
 }
 
-private class Company: Codable {
+class Company: Codable {
     var name: String
     var catchPhrase: String
     var bs: String
 }
 
-private class User: Codable {
+class User: Codable {
     var id: Int
     var name: String
     var username: String
@@ -39,7 +39,7 @@ private class User: Codable {
     var company: Company
 }
 
-private struct UsersRequest: NetworkRequest {
+struct UsersRequest: NetworkRequest {
 
     init() {
 
