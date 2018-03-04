@@ -47,7 +47,7 @@ public extension NetworkRequest {
     }
     
     var completionQueue: DispatchQueue? {
-        return .main
+        return nil
     }
 
     var cachePolicy: URLRequest.CachePolicy? {
