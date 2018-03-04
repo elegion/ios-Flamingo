@@ -34,6 +34,10 @@ public extension NetworkRequest {
         return nil
     }
     
+    var parametersEncoder: ParametersEncoder {
+        return URLParametersEncoder()
+    }
+    
     var headers: [String: String?]? {
         return nil
     }
