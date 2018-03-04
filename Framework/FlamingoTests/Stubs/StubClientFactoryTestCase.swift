@@ -15,7 +15,7 @@ private func expectedFileFor(_ name: String) -> String? {
 
 class StubClientFactoryTestCase: XCTestCase {
     private var url: URL {
-        return URL(string: "method")!
+        return URL(string: "method") ?? URL(fileURLWithPath: "")
     }
 
     private var stub: ResponseStub {

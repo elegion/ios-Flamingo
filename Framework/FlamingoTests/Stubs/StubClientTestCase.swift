@@ -15,7 +15,7 @@ class StubClientTestCase: XCTestCase {
     }
 
     private var url: URL {
-        return URL(string: "method")!
+        return URL(string: "method") ?? URL(fileURLWithPath: "")
     }
 
     private var stub: ResponseStub {
@@ -49,13 +49,13 @@ class StubClientTestCase: XCTestCase {
     public func test_detectExistingMockOnUnconfiguredClient_expectedFalse() {
         let client = self.client
 
-        let actual = client.hasStub(RequestStub(url: URL(string: "some_url/")!, method: .get))
+        let actual = client.hasStub(RequestStub(url: URL(string: "some_url/") ?? URL(fileURLWithPath: ""), method: .get))
 
         XCTAssertFalse(actual)
     }
 
     public func test_detectExistingMockOnConfiguredClient_expectedTrue() {
-        let url = URL(string: "some_url/")!
+        let url = URL(string: "some_url/") ?? URL(fileURLWithPath: "")
         let method = HTTPMethod.get
 
         let client = self.client

@@ -37,6 +37,10 @@ public struct ResponseStub {
     public init(body: Data) {
         self.init(statusCode: .ok, headers: [:], body: body, error: nil)
     }
+
+    public init(bodyString: String) {
+        self.init(statusCode: .ok, headers: [:], body: bodyString.data(using: .utf8), error: nil)
+    }
 }
 
 extension ResponseStub: Decodable {

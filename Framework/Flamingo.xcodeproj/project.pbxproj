@@ -20,6 +20,8 @@
 		9488CB0E201889EB00D7151D /* RealRequestsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488CB0D201889EB00D7151D /* RealRequestsTests.swift */; };
 		9488CB1020188C7100D7151D /* NetworkClientMutaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488CB0F20188C7100D7151D /* NetworkClientMutaterTests.swift */; };
 		94BF3D421FA0A1CA00909B27 /* URLRequest+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF3D411FA0A1CA00909B27 /* URLRequest+Description.swift */; };
+		94DCCAA8204B7BA7002A8B0B /* RequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DCCAA7204B7BA7002A8B0B /* RequestStub.swift */; };
+		94DCCAAA204B7BC6002A8B0B /* StubError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DCCAA9204B7BC6002A8B0B /* StubError.swift */; };
 		94E20C9C1F7982F90017D46C /* ValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E20C9B1F7982F90017D46C /* ValidationTests.swift */; };
 		94E20C9E1F7982F90017D46C /* Flamingo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F7CEB971CE9AFCD00D6CCBA /* Flamingo.framework */; };
 		94EE07DE1F7976F40095D039 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EE07DD1F7976F40095D039 /* Validation.swift */; };
@@ -89,6 +91,8 @@
 		9488CB0D201889EB00D7151D /* RealRequestsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealRequestsTests.swift; sourceTree = "<group>"; };
 		9488CB0F20188C7100D7151D /* NetworkClientMutaterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientMutaterTests.swift; sourceTree = "<group>"; };
 		94BF3D411FA0A1CA00909B27 /* URLRequest+Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Description.swift"; sourceTree = "<group>"; };
+		94DCCAA7204B7BA7002A8B0B /* RequestStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStub.swift; sourceTree = "<group>"; };
+		94DCCAA9204B7BC6002A8B0B /* StubError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubError.swift; sourceTree = "<group>"; };
 		94E20C991F7982F90017D46C /* FlamingoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlamingoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E20C9B1F7982F90017D46C /* ValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTests.swift; sourceTree = "<group>"; };
 		94E20C9D1F7982F90017D46C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -299,9 +303,11 @@
 		E22833981FA2194F000F479D /* StubClient */ = {
 			isa = PBXGroup;
 			children = (
+				94DCCAA7204B7BA7002A8B0B /* RequestStub.swift */,
 				E228339D1FA2197C000F479D /* ResponseStub.swift */,
 				E228339A1FA21960000F479D /* StubsSessionFactory.swift */,
 				E22833991FA21960000F479D /* StubsSession.swift */,
+				94DCCAA9204B7BC6002A8B0B /* StubError.swift */,
 			);
 			name = StubClient;
 			sourceTree = "<group>";
@@ -466,6 +472,7 @@
 				E228339C1FA21960000F479D /* StubsSessionFactory.swift in Sources */,
 				E22833A01FA2199D000F479D /* StatusCodes.swift in Sources */,
 				FE80C3601F6FE5490060141B /* Error.swift in Sources */,
+				94DCCAAA204B7BC6002A8B0B /* StubError.swift in Sources */,
 				94EE07DE1F7976F40095D039 /* Validation.swift in Sources */,
 				9488CB062017837600D7151D /* Observers.swift in Sources */,
 				FE80C3611F6FE54B0060141B /* NetworkClient.swift in Sources */,
@@ -480,6 +487,7 @@
 				E284B6C41FA21D01001B2123 /* LoggingClient.swift in Sources */,
 				FE80C35D1F6FE5420060141B /* Result.swift in Sources */,
 				E22833971FA21943000F479D /* JSONSerializer.swift in Sources */,
+				94DCCAA8204B7BA7002A8B0B /* RequestStub.swift in Sources */,
 				FE80C35E1F6FE5450060141B /* CancelableOperation.swift in Sources */,
 				FE80C3641F6FE5510060141B /* ParametersEncoding.swift in Sources */,
 				E228339E1FA2197C000F479D /* ResponseStub.swift in Sources */,
