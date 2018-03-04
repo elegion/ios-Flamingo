@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Flamingo
+import Flamingo
 
 private struct Stub: Decodable, Equatable {
     var key: String

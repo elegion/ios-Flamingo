@@ -8,7 +8,7 @@
 
 import Foundation
 import XCTest
-@testable import Flamingo
+import Flamingo
 
 private class MockLogger: Logger {
     private(set) var logSended: Bool = false

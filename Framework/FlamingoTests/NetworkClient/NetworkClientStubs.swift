@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Flamingo
+import Flamingo
 
 private class StubsSessionMock: StubsSession {
 
@@ -19,7 +19,7 @@ private class StubsSessionMock: StubsSession {
 
     }
 
-    func add(stubs: [RequestStubMap]) {
+    func add(stubs: Stubs) {
 
     }
 

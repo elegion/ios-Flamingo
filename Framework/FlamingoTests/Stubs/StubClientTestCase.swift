@@ -7,11 +7,11 @@
 //
 
 import XCTest
-@testable import Flamingo
+import Flamingo
 
 class StubClientTestCase: XCTestCase {
-    private var client: StubDefaultSession {
-        return StubDefaultSession()
+    private var client: StubsDefaultSession {
+        return StubsDefaultSession()
     }
 
     private var url: URL {
@@ -42,8 +42,8 @@ class StubClientTestCase: XCTestCase {
         let stubs = [stubItem]
         let secondStubs = [secondStubItem]
 
-        client.add(stubs: stubs)
-        client.add(stubs: secondStubs)
+        client.add(stubsArray: stubs)
+        client.add(stubsArray: secondStubs)
     }
 
     public func test_detectExistingMockOnUnconfiguredClient_expectedFalse() {

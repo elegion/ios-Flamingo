@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Flamingo
+import Flamingo
 
 class ResultTestCase: XCTestCase {
     private enum StubError: Swift.Error {

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Flamingo
+import Flamingo
 
 class NetworkClientTestCase: XCTestCase {
 

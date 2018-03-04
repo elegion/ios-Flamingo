@@ -8,14 +8,11 @@
 
 import Foundation
 
-fileprivate typealias Stubs = [RequestStub: ResponseStub]
-
-public typealias RequestHandler<T> = (Result<T>, NetworkContext?) -> Void
-public typealias CompletionHandler = (Data?, URLResponse?, Swift.Error?) -> Swift.Void
+public typealias Stubs = [RequestStub: ResponseStub]
 
 public protocol StubsSession: NetworkClientMutater {
     func add(_ key: RequestStub, stub: ResponseStub)
-    func add(stubs: [RequestStubMap])
+    func add(stubs: Stubs)
     func remove(_ key: RequestStub)
     func hasStub(_ key: RequestStub) -> Bool
 }
@@ -24,18 +21,20 @@ private class StubTask: CancelableOperation {
     public func cancelOperation() {}
 }
 
-public class StubDefaultSession: StubsSession {
+public class StubsDefaultSession: StubsSession {
 
     private var stubs: Stubs = [:]
+
+    public init() {
+        
+    }
 
     public func add(_ key: RequestStub, stub: ResponseStub) {
         stubs[key] = stub
     }
 
-    public func add(stubs: [RequestStubMap]) {
-        for i in stubs.indices {
-            self.stubs[stubs[i].requestStub] = stubs[i].responseStub
-        }
+    public func add(stubs: Stubs) {
+        self.stubs.merge(stubs, uniquingKeysWith: { $1 })
     }
 
     public func remove(_ key: RequestStub) {
@@ -44,6 +43,12 @@ public class StubDefaultSession: StubsSession {
 
     public func hasStub(_ key: RequestStub) -> Bool {
         return stubs[key] != nil
+    }
+
+    public func add(stubsArray: [RequestStubMap]) {
+        for i in stubsArray.indices {
+            self.stubs[stubsArray[i].requestStub] = stubsArray[i].responseStub
+        }
     }
 
     // MARK: - NetworkClientMutater

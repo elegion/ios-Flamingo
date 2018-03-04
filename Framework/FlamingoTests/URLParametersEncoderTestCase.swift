@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Flamingo
+import Flamingo
 
 class URLParametersEncoderTestCase: XCTestCase {
     private var encoder: ParametersEncoder {

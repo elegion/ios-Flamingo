@@ -21,10 +21,9 @@ public enum HTTPMethod: String, Decodable {
     
 }
 
-enum URLConvertableError: Swift.Error {
+public enum URLConvertableError: Swift.Error {
     
     case stringToURLConversionError
-    
 }
 
 public protocol URLConvertible {

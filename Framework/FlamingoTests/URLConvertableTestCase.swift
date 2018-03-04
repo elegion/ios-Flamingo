@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Flamingo
+import Flamingo
 
 class URLConvertableTestCase: XCTestCase {
     public func test_convertingValidString_expectedURL() {

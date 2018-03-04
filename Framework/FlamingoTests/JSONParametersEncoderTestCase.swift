@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Flamingo
+import Flamingo
 
 class JSONParametersEncoderTestCase: XCTestCase {
     typealias DataType = [String: [String: [String: String]]]

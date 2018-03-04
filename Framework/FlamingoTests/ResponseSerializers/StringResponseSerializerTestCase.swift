@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Flamingo
+import Flamingo
 
 class StringResponseSerializerTestCase: XCTestCase {
     enum SomeError: Swift.Error {

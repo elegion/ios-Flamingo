@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Flamingo
+import Flamingo
 
 private func expectedFileFor(_ name: String) -> String? {
     return Bundle(for: StubClientFactoryTestCase.self).path(forResource: name, ofType: nil)
