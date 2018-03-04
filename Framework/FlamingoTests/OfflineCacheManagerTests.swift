@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import Flamingo
+@testable import Flamingo
 
 class OfflineCacheManagerTests: XCTestCase {
 
@@ -36,6 +36,7 @@ class OfflineCacheManagerTests: XCTestCase {
         let cacheManager = OfflineCacheManager(cache: urlCache,
                                                storagePolicy: .allowed,
                                                networkClient: networkClient)
+        cacheManager.shouldReplaceOnlyInOffline = false
         networkClient.addOfflineCacheManager(cacheManager)
 
         let originalTask = networkClient.sendRequest(request) {

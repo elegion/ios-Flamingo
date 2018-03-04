@@ -11,7 +11,15 @@ import Foundation
 open class OfflineCacheManager: NetworkClientReporter, NetworkClientMutater {
     let cache: URLCache
     let storagePolicy: URLCache.StoragePolicy
+    private let reachability = Reachability()
     unowned let networkClient: NetworkDefaultClient
+    var shouldReplaceOnlyInOffline = true
+    private var shouldReplaceResponse: Bool {
+        if shouldReplaceOnlyInOffline {
+            return reachability?.connection == .none
+        }
+        return true
+    }
 
     public init(cache: URLCache, storagePolicy: URLCache.StoragePolicy, networkClient: NetworkDefaultClient) {
         self.cache = cache
@@ -41,15 +49,21 @@ open class OfflineCacheManager: NetworkClientReporter, NetworkClientMutater {
     }
 
     open func response<Request>(for request: Request) -> NetworkClientMutater.RawResponseTuple? where Request : NetworkRequest {
+
         do {
             let urlRequest = try networkClient.urlRequest(from: request)
-            if let cached = cache.cachedResponse(for: urlRequest) {
+            if shouldReplaceResponse,
+                let cached = cache.cachedResponse(for: urlRequest) {
                 return (cached.data, cached.response, nil)
             }
         } catch {
 
         }
         return nil
+    }
+
+    static var isRunningTest: Bool {
+        return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
     }
 }
 
