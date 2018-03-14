@@ -74,7 +74,7 @@ public class StubsDefaultManager: StubsManager {
                 httpVersion: "HTTP/1.1",
                 headerFields: nil
             )
-            return (nil, response, StubError.fakeResponse)
+            return (nil, response, StubsError.fakeResponse)
         case .useRealClient:
             return nil
         }

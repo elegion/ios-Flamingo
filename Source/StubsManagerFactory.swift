@@ -108,15 +108,15 @@ public struct StubFile: Decodable {
     public init(fromFile path: String, decoder: JSONDecoder = JSONDecoder()) throws {
         let filemanager = FileManager.default
         if !filemanager.fileExists(atPath: path) {
-            throw StubError.stubClientFactoryError(.fileNotExists(path))
+            throw StubsError.stubClientFactoryError(.fileNotExists(path))
         }
 
         if !filemanager.isReadableFile(atPath: path) {
-            throw StubError.stubClientFactoryError(.cannotAccessToFile(path))
+            throw StubsError.stubClientFactoryError(.cannotAccessToFile(path))
         }
 
         guard let content = filemanager.contents(atPath: path) else {
-            throw StubError.stubClientFactoryError(.wrongListFormat)
+            throw StubsError.stubClientFactoryError(.wrongListFormat)
         }
 
         self = try decoder.decode(type(of: self), from: content)

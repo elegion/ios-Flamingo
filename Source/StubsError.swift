@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum StubError: Swift.Error, LocalizedError {
+public enum StubsError: Swift.Error, LocalizedError {
 
     public enum StubClientFactoryErrorReason: CustomStringConvertible {
         case fileNotExists(String)

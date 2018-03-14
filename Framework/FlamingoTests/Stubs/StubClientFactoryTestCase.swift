@@ -50,7 +50,7 @@ class StubClientFactoryTestCase: XCTestCase {
 
         XCTAssertException(
             _ = try StubsManagerFactory.manager(fromFile: expectedFileName),
-            expectedError: StubError.stubClientFactoryError(.fileNotExists(expectedFileName))
+            expectedError: StubsError.stubClientFactoryError(.fileNotExists(expectedFileName))
         )
     }
 
