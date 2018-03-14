@@ -72,10 +72,6 @@ open class OfflineCacheManager: NetworkClientReporter, NetworkClientMutater {
         }
         return nil
     }
-
-    static var isRunningTest: Bool {
-        return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
-    }
 }
 
 extension NetworkDefaultClient {
