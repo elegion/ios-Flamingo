@@ -9,7 +9,7 @@
 import XCTest
 import Flamingo
 
-private class StubsSessionMock: StubsSession {
+private class StubsManagerMock: StubsManager {
 
     public var affected = false
 
@@ -72,8 +72,8 @@ private struct TestRequest: NetworkRequest {
 }
 
 class NetworkClientStubs: XCTestCase {
-    private var stubClient: StubsSession {
-        return StubsSessionMock()
+    private var stubClient: StubsManager {
+        return StubsManagerMock()
     }
 
     private var client: NetworkDefaultClientStubs {
@@ -84,7 +84,7 @@ class NetworkClientStubs: XCTestCase {
 
         let client = NetworkDefaultClientStubs.defaultForTest()
         let stubs = self.stubClient
-        client.stubsSession = stubs
+        client.stubsManager = stubs
 
         return client
     }
@@ -139,7 +139,7 @@ class NetworkClientStubs: XCTestCase {
         client.sendRequest(request) {
             _, _ in
             
-            let stubs = (client.stubsSession as? StubsSessionMock)
+            let stubs = (client.stubsManager as? StubsManagerMock)
             XCTAssertTrue(stubs?.affected ?? false)
 
             expectation.fulfill()
@@ -152,7 +152,7 @@ class NetworkClientStubs: XCTestCase {
 //        let expectation = self.expectation(description: #function)
 //        let client = self.configuredClient
 //        client.enableStubs()
-//        (client.stubsSession as? StubsSessionMock)?.hasMockAnswer = false
+//        (client.StubsManager as? StubsManagerMock)?.hasMockAnswer = false
 //
 //        let request = TestRequest()
 //        client.sendRequest(request) {
@@ -171,7 +171,7 @@ class NetworkClientStubs: XCTestCase {
         let expectation = self.expectation(description: #function)
         let client = self.configuredClient
         client.enableStubs()
-        (client.stubsSession as? StubsSessionMock)?.hasMockAnswer = true
+        (client.stubsManager as? StubsManagerMock)?.hasMockAnswer = true
 
         let request = TestRequest()
         client.sendRequest(request) { result, _ in

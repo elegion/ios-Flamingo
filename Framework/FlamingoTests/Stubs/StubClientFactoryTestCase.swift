@@ -23,14 +23,14 @@ class StubClientFactoryTestCase: XCTestCase {
     }
 
     public func test_simpleCreateClient() {
-        let client = StubsSessionFactory.session()
+        let client = StubsManagerFactory.manager()
 
         XCTAssertNotNil(client)
     }
 
     public func test_createClientWithOneMethod_expectedClient() {
         let key = RequestStub(url: url, method: .get)
-        let client = StubsSessionFactory.session(key, stub: stub)
+        let client = StubsManagerFactory.manager(key, stub: stub)
 
         XCTAssertTrue(client.hasStub(key))
     }
@@ -39,7 +39,7 @@ class StubClientFactoryTestCase: XCTestCase {
         let stubMethod = RequestStubMap(url: self.url, method: HTTPMethod.get, params: nil, responseStub: self.stub)
         let stubMethod2 = RequestStubMap(url: URL(fileURLWithPath: "\\"), method: HTTPMethod.post, params: ["wqe": 234],
                                          responseStub: self.stub)
-        let client = StubsSessionFactory.session(with: [stubMethod, stubMethod2])
+        let client = StubsManagerFactory.manager(with: [stubMethod, stubMethod2])
 
         XCTAssertTrue(client.hasStub(stubMethod.requestStub))
         XCTAssertTrue(client.hasStub(stubMethod2.requestStub))
@@ -49,7 +49,7 @@ class StubClientFactoryTestCase: XCTestCase {
         let expectedFileName = "not exists file"
 
         XCTAssertException(
-            _ = try StubsSessionFactory.session(fromFile: expectedFileName),
+            _ = try StubsManagerFactory.manager(fromFile: expectedFileName),
             expectedError: StubError.stubClientFactoryError(.fileNotExists(expectedFileName))
         )
     }
@@ -61,7 +61,7 @@ class StubClientFactoryTestCase: XCTestCase {
         }
 
         do {
-            let client = try StubsSessionFactory.session(fromFile: expectedFileName)
+            let client = try StubsManagerFactory.manager(fromFile: expectedFileName)
             XCTAssertNotNil(client)
         } catch {
             XCTFail("\(error)")
@@ -121,7 +121,7 @@ class StubClientFactoryTestCase: XCTestCase {
         }
 
         do {
-            _ = try StubsSessionFactory.session(fromFile: expectedFileName)
+            _ = try StubsManagerFactory.manager(fromFile: expectedFileName)
             XCTFail(" ")
         } catch {
             XCTAssertTrue(error is Swift.DecodingError)

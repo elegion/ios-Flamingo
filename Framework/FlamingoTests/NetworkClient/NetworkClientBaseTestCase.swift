@@ -9,24 +9,24 @@
 import Flamingo
 
 public protocol StubbableClient: class {
-    var stubsSession: StubsSession? { get set }
+    var stubsManager: StubsManager? { get set }
 
     func enableStubs()
     func disableStubs()
 }
 
 final class NetworkDefaultClientStubs: NetworkDefaultClient, StubbableClient {
-    var stubsSession: StubsSession?
+    var stubsManager: StubsManager?
 
     func enableStubs() {
-        if let stubsSession = stubsSession {
-            addMutater(stubsSession)
+        if let stubsManager = stubsManager {
+            addMutater(stubsManager)
         }
     }
 
     func disableStubs() {
-        if let stubsSession = stubsSession {
-            removeMutater(stubsSession)
+        if let stubsManager = stubsManager {
+            removeMutater(stubsManager)
         }
     }
 }

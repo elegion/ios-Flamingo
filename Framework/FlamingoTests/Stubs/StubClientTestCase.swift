@@ -10,8 +10,8 @@ import XCTest
 import Flamingo
 
 class StubClientTestCase: XCTestCase {
-    private var client: StubsDefaultSession {
-        return StubsDefaultSession()
+    private var client: StubsDefaultManager {
+        return StubsDefaultManager()
     }
 
     private var url: URL {

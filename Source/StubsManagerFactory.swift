@@ -1,5 +1,5 @@
 //
-//  StubsSessionFactory.swift
+//  StubsManagerFactory.swift
 //  Flamingo
 //
 //  Created by Dmitrii Istratov on 03-10-2017.
@@ -123,28 +123,28 @@ public struct StubFile: Decodable {
     }
 }
 
-public class StubsSessionFactory {
-    public static func session() -> StubsDefaultSession {
-        return StubsDefaultSession()
+public class StubsManagerFactory {
+    public static func manager() -> StubsDefaultManager {
+        return StubsDefaultManager()
     }
 
-    public static func session(_ key: RequestStub, stub: ResponseStub) -> StubsDefaultSession {
-        let session = self.session()
+    public static func manager(_ key: RequestStub, stub: ResponseStub) -> StubsDefaultManager {
+        let session = self.manager()
         session.add(key, stub: stub)
         return session
     }
 
-    public static func session(with stubs: [RequestStubMap]) -> StubsDefaultSession {
-        let session = self.session()
+    public static func manager(with stubs: [RequestStubMap]) -> StubsDefaultManager {
+        let session = self.manager()
         session.add(stubsArray: stubs)
 
         return session
     }
 
-    public static func session(fromFile path: String, decoder: JSONDecoder = JSONDecoder()) throws -> StubsDefaultSession {
+    public static func manager(fromFile path: String, decoder: JSONDecoder = JSONDecoder()) throws -> StubsDefaultManager {
 
         let stubFile = try StubFile(fromFile: path, decoder: decoder)
 
-        return self.session(with: stubFile.stubs)
+        return self.manager(with: stubFile.stubs)
     }
 }

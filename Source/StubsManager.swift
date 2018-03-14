@@ -1,5 +1,5 @@
 //
-//  StubsSession.swift
+//  StubsManager.swift
 //  Flamingo
 //
 //  Created by Dmitrii Istratov on 03-10-2017.
@@ -15,7 +15,7 @@ public enum NotFoundStubBehavior {
     case giveError
 }
 
-public protocol StubsSession: NetworkClientMutater {
+public protocol StubsManager: NetworkClientMutater {
     func add(_ key: RequestStub, stub: ResponseStub)
     func add(stubs: Stubs)
     func remove(_ key: RequestStub)
@@ -26,7 +26,7 @@ private class StubTask: CancelableOperation {
     public func cancelOperation() {}
 }
 
-public class StubsDefaultSession: StubsSession {
+public class StubsDefaultManager: StubsManager {
 
     public var notFoundStubBehavior: NotFoundStubBehavior = .giveError
 
