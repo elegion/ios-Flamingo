@@ -1,15 +1,22 @@
 {
     "stubs": [
         {
-            "url": "/method/text",
-            "method": "POST",
-            "stub": {
-                "statusCode": 200,
-                "headers": {
-                  "Content-Type": "plain/text",
-                  "Cache-control": "no-cache"
-                },
-                "body": "text"
+              "url": "/method/text",
+              "method": "POST",
+              "params": {"some": 4545,
+                        "keystring": "string",
+                        "array": [1, 2, 3],
+                        "dict": {"1": "1", "2": "2"},
+                        "array_of_dict": [{"1": "1"}, {"2": "2"}],
+                        "null": null
+              },
+              "stub": {
+                    "statusCode": 200,
+                    "headers": {
+                    "Content-Type": "plain/text",
+                    "Cache-control": "no-cache"
+                    },
+              "body": "text"
             }
         },
         {

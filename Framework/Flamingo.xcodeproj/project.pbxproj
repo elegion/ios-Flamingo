@@ -23,7 +23,7 @@
 		9488CB1020188C7100D7151D /* NetworkClientMutaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488CB0F20188C7100D7151D /* NetworkClientMutaterTests.swift */; };
 		94BF3D421FA0A1CA00909B27 /* URLRequest+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF3D411FA0A1CA00909B27 /* URLRequest+Description.swift */; };
 		94DCCAA8204B7BA7002A8B0B /* RequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DCCAA7204B7BA7002A8B0B /* RequestStub.swift */; };
-		94DCCAAA204B7BC6002A8B0B /* StubError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DCCAA9204B7BC6002A8B0B /* StubError.swift */; };
+		94DCCAAA204B7BC6002A8B0B /* StubsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DCCAA9204B7BC6002A8B0B /* StubsError.swift */; };
 		94E20C9C1F7982F90017D46C /* ValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E20C9B1F7982F90017D46C /* ValidationTests.swift */; };
 		94E20C9E1F7982F90017D46C /* Flamingo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F7CEB971CE9AFCD00D6CCBA /* Flamingo.framework */; };
 		94EE07DE1F7976F40095D039 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EE07DD1F7976F40095D039 /* Validation.swift */; };
@@ -43,8 +43,8 @@
 		E22833941FA21904000F479D /* URLConvertableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833911FA21904000F479D /* URLConvertableTestCase.swift */; };
 		E22833951FA21904000F479D /* JSONParametersEncoderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833921FA21904000F479D /* JSONParametersEncoderTestCase.swift */; };
 		E22833971FA21943000F479D /* JSONSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833961FA21943000F479D /* JSONSerializer.swift */; };
-		E228339B1FA21960000F479D /* StubsSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833991FA21960000F479D /* StubsSession.swift */; };
-		E228339C1FA21960000F479D /* StubsSessionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E228339A1FA21960000F479D /* StubsSessionFactory.swift */; };
+		E228339B1FA21960000F479D /* StubsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833991FA21960000F479D /* StubsManager.swift */; };
+		E228339C1FA21960000F479D /* StubsManagerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E228339A1FA21960000F479D /* StubsManagerFactory.swift */; };
 		E228339E1FA2197C000F479D /* ResponseStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = E228339D1FA2197C000F479D /* ResponseStub.swift */; };
 		E22833A01FA2199D000F479D /* StatusCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E228339F1FA2199D000F479D /* StatusCodes.swift */; };
 		E26F78951F99F7C6007D13D1 /* OptionalProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26F78941F99F7C6007D13D1 /* OptionalProtocol.swift */; };
@@ -96,7 +96,7 @@
 		9488CB0F20188C7100D7151D /* NetworkClientMutaterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientMutaterTests.swift; sourceTree = "<group>"; };
 		94BF3D411FA0A1CA00909B27 /* URLRequest+Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Description.swift"; sourceTree = "<group>"; };
 		94DCCAA7204B7BA7002A8B0B /* RequestStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStub.swift; sourceTree = "<group>"; };
-		94DCCAA9204B7BC6002A8B0B /* StubError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubError.swift; sourceTree = "<group>"; };
+		94DCCAA9204B7BC6002A8B0B /* StubsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubsError.swift; sourceTree = "<group>"; };
 		94E20C991F7982F90017D46C /* FlamingoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlamingoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E20C9B1F7982F90017D46C /* ValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTests.swift; sourceTree = "<group>"; };
 		94E20C9D1F7982F90017D46C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -117,8 +117,8 @@
 		E22833911FA21904000F479D /* URLConvertableTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConvertableTestCase.swift; sourceTree = "<group>"; };
 		E22833921FA21904000F479D /* JSONParametersEncoderTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParametersEncoderTestCase.swift; sourceTree = "<group>"; };
 		E22833961FA21943000F479D /* JSONSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONSerializer.swift; sourceTree = "<group>"; };
-		E22833991FA21960000F479D /* StubsSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubsSession.swift; sourceTree = "<group>"; };
-		E228339A1FA21960000F479D /* StubsSessionFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubsSessionFactory.swift; sourceTree = "<group>"; };
+		E22833991FA21960000F479D /* StubsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubsManager.swift; sourceTree = "<group>"; };
+		E228339A1FA21960000F479D /* StubsManagerFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubsManagerFactory.swift; sourceTree = "<group>"; };
 		E228339D1FA2197C000F479D /* ResponseStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseStub.swift; sourceTree = "<group>"; };
 		E228339F1FA2199D000F479D /* StatusCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusCodes.swift; sourceTree = "<group>"; };
 		E26F78941F99F7C6007D13D1 /* OptionalProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalProtocol.swift; sourceTree = "<group>"; };
@@ -319,9 +319,9 @@
 			children = (
 				94DCCAA7204B7BA7002A8B0B /* RequestStub.swift */,
 				E228339D1FA2197C000F479D /* ResponseStub.swift */,
-				E228339A1FA21960000F479D /* StubsSessionFactory.swift */,
-				E22833991FA21960000F479D /* StubsSession.swift */,
-				94DCCAA9204B7BC6002A8B0B /* StubError.swift */,
+				E228339A1FA21960000F479D /* StubsManagerFactory.swift */,
+				E22833991FA21960000F479D /* StubsManager.swift */,
+				94DCCAA9204B7BC6002A8B0B /* StubsError.swift */,
 			);
 			name = StubClient;
 			sourceTree = "<group>";
@@ -483,10 +483,10 @@
 			files = (
 				9488CB0A2017995000D7151D /* NetworkClientMutater.swift in Sources */,
 				FE80C3631F6FE54F0060141B /* NetworkRequest.swift in Sources */,
-				E228339C1FA21960000F479D /* StubsSessionFactory.swift in Sources */,
+				E228339C1FA21960000F479D /* StubsManagerFactory.swift in Sources */,
 				E22833A01FA2199D000F479D /* StatusCodes.swift in Sources */,
 				FE80C3601F6FE5490060141B /* Error.swift in Sources */,
-				94DCCAAA204B7BC6002A8B0B /* StubError.swift in Sources */,
+				94DCCAAA204B7BC6002A8B0B /* StubsError.swift in Sources */,
 				94EE07DE1F7976F40095D039 /* Validation.swift in Sources */,
 				9488CB062017837600D7151D /* Observers.swift in Sources */,
 				FE80C3611F6FE54B0060141B /* NetworkClient.swift in Sources */,
@@ -508,7 +508,7 @@
 				E228339E1FA2197C000F479D /* ResponseStub.swift in Sources */,
 				9482F3AC2028EFE400812758 /* DecodingContainerTransformer.swift in Sources */,
 				FE80C35F1F6FE5470060141B /* NetworkConfiguration.swift in Sources */,
-				E228339B1FA21960000F479D /* StubsSession.swift in Sources */,
+				E228339B1FA21960000F479D /* StubsManager.swift in Sources */,
 				FE80C3661F6FE5570060141B /* URLConvertible.swift in Sources */,
 				E284B6C51FA21D01001B2123 /* SimpleLogger.swift in Sources */,
 			);
