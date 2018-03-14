@@ -1,0 +1,413 @@
+# Rules ---------------------------------------
+
+disabled_rules:
+  - trailing_whitespace
+  - file_header
+  - operator_usage_whitespace
+  - implicitly_unwrapped_optional
+  - function_parameter_count
+  - redundant_string_enum_value
+  - function_body_length
+  - syntactic_sugar
+  - large_tuple
+  - todo
+  - object_literal
+
+  - code_literal
+  - multiple_closures_with_trailing_closure
+
+  #to_modify
+  - closure_parameter_position
+  - cyclomatic_complexity
+
+opt_in_rules:
+  - closure_end_indentation
+  - closure_spacing
+  - conditional_returns_on_newline
+  - explicit_init
+  - fatal_error_message
+  - file_header
+  - first_where
+  - missing_docs
+  - nimble_operator
+  - number_separator
+  - object_literal
+  - overridden_super_call
+  - prohibited_super_call
+  - redundant_nil_coalescing
+  - switch_case_on_newline
+  - force_unwrapping
+
+  - multiline_parameters
+  - strict_fileprivate
+  - let_var_whitespace
+  - unneeded_parentheses_in_closure_argument
+  - single_test_class
+  - pattern_matching_keywords
+  - contains_over_first_not_nil
+  - array_init
+  - sorted_first_last
+
+# Directories ---------------------------------
+
+included:
+# - Source
+
+excluded:
+  - Carthage
+  - Pods
+
+# Don't touch this
+reporter: "xcode"
+
+# Configuration -------------------------------
+
+attributes:
+  severity: warning
+  always_on_same_line:
+  - "@IBAction"
+  - "@NSManaged"
+  always_on_line_above:
+
+class_delegate_protocol:
+  severity: warning
+
+closing_brace:
+  severity: warning
+
+closure_end_indentation:
+  severity: warning
+
+closure_parameter_position:
+  severity: warning
+
+closure_spacing:
+  severity: warning
+
+colon:
+  severity: warning
+  flexible_right_spacing: false
+  apply_to_dictionaries: true
+
+comma:
+  severity: warning
+
+compiler_protocol_init:
+  severity: warning
+
+conditional_returns_on_newline:
+  severity: warning
+
+control_statement:
+  severity: warning
+
+cyclomatic_complexity:
+  warning: 10
+  error: 20
+  ignores_case_statements: false
+
+discarded_notification_center_observer:
+  severity: warning
+
+dynamic_inline:
+  severity: error
+
+empty_count:
+  severity: error
+
+empty_parameters:
+  severity: warning
+
+empty_parentheses_with_trailing_closure:
+  severity: warning
+
+explicit_init:
+  severity: warning
+
+explicit_type_interface:
+  severity: warning
+
+fatal_error_message:
+  severity: warning
+
+file_header:
+  severity: warning
+  # required_string: ''
+  # required_pattern: ''
+  # forbidden_string: ''
+  # forbidden_pattern: ''
+
+file_length:
+  warning: 800
+  error: 2400
+  ignore_comment_only_lines: true
+
+first_where:
+  severity: warning
+
+for_where:
+  severity: warning
+
+force_cast:
+  severity: error
+
+force_try:
+  severity: error
+
+force_unwrapping:
+  severity: warning
+
+function_body_length:
+  warning: 40
+  error: 100
+
+function_parameter_count:
+  warning: 5
+  error: 8
+
+generic_type_name:
+  min_length:
+    warning: 1
+    error: 0
+  max_length:
+    warning: 20
+    error: 1000
+
+identifier_name:
+  allowed_symbols: ["_"]
+  min_length:
+    warning: 1
+    error: 1
+  max_length:
+    warning: 50
+    error: 70
+
+implicit_getter:
+  severity: warning
+
+implicitly_unwrapped_optional:
+  severity: warning
+  mode: all_except_iboutlets # all or all_except_iboutlets
+
+large_tuple:
+  warning: 8
+  error: 12
+
+leading_whitespace:
+  severity: warning
+
+legacy_cggeometry_functions:
+  severity: warning
+
+legacy_constant:
+  severity: warning
+
+legacy_constructor:
+  severity: warning
+
+legacy_nsgeometry_functions:
+  severity: warning
+
+line_length:
+  warning: 240
+  error: 320
+  ignores_urls: false
+  ignores_function_declarations: false
+  ignores_comments: false
+
+mark:
+  severity: warning
+
+nesting:
+  type_level:
+    warning: 2
+  statement_level:
+    warning: 5
+
+nimble_operator:
+  severity: warning
+
+notification_center_detachment:
+  severity: warning
+
+number_separator:
+  severity: warning
+  minimum_length: 6
+
+object_literal:
+  severity: warning
+
+opening_brace:
+  severity: warning
+
+operator_usage_whitespace:
+  severity: warning
+
+operator_whitespace:
+  severity: warning
+
+overridden_super_call:
+  severity: warning
+  excluded:
+  included:
+    - "*"
+
+private_outlet:
+  severity: warning
+  allow_private_set: false
+
+private_unit_test:
+  warning: XCTestCase
+
+prohibited_super_call:
+  severity: warning
+  excluded:
+  included:
+    - "*"
+
+redundant_discardable_let:
+  severity: warning
+
+redundant_nil_coalescing:
+  severity: warning
+
+redundant_optional_initialization:
+  severity: warning
+
+redundant_string_enum_value:
+  severity: warning
+
+redundant_void_return:
+  severity: warning
+
+return_arrow_whitespace:
+  severity: warning
+
+shorthand_operator:
+  severity: error
+
+sorted_imports:
+  severity: warning
+
+statement_position:
+  severity: warning
+  statement_mode: default #uncuddled_else or default
+
+switch_case_on_newline:
+  severity: warning
+
+syntactic_sugar:
+  severity: warning
+
+todo:
+  severity: warning
+
+trailing_comma:
+  severity: warning
+  mandatory_comma: true
+
+trailing_newline:
+  severity: warning
+
+trailing_semicolon:
+  severity: warning
+
+trailing_whitespace:
+  severity: warning
+  ignores_empty_lines: false
+  ignores_comments: true
+
+type_body_length:
+  warning: 500
+  error: 750
+
+type_name:
+  min_length:
+    warning: 1
+    error: 0
+  max_length:
+    warning: 50
+    error: 70
+
+unused_closure_parameter:
+  severity: warning
+
+unused_enumerated:
+  severity: warning
+
+unused_optional_binding:
+  severity: warning
+
+valid_ibinspectable:
+  severity: warning
+
+vertical_parameter_alignment:
+  severity: warning
+
+vertical_whitespace:
+  severity: warning
+  max_empty_lines: 1
+
+void_return:
+  severity: warning
+
+weak_delegate:
+  severity: warning
+
+superfluous_disable_command:
+  severity: warning
+
+
+multiline_parameters:
+  severity: error
+
+private_over_fileprivate:
+  severity: error
+
+strict_fileprivate:
+  severity: error
+
+let_var_whitespace:
+  severity: error
+
+unneeded_parentheses_in_closure_argument:
+  severity: warning
+
+block_based_kvo:
+  severity: warning
+
+discouraged_direct_init:
+  severity: warning
+
+is_disjoint:
+  severity: error
+
+xctfail_message:
+  severity: error
+
+single_test_class:
+  severity: error
+
+pattern_matching_keywords:
+  severity: error
+
+syntactic_sugar:
+  severity: error
+
+contains_over_first_not_nil:
+  severity: error
+
+fallthrough:
+  severity: error
+
+switch_case_alignment:
+  severity: error
+
+array_init:
+  severity: error
+
+unneeded_break_in_switch:
+  severity: warning
+
+sorted_first_last:
+  severity: warning

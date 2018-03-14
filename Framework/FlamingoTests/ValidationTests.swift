@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Flamingo
+import Flamingo
 
 class RealFailedTestRequest: NetworkRequest {
 
@@ -54,7 +54,8 @@ class ValidationTests: XCTestCase {
         let asyncExpectation = expectation(description: "Async")
 
         let request = RealFailedTestRequest()
-        client.sendRequest(request) { (result, context) in
+        client.sendRequest(request) {
+            result, context in
 
             switch result {
             case .success:

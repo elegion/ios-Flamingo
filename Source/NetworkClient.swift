@@ -8,6 +8,8 @@
 
 import Foundation
 
+public typealias CompletionHandler<T> = (Result<T>, NetworkContext?) -> Void
+
 public protocol NetworkClient: class {
     
     @discardableResult
@@ -55,7 +57,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
     }
     
     @discardableResult
-    open func sendRequest<Request>(_ networkRequest: Request, completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation? where Request: NetworkRequest {
+    open func sendRequest<Request>(_ networkRequest: Request, completionHandler: CompletionHandler<Request.Response>?) -> CancelableOperation? where Request: NetworkRequest {
         let urlRequest: URLRequest
         do {
             urlRequest = try self.urlRequest(from: networkRequest)
@@ -112,7 +114,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
     
     private func requestHandler<Request: NetworkRequest>(with networkRequest: Request,
                                                          urlRequest: URLRequest,
-                                                         completion: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> (Data?, URLResponse?, Swift.Error?) -> Void {
+                                                         completion: (CompletionHandler<Request.Response>?)) -> (Data?, URLResponse?, Swift.Error?) -> Void {
         return {
             [weak self] data, response, error in
 
@@ -202,6 +204,9 @@ open class NetworkDefaultClient: NetworkClientMutable {
             urlRequest.setValue(value, forHTTPHeaderField: name)
         }
         urlRequest.timeoutInterval = configuration.defaultTimeoutInterval
+        if let cachePolicy = networkRequest.cachePolicy {
+            urlRequest.cachePolicy = cachePolicy
+        }
         
         try networkRequest.parametersEncoder.encode(parameters: networkRequest.parameters, to: &urlRequest)
         

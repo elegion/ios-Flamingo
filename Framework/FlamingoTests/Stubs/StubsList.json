@@ -1,0 +1,50 @@
+{
+    "stubs": [
+        {
+              "url": "/method/text",
+              "method": "POST",
+              "params": {"some": 4545,
+                        "keystring": "string",
+                        "array": [1, 2, 3],
+                        "dict": {"1": "1", "2": "2"},
+                        "array_of_dict": [{"1": "1"}, {"2": "2"}],
+                        "null": null
+              },
+              "stub": {
+                    "statusCode": 200,
+                    "headers": {
+                    "Content-Type": "plain/text",
+                    "Cache-control": "no-cache"
+                    },
+              "body": "text"
+            }
+        },
+        {
+            "url": "/method/nottext",
+            "method": "GET",
+            "stub": {
+                "statusCode": 401,
+              "headers": {
+                    "Content-Type": "application/json",
+                    "Cache-control": "no-cache"
+              },
+              "body": "{\"haha\": value}"
+            }
+        },
+          {
+              "url": "/method/errormethod",
+              "method": "PUT",
+              "stub": {
+                "statusCode": 401,
+                "headers": {
+                    "Cache-control": "no-cache"
+                },
+              "error": {
+                "domain": "123123",
+                "code": 123,
+                "message": "Some error message"
+              }
+             }
+          }
+    ]
+}

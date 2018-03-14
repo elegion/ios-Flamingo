@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8F7CEB9B1CE9AFCD00D6CCBA /* Flamingo.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F7CEB9A1CE9AFCD00D6CCBA /* Flamingo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9451028120487652006E9070 /* lintRules.yml in Resources */ = {isa = PBXBuildFile; fileRef = 9451028020487652006E9070 /* lintRules.yml */; };
 		94650F77204429A20003C8B9 /* Fastfile in Resources */ = {isa = PBXBuildFile; fileRef = 94650F76204429A20003C8B9 /* Fastfile */; };
 		9482F3AA2028EFE400812758 /* CodableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9482F3A72028EFE400812758 /* CodableExtensions.swift */; };
 		9482F3AB2028EFE400812758 /* RegexCodeableTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9482F3A82028EFE400812758 /* RegexCodeableTransformer.swift */; };
@@ -19,9 +20,31 @@
 		9488CB0E201889EB00D7151D /* RealRequestsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488CB0D201889EB00D7151D /* RealRequestsTests.swift */; };
 		9488CB1020188C7100D7151D /* NetworkClientMutaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488CB0F20188C7100D7151D /* NetworkClientMutaterTests.swift */; };
 		94BF3D421FA0A1CA00909B27 /* URLRequest+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF3D411FA0A1CA00909B27 /* URLRequest+Description.swift */; };
+		94DCCAA8204B7BA7002A8B0B /* RequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DCCAA7204B7BA7002A8B0B /* RequestStub.swift */; };
+		94DCCAAA204B7BC6002A8B0B /* StubsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DCCAA9204B7BC6002A8B0B /* StubsError.swift */; };
 		94E20C9C1F7982F90017D46C /* ValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E20C9B1F7982F90017D46C /* ValidationTests.swift */; };
 		94E20C9E1F7982F90017D46C /* Flamingo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F7CEB971CE9AFCD00D6CCBA /* Flamingo.framework */; };
 		94EE07DE1F7976F40095D039 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EE07DD1F7976F40095D039 /* Validation.swift */; };
+		E22833841FA218F5000F479D /* CodableJSONSerializerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833751FA218F4000F479D /* CodableJSONSerializerTestCase.swift */; };
+		E22833851FA218F5000F479D /* DataResponseSerializerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833761FA218F4000F479D /* DataResponseSerializerTestCase.swift */; };
+		E22833861FA218F5000F479D /* StringResponseSerializerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833771FA218F4000F479D /* StringResponseSerializerTestCase.swift */; };
+		E22833871FA218F5000F479D /* ResponseStubTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833791FA218F4000F479D /* ResponseStubTestCase.swift */; };
+		E22833881FA218F5000F479D /* StubClientFactoryTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E228337A1FA218F4000F479D /* StubClientFactoryTestCase.swift */; };
+		E22833891FA218F5000F479D /* StubClientTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E228337B1FA218F4000F479D /* StubClientTestCase.swift */; };
+		E228338A1FA218F5000F479D /* StubsList.json in Resources */ = {isa = PBXBuildFile; fileRef = E228337C1FA218F4000F479D /* StubsList.json */; };
+		E228338B1FA218F5000F479D /* WrongList.json in Resources */ = {isa = PBXBuildFile; fileRef = E228337D1FA218F4000F479D /* WrongList.json */; };
+		E228338C1FA218F5000F479D /* NetworkClientBaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E228337F1FA218F4000F479D /* NetworkClientBaseTestCase.swift */; };
+		E228338D1FA218F5000F479D /* NetworkClientStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833801FA218F4000F479D /* NetworkClientStubs.swift */; };
+		E228338E1FA218F5000F479D /* NetworkClientTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833811FA218F4000F479D /* NetworkClientTestCase.swift */; };
+		E228338F1FA218F5000F479D /* ResultTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833831FA218F4000F479D /* ResultTestCase.swift */; };
+		E22833931FA21904000F479D /* JSONSerializerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833901FA21904000F479D /* JSONSerializerTestCase.swift */; };
+		E22833941FA21904000F479D /* URLConvertableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833911FA21904000F479D /* URLConvertableTestCase.swift */; };
+		E22833951FA21904000F479D /* JSONParametersEncoderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833921FA21904000F479D /* JSONParametersEncoderTestCase.swift */; };
+		E22833971FA21943000F479D /* JSONSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833961FA21943000F479D /* JSONSerializer.swift */; };
+		E228339B1FA21960000F479D /* StubsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833991FA21960000F479D /* StubsManager.swift */; };
+		E228339C1FA21960000F479D /* StubsManagerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E228339A1FA21960000F479D /* StubsManagerFactory.swift */; };
+		E228339E1FA2197C000F479D /* ResponseStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = E228339D1FA2197C000F479D /* ResponseStub.swift */; };
+		E22833A01FA2199D000F479D /* StatusCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E228339F1FA2199D000F479D /* StatusCodes.swift */; };
 		E26F78951F99F7C6007D13D1 /* OptionalProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26F78941F99F7C6007D13D1 /* OptionalProtocol.swift */; };
 		E26F78971F9A06ED007D13D1 /* OptionalProtocolTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26F78961F9A06ED007D13D1 /* OptionalProtocolTestCase.swift */; };
 		E284B6BE1FA21CE0001B2123 /* SimpleLoggerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E284B6BD1FA21CE0001B2123 /* SimpleLoggerTestCase.swift */; };
@@ -56,6 +79,7 @@
 		8F7CEB971CE9AFCD00D6CCBA /* Flamingo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flamingo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F7CEB9A1CE9AFCD00D6CCBA /* Flamingo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flamingo.h; sourceTree = "<group>"; };
 		8F7CEB9C1CE9AFCD00D6CCBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9451028020487652006E9070 /* lintRules.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = lintRules.yml; path = ../fastlane/lintRules.yml; sourceTree = "<group>"; };
 		94650F76204429A20003C8B9 /* Fastfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = Fastfile; path = ../fastlane/Fastfile; sourceTree = "<group>"; };
 		9482F3A72028EFE400812758 /* CodableExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableExtensions.swift; sourceTree = "<group>"; };
 		9482F3A82028EFE400812758 /* RegexCodeableTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexCodeableTransformer.swift; sourceTree = "<group>"; };
@@ -67,10 +91,32 @@
 		9488CB0D201889EB00D7151D /* RealRequestsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealRequestsTests.swift; sourceTree = "<group>"; };
 		9488CB0F20188C7100D7151D /* NetworkClientMutaterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientMutaterTests.swift; sourceTree = "<group>"; };
 		94BF3D411FA0A1CA00909B27 /* URLRequest+Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Description.swift"; sourceTree = "<group>"; };
+		94DCCAA7204B7BA7002A8B0B /* RequestStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStub.swift; sourceTree = "<group>"; };
+		94DCCAA9204B7BC6002A8B0B /* StubsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubsError.swift; sourceTree = "<group>"; };
 		94E20C991F7982F90017D46C /* FlamingoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlamingoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E20C9B1F7982F90017D46C /* ValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTests.swift; sourceTree = "<group>"; };
 		94E20C9D1F7982F90017D46C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94EE07DD1F7976F40095D039 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		E22833751FA218F4000F479D /* CodableJSONSerializerTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableJSONSerializerTestCase.swift; sourceTree = "<group>"; };
+		E22833761FA218F4000F479D /* DataResponseSerializerTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataResponseSerializerTestCase.swift; sourceTree = "<group>"; };
+		E22833771FA218F4000F479D /* StringResponseSerializerTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringResponseSerializerTestCase.swift; sourceTree = "<group>"; };
+		E22833791FA218F4000F479D /* ResponseStubTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseStubTestCase.swift; sourceTree = "<group>"; };
+		E228337A1FA218F4000F479D /* StubClientFactoryTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubClientFactoryTestCase.swift; sourceTree = "<group>"; };
+		E228337B1FA218F4000F479D /* StubClientTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubClientTestCase.swift; sourceTree = "<group>"; };
+		E228337C1FA218F4000F479D /* StubsList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = StubsList.json; sourceTree = "<group>"; };
+		E228337D1FA218F4000F479D /* WrongList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WrongList.json; sourceTree = "<group>"; };
+		E228337F1FA218F4000F479D /* NetworkClientBaseTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClientBaseTestCase.swift; sourceTree = "<group>"; };
+		E22833801FA218F4000F479D /* NetworkClientStubs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClientStubs.swift; sourceTree = "<group>"; };
+		E22833811FA218F4000F479D /* NetworkClientTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClientTestCase.swift; sourceTree = "<group>"; };
+		E22833831FA218F4000F479D /* ResultTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultTestCase.swift; sourceTree = "<group>"; };
+		E22833901FA21904000F479D /* JSONSerializerTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONSerializerTestCase.swift; sourceTree = "<group>"; };
+		E22833911FA21904000F479D /* URLConvertableTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConvertableTestCase.swift; sourceTree = "<group>"; };
+		E22833921FA21904000F479D /* JSONParametersEncoderTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParametersEncoderTestCase.swift; sourceTree = "<group>"; };
+		E22833961FA21943000F479D /* JSONSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONSerializer.swift; sourceTree = "<group>"; };
+		E22833991FA21960000F479D /* StubsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubsManager.swift; sourceTree = "<group>"; };
+		E228339A1FA21960000F479D /* StubsManagerFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubsManagerFactory.swift; sourceTree = "<group>"; };
+		E228339D1FA2197C000F479D /* ResponseStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseStub.swift; sourceTree = "<group>"; };
+		E228339F1FA2199D000F479D /* StatusCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusCodes.swift; sourceTree = "<group>"; };
 		E26F78941F99F7C6007D13D1 /* OptionalProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalProtocol.swift; sourceTree = "<group>"; };
 		E26F78961F9A06ED007D13D1 /* OptionalProtocolTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalProtocolTestCase.swift; sourceTree = "<group>"; };
 		E284B6BD1FA21CE0001B2123 /* SimpleLoggerTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleLoggerTestCase.swift; sourceTree = "<group>"; };
@@ -80,7 +126,6 @@
 		E284B6C31FA21D01001B2123 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		E2A3E5CC1F9777090085D6D5 /* URLParametersEncoderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParametersEncoderTestCase.swift; sourceTree = "<group>"; };
 		E2BC881B1F7E5124005CA524 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		E2BC881C1F7E5124005CA524 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = .swiftlint.yml; path = ../.swiftlint.yml; sourceTree = "<group>"; };
 		E2BC881D1F7E5124005CA524 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitignore; path = ../.gitignore; sourceTree = "<group>"; };
 		E2BC881E1F7E5124005CA524 /* Flamingo.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = Flamingo.podspec; path = ../Flamingo.podspec; sourceTree = "<group>"; };
 		E2DAC70F1FA1F5BA00793F3E /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = .travis.yml; path = ../.travis.yml; sourceTree = "<group>"; };
@@ -154,6 +199,8 @@
 				FE80C3551F6FE4080060141B /* ParametersEncoding.swift */,
 				FE80C35A1F6FE4080060141B /* ResponseSerialization.swift */,
 				FE80C35B1F6FE4080060141B /* Result.swift */,
+				E228339F1FA2199D000F479D /* StatusCodes.swift */,
+				E22833981FA2194F000F479D /* StubClient */,
 				FE80C3571F6FE4080060141B /* URLConvertible.swift */,
 				94EE07DD1F7976F40095D039 /* Validation.swift */,
 			);
@@ -164,6 +211,7 @@
 		8F7CEBB91CE9B0C800D6CCBA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				E22833961FA21943000F479D /* JSONSerializer.swift */,
 				94BF3D411FA0A1CA00909B27 /* URLRequest+Description.swift */,
 				9488CB052017837600D7151D /* Observers.swift */,
 			);
@@ -192,9 +240,16 @@
 		94E20C9A1F7982F90017D46C /* FlamingoTests */ = {
 			isa = PBXGroup;
 			children = (
+				E228337E1FA218F4000F479D /* NetworkClient */,
+				E22833741FA218F4000F479D /* ResponseSerializers */,
+				E22833781FA218F4000F479D /* Stubs */,
+				E22833821FA218F4000F479D /* Utils */,
 				94E20C9D1F7982F90017D46C /* Info.plist */,
+				E22833921FA21904000F479D /* JSONParametersEncoderTestCase.swift */,
+				E22833901FA21904000F479D /* JSONSerializerTestCase.swift */,
 				E284B6BF1FA21CE5001B2123 /* LoggingClientTestCase.swift */,
 				E26F78961F9A06ED007D13D1 /* OptionalProtocolTestCase.swift */,
+				E22833911FA21904000F479D /* URLConvertableTestCase.swift */,
 				E284B6BD1FA21CE0001B2123 /* SimpleLoggerTestCase.swift */,
 				E2A3E5CC1F9777090085D6D5 /* URLParametersEncoderTestCase.swift */,
 				94E20C9B1F7982F90017D46C /* ValidationTests.swift */,
@@ -203,6 +258,58 @@
 				9488CB0F20188C7100D7151D /* NetworkClientMutaterTests.swift */,
 			);
 			path = FlamingoTests;
+			sourceTree = "<group>";
+		};
+		E22833741FA218F4000F479D /* ResponseSerializers */ = {
+			isa = PBXGroup;
+			children = (
+				E22833751FA218F4000F479D /* CodableJSONSerializerTestCase.swift */,
+				E22833761FA218F4000F479D /* DataResponseSerializerTestCase.swift */,
+				E22833771FA218F4000F479D /* StringResponseSerializerTestCase.swift */,
+			);
+			path = ResponseSerializers;
+			sourceTree = "<group>";
+		};
+		E22833781FA218F4000F479D /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				E22833791FA218F4000F479D /* ResponseStubTestCase.swift */,
+				E228337A1FA218F4000F479D /* StubClientFactoryTestCase.swift */,
+				E228337B1FA218F4000F479D /* StubClientTestCase.swift */,
+				E228337C1FA218F4000F479D /* StubsList.json */,
+				E228337D1FA218F4000F479D /* WrongList.json */,
+			);
+			path = Stubs;
+			sourceTree = "<group>";
+		};
+		E228337E1FA218F4000F479D /* NetworkClient */ = {
+			isa = PBXGroup;
+			children = (
+				E228337F1FA218F4000F479D /* NetworkClientBaseTestCase.swift */,
+				E22833801FA218F4000F479D /* NetworkClientStubs.swift */,
+				E22833811FA218F4000F479D /* NetworkClientTestCase.swift */,
+			);
+			path = NetworkClient;
+			sourceTree = "<group>";
+		};
+		E22833821FA218F4000F479D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E22833831FA218F4000F479D /* ResultTestCase.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		E22833981FA2194F000F479D /* StubClient */ = {
+			isa = PBXGroup;
+			children = (
+				94DCCAA7204B7BA7002A8B0B /* RequestStub.swift */,
+				E228339D1FA2197C000F479D /* ResponseStub.swift */,
+				E228339A1FA21960000F479D /* StubsManagerFactory.swift */,
+				E22833991FA21960000F479D /* StubsManager.swift */,
+				94DCCAA9204B7BC6002A8B0B /* StubsError.swift */,
+			);
+			name = StubClient;
 			sourceTree = "<group>";
 		};
 		E284B6C71FA21D25001B2123 /* Logger */ = {
@@ -218,9 +325,9 @@
 		E2BC881A1F7E50E2005CA524 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9451028020487652006E9070 /* lintRules.yml */,
 				94650F76204429A20003C8B9 /* Fastfile */,
 				E2BC881D1F7E5124005CA524 /* .gitignore */,
-				E2BC881C1F7E5124005CA524 /* .swiftlint.yml */,
 				E2DAC70F1FA1F5BA00793F3E /* .travis.yml */,
 				E2BC881E1F7E5124005CA524 /* Flamingo.podspec */,
 				E2BC881B1F7E5124005CA524 /* README.md */,
@@ -324,6 +431,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94650F77204429A20003C8B9 /* Fastfile in Resources */,
+				9451028120487652006E9070 /* lintRules.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +439,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E228338A1FA218F5000F479D /* StubsList.json in Resources */,
+				E228338B1FA218F5000F479D /* WrongList.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,7 +458,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint --config ../fastlane/lintRules.yml\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -359,7 +469,10 @@
 			files = (
 				9488CB0A2017995000D7151D /* NetworkClientMutater.swift in Sources */,
 				FE80C3631F6FE54F0060141B /* NetworkRequest.swift in Sources */,
+				E228339C1FA21960000F479D /* StubsManagerFactory.swift in Sources */,
+				E22833A01FA2199D000F479D /* StatusCodes.swift in Sources */,
 				FE80C3601F6FE5490060141B /* Error.swift in Sources */,
+				94DCCAAA204B7BC6002A8B0B /* StubsError.swift in Sources */,
 				94EE07DE1F7976F40095D039 /* Validation.swift in Sources */,
 				9488CB062017837600D7151D /* Observers.swift in Sources */,
 				FE80C3611F6FE54B0060141B /* NetworkClient.swift in Sources */,
@@ -373,10 +486,14 @@
 				9482F3AA2028EFE400812758 /* CodableExtensions.swift in Sources */,
 				E284B6C41FA21D01001B2123 /* LoggingClient.swift in Sources */,
 				FE80C35D1F6FE5420060141B /* Result.swift in Sources */,
+				E22833971FA21943000F479D /* JSONSerializer.swift in Sources */,
+				94DCCAA8204B7BA7002A8B0B /* RequestStub.swift in Sources */,
 				FE80C35E1F6FE5450060141B /* CancelableOperation.swift in Sources */,
 				FE80C3641F6FE5510060141B /* ParametersEncoding.swift in Sources */,
+				E228339E1FA2197C000F479D /* ResponseStub.swift in Sources */,
 				9482F3AC2028EFE400812758 /* DecodingContainerTransformer.swift in Sources */,
 				FE80C35F1F6FE5470060141B /* NetworkConfiguration.swift in Sources */,
+				E228339B1FA21960000F479D /* StubsManager.swift in Sources */,
 				FE80C3661F6FE5570060141B /* URLConvertible.swift in Sources */,
 				E284B6C51FA21D01001B2123 /* SimpleLogger.swift in Sources */,
 			);
@@ -386,9 +503,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E22833871FA218F5000F479D /* ResponseStubTestCase.swift in Sources */,
+				E22833851FA218F5000F479D /* DataResponseSerializerTestCase.swift in Sources */,
+				E228338F1FA218F5000F479D /* ResultTestCase.swift in Sources */,
+				E22833931FA21904000F479D /* JSONSerializerTestCase.swift in Sources */,
+				E22833841FA218F5000F479D /* CodableJSONSerializerTestCase.swift in Sources */,
+				E22833881FA218F5000F479D /* StubClientFactoryTestCase.swift in Sources */,
+				E228338C1FA218F5000F479D /* NetworkClientBaseTestCase.swift in Sources */,
 				9488CB1020188C7100D7151D /* NetworkClientMutaterTests.swift in Sources */,
 				E26F78971F9A06ED007D13D1 /* OptionalProtocolTestCase.swift in Sources */,
+				E22833951FA21904000F479D /* JSONParametersEncoderTestCase.swift in Sources */,
+				E22833861FA218F5000F479D /* StringResponseSerializerTestCase.swift in Sources */,
+				E22833941FA21904000F479D /* URLConvertableTestCase.swift in Sources */,
+				E228338E1FA218F5000F479D /* NetworkClientTestCase.swift in Sources */,
 				E2A3E5CD1F9777090085D6D5 /* URLParametersEncoderTestCase.swift in Sources */,
+				E22833891FA218F5000F479D /* StubClientTestCase.swift in Sources */,
+				E228338D1FA218F5000F479D /* NetworkClientStubs.swift in Sources */,
 				9488CB082017963900D7151D /* NetworkClientReporterCallTests.swift in Sources */,
 				94E20C9C1F7982F90017D46C /* ValidationTests.swift in Sources */,
 				9488CB0E201889EB00D7151D /* RealRequestsTests.swift in Sources */,

@@ -20,12 +20,12 @@ private final class MockEmptyMutater: NetworkClientMutater {
     }
 }
 
-private func ==(lhs: [String: Any]?, rhs: [String: Any]?) -> Bool {
+private func == (lhs: [String: Any]?, rhs: [String: Any]?) -> Bool {
 
     switch (lhs, rhs) {
     case (.none, .none):
         return true
-    case (.some(let left), .some(let right)):
+    case let (.some(left), .some(right)):
         return NSDictionary(dictionary: left).isEqual(to: right)
     default:
         return false
@@ -40,8 +40,7 @@ private final class MockMutater: NetworkClientMutater {
     func response<Request>(for request: Request) -> NetworkClientMutater.RawResponseTuple? where Request: NetworkRequest {
         if request.URL == mockableRequest.URL &&
             request.parameters == mockableRequest.parameters &&
-            request.baseURL == mockableRequest.baseURL &&
-            (request.headers) == (mockableRequest.headers) {
+            request.baseURL == mockableRequest.baseURL {
 
             do {
                 let response = HTTPURLResponse(url: try request.URL.asURL(),
@@ -108,7 +107,7 @@ class NetworkClientMutaterTests: XCTestCase {
         let asyncExpectation = expectation(description: #function)
         let request = RealFailedTestRequest()
         let operation = networkClient.sendRequest(request) {
-            (result, context) in
+            result, context in
 
             switch result {
             case .success(let value):

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum HTTPMethod: String {
+public enum HTTPMethod: String, Decodable {
     
     case get = "GET"
     case post = "POST"
@@ -21,10 +21,9 @@ public enum HTTPMethod: String {
     
 }
 
-enum URLConvertableError: Swift.Error {
+public enum URLConvertableError: Swift.Error {
     
     case stringToURLConversionError
-    
 }
 
 public protocol URLConvertible {

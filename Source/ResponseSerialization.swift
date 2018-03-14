@@ -57,17 +57,16 @@ public struct StringResponseSerializer: ResponseSerialization {
 
 public struct CodableJSONSerializer<Serialized: Decodable>: ResponseSerialization {
     
-    let decoder: JSONDecoder
+    let serializer: JSONSerializer
     
-    public init(decoder: JSONDecoder) {
-        self.decoder = decoder
+    public init(serializer: JSONSerializer) {
+        self.serializer = serializer
     }
     
     public init(dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate, dataDecodingStrategy: JSONDecoder.DataDecodingStrategy = .base64, nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy = .throw) {
-        self.init(decoder: JSONDecoder())
-        decoder.dateDecodingStrategy = dateDecodingStrategy
-        decoder.dataDecodingStrategy = dataDecodingStrategy
-        decoder.nonConformingFloatDecodingStrategy = nonConformingFloatDecodingStrategy
+        let serializer = JSONSerializer(dateDecodingStrategy: dateDecodingStrategy, dataDecodingStrategy: dataDecodingStrategy, nonConformingFloatDecodingStrategy: nonConformingFloatDecodingStrategy)
+
+        self.init(serializer: serializer)
     }
     
     public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<Serialized> {
@@ -75,14 +74,7 @@ public struct CodableJSONSerializer<Serialized: Decodable>: ResponseSerializatio
             return .error(error ?? Error.unableToRetrieveDataAndError)
         }
         
-        let result: Serialized
-        do {
-            result = try decoder.decode(Serialized.self, from: data)
-        } catch {
-            return .error(error)
-        }
-        
-        return .success(result)
+        return self.serializer.deserialize(data: data)
     }
     
 }

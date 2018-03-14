@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Flamingo
+import Flamingo
 
 class SimpleLoggerTestCase: XCTestCase {
     private struct Consts {
@@ -54,7 +54,7 @@ class SimpleLoggerTestCase: XCTestCase {
 
     public func test_loggingURLRequest() {
         let logger = self.logger
-        let request = URLRequest(url: URL(string: "/")!)
+        let request = URLRequest(url: URL(string: "/")  ?? URL(fileURLWithPath: ""))
 
         logger.log("message", context: [ "request": request ])
     }

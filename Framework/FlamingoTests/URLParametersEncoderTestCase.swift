@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Flamingo
+import Flamingo
 
 class URLParametersEncoderTestCase: XCTestCase {
     private var encoder: ParametersEncoder {
@@ -19,9 +19,11 @@ class URLParametersEncoderTestCase: XCTestCase {
     }
 
     private func request(_ query: String = "") -> URLRequest {
-        let url = URL(string: self.urlString + query)!
+        if let url = URL(string: self.urlString + query) {
 
-        return URLRequest(url: url)
+            return URLRequest(url: url)
+        }
+        return URLRequest(url: URL(fileURLWithPath: "/"))
     }
 
     public func test_constructingQueryWithData_expectsUrlWithQuery() {
@@ -54,11 +56,15 @@ class URLParametersEncoderTestCase: XCTestCase {
         var request = self.request()
         let encoder = self.encoder
 
-        try? encoder.encode(parameters: data, to: &request)
+        do {
+            try encoder.encode(parameters: data, to: &request)
 
-        let actual = request.url!.absoluteString
+            let actual = request.url?.absoluteString
 
-        XCTAssertEqual(expected, actual)
+            XCTAssertEqual(expected, actual)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
     }
 
     public func test_construcingQueryByNil_expectsOnlyUrl() {
@@ -69,16 +75,20 @@ class URLParametersEncoderTestCase: XCTestCase {
         var request = self.request()
         let encoder = self.encoder
 
-        try? encoder.encode(parameters: data, to: &request)
+        do {
+            try encoder.encode(parameters: data, to: &request)
 
-        let actual = request.url!.absoluteString
+            let actual = request.url?.absoluteString
 
-        XCTAssertEqual(expected, actual)
+            XCTAssertEqual(expected, actual)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
     }
 
     public func test_appendingQuery_expectsAllDataInUrl() {
         let query = "?some_query"
-        let expected = URL(string: self.urlString + "?some_query&key=value")!.absoluteString
+        let expected = URL(string: self.urlString + "?some_query&key=value")?.absoluteString ?? ""
 
         let data = [
             "key": "value",
@@ -87,10 +97,14 @@ class URLParametersEncoderTestCase: XCTestCase {
         var request = self.request(query)
         let encoder = self.encoder
 
-        try? encoder.encode(parameters: data, to: &request)
+        do {
+            try encoder.encode(parameters: data, to: &request)
 
-        let actual = request.url!.absoluteString
+            let actual = request.url?.absoluteString
 
-        XCTAssertEqual(expected, actual)
+            XCTAssertEqual(expected, actual)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
     }
 }
