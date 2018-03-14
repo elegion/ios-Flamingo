@@ -25,8 +25,7 @@ private func == (lhs: [String: Any]?, rhs: [String: Any]?) -> Bool {
     switch (lhs, rhs) {
     case (.none, .none):
         return true
-        // swiftlint:disable:next pattern_matching_keywords
-    case (.some(let left), .some(let right)):
+    case let (.some(left), .some(right)):
         return NSDictionary(dictionary: left).isEqual(to: right)
     default:
         return false
