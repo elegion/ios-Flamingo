@@ -82,6 +82,17 @@ class StubClientFactoryTestCase: XCTestCase {
             XCTAssertEqual(stubFile.stubs[0].responseStub.headers, ["Content-Type": "plain/text",
                                                                     "Cache-control": "no-cache", ])
             XCTAssertEqual(stubFile.stubs[0].responseStub.body, "text".data(using: .utf8))
+            XCTAssertEqual(stubFile.stubs[0].params?["some"] as? Int, 4545)
+            XCTAssertEqual(stubFile.stubs[0].params?["keystring"] as? String, "string")
+            XCTAssertEqual((stubFile.stubs[0].params?["array"] as? [Int]) ?? [], [1, 2, 3])
+            XCTAssertEqual((stubFile.stubs[0].params?["dict"] as? [String: String]) ?? [:], ["1": "1", "2": "2"])
+            if let arrayOfDict = stubFile.stubs[0].params?["array_of_dict"] as? [[String: String]] {
+                XCTAssertEqual(arrayOfDict[0], ["1": "1"])
+                XCTAssertEqual(arrayOfDict[1], ["2": "2"])
+            } else {
+                XCTFail(" ")
+            }
+            XCTAssertEqual(stubFile.stubs[0].params?["null"] as? NSNull, NSNull())
 
             XCTAssertEqual(stubFile.stubs[1].url.absoluteString, "/method/nottext")
             XCTAssertEqual(stubFile.stubs[1].method.rawValue, "GET")

@@ -8,7 +8,56 @@
 
 import Foundation
 
+private enum JSONAny: Decodable {
+    case int(Int)
+    case string(String)
+    case bool(Bool)
+    case array([JSONAny])
+    case dictionary([String: JSONAny])
+    case null
+
+    init(from decoder: Decoder) throws {
+        if let integer = try? Int(from: decoder) {
+            self = .int(integer)
+        } else if let string = try? String(from: decoder) {
+            self = .string(string)
+        } else if let bool = try? Bool(from: decoder) {
+            self = .bool(bool)
+        } else if let array = try? [JSONAny](from: decoder) {
+            self = .array(array)
+        } else if let dictionary = try? [String: JSONAny](from: decoder) {
+            self = .dictionary(dictionary)
+        } else {
+            self = .null
+        }
+    }
+
+    var value: Any {
+        switch self {
+        case .int(let value):
+            return value
+        case .string(let value):
+            return value
+        case .bool(let value):
+            return value
+        case .array(let value):
+            return value.map({ $0.value })
+        case .dictionary(let value):
+            return value.mapValues({ $0.value })
+        case .null:
+            return NSNull()
+        }
+    }
+}
+
+private extension Dictionary where Key == String, Value == JSONAny {
+    var simpleDictionary: [String: Any] {
+        return self.mapValues({ $0.value })
+    }
+}
+
 public struct RequestStubMap: Decodable {
+
     public let url: URL
     public let method: HTTPMethod
     public let params: [String: Any]?
@@ -28,10 +77,9 @@ public struct RequestStubMap: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         url = try container.decode(.url)
         method = try container.decode(.method)
-        if container.contains(.params),
-            let paramsAsString: String = try container.decode(.params),
-            let paramsAsData = paramsAsString.data(using: .utf8) {
-            params = try JSONSerialization.jsonObject(with: paramsAsData, options: .allowFragments) as? [String: Any]
+        if container.contains(.params) {
+            let jsonParams: [String: JSONAny] = try container.decode(.params)
+            params = jsonParams.simpleDictionary
         } else {
             params = nil
         }
@@ -58,7 +106,7 @@ public struct StubFile: Decodable {
     public let stubs: [RequestStubMap]
 
     public init(fromFile path: String, decoder: JSONDecoder = JSONDecoder()) throws {
-        let filemanager = FileManager()
+        let filemanager = FileManager.default
         if !filemanager.fileExists(atPath: path) {
             throw StubError.stubClientFactoryError(.fileNotExists(path))
         }

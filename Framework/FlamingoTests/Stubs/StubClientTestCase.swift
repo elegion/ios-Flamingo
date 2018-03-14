@@ -65,47 +65,6 @@ class StubClientTestCase: XCTestCase {
         XCTAssertTrue(client.hasStub(key))
     }
 
-//    public func test_detectExistingRegexMockOnClient_expectedTrue() {
-//        let url = URL(string: "some_url/")!
-//        let regex = "s.*url"
-//        let method = HTTPMethod.get
-//
-//        let client = self.client
-//        _ = client.add(regex, method: method, stub: self.stub)
-//
-//        let actual = client.hasStub(url, method: method)
-//
-//        XCTAssertTrue(actual)
-//    }
-//
-//    public func test_detectExistingMockOnClientCheckType_expectedFalse() {
-//        let url = "some_url/"
-//        let regex = "s.*url"
-//        let method = HTTPMethod.get
-//        let checkedMethod = HTTPMethod.post
-//
-//        let client = self.client
-//        _ = client.add(regex, method: method, stub: self.stub)
-//
-//        let actual = client.hasStub(url, method: checkedMethod)
-//
-//        XCTAssertFalse(actual)
-//    }
-//
-//    public func test_detectExcistingMockOnClientCheckType_expectedTrue() {
-//        let url = "some_url/"
-//        let regex = "s.*url"
-//        let method = HTTPMethod.get
-//        let checkedMethod = method
-//
-//        let client = self.client
-//        _ = client.add(regex, method: method, stub: self.stub)
-//
-//        let actual = client.hasStub(url, method: checkedMethod)
-//
-//        XCTAssertTrue(actual)
-//    }
-
     public func test_removingStubByMethod_expectedFalse() {
         let method = HTTPMethod.get
 
@@ -116,37 +75,6 @@ class StubClientTestCase: XCTestCase {
 
         XCTAssertFalse(client.hasStub(key))
     }
-
-//    public func test_detectingExcistingStubByRequest_expectedTrue() {
-//        let regex = "s.*url"
-//        let url = URL(string: "some_url/") ?? URL(fileURLWithPath: "")
-//        let method = HTTPMethod.get
-//        var request = URLRequest(url: url)
-//        request.httpMethod = method.rawValue
-//
-//        let client = self.client
-//        _ = client.add(regex, method: method, stub: self.stub)
-//
-//        let actual = client.hasStub(request: request)
-//
-//        XCTAssertTrue(actual)
-//    }
-//
-//    public func test_detectingExcistingStubByRequest_expectedFalse() {
-//        let url = URL(string: "some_url/") ?? URL(fileURLWithPath: "")
-//        let regex = "s.*url"
-//        let method = HTTPMethod.get
-//        let checkedMethod = HTTPMethod.post
-//        var request = URLRequest(url: url)
-//        request.httpMethod = checkedMethod.rawValue
-//
-//        let client = self.client
-//        _ = client.add(regex, method: method, stub: self.stub)
-//
-//        let actual = client.hasStub(request: request)
-//
-//        XCTAssertFalse(actual)
-//    }
 
     struct MMMRequest: NetworkRequest {
 
