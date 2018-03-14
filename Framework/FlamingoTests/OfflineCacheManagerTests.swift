@@ -9,58 +9,127 @@
 import XCTest
 @testable import Flamingo
 
-class OfflineCacheManagerTests: XCTestCase {
+private final class MockCache: OfflineCacheProtocol {
+    var wasCalledCache = false
+    var wasCalledResponse = false
 
-    var networkClient: NetworkDefaultClient!
+    var storage: [URLRequest: CachedURLResponse] = [:]
+
+    func storeCachedResponse(_ cachedResponse: CachedURLResponse, for request: URLRequest) {
+        storage[request] = cachedResponse
+        wasCalledCache = true
+    }
+
+    func cachedResponse(for request: URLRequest) -> CachedURLResponse? {
+        let result = storage[request]
+        if result != nil {
+            wasCalledResponse = true
+        }
+        return result
+    }
+}
+
+private final class MockUsers: NetworkClientMutater {
+    var wasCalledResponse = false
+
+    func response<Request>(for request: Request) -> NetworkClientMutater.RawResponseTuple? where Request: NetworkRequest {
+        let dataAsString = """
+[
+  {
+    "id": 1,
+    "name": "Leanne Graham",
+    "username": "Bret",
+    "email": "Sincere@april.biz",
+    "address": {
+      "street": "Kulas Light",
+      "suite": "Apt. 556",
+      "city": "Gwenborough",
+      "zipcode": "92998-3874",
+      "geo": {
+        "lat": "-37.3159",
+        "lng": "81.1496"
+      }
+    },
+    "phone": "1-770-736-8031 x56442",
+    "website": "hildegard.org",
+    "company": {
+      "name": "Romaguera-Crona",
+      "catchPhrase": "Multi-layered client-server neural-net",
+      "bs": "harness real-time e-markets"
+    }
+  }
+]
+"""
+
+        let response = HTTPURLResponse(url: URL(fileURLWithPath: ""), statusCode: 200,
+                                       httpVersion: nil,
+                                       headerFields: nil)
+        wasCalledResponse = true
+        return (dataAsString.data(using: .utf8), response, nil)
+    }
+}
+
+class OfflineCacheManagerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        let configuration = NetworkDefaultConfiguration(baseURL: "http://jsonplaceholder.typicode.com/")
-
-        networkClient = NetworkDefaultClient(configuration: configuration, session: .shared)
     }
 
     override func tearDown() {
-        networkClient = nil
         super.tearDown()
+    }
+
+    var networkClient: NetworkDefaultClient {
+        let configuration = NetworkDefaultConfiguration(baseURL: "http://jsonplaceholder.typicode.com/",
+                                                        parallel: false)
+
+        let client = NetworkDefaultClient(configuration: configuration, session: .shared)
+        return client
     }
 
     func test_cachedResponse() {
 
-        let asyncExpectation = expectation(description: #function)
+        let urlCache = MockCache()
         let request = UsersRequest()
+        do {
+            let client = networkClient
 
-        let urlCache = URLCache(memoryCapacity: 1 * 1024 * 1024, diskCapacity: 5 * 1024 * 1024, diskPath: nil)
-        urlCache.removeAllCachedResponses()
-        sleep(1)
-        let cacheManager = OfflineCacheManager(cache: urlCache,
-                                               storagePolicy: .allowed,
-                                               networkClient: networkClient)
-        cacheManager.shouldReplaceOnlyInOffline = false
-        networkClient.addOfflineCacheManager(cacheManager)
+            let cacheManager = OfflineCacheManager(cache: urlCache,
+                                                   storagePolicy: .allowed,
+                                                   networkClient: client,
+                                                   reachability: { return true })
+            client.addOfflineCacheManager(cacheManager)
+            let mockUsers = MockUsers()
+            client.addMutater(mockUsers)
 
-        let originalTask = networkClient.sendRequest(request) {
-            [weak self] (result, _) in
-
-            let task = self?.networkClient.sendRequest(request, completionHandler: {
+            client.sendRequest(request) {
                 (result, _) in
 
-                switch result {
-                case .success(let users):
-                    XCTAssert(!users.isEmpty, "Users array is empty")
-                case .error(let error):
-                    XCTFail("User not recieved, error: \(error)")
-                }
-
-                asyncExpectation.fulfill()
-            })
-            XCTAssertNil(task)
+                XCTAssertEqual(result.value?.count, 1, "Error: \(String(describing: result.error))")
+            }
+            XCTAssertTrue(mockUsers.wasCalledResponse)
+            XCTAssertTrue(urlCache.wasCalledCache)
+            XCTAssertFalse(urlCache.wasCalledResponse)
         }
-        XCTAssertNotNil(originalTask)
 
-        waitForExpectations(timeout: 10) {
-            (_) in
+        do {
+            let client = networkClient
 
+            let cacheManager = OfflineCacheManager(cache: urlCache,
+                                                   storagePolicy: .allowed,
+                                                   networkClient: client,
+                                                   reachability: { return true })
+            client.addOfflineCacheManager(cacheManager)
+            let mockUsers = MockUsers()
+            client.addMutater(mockUsers)
+
+            client.sendRequest(request) {
+                (result, _) in
+
+                XCTAssertEqual(result.value?.count, 1, "Error: \(String(describing: result.error))")
+            }
+            XCTAssertFalse(mockUsers.wasCalledResponse)
+            XCTAssertTrue(urlCache.wasCalledResponse)
         }
     }
 }

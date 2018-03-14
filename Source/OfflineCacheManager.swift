@@ -8,23 +8,34 @@
 
 import Foundation
 
+public protocol OfflineCacheProtocol: class {
+    func storeCachedResponse(_ cachedResponse: CachedURLResponse, for request: URLRequest)
+    func cachedResponse(for request: URLRequest) -> CachedURLResponse?
+}
+
+extension URLCache: OfflineCacheProtocol {
+
+}
+
 open class OfflineCacheManager: NetworkClientReporter, NetworkClientMutater {
-    let cache: URLCache
+    public typealias IsOfflineClosure = () -> Bool
+
+    let cache: OfflineCacheProtocol
     let storagePolicy: URLCache.StoragePolicy
-    private let reachability = Reachability()
+    private let reachability: IsOfflineClosure
     unowned let networkClient: NetworkDefaultClient
-    var shouldReplaceOnlyInOffline = true
     private var shouldReplaceResponse: Bool {
-        if shouldReplaceOnlyInOffline {
-            return reachability?.connection == .none
-        }
-        return true
+        return reachability()
     }
 
-    public init(cache: URLCache, storagePolicy: URLCache.StoragePolicy, networkClient: NetworkDefaultClient) {
+    public init(cache: OfflineCacheProtocol,
+                storagePolicy: URLCache.StoragePolicy = .allowed,
+                networkClient: NetworkDefaultClient,
+                reachability: @escaping IsOfflineClosure) {
         self.cache = cache
         self.storagePolicy = storagePolicy
         self.networkClient = networkClient
+        self.reachability = reachability
     }
 
     open func willSendRequest<Request>(_ networkRequest: Request) where Request : NetworkRequest {
