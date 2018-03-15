@@ -83,12 +83,12 @@ public class StubsDefaultManager: StubsManager {
 
 extension ResponseStub {
     func rawResponseTuple(url: URL) -> NetworkClientMutater.RawResponseTuple {
-        let stubData = body
+        let stubData = body?.data
 
         let response = HTTPURLResponse(
             url: url,
             statusCode: statusCode.rawValue,
-            httpVersion: "HTTP/1.1",
+            httpVersion: nil,
             headerFields: headers
         )
 

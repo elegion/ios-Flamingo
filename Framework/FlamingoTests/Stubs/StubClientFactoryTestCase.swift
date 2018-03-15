@@ -79,9 +79,9 @@ class StubClientFactoryTestCase: XCTestCase {
             XCTAssertEqual(stubFile.stubs[0].url.absoluteString, "/method/text")
             XCTAssertEqual(stubFile.stubs[0].method.rawValue, "POST")
             XCTAssertEqual(stubFile.stubs[0].responseStub.statusCode, StatusCodes.ok)
-            XCTAssertEqual(stubFile.stubs[0].responseStub.headers, ["Content-Type": "plain/text",
+            XCTAssertEqual(stubFile.stubs[0].responseStub.headers ?? [:], ["Content-Type": "plain/text",
                                                                     "Cache-control": "no-cache", ])
-            XCTAssertEqual(stubFile.stubs[0].responseStub.body, "text".data(using: .utf8))
+            XCTAssertEqual(stubFile.stubs[0].responseStub.body?.data, "text".data(using: .utf8))
             XCTAssertEqual(stubFile.stubs[0].params?["some"] as? Int, 4545)
             XCTAssertEqual(stubFile.stubs[0].params?["keystring"] as? String, "string")
             XCTAssertEqual((stubFile.stubs[0].params?["array"] as? [Int]) ?? [], [1, 2, 3])
@@ -97,18 +97,39 @@ class StubClientFactoryTestCase: XCTestCase {
             XCTAssertEqual(stubFile.stubs[1].url.absoluteString, "/method/nottext")
             XCTAssertEqual(stubFile.stubs[1].method.rawValue, "GET")
             XCTAssertEqual(stubFile.stubs[1].responseStub.statusCode, StatusCodes.unauthorized)
-            XCTAssertEqual(stubFile.stubs[1].responseStub.headers, ["Content-Type": "application/json",
+            XCTAssertEqual(stubFile.stubs[1].responseStub.headers ?? [:], ["Content-Type": "application/json",
                                                                     "Cache-control": "no-cache", ])
-            XCTAssertEqual(stubFile.stubs[1].responseStub.body, "{\"haha\": value}".data(using: .utf8))
+            XCTAssertEqual(stubFile.stubs[1].responseStub.body?.data, "{\"haha\": value}".data(using: .utf8))
 
             XCTAssertEqual(stubFile.stubs[2].url.absoluteString, "/method/errormethod")
             XCTAssertEqual(stubFile.stubs[2].method.rawValue, "PUT")
             XCTAssertEqual(stubFile.stubs[2].responseStub.statusCode, StatusCodes.unauthorized)
-            XCTAssertEqual(stubFile.stubs[2].responseStub.headers, ["Cache-control": "no-cache"])
-            XCTAssertEqual(stubFile.stubs[2].responseStub.body, nil)
+            XCTAssertEqual(stubFile.stubs[2].responseStub.headers ?? [:], ["Cache-control": "no-cache"])
+            XCTAssertEqual(stubFile.stubs[2].responseStub.body?.data, nil)
             XCTAssertEqual(stubFile.stubs[2].responseStub.error?.code, 123)
             XCTAssertEqual(stubFile.stubs[2].responseStub.error?.domain, "123123")
             XCTAssertEqual(stubFile.stubs[2].responseStub.error?.message, "Some error message")
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
+
+    func test_stubsParsingBodyJSON() {
+        guard let expectedFileName = expectedFileFor("StubsList.json") else {
+            XCTFail(" ")
+            return
+        }
+
+        do {
+            let stubFile = try StubFile(fromFile: expectedFileName)
+
+            if case .json(let value)? = stubFile.stubs[3].responseStub.body,
+                let dict = value.value as? [String: Int] {
+                XCTAssertEqual(dict["1"], 1)
+                XCTAssertEqual(dict["2"], 2)
+            } else {
+                XCTFail(" ")
+            }
         } catch {
             XCTFail("\(error)")
         }

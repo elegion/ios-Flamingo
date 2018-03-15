@@ -45,6 +45,17 @@
                 "message": "Some error message"
               }
              }
+          },
+         {
+              "url": "/method/errormethod",
+              "method": "GET",
+              "stub": {
+              "statusCode": 200,
+              "body": {
+                "1": 1,
+                "2": 2
+              }
+             }
           }
     ]
 }
