@@ -84,7 +84,7 @@ private struct TestRequest: NetworkRequest {
     }
 }
 
-class NetworkClientStubs: XCTestCase {
+class NetworkClientStubsTests: XCTestCase {
     private var stubClient: StubsManager {
         return StubsManagerMock()
     }
@@ -211,4 +211,48 @@ class NetworkClientStubs: XCTestCase {
         self.waitForExpectations(timeout: 5, handler: nil)
     }
 
+    struct SimpleObject: Codable {
+        let id: Int
+        let string: String
+        let double: Double
+    }
+
+    class SimpleRequest: NetworkRequest {
+        var URL: URLConvertible {
+            return "some_url.htm"
+        }
+
+        typealias ResponseSerializer = CodableJSONSerializer<SimpleObject>
+
+        var responseSerializer: CodableJSONSerializer<NetworkClientStubsTests.SimpleObject> {
+            return ResponseSerializer()
+        }
+    }
+
+    func test_stubJSONBodyResponse() {
+        let client = self.client
+        let stubs = StubsDefaultManager()
+
+        let request = SimpleRequest()
+        let body: [String: Any] = ["id": 2,
+                    "string": "some",
+                    "double": 3.0,
+                    ]
+        if let requestStub = RequestStub(request),
+            let responseStub = try? ResponseStub(bodyJSON: body) {
+            client.addMutater(stubs)
+
+            stubs.add(requestStub, stub: responseStub)
+            client.sendRequest(request, completionHandler: {
+                result, _ in
+
+                XCTAssertNotNil(result.value)
+                XCTAssertEqual(result.value?.id, 2)
+                XCTAssertEqual(result.value?.string, "some")
+                XCTAssertEqual(result.value?.double, 3.0)
+            })
+        } else {
+            XCTFail(" ")
+        }
+    }
 }

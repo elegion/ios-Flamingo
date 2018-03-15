@@ -31,6 +31,6 @@ class ResponseStubTestCase: XCTestCase {
 
         let actual = stub.headers
 
-        XCTAssertEqual(expected, actual)
+        XCTAssertEqual(expected, actual ?? [:])
     }
 }

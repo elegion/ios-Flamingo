@@ -104,9 +104,37 @@ class StubClientTestCase: XCTestCase {
         let rawTuple = client.response(for: request)
         let response = (rawTuple?.response as? HTTPURLResponse)
 
-        XCTAssertEqual(expectedData, rawTuple?.data)
+        XCTAssertEqual(expectedData?.data, rawTuple?.data)
         XCTAssertEqual(expectedStatusCode, StatusCodes(rawValue: response?.statusCode ?? -1))
-        XCTAssertEqual(expectedHeaders, (response?.allHeaderFields as? [String: String]) ?? [:])
+        XCTAssertEqual(expectedHeaders ?? [:], (response?.allHeaderFields as? [String: String]) ?? [:])
         XCTAssertEqual(expectedError?.nsError, rawTuple?.error as NSError?)
+    }
+
+    func test_stubBodyJSONResponse() {
+
+        let expectedData = ["2": 2, "3": 3]
+        do {
+            let responseStub = try ResponseStub(bodyJSON: expectedData)
+            let expectedStatusCode = responseStub.statusCode
+            let expectedHeaders = responseStub.headers
+            let method = HTTPMethod.get
+            let expectedError = responseStub.error
+
+            let key = RequestStub(url: self.url, method: method, params: nil)
+            let client = self.client
+            client.add(key, stub: responseStub)
+
+            let request = MMMRequest()
+
+            let rawTuple = client.response(for: request)
+            let response = (rawTuple?.response as? HTTPURLResponse)
+
+            XCTAssertEqual(responseStub.body?.data, rawTuple?.data)
+            XCTAssertEqual(expectedStatusCode, StatusCodes(rawValue: response?.statusCode ?? -1))
+            XCTAssertEqual(expectedHeaders ?? [:], (response?.allHeaderFields as? [String: String]) ?? [:])
+            XCTAssertEqual(expectedError?.nsError, rawTuple?.error as NSError?)
+        } catch {
+            XCTFail("\(error)")
+        }
     }
 }

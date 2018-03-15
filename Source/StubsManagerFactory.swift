@@ -8,17 +8,20 @@
 
 import Foundation
 
-private enum JSONAny: Decodable {
+public enum JSONAny: Codable {
     case int(Int)
+    case double(Double)
     case string(String)
     case bool(Bool)
     case array([JSONAny])
     case dictionary([String: JSONAny])
     case null
 
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         if let integer = try? Int(from: decoder) {
             self = .int(integer)
+        } else if let double = try? Double(from: decoder) {
+            self = .double(double)
         } else if let string = try? String(from: decoder) {
             self = .string(string)
         } else if let bool = try? Bool(from: decoder) {
@@ -32,9 +35,31 @@ private enum JSONAny: Decodable {
         }
     }
 
-    var value: Any {
+    public func encode(to encoder: Encoder) throws {
         switch self {
         case .int(let value):
+            try value.encode(to: encoder)
+        case .double(let value):
+            try value.encode(to: encoder)
+        case .string(let value):
+            try value.encode(to: encoder)
+        case .bool(let value):
+            try value.encode(to: encoder)
+        case .array(let value):
+            try value.encode(to: encoder)
+        case .dictionary(let value):
+            try value.encode(to: encoder)
+        case .null:
+            //TODO
+            break
+        }
+    }
+
+    public var value: Any {
+        switch self {
+        case .int(let value):
+            return value
+        case .double(let value):
             return value
         case .string(let value):
             return value
@@ -47,12 +72,6 @@ private enum JSONAny: Decodable {
         case .null:
             return NSNull()
         }
-    }
-}
-
-private extension Dictionary where Key == String, Value == JSONAny {
-    var simpleDictionary: [String: Any] {
-        return self.mapValues({ $0.value })
     }
 }
 
@@ -78,8 +97,8 @@ public struct RequestStubMap: Decodable {
         url = try container.decode(.url)
         method = try container.decode(.method)
         if container.contains(.params) {
-            let jsonParams: [String: JSONAny] = try container.decode(.params)
-            params = jsonParams.simpleDictionary
+            let jsonParams: JSONAny = try container.decode(.params)
+            params = jsonParams.value as? [String: Any]
         } else {
             params = nil
         }
