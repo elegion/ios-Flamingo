@@ -10,6 +10,7 @@ Lightweight and easy to use Swift network manager. Based on `URLSession` and `Sw
 Supported features:
 * Performing http requests
 * Easy response mapping
+* Easy response stubbing
 
 ## Installation
 
@@ -133,7 +134,7 @@ networkClient.sendRequest(request) {
 
 ### Client customization
 
-#### Custom configurtion types
+#### Custom configuration types
 
 Create custom configuration structure if you need more information to initialize client:
 ```swift
@@ -141,16 +142,14 @@ public struct NetworkCustomConfiguration: NetworkConfiguration {
     
     public let baseURL: URLStringConvertible?
     public let useMocks: Bool
-    public let debugMode: Bool
-    public let completionQueue: dispatch_queue_t
-    public let defaultTimeoutInterval: NSTimeInterval
+    public let completionQueue: DispatchQueue
+    public let defaultTimeoutInterval: TimeInterval
     public let clientToken: String?
     
     public init(baseURL: URLStringConvertible? = nil,
-                useMocks: Bool = true,
                 debugMode: Bool = false,
-                completionQueue: dispatch_queue_t = dispatch_get_main_queue(),
-                defaultTimeoutInterval: NSTimeInterval = 60.0,
+                completionQueue: DispatchQueue = DispatchQueue.main,
+                defaultTimeoutInterval: TimeInterval = 60.0,
                 clientToken: String?) {
         
         self.baseURL = baseURL
@@ -167,9 +166,18 @@ let configuration = NetworkCustomConfiguration(baseURL: "http://jsonplaceholder.
 
 ```
 
+### Stubs and mocks
+
+There is `StubsDefaultManager` that can handle almost all mock logic, but still you can create your own, by conforming to `NetworkClientMutater`. `StubsDefaultManager` can be easily created from file by using `StubsManagerFactory`. `StubsList.json`  is a great stubs file example. Stubs also can be added using `protocol StubsManager` methods.
+
+### Logging and reporting
+
+To log requests and responses you can create instance of `LogginClient` and pass it to your network client using `func addReporter(_ reporter: NetworkClientReporter, storagePolicy: StoragePolicy)`. `LogginClient` can be constructed with `SimpleLogger` or your own implementation of `Logger` protocol.
+Also `OfflineCacheManager` is a great example of implementing `NetworkClientReporter, NetworkClientMutater` protocols.
+
 ### Codable extensions
 
-https://github.com/jamesruston/CodableExtensions is integrated, so you don't need to embed it as framework.
+https://github.com/jamesruston/CodableExtensions is integrated, so you don't need to embed them as a framework.
 
 ## Requirements
 
@@ -186,8 +194,10 @@ Flamingo is available under the MIT license. See the LICENSE file for more info.
 ## TODOs
 
 1) Documentation
-2) Offline mode caching out-of-the-box
-3) Request mocks
+2) Test coverage
+3) Redirect handle
+4) Error's localisation
+5) Null in stubs
 
 ## P.S.
 
