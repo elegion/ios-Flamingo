@@ -17,6 +17,8 @@ public protocol NetworkRequest: CustomStringConvertible {
     var method: HTTPMethod { get }
     var parameters: [String: Any]? { get }
     var parametersEncoder: ParametersEncoder { get }
+    /// This has higher priority and prefered to use
+    var parametersTuple: ([String: Any], ParametersEncoder)? { get }
     var headers: [String: String?]? { get }
     var baseURL: URLConvertible? { get }
     var responseSerializer: ResponseSerializer { get }
@@ -37,7 +39,11 @@ public extension NetworkRequest {
     var parametersEncoder: ParametersEncoder {
         return URLParametersEncoder()
     }
-    
+
+    var parametersTuple: ([String: Any], ParametersEncoder)? {
+        return nil
+    }
+
     var headers: [String: String?]? {
         return nil
     }

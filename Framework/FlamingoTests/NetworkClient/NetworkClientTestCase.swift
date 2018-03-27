@@ -11,9 +11,49 @@ import Flamingo
 
 class NetworkClientTestCase: XCTestCase {
 
-    public func test_instanciateClient_expectedClient() {
+    func test_parametersEncodingByParametersTuple() {
         let client = NetworkDefaultClientStubs.defaultForTest()
+        let params = ["1": 1, "2": 2]
 
-        XCTAssertNotNil(client)
+        var request = RequestWithParamsTuple()
+        request.parameters = params
+
+        do {
+            let urlRequest = try client.urlRequest(from: request)
+
+            guard let url = urlRequest.url else {
+                XCTFail(" ")
+                return
+            }
+            
+            var urlRequestWithQueryParams = URLRequest(url: url)
+            try request.parametersEncoder.encode(parameters: request.parameters, to: &urlRequestWithQueryParams)
+            XCTAssertNotEqual(urlRequestWithQueryParams.url, urlRequest.url)
+
+            var urlRequestWithJSONParams = URLRequest(url: url)
+            try request.parametersTuple?.1.encode(parameters: request.parametersTuple?.0, to: &urlRequestWithJSONParams)
+            XCTAssertEqual(urlRequestWithJSONParams.httpBody, urlRequest.httpBody)
+
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+}
+
+private struct RequestWithParamsTuple: NetworkRequest {
+    var URL: URLConvertible {
+        return "index.htm"
+    }
+
+    var parameters: [String: Any]?
+
+    var parametersEncoder: ParametersEncoder = URLParametersEncoder()
+
+    var parametersTuple: ([String: Any], ParametersEncoder)? {
+        return (["1": 1, "2": 2], JSONParametersEncoder())
+    }
+
+    var responseSerializer: StringResponseSerializer {
+        return StringResponseSerializer()
     }
 }

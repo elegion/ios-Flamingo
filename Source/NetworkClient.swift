@@ -207,8 +207,12 @@ open class NetworkDefaultClient: NetworkClientMutable {
         if let cachePolicy = networkRequest.cachePolicy {
             urlRequest.cachePolicy = cachePolicy
         }
-        
-        try networkRequest.parametersEncoder.encode(parameters: networkRequest.parameters, to: &urlRequest)
+
+        if let parametersTuple = networkRequest.parametersTuple {
+            try parametersTuple.1.encode(parameters: parametersTuple.0, to: &urlRequest)
+        } else {
+            try networkRequest.parametersEncoder.encode(parameters: networkRequest.parameters, to: &urlRequest)
+        }
         
         return urlRequest
     }
