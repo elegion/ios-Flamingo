@@ -16,7 +16,13 @@ public protocol StubbableClient: class {
 }
 
 final class NetworkDefaultClientStubs: NetworkDefaultClient, StubbableClient {
-    var stubsManager: StubsManager?
+    var stubsManager: StubsManager? {
+        didSet {
+            if let oldValue = oldValue {
+                removeMutater(oldValue)
+            }
+        }
+    }
 
     func enableStubs() {
         if let stubsManager = stubsManager {
@@ -34,6 +40,9 @@ final class NetworkDefaultClientStubs: NetworkDefaultClient, StubbableClient {
 extension NetworkDefaultClientStubs {
     static func defaultForTest() -> NetworkDefaultClientStubs {
         let configuration = NetworkDefaultConfiguration(baseURL: "http://example.com/", parallel: false)
-        return NetworkDefaultClientStubs(configuration: configuration, session: .shared)
+        let result = NetworkDefaultClientStubs(configuration: configuration, session: .shared)
+        result.stubsManager = StubsDefaultManager()
+        result.enableStubs()
+        return result
     }
 }

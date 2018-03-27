@@ -121,6 +121,7 @@ class NetworkClientStubsTests: XCTestCase {
     public func test_getStubOnNotConfiguredClient_expectedError() {
         let expectation = self.expectation(description: #function)
         let client = self.client
+        client.stubsManager = nil
         client.enableStubs()
 
         let request = TestRequest()
@@ -231,6 +232,7 @@ class NetworkClientStubsTests: XCTestCase {
 
     func test_stubJSONBodyResponse() {
         let client = self.client
+        client.stubsManager = nil
         let stubs = StubsDefaultManager()
 
         let request = SimpleRequest()
