@@ -40,7 +40,6 @@ opt_in_rules:
 
   - multiline_parameters
   - strict_fileprivate
-  - let_var_whitespace
   - unneeded_parentheses_in_closure_argument
   - single_test_class
   - pattern_matching_keywords
@@ -365,9 +364,6 @@ private_over_fileprivate:
   severity: error
 
 strict_fileprivate:
-  severity: error
-
-let_var_whitespace:
   severity: error
 
 unneeded_parentheses_in_closure_argument:
