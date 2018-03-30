@@ -62,6 +62,10 @@ public struct CodableJSONSerializer<Serialized: Decodable>: ResponseSerializatio
     public init(serializer: JSONSerializer) {
         self.serializer = serializer
     }
+
+    public init(decoder: JSONDecoder) {
+        self.serializer = JSONSerializer(decoder: decoder)
+    }
     
     public init(dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate, dataDecodingStrategy: JSONDecoder.DataDecodingStrategy = .base64, nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy = .throw) {
         let serializer = JSONSerializer(dateDecodingStrategy: dateDecodingStrategy, dataDecodingStrategy: dataDecodingStrategy, nonConformingFloatDecodingStrategy: nonConformingFloatDecodingStrategy)
