@@ -1,7 +1,0 @@
-inhibit_all_warnings!
-
-target 'Example' do
-	use_frameworks!
-	
-	pod 'Flamingo', :path => '../'
-end
