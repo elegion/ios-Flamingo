@@ -10,8 +10,6 @@
 		8F7CEB9B1CE9AFCD00D6CCBA /* Flamingo.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F7CEB9A1CE9AFCD00D6CCBA /* Flamingo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9442635E204B99360053B7F7 /* OfflineCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9442635D204B99360053B7F7 /* OfflineCacheManager.swift */; };
 		94426360204B9C0B0053B7F7 /* OfflineCacheManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9442635F204B9C0B0053B7F7 /* OfflineCacheManagerTests.swift */; };
-		9451028120487652006E9070 /* lintRules.yml in Resources */ = {isa = PBXBuildFile; fileRef = 9451028020487652006E9070 /* lintRules.yml */; };
-		94650F77204429A20003C8B9 /* Fastfile in Resources */ = {isa = PBXBuildFile; fileRef = 94650F76204429A20003C8B9 /* Fastfile */; };
 		9482F3AA2028EFE400812758 /* CodableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9482F3A72028EFE400812758 /* CodableExtensions.swift */; };
 		9482F3AB2028EFE400812758 /* RegexCodeableTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9482F3A82028EFE400812758 /* RegexCodeableTransformer.swift */; };
 		9482F3AC2028EFE400812758 /* DecodingContainerTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9482F3A92028EFE400812758 /* DecodingContainerTransformer.swift */; };
@@ -444,8 +442,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94650F77204429A20003C8B9 /* Fastfile in Resources */,
-				9451028120487652006E9070 /* lintRules.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
