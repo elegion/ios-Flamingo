@@ -52,4 +52,11 @@ class OptionalProtocolTestCase: XCTestCase {
 
         XCTAssertEqual(expected, (actual as? Int))
     }
+
+    public func test_getValueOnNone_expectedNone() {
+        let expected = self.optionalNone
+        let actual = self.optionalNone.value
+
+        XCTAssertEqual(expected, (actual as? Int))
+    }
 }
