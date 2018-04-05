@@ -22,6 +22,11 @@ private class MockClient: NetworkClient {
 
     func sendRequest<Request: NetworkRequest>(_ networkRequest: Request,
                                               completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation? {
+        self.reporters.iterate {
+            (reporter, _) in
+            reporter.willSendRequest(networkRequest)
+        }
+
         self.sendRequestExecuted = true
         self.queue.async {
             [weak self] in
