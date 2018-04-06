@@ -18,14 +18,14 @@ public enum JSONAny: Codable {
     case null
 
     public init(from decoder: Decoder) throws {
-        if let integer = try? Int(from: decoder) {
+        if let bool = try? Bool(from: decoder) {
+            self = .bool(bool)
+        } else if let integer = try? Int(from: decoder) {
             self = .int(integer)
         } else if let double = try? Double(from: decoder) {
             self = .double(double)
         } else if let string = try? String(from: decoder) {
             self = .string(string)
-        } else if let bool = try? Bool(from: decoder) {
-            self = .bool(bool)
         } else if let array = try? [JSONAny](from: decoder) {
             self = .array(array)
         } else if let dictionary = try? [String: JSONAny](from: decoder) {
