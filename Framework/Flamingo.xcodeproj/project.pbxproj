@@ -25,6 +25,7 @@
 		94E20C9C1F7982F90017D46C /* ValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E20C9B1F7982F90017D46C /* ValidationTests.swift */; };
 		94E20C9E1F7982F90017D46C /* Flamingo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F7CEB971CE9AFCD00D6CCBA /* Flamingo.framework */; };
 		94EE07DE1F7976F40095D039 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EE07DD1F7976F40095D039 /* Validation.swift */; };
+		E1A2F341AF2540BCB8A3986E /* RequestStubMapTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A2F143BE28A3091EA8231C /* RequestStubMapTestCase.swift */; };
 		E22833841FA218F5000F479D /* CodableJSONSerializerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833751FA218F4000F479D /* CodableJSONSerializerTestCase.swift */; };
 		E22833851FA218F5000F479D /* DataResponseSerializerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833761FA218F4000F479D /* DataResponseSerializerTestCase.swift */; };
 		E22833861FA218F5000F479D /* StringResponseSerializerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833771FA218F4000F479D /* StringResponseSerializerTestCase.swift */; };
@@ -100,6 +101,7 @@
 		94E20C9B1F7982F90017D46C /* ValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTests.swift; sourceTree = "<group>"; };
 		94E20C9D1F7982F90017D46C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94EE07DD1F7976F40095D039 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		E1A2F143BE28A3091EA8231C /* RequestStubMapTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestStubMapTestCase.swift; sourceTree = "<group>"; };
 		E22833751FA218F4000F479D /* CodableJSONSerializerTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableJSONSerializerTestCase.swift; sourceTree = "<group>"; };
 		E22833761FA218F4000F479D /* DataResponseSerializerTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataResponseSerializerTestCase.swift; sourceTree = "<group>"; };
 		E22833771FA218F4000F479D /* StringResponseSerializerTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringResponseSerializerTestCase.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 				E228337B1FA218F4000F479D /* StubClientTestCase.swift */,
 				E228337C1FA218F4000F479D /* StubsList.json */,
 				E228337D1FA218F4000F479D /* WrongList.json */,
+				E1A2F143BE28A3091EA8231C /* RequestStubMapTestCase.swift */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 				9488CB0E201889EB00D7151D /* RealRequestsTests.swift in Sources */,
 				E284B6BE1FA21CE0001B2123 /* SimpleLoggerTestCase.swift in Sources */,
 				E284B6C01FA21CE5001B2123 /* LoggingClientTestCase.swift in Sources */,
+				E1A2F341AF2540BCB8A3986E /* RequestStubMapTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
