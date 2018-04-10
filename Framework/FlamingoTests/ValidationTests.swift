@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import Flamingo
+@testable import Flamingo
 
 class RealFailedTestRequest: NetworkRequest {
 
@@ -71,5 +71,99 @@ class ValidationTests: XCTestCase {
         }
 
         waitForExpectations(timeout: 10) { (_) in }
+    }
+
+    func testValidationByMimeType() {
+        guard let url = URL(string: "https://e-legion.com") else {
+            XCTFail(" ")
+            return
+        }
+
+        guard let response = MockResponse(url: url, mimeType: "mimeType") else {
+            XCTFail(" ")
+            return
+        }
+
+        guard let data = response.responseData else {
+            XCTFail(" ")
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.addValue("mime/type", forHTTPHeaderField: "Accept")
+
+        let errors = Validator(request: request, response: response, data: data)
+            .validate()
+            .validationErrors
+
+        XCTAssertTrue(errors.count > 0)
+    }
+
+    func testValidationWhenResponseMimeIsNil() {
+        guard let url = URL(string: "https://e-legion.com") else {
+            XCTFail(" ")
+            return
+        }
+
+        guard let response = MockResponse(url: url, mimeType: nil) else {
+            XCTFail(" ")
+            return
+        }
+
+        guard let data = response.responseData else {
+            XCTFail(" ")
+            return
+        }
+
+        response.forceMimeType = true
+        response.forcedMimeType = nil
+
+        var request = URLRequest(url: url)
+        request.addValue("mime/type", forHTTPHeaderField: "Accept")
+
+        let errors = Validator(request: request, response: response, data: data)
+            .validate()
+            .validationErrors
+
+        XCTAssertTrue(errors.count > 0)
+    }
+}
+
+private class MockResponse: HTTPURLResponse {
+    private struct Consts {
+        static let jsonData = "[1,2,3]"
+        static var data: Data? {
+            return Consts.jsonData.data(using: .utf8)
+        }
+    }
+
+    override var statusCode: Int {
+        return 200
+    }
+
+    var forceMimeType: Bool = false
+    var forcedMimeType: String?
+
+    override var mimeType: String? {
+        return forceMimeType == false
+            ? super.mimeType
+            : forcedMimeType
+    }
+
+    var responseData: Data? {
+        return Consts.data
+    }
+
+    convenience init?(url: URL, mimeType: String?) {
+        guard let unwrappedData = Consts.data else {
+            return nil
+        }
+
+        self.init(
+            url: url,
+            mimeType: mimeType,
+            expectedContentLength: unwrappedData.count,
+            textEncodingName: "UTF-8"
+        )
     }
 }

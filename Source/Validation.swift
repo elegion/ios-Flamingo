@@ -49,12 +49,12 @@ extension Validator {
                 return split.components(separatedBy: "/")
             }()
 
-            if let type = components.first, let subtype = components.last {
-                self.type = type
-                self.subtype = subtype
-            } else {
+            guard let type = components.first, let subtype = components.last else {
                 return nil
             }
+
+            self.type = type
+            self.subtype = subtype
         }
 
         func matches(_ mime: MIMEType) -> Bool {
@@ -88,10 +88,11 @@ extension Validator {
         where S.Iterator.Element == Int {
         if acceptableStatusCodes.contains(response.statusCode) {
             return .success
-        } else {
-            let reason: ErrorReason = .unacceptableStatusCode(code: response.statusCode)
-            return .error(Error.responseValidationFailed(reason: reason))
         }
+
+        let reason: ErrorReason = .unacceptableStatusCode(code: response.statusCode)
+
+        return .error(Error.responseValidationFailed(reason: reason))
     }
 
     // MARK: Content Type
