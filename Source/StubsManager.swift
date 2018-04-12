@@ -50,7 +50,7 @@ public class StubsDefaultManager: StubsManager {
 
     public func add(stubsArray: [RequestStubMap]) {
         for i in stubsArray.indices {
-            self.stubs[stubsArray[i].requestStub] = stubsArray[i].responseStub
+            self.add(stubsArray[i].requestStub, stub: stubsArray[i].responseStub)
         }
     }
 
