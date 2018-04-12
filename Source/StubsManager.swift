@@ -66,7 +66,7 @@ public class StubsDefaultManager: StubsManager {
         case .giveError:
             let response = HTTPURLResponse(
                 url: URL(fileURLWithPath: ""),
-                statusCode: 23,
+                statusCode: 404,
                 httpVersion: "HTTP/1.1",
                 headerFields: nil
             )
