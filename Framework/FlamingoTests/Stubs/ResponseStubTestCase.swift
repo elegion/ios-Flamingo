@@ -33,4 +33,21 @@ class ResponseStubTestCase: XCTestCase {
 
         XCTAssertEqual(expected, actual ?? [:])
     }
+
+    public func test_creatingFromString() {
+        let bodyString = ""
+        let stub = TestStub(bodyString: bodyString)
+        guard let body = stub.body else {
+            XCTFail(" ")
+            return 
+        }
+
+        XCTAssertEqual(body.data, bodyString.data(using: .utf8))
+    }
+
+    public func test_creatingWithNilBody() {
+        let stub = TestStub(statusCode: .ok, headers: nil, body: nil, error: nil)
+
+        XCTAssertNil(stub.body)
+    }
 }
