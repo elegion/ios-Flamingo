@@ -22,10 +22,6 @@ public protocol StubsManager: NetworkClientMutater {
     func hasStub(_ key: RequestStub) -> Bool
 }
 
-private class StubTask: CancelableOperation {
-    public func cancelOperation() {}
-}
-
 public class StubsDefaultManager: StubsManager {
 
     public var notFoundStubBehavior: NotFoundStubBehavior = .giveError
