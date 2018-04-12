@@ -16,6 +16,15 @@ public protocol StubbableClient: class {
 }
 
 final class NetworkDefaultClientStubs: NetworkDefaultClient, StubbableClient {
+    struct Consts {
+        static let headers = [
+            (name: "Accept-Language", value: "da, en-gb;q=0.8, en;q=0.7"),
+            (name: "Cache-Control", value: "no-cache"),
+        ]
+    }
+
+    var isUseCustomizedCustomHeaders = false
+
     var stubsManager: StubsManager? {
         didSet {
             if let oldValue = oldValue {
@@ -34,6 +43,18 @@ final class NetworkDefaultClientStubs: NetworkDefaultClient, StubbableClient {
         if let stubsManager = stubsManager {
             removeMutater(stubsManager)
         }
+    }
+
+    override func customHeadersForRequest<T: NetworkRequest>(_ networkRequest: T) -> [String: String]? {
+        if !isUseCustomizedCustomHeaders {
+            return super.customHeadersForRequest(networkRequest)
+        }
+
+        return Consts.headers.reduce(into: [:], {
+            result, tuple in
+
+            result[tuple.name] = tuple.value
+        })
     }
 }
 
