@@ -17,6 +17,7 @@ class NetworkClientTestCase: XCTestCase {
 
         var request = RequestWithParamsTuple()
         request.parameters = params
+        request.parametersEncoder = JSONParametersEncoder()
 
         do {
             let urlRequest = try client.urlRequest(from: request)
@@ -25,11 +26,8 @@ class NetworkClientTestCase: XCTestCase {
                 XCTFail(" ")
                 return
             }
-            
-            var urlRequestWithQueryParams = URLRequest(url: url)
-            try request.parametersEncoder.encode(parameters: request.parameters, to: &urlRequestWithQueryParams)
-            XCTAssertNotEqual(urlRequestWithQueryParams.url, urlRequest.url)
 
+            XCTAssertNotNil(urlRequest.httpBody)
             var urlRequestWithJSONParams = URLRequest(url: url)
             try request.parametersTuple?.1.encode(parameters: request.parametersTuple?.0, to: &urlRequestWithJSONParams)
             XCTAssertEqual(urlRequestWithJSONParams.httpBody, urlRequest.httpBody)
@@ -50,7 +48,11 @@ private struct RequestWithParamsTuple: NetworkRequest {
     var parametersEncoder: ParametersEncoder = URLParametersEncoder()
 
     var parametersTuple: ([String: Any], ParametersEncoder)? {
-        return (["1": 1, "2": 2], JSONParametersEncoder())
+        if let parameters = parameters {
+            return (parameters, parametersEncoder)
+        } else {
+            return nil
+        }
     }
 
     var responseSerializer: StringResponseSerializer {

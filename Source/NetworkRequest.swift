@@ -63,11 +63,18 @@ public extension NetworkRequest {
 
 public extension NetworkRequest {
     var description: String {
+        let params: [String: Any]
+
+        if let parametersTuple = parametersTuple {
+            params = parametersTuple.0
+        } else {
+            params = parameters ?? [:]
+        }
         return """
             Request: \(String(describing: type(of: self))),
                url: \(self.URL) (baseurl: \(String(describing: self.baseURL))),
                method: \(self.method),
-               parameters: \(self.parameters ?? [:])),
+               parameters: \(params)),
                headers: \(String(describing: self.headers))
         """
     }
