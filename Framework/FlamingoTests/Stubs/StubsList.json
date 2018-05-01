@@ -8,6 +8,9 @@
                         "array": [1, 2, 3],
                         "dict": {"1": "1", "2": "2"},
                         "array_of_dict": [{"1": "1"}, {"2": "2"}],
+                        "double": 1.1,
+                        "boolean": true,
+                        "bool": false,
                         "null": null
               },
               "stub": {

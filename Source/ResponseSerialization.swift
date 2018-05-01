@@ -26,9 +26,9 @@ public struct DataResponseSerializer: ResponseSerialization {
             return .success(data)
         } else if let error = error {
             return .error(error)
-        } else {
-            return .error(Error.unableToRetrieveDataAndError)
         }
+
+        return .error(Error.unableToRetrieveDataAndError)
     }
     
 }
@@ -48,9 +48,9 @@ public struct StringResponseSerializer: ResponseSerialization {
             return .success(resultString)
         } else if let error = error {
             return .error(error)
-        } else {
-            return .error(Error.unableToRetrieveDataAndError)
         }
+
+        return .error(Error.unableToRetrieveDataAndError)
     }
     
 }

@@ -137,4 +137,43 @@ class StubClientTestCase: XCTestCase {
             XCTFail("\(error)")
         }
     }
+
+    func test_gettingNotExistsStub_expectedError() {
+        let client = self.client
+        client.notFoundStubBehavior = .giveError
+        let request = MMMRequest()
+        guard let rawTuple = client.response(for: request) else {
+            XCTFail(" ")
+
+            return
+        }
+
+        XCTAssertNil(rawTuple.data)
+        XCTAssertNotNil(rawTuple.error)
+        guard let response = rawTuple.response as? HTTPURLResponse else {
+            XCTFail(" ")
+
+            return
+        }
+
+        XCTAssertEqual(404, response.statusCode)
+
+        guard let headers = response.allHeaderFields as? [String: String] else {
+            XCTFail(" ")
+
+            return
+        }
+
+        XCTAssertEqual([:], headers)
+    }
+
+    func test_gettingNotExistsStub_expectedNil() {
+        let client = self.client
+        client.notFoundStubBehavior = .useRealClient
+        let request = MMMRequest()
+
+        let rawTuple = client.response(for: request)
+
+        XCTAssertNil(rawTuple)
+    }
 }

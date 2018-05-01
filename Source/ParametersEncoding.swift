@@ -73,7 +73,11 @@ public struct JSONParametersEncoder: ParametersEncoder {
     
     public func encode(parameters: [String: Any]?, to request: inout URLRequest) throws {
         guard let parameters = parameters else { return }
-        
+
+        if !JSONSerialization.isValidJSONObject(parameters) {
+            throw Error.parametersEncodingError(.jsonEncodingFailed(Error.invalidRequest))
+        }
+
         do {
             let data = try JSONSerialization.data(withJSONObject: parameters, options: encodingOptions)
             

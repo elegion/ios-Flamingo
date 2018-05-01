@@ -78,4 +78,30 @@ class JSONParametersEncoderTestCase: XCTestCase {
             XCTFail(error.localizedDescription)
         }
     }
+
+    public func test_serializingNilParameters_expectedNil() {
+        var request = self.request
+        let encoder = self.encoder
+        let parameters: [String: Any]? = nil
+
+        do {
+            try encoder.encode(parameters: parameters, to: &request)
+
+            XCTAssertNil(request.httpBody)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+
+    public func test_serializingWrongDataStructure_expectedError() {
+        var request = self.request
+        let encoder = self.encoder
+        let parameters: [String: Any]? = ["s": [ 1: "", "qwe": 32 ]]
+
+        do {
+            try encoder.encode(parameters: parameters, to: &request)
+
+            XCTFail(" ")
+        } catch {}
+    }
 }

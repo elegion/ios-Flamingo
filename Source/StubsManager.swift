@@ -22,10 +22,6 @@ public protocol StubsManager: NetworkClientMutater {
     func hasStub(_ key: RequestStub) -> Bool
 }
 
-private class StubTask: CancelableOperation {
-    public func cancelOperation() {}
-}
-
 public class StubsDefaultManager: StubsManager {
 
     public var notFoundStubBehavior: NotFoundStubBehavior = .giveError
@@ -54,7 +50,7 @@ public class StubsDefaultManager: StubsManager {
 
     public func add(stubsArray: [RequestStubMap]) {
         for i in stubsArray.indices {
-            self.stubs[stubsArray[i].requestStub] = stubsArray[i].responseStub
+            self.add(stubsArray[i].requestStub, stub: stubsArray[i].responseStub)
         }
     }
 
@@ -70,7 +66,7 @@ public class StubsDefaultManager: StubsManager {
         case .giveError:
             let response = HTTPURLResponse(
                 url: URL(fileURLWithPath: ""),
-                statusCode: 23,
+                statusCode: 404,
                 httpVersion: "HTTP/1.1",
                 headerFields: nil
             )

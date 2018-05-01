@@ -87,9 +87,9 @@ open class NetworkDefaultClient: NetworkClientMutable {
             let task = session.dataTask(with: urlRequest, completionHandler: handler)
             task.resume()
             return task
-        } else {
-            return nil
         }
+
+        return nil
     }
 
     public func addReporter(_ reporter: NetworkClientReporter, storagePolicy: StoragePolicy = .weak) {

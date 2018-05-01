@@ -23,7 +23,9 @@ class CodableJSONSerializerTestCase: XCTestCase {
     }
 
     private var serializer: CodableJSONSerializer<Stub> {
-        return CodableJSONSerializer()
+        let decoder = JSONDecoder()
+
+        return CodableJSONSerializer(decoder: decoder)
     }
 
     private let request: URLRequest? = nil

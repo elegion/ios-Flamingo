@@ -47,17 +47,6 @@ extension URL: URLConvertible {
     }
 }
 
-extension URLConvertible {
-
-    public static func ==(lhs: URLConvertible, rhs: URLConvertible) -> Bool {
-        do {
-            return (try lhs.asURL()) == (try rhs.asURL())
-        } catch {
-            return false
-        }
-    }
-}
-
 extension Optional where Wrapped == URLConvertible {
     public static func ==(lhs: Optional, rhs: Optional) -> Bool {
         switch (lhs, rhs) {

@@ -25,6 +25,7 @@
 		94E20C9C1F7982F90017D46C /* ValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E20C9B1F7982F90017D46C /* ValidationTests.swift */; };
 		94E20C9E1F7982F90017D46C /* Flamingo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F7CEB971CE9AFCD00D6CCBA /* Flamingo.framework */; };
 		94EE07DE1F7976F40095D039 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EE07DD1F7976F40095D039 /* Validation.swift */; };
+		E1A2F341AF2540BCB8A3986E /* RequestStubMapTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A2F143BE28A3091EA8231C /* RequestStubMapTestCase.swift */; };
 		E22833841FA218F5000F479D /* CodableJSONSerializerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833751FA218F4000F479D /* CodableJSONSerializerTestCase.swift */; };
 		E22833851FA218F5000F479D /* DataResponseSerializerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833761FA218F4000F479D /* DataResponseSerializerTestCase.swift */; };
 		E22833861FA218F5000F479D /* StringResponseSerializerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833771FA218F4000F479D /* StringResponseSerializerTestCase.swift */; };
@@ -53,6 +54,7 @@
 		E284B6C51FA21D01001B2123 /* SimpleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E284B6C21FA21D01001B2123 /* SimpleLogger.swift */; };
 		E284B6C61FA21D01001B2123 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E284B6C31FA21D01001B2123 /* Logger.swift */; };
 		E2A3E5CD1F9777090085D6D5 /* URLParametersEncoderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3E5CC1F9777090085D6D5 /* URLParametersEncoderTestCase.swift */; };
+		E2D0DC8A207647C500953313 /* CodableExtensionTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D0DC89207647C500953313 /* CodableExtensionTestCase.swift */; };
 		FE80C35D1F6FE5420060141B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C35B1F6FE4080060141B /* Result.swift */; };
 		FE80C35E1F6FE5450060141B /* CancelableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3531F6FE4080060141B /* CancelableOperation.swift */; };
 		FE80C35F1F6FE5470060141B /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3591F6FE4080060141B /* NetworkConfiguration.swift */; };
@@ -99,6 +101,7 @@
 		94E20C9B1F7982F90017D46C /* ValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTests.swift; sourceTree = "<group>"; };
 		94E20C9D1F7982F90017D46C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94EE07DD1F7976F40095D039 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		E1A2F143BE28A3091EA8231C /* RequestStubMapTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestStubMapTestCase.swift; sourceTree = "<group>"; };
 		E22833751FA218F4000F479D /* CodableJSONSerializerTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableJSONSerializerTestCase.swift; sourceTree = "<group>"; };
 		E22833761FA218F4000F479D /* DataResponseSerializerTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataResponseSerializerTestCase.swift; sourceTree = "<group>"; };
 		E22833771FA218F4000F479D /* StringResponseSerializerTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringResponseSerializerTestCase.swift; sourceTree = "<group>"; };
@@ -130,6 +133,7 @@
 		E2BC881B1F7E5124005CA524 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		E2BC881D1F7E5124005CA524 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitignore; path = ../.gitignore; sourceTree = "<group>"; };
 		E2BC881E1F7E5124005CA524 /* Flamingo.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = Flamingo.podspec; path = ../Flamingo.podspec; sourceTree = "<group>"; };
+		E2D0DC89207647C500953313 /* CodableExtensionTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableExtensionTestCase.swift; sourceTree = "<group>"; };
 		E2DAC70F1FA1F5BA00793F3E /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = .travis.yml; path = ../.travis.yml; sourceTree = "<group>"; };
 		FE80C3531F6FE4080060141B /* CancelableOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelableOperation.swift; sourceTree = "<group>"; };
 		FE80C3541F6FE4080060141B /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
@@ -251,6 +255,7 @@
 		94E20C9A1F7982F90017D46C /* FlamingoTests */ = {
 			isa = PBXGroup;
 			children = (
+				E2D0DC88207647AE00953313 /* Codable Extension */,
 				E228337E1FA218F4000F479D /* NetworkClient */,
 				E22833741FA218F4000F479D /* ResponseSerializers */,
 				E22833781FA218F4000F479D /* Stubs */,
@@ -290,6 +295,7 @@
 				E228337B1FA218F4000F479D /* StubClientTestCase.swift */,
 				E228337C1FA218F4000F479D /* StubsList.json */,
 				E228337D1FA218F4000F479D /* WrongList.json */,
+				E1A2F143BE28A3091EA8231C /* RequestStubMapTestCase.swift */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -346,6 +352,14 @@
 			);
 			name = "Supporting Files";
 			path = "../Supporting Files";
+			sourceTree = "<group>";
+		};
+		E2D0DC88207647AE00953313 /* Codable Extension */ = {
+			isa = PBXGroup;
+			children = (
+				E2D0DC89207647C500953313 /* CodableExtensionTestCase.swift */,
+			);
+			path = "Codable Extension";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -532,10 +546,12 @@
 				E228338D1FA218F5000F479D /* NetworkClientStubs.swift in Sources */,
 				94426360204B9C0B0053B7F7 /* OfflineCacheManagerTests.swift in Sources */,
 				9488CB082017963900D7151D /* NetworkClientReporterCallTests.swift in Sources */,
+				E2D0DC8A207647C500953313 /* CodableExtensionTestCase.swift in Sources */,
 				94E20C9C1F7982F90017D46C /* ValidationTests.swift in Sources */,
 				9488CB0E201889EB00D7151D /* RealRequestsTests.swift in Sources */,
 				E284B6BE1FA21CE0001B2123 /* SimpleLoggerTestCase.swift in Sources */,
 				E284B6C01FA21CE5001B2123 /* LoggingClientTestCase.swift in Sources */,
+				E1A2F341AF2540BCB8A3986E /* RequestStubMapTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
