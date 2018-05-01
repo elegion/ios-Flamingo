@@ -193,11 +193,9 @@ Flamingo is available under the MIT license. See the LICENSE file for more info.
 
 ## TODOs
 
-1) Documentation
-2) Test coverage
-3) Redirect handle
-4) Error's localisation
-5) Null in stubs
+1) Documentation about stubs and mocks
+2) Redirect handle
+3) Null in stubs
 
 ## P.S.
 
