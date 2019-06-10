@@ -114,7 +114,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
     
     private func requestHandler<Request: NetworkRequest>(with networkRequest: Request,
                                                          urlRequest: URLRequest,
-                                                         completion: (CompletionHandler<Request.Response>?)) -> (Data?, URLResponse?, Swift.Error?) -> Void {
+                                                         completion: ((Result<Request.Response, Error>, NetworkContext) -> Void)?) -> (Data?, URLResponse?, Swift.Error?) -> Void {
         return {
             [weak self] data, response, error in
 
