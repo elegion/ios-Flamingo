@@ -21,7 +21,7 @@ private class MockClient: NetworkClient {
     private var reporters = ObserversArray<NetworkClientReporter>()
 
     func sendRequest<Request: NetworkRequest>(_ networkRequest: Request,
-                                              completionHandler: ((Result<Request.Response, Error>, NetworkContext?) -> Void)?) -> CancelableOperation? {
+                                              completionHandler: ((Result<Request.Response, Error>, NetworkContext?) -> Void)?) -> Cancellable {
         self.reporters.iterate {
             reporter, _ in
             reporter.willSendRequest(networkRequest)
@@ -42,7 +42,7 @@ private class MockClient: NetworkClient {
             }
         }
 
-        return nil
+        return EmptyCancellable()
     }
 
     func addReporter(_ reporter: NetworkClientReporter, storagePolicy: StoragePolicy) {
