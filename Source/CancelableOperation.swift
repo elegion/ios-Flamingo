@@ -1,5 +1,5 @@
 //
-//  CancelableOperation.swift
+//  Cancelable.swift
 //  Flamingo 1.0
 //
 //  Created by Ilya Kulebyakin on 9/15/17.
@@ -8,15 +8,19 @@
 
 import Foundation
 
-public protocol CancelableOperation {
+public protocol Cancellable {
     
-    func cancelOperation()
+    func cancel()
 }
 
-extension URLSessionDataTask: CancelableOperation {
+extension URLSessionDataTask: Cancellable {
+        
+}
+
+class EmptyCancellable: Cancellable {
     
-    public func cancelOperation() {
-        cancel()
+    func cancel() {
+        // do nothing
     }
     
 }

@@ -13,7 +13,7 @@ public typealias CompletionHandler<T> = (Result<T, Error>, NetworkContext?) -> V
 public protocol NetworkClient: class {
     
     @discardableResult
-    func sendRequest<Request: NetworkRequest>(_ networkRequest: Request, completionHandler: ((Result<Request.Response, Error>, NetworkContext?) -> Void)?) -> CancelableOperation?
+    func sendRequest<Request: NetworkRequest>(_ networkRequest: Request, completionHandler: ((Result<Request.Response, Error>, NetworkContext?) -> Void)?) -> Cancellable
     func addReporter(_ reporter: NetworkClientReporter, storagePolicy: StoragePolicy)
     func removeReporter(_ reporter: NetworkClientReporter)
 }
@@ -57,7 +57,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
     }
     
     @discardableResult
-    open func sendRequest<Request>(_ networkRequest: Request, completionHandler: CompletionHandler<Request.Response>?) -> CancelableOperation? where Request: NetworkRequest {
+    open func sendRequest<Request>(_ networkRequest: Request, completionHandler: CompletionHandler<Request.Response>?) -> Cancellable where Request: NetworkRequest {
         let urlRequest: URLRequest
         do {
             urlRequest = try self.urlRequest(from: networkRequest)
@@ -66,7 +66,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
                 completionHandler?(.failure(error), nil)
             })
             
-            return nil
+            return EmptyCancellable()
         }
         reporters.iterate {
             (reporter, _) in
@@ -89,7 +89,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
             return task
         }
 
-        return nil
+        return EmptyCancellable()
     }
 
     public func addReporter(_ reporter: NetworkClientReporter, storagePolicy: StoragePolicy = .weak) {
