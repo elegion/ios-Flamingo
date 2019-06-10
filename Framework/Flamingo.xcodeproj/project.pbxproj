@@ -422,7 +422,7 @@
 			};
 			buildConfigurationList = 8F7CEB911CE9AFCD00D6CCBA /* Build configuration list for PBXProject "Flamingo" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
