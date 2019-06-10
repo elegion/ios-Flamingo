@@ -125,7 +125,7 @@ networkClient.sendRequest(request) {
     switch result {
     case .success(let users):
         XCTAssert(!users.isEmpty, "Users array is empty")
-    case .error(let error):
+    case .failure(let error):
         XCTFail("User not recieved, error: \(error)")
     }
     asyncExpectation.fulfill()
