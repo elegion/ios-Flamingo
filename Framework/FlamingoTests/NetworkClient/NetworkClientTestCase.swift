@@ -72,7 +72,7 @@ class NetworkClientTestCase: XCTestCase {
         let client = NetworkDefaultClientStubs.defaultForTest()
         var networkRequest = RequestWithParamsTuple()
         networkRequest.customBaseUrl = FailURLConvertible()
-        let operation = client.sendRequest(networkRequest) {
+        client.sendRequest(networkRequest) {
             result, _ in
 
             do {
@@ -84,8 +84,6 @@ class NetworkClientTestCase: XCTestCase {
 
             expectation.fulfill()
         }
-
-        XCTAssertNil(operation)
 
         wait(for: [expectation], timeout: 10)
     }
