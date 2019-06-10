@@ -216,7 +216,7 @@ class NetworkClientStubsTests: XCTestCase {
 
         let request = TestRequest()
 
-        client.sendRequest(request, completionHandler: { result, context in
+        client.sendRequest(request, completionHandler: { result, _ in
             do {
                 XCTAssertNoThrow(try result.get())
                 _ = try result.get()
