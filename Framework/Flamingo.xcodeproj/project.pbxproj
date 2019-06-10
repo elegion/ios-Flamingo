@@ -55,7 +55,6 @@
 		E284B6C61FA21D01001B2123 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E284B6C31FA21D01001B2123 /* Logger.swift */; };
 		E2A3E5CD1F9777090085D6D5 /* URLParametersEncoderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3E5CC1F9777090085D6D5 /* URLParametersEncoderTestCase.swift */; };
 		E2D0DC8A207647C500953313 /* CodableExtensionTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D0DC89207647C500953313 /* CodableExtensionTestCase.swift */; };
-		FE80C35D1F6FE5420060141B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C35B1F6FE4080060141B /* Result.swift */; };
 		FE80C35E1F6FE5450060141B /* CancelableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3531F6FE4080060141B /* CancelableOperation.swift */; };
 		FE80C35F1F6FE5470060141B /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3591F6FE4080060141B /* NetworkConfiguration.swift */; };
 		FE80C3601F6FE5490060141B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3541F6FE4080060141B /* Error.swift */; };
@@ -143,7 +142,6 @@
 		FE80C3581F6FE4080060141B /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		FE80C3591F6FE4080060141B /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		FE80C35A1F6FE4080060141B /* ResponseSerialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseSerialization.swift; sourceTree = "<group>"; };
-		FE80C35B1F6FE4080060141B /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		FE80C35C1F6FE4080060141B /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -205,7 +203,6 @@
 				E26F78941F99F7C6007D13D1 /* OptionalProtocol.swift */,
 				FE80C3551F6FE4080060141B /* ParametersEncoding.swift */,
 				FE80C35A1F6FE4080060141B /* ResponseSerialization.swift */,
-				FE80C35B1F6FE4080060141B /* Result.swift */,
 				E228339F1FA2199D000F479D /* StatusCodes.swift */,
 				E22833981FA2194F000F479D /* StubClient */,
 				FE80C3571F6FE4080060141B /* URLConvertible.swift */,
@@ -438,6 +435,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 8F7CEB8D1CE9AFCD00D6CCBA;
@@ -509,7 +507,6 @@
 				E26F78951F99F7C6007D13D1 /* OptionalProtocol.swift in Sources */,
 				9482F3AA2028EFE400812758 /* CodableExtensions.swift in Sources */,
 				E284B6C41FA21D01001B2123 /* LoggingClient.swift in Sources */,
-				FE80C35D1F6FE5420060141B /* Result.swift in Sources */,
 				E22833971FA21943000F479D /* JSONSerializer.swift in Sources */,
 				94DCCAA8204B7BA7002A8B0B /* RequestStub.swift in Sources */,
 				FE80C35E1F6FE5450060141B /* CancelableOperation.swift in Sources */,

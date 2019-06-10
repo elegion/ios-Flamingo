@@ -8,12 +8,12 @@
 
 import Foundation
 
-public typealias CompletionHandler<T> = (Result<T>, NetworkContext?) -> Void
+public typealias CompletionHandler<T> = (Result<T, Error>, NetworkContext?) -> Void
 
 public protocol NetworkClient: class {
     
     @discardableResult
-    func sendRequest<Request: NetworkRequest>(_ networkRequest: Request, completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation?
+    func sendRequest<Request: NetworkRequest>(_ networkRequest: Request, completionHandler: ((Result<Request.Response, Error>, NetworkContext?) -> Void)?) -> CancelableOperation?
     func addReporter(_ reporter: NetworkClientReporter, storagePolicy: StoragePolicy)
     func removeReporter(_ reporter: NetworkClientReporter)
 }
@@ -63,7 +63,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
             urlRequest = try self.urlRequest(from: networkRequest)
         } catch {
             complete(request: networkRequest, with: {
-                completionHandler?(.error(error), nil)
+                completionHandler?(.failure(error), nil)
             })
             
             return nil
@@ -129,7 +129,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
                         reporter.didRecieveResponse(for: networkRequest, context: context)
                     }
 
-                    completion?(.error(finalError ?? Error.invalidRequest), context)
+                    completion?(.failure(finalError ?? FlamingoError.invalidRequest), context)
                 })
             }
 
@@ -144,7 +144,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
                 }
 
                 if httpResponse == nil {
-                    finalError = error ?? Error.unableToRetrieveHTTPResponse
+                    finalError = error ?? FlamingoError.unableToRetrieveHTTPResponse
                     failureClosure(finalError, httpResponse)
                     return
                 }
@@ -170,7 +170,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
 
                         completion?(.success(value), context)
                     })
-                case .error(let error):
+                case .failure(let error):
                     finalError = error
                     failureClosure(finalError, httpResponse)
                 }
@@ -191,7 +191,7 @@ open class NetworkDefaultClient: NetworkClientMutable {
         let urlString = try networkRequest.URL.asURL().absoluteString
         guard let baseURL = try _baseURL?.asURL(),
             let url = URL(string: urlString, relativeTo: baseURL) else {
-                throw Error.invalidRequest
+                throw FlamingoError.invalidRequest
         }
         
         var urlRequest = URLRequest(url: url)

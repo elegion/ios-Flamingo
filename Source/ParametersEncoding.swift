@@ -23,7 +23,7 @@ public struct URLParametersEncoder: ParametersEncoder {
             return
         }
         guard let url = request.url, var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
-            throw Error.parametersEncodingError(.unableToRetrieveRequestURL)
+            throw FlamingoError.parametersEncodingError(.unableToRetrieveRequestURL)
         }
         let queryItems = parameters.flatMap(self.queryComponents)
         if urlComponents.queryItems == nil || urlComponents.queryItems?.isEmpty == true {
@@ -75,7 +75,7 @@ public struct JSONParametersEncoder: ParametersEncoder {
         guard let parameters = parameters else { return }
 
         if !JSONSerialization.isValidJSONObject(parameters) {
-            throw Error.parametersEncodingError(.jsonEncodingFailed(Error.invalidRequest))
+            throw FlamingoError.parametersEncodingError(.jsonEncodingFailed(FlamingoError.invalidRequest))
         }
 
         do {
@@ -87,7 +87,7 @@ public struct JSONParametersEncoder: ParametersEncoder {
             
             request.httpBody = data
         } catch {
-            throw Error.parametersEncodingError(.jsonEncodingFailed(error))
+            throw FlamingoError.parametersEncodingError(.jsonEncodingFailed(error))
         }
     }
     

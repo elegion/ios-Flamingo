@@ -11,7 +11,7 @@ public protocol ResponseSerialization {
     
     associatedtype Serialized
     
-    func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<Serialized>
+    func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<Serialized, Error>
     
 }
 
@@ -21,14 +21,14 @@ public struct DataResponseSerializer: ResponseSerialization {
     
     public init() { }
     
-    public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<Data> {
+    public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<Data, Error> {
         if let data  = data {
             return .success(data)
         } else if let error = error {
-            return .error(error)
+            return .failure(error)
         }
 
-        return .error(Error.unableToRetrieveDataAndError)
+        return .failure(FlamingoError.unableToRetrieveDataAndError)
     }
     
 }
@@ -43,14 +43,14 @@ public struct StringResponseSerializer: ResponseSerialization {
         self.encoding = encoding
     }
     
-    public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<String> {
+    public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<String, Error> {
         if let data = data, let resultString = String(data: data, encoding: encoding) {
             return .success(resultString)
         } else if let error = error {
-            return .error(error)
+            return .failure(error)
         }
 
-        return .error(Error.unableToRetrieveDataAndError)
+        return .failure(FlamingoError.unableToRetrieveDataAndError)
     }
     
 }
@@ -73,9 +73,9 @@ public struct CodableJSONSerializer<Serialized: Decodable>: ResponseSerializatio
         self.init(serializer: serializer)
     }
     
-    public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<Serialized> {
+    public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<Serialized, Error> {
         guard let data = data else {
-            return .error(error ?? Error.unableToRetrieveDataAndError)
+            return .failure(error ?? FlamingoError.unableToRetrieveDataAndError)
         }
         
         return self.serializer.deserialize(data: data)
