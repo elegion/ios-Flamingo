@@ -75,8 +75,12 @@ class NetworkClientTestCase: XCTestCase {
         let operation = client.sendRequest(networkRequest) {
             result, _ in
 
-            XCTAssertFalse(result.isSuccess)
-            XCTAssertNotNil(result.error)
+            do {
+                _ = try result.get()
+                XCTFail("Never")
+            } catch {
+                XCTAssertNotNil(error)
+            }
 
             expectation.fulfill()
         }

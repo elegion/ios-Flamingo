@@ -41,7 +41,7 @@ class CodableJSONSerializerTestCase: XCTestCase {
                                                data: serializedData,
                                                error: error)
 
-        XCTAssertEqual(expected, actual.value)
+        XCTAssertEqual(expected, try? actual.get())
     }
 
     public func test_serializeDataWithError_expectedError() {
@@ -54,19 +54,28 @@ class CodableJSONSerializerTestCase: XCTestCase {
                                                data: serializedData,
                                                error: error)
 
-        XCTAssertEqual(expected, (actual.error as? SomeError))
+        do {
+            _ = try actual.get()
+            XCTFail("Never")
+        } catch {
+            XCTAssertEqual(expected, (error as? SomeError))
+        }
     }
 
     public func test_serializeDataNoErrorNoData_expectedError() {
         let serializedData: Data? = nil
         let error: SomeError? = nil
-        let expected = Flamingo.Error.unableToRetrieveDataAndError
+        let expected = FlamingoError.unableToRetrieveDataAndError
 
         let actual = self.serializer.serialize(request: self.request,
                                                response: self.response,
                                                data: serializedData,
-                                               error: error).error ?? NSError()
+                                               error: error)
 
-        XCTAssertTrue((expected as NSError).isEqual(actual as NSError))
+        do {
+            _ = try actual.get()
+        } catch {
+            XCTAssertTrue((expected as NSError).isEqual(error as NSError))
+        }
     }
 }

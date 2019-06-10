@@ -103,9 +103,14 @@ class OfflineCacheManagerTests: XCTestCase {
             client.addMutater(mockUsers)
 
             client.sendRequest(request) {
-                (result, _) in
+                result, _ in
 
-                XCTAssertEqual(result.value?.count, 1, "Error: \(String(describing: result.error))")
+                do {
+                    let value = try result.get()
+                    XCTAssertEqual(value.count, 1)
+                } catch {
+                    XCTAssertNil(error, error.localizedDescription)
+                }
             }
             XCTAssertTrue(mockUsers.wasCalledResponse)
             XCTAssertTrue(urlCache.wasCalledCache)
@@ -124,9 +129,14 @@ class OfflineCacheManagerTests: XCTestCase {
             client.addMutater(mockUsers)
 
             client.sendRequest(request) {
-                (result, _) in
+                result, _ in
 
-                XCTAssertEqual(result.value?.count, 1, "Error: \(String(describing: result.error))")
+                do {
+                    let value = try result.get()
+                    XCTAssertEqual(value.count, 1)
+                } catch {
+                    XCTAssertNil(error, error.localizedDescription)
+                }
             }
             XCTAssertFalse(mockUsers.wasCalledResponse)
             XCTAssertTrue(urlCache.wasCalledResponse)

@@ -37,7 +37,6 @@
 		E228338C1FA218F5000F479D /* NetworkClientBaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E228337F1FA218F4000F479D /* NetworkClientBaseTestCase.swift */; };
 		E228338D1FA218F5000F479D /* NetworkClientStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833801FA218F4000F479D /* NetworkClientStubs.swift */; };
 		E228338E1FA218F5000F479D /* NetworkClientTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833811FA218F4000F479D /* NetworkClientTestCase.swift */; };
-		E228338F1FA218F5000F479D /* ResultTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833831FA218F4000F479D /* ResultTestCase.swift */; };
 		E22833931FA21904000F479D /* JSONSerializerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833901FA21904000F479D /* JSONSerializerTestCase.swift */; };
 		E22833941FA21904000F479D /* URLConvertableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833911FA21904000F479D /* URLConvertableTestCase.swift */; };
 		E22833951FA21904000F479D /* JSONParametersEncoderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22833921FA21904000F479D /* JSONParametersEncoderTestCase.swift */; };
@@ -112,7 +111,6 @@
 		E228337F1FA218F4000F479D /* NetworkClientBaseTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClientBaseTestCase.swift; sourceTree = "<group>"; };
 		E22833801FA218F4000F479D /* NetworkClientStubs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClientStubs.swift; sourceTree = "<group>"; };
 		E22833811FA218F4000F479D /* NetworkClientTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClientTestCase.swift; sourceTree = "<group>"; };
-		E22833831FA218F4000F479D /* ResultTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultTestCase.swift; sourceTree = "<group>"; };
 		E22833901FA21904000F479D /* JSONSerializerTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONSerializerTestCase.swift; sourceTree = "<group>"; };
 		E22833911FA21904000F479D /* URLConvertableTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConvertableTestCase.swift; sourceTree = "<group>"; };
 		E22833921FA21904000F479D /* JSONParametersEncoderTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParametersEncoderTestCase.swift; sourceTree = "<group>"; };
@@ -256,7 +254,6 @@
 				E228337E1FA218F4000F479D /* NetworkClient */,
 				E22833741FA218F4000F479D /* ResponseSerializers */,
 				E22833781FA218F4000F479D /* Stubs */,
-				E22833821FA218F4000F479D /* Utils */,
 				94E20C9D1F7982F90017D46C /* Info.plist */,
 				E22833921FA21904000F479D /* JSONParametersEncoderTestCase.swift */,
 				E22833901FA21904000F479D /* JSONSerializerTestCase.swift */,
@@ -305,14 +302,6 @@
 				E22833811FA218F4000F479D /* NetworkClientTestCase.swift */,
 			);
 			path = NetworkClient;
-			sourceTree = "<group>";
-		};
-		E22833821FA218F4000F479D /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				E22833831FA218F4000F479D /* ResultTestCase.swift */,
-			);
-			path = Utils;
 			sourceTree = "<group>";
 		};
 		E22833981FA2194F000F479D /* StubClient */ = {
@@ -527,7 +516,6 @@
 			files = (
 				E22833871FA218F5000F479D /* ResponseStubTestCase.swift in Sources */,
 				E22833851FA218F5000F479D /* DataResponseSerializerTestCase.swift in Sources */,
-				E228338F1FA218F5000F479D /* ResultTestCase.swift in Sources */,
 				E22833931FA21904000F479D /* JSONSerializerTestCase.swift in Sources */,
 				E22833841FA218F5000F479D /* CodableJSONSerializerTestCase.swift in Sources */,
 				E22833881FA218F5000F479D /* StubClientFactoryTestCase.swift in Sources */,

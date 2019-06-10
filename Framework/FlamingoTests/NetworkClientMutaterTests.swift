@@ -84,11 +84,11 @@ class NetworkClientMutaterTests: XCTestCase {
 
         networkClient.removeMutater(mutater2)
         let request = RealFailedTestRequest()
-        networkClient.sendRequest(request) { (_, _) in
+        networkClient.sendRequest(request) { _, _ in
             asyncExpectation.fulfill()
         }
 
-        waitForExpectations(timeout: 10) { (_) in
+        waitForExpectations(timeout: 10) { _ in
             XCTAssertTrue(mutater1.responseReplaceWasCalled)
             XCTAssertFalse(mutater2.responseReplaceWasCalled)
         }
@@ -113,14 +113,14 @@ class NetworkClientMutaterTests: XCTestCase {
             case .success(let value):
                 XCTAssert(value == mutater1.testData, "Wrong replace data")
                 XCTAssertEqual(context?.response?.statusCode, mutater1.testStatusCode)
-            case .error(let error):
+            case .failure(let error):
                 XCTFail("No error expected, error \(error)")
             }
             asyncExpectation.fulfill()
         }
 
         waitForExpectations(timeout: 10) {
-            (_) in
+            _ in
 
             if let task = operation as? URLSessionTask {
                 XCTFail("Task shouldn't be called")
@@ -141,7 +141,7 @@ class NetworkClientMutaterTests: XCTestCase {
         var wasCalledResponse = false
         let request = RealFailedTestRequest()
         networkClient.sendRequest(request) {
-            (_, _) in
+            _, _ in
 
             wasCalledResponse = true
         }

@@ -80,19 +80,19 @@ class RealRequestsTests: XCTestCase {
         let request = UsersRequest()
 
         networkClient.sendRequest(request) {
-            (result, _) in
+            result, _ in
 
             switch result {
             case .success(let users):
                 XCTAssert(!users.isEmpty, "Users array is empty")
-            case .error(let error):
+            case .failure(let error):
                 XCTFail("User not recieved, error: \(error)")
             }
             asyncExpectation.fulfill()
         }
 
         waitForExpectations(timeout: 10) {
-            (_) in
+            _ in
 
         }
     }

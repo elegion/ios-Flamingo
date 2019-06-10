@@ -128,8 +128,12 @@ class NetworkClientStubsTests: XCTestCase {
         client.sendRequest(request) {
             result, _ in
 
-            XCTAssertNotNil(result.error)
-            XCTAssertTrue(result.error is Swift.DecodingError, "\(result.error?.localizedDescription ?? "")")
+            do {
+                XCTAssertThrowsError(try result.get())
+                _ = try result.get()
+            } catch {
+                XCTAssertTrue(error is Swift.DecodingError, error.localizedDescription)
+            }
 
             expectation.fulfill()
         }
@@ -167,8 +171,12 @@ class NetworkClientStubsTests: XCTestCase {
         client.sendRequest(request) {
             result, _ in
 
-            XCTAssertNotNil(result.error)
-            XCTAssertTrue(result.error is Swift.DecodingError, "\(result.error?.localizedDescription ?? "")")
+            do {
+                XCTAssertThrowsError(try result.get())
+                _ = try result.get()
+            } catch {
+                XCTAssertTrue(error is Swift.DecodingError, error.localizedDescription)
+            }
 
             expectation.fulfill()
         }
@@ -187,8 +195,12 @@ class NetworkClientStubsTests: XCTestCase {
         client.sendRequest(request) {
             result, _ in
 
-            XCTAssertNotNil(result.error)
-            XCTAssertTrue(result.error is StubsError, "\(String(describing: result.error?.localizedDescription))")
+            do {
+                XCTAssertThrowsError(try result.get())
+                _ = try result.get()
+            } catch {
+                XCTAssertTrue(error is StubsError, error.localizedDescription)
+            }
 
             expectation.fulfill()
         }
@@ -203,11 +215,17 @@ class NetworkClientStubsTests: XCTestCase {
         (client.stubsManager as? StubsManagerMock)?.hasMockAnswer = true
 
         let request = TestRequest()
-        client.sendRequest(request) { result, _ in
-            XCTAssertTrue(result.isSuccess)
+
+        client.sendRequest(request, completionHandler: { result, context in
+            do {
+                XCTAssertNoThrow(try result.get())
+                _ = try result.get()
+            } catch {
+                XCTFail("Never")
+            }
 
             expectation.fulfill()
-        }
+        })
 
         self.waitForExpectations(timeout: 5, handler: nil)
     }
@@ -248,10 +266,11 @@ class NetworkClientStubsTests: XCTestCase {
             client.sendRequest(request, completionHandler: {
                 result, _ in
 
-                XCTAssertNotNil(result.value)
-                XCTAssertEqual(result.value?.id, 2)
-                XCTAssertEqual(result.value?.string, "some")
-                XCTAssertEqual(result.value?.double, 3.0)
+                let value = try? result.get()
+                XCTAssertNotNil(value)
+                XCTAssertEqual(value?.id, 2)
+                XCTAssertEqual(value?.string, "some")
+                XCTAssertEqual(value?.double, 3.0)
             })
         } else {
             XCTFail(" ")

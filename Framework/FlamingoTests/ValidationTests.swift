@@ -60,7 +60,7 @@ class ValidationTests: XCTestCase {
             switch result {
             case .success:
                 XCTFail("Should be error")
-            case .error(let error):
+            case .failure(let error):
                 if let statusCode = context?.response?.statusCode {
                     XCTAssertEqual(statusCode, 301, "Not correct status code")
                 } else {
@@ -70,7 +70,7 @@ class ValidationTests: XCTestCase {
             asyncExpectation.fulfill()
         }
 
-        waitForExpectations(timeout: 10) { (_) in }
+        waitForExpectations(timeout: 10) { _ in }
     }
 
     func testValidationByMimeType() {

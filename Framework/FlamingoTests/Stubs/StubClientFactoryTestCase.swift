@@ -150,9 +150,9 @@ class StubClientFactoryTestCase: XCTestCase {
     }
 }
 
-public func XCTAssertException(_ closure: @autoclosure () throws -> Void,
-                               expectedError: Swift.Error,
-                               message: String? = nil) {
+func XCTAssertException(_ closure: @autoclosure () throws -> Void,
+                        expectedError: Swift.Error,
+                        message: String? = nil) {
     do {
         try closure()
     } catch {

@@ -15,15 +15,15 @@ private class MockClient: NetworkClient {
         return DispatchQueue(label: "com.e-legion.test.queue", attributes: .concurrent)
     }
 
-    public var responseResult: Result<StubModel>?
+    public var responseResult: Result<StubModel, Error>?
     public var context = NetworkContext(request: nil, response: nil, data: nil, error: nil)
 
     private var reporters = ObserversArray<NetworkClientReporter>()
 
     func sendRequest<Request: NetworkRequest>(_ networkRequest: Request,
-                                              completionHandler: ((Result<Request.Response>, NetworkContext?) -> Void)?) -> CancelableOperation? {
+                                              completionHandler: ((Result<Request.Response, Error>, NetworkContext?) -> Void)?) -> CancelableOperation? {
         self.reporters.iterate {
-            (reporter, _) in
+            reporter, _ in
             reporter.willSendRequest(networkRequest)
         }
 
@@ -34,10 +34,10 @@ private class MockClient: NetworkClient {
                 return
             }
             sself.reporters.iterate(invocation: {
-                (reporter, _) in
+                reporter, _ in
                 reporter.didRecieveResponse(for: networkRequest, context: sself.context)
             })
-            if let result = sself.responseResult as? Result<Request.Response> {
+            if let result = sself.responseResult as? Result<Request.Response, Error> {
                 completionHandler?(result, sself.context)
             }
         }
