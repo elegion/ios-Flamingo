@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
-  s.name                    = 'Flamingo'
-  s.version                 = '1.2.3'
+  s.name                    = File.basename(__FILE__).chomp(".podspec")
+  s.version                 = '2.2.3'
   s.summary                 = 'Swift network manager'
   s.homepage                = 'https://github.com/elegion/Flamingo'
   s.license                 = 'MIT'
