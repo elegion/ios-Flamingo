@@ -25,7 +25,7 @@ extension Validator {
 
     // MARK: Helper Types
 
-    fileprivate typealias ErrorReason = Error.ResponseValidationFailureReason
+    fileprivate typealias ErrorReason = FlamingoError.ResponseValidationFailureReason
 
     /// Used to represent whether validation was successful or encountered an error resulting in a failure.
     ///
@@ -92,7 +92,7 @@ extension Validator {
 
         let reason: ErrorReason = .unacceptableStatusCode(code: response.statusCode)
 
-        return .error(Error.responseValidationFailed(reason: reason))
+        return .error(FlamingoError.responseValidationFailed(reason: reason))
     }
 
     // MARK: Content Type
@@ -117,7 +117,7 @@ extension Validator {
 
                 let error: Error = {
                     let reason: ErrorReason = .missingContentType(acceptableContentTypes: Array(acceptableContentTypes))
-                    return Error.responseValidationFailed(reason: reason)
+                    return FlamingoError.responseValidationFailed(reason: reason)
                 }()
 
                 return .error(error)
@@ -135,7 +135,7 @@ extension Validator {
                 responseContentType: responseContentType
             )
 
-            return Error.responseValidationFailed(reason: reason)
+            return FlamingoError.responseValidationFailed(reason: reason)
         }()
 
         return .error(error)

@@ -24,18 +24,18 @@ public class JSONSerializer {
         self.init(decoder: decoder)
     }
 
-    public func deserialize<Serialized: Decodable>(data: Data) -> Result<Serialized> {
+    public func deserialize<Serialized: Decodable>(data: Data) -> Result<Serialized, Error> {
         var result: Serialized
         do {
             result = try decoder.decode(Serialized.self, from: data)
         } catch {
-            return .error(error)
+            return .failure(error)
         }
 
         return .success(result)
     }
 
-    public func deserialize<Serialized: Decodable>(string: String) -> Result<Serialized> {
+    public func deserialize<Serialized: Decodable>(string: String) -> Result<Serialized, Error> {
         let data = string.data(using: .utf8)
 
         return self.deserialize(data: data!)

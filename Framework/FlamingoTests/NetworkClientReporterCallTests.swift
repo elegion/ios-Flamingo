@@ -62,13 +62,13 @@ class NetworkClientReporterCallTests: XCTestCase {
         let request = RealFailedTestRequest()
         client.removeReporter(reporter2)
         client.sendRequest(request) {
-            (_, _) in
+            _, _ in
 
             asyncExpectation.fulfill()
         }
 
         waitForExpectations(timeout: 10) {
-            (_) in
+            _ in
 
             XCTAssertTrue(reporter1.willSendCalled)
             XCTAssertTrue(reporter1.didRecieveCalled)

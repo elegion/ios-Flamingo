@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum Error: Swift.Error, LocalizedError {
+public enum FlamingoError: Swift.Error, LocalizedError {
 
     /// The underlying reason the response validation error occurred.
     ///

@@ -59,7 +59,7 @@ class Tests: XCTestCase {
         {
          "name": "James Ruston"
         }
-        """.data(using: .utf8)!
+        """.data(using: .utf8)! // swiftlint:disable:this force_unwrapping
 
         let person = try! JSONDecoder().decode(Person.self, from: json)
 
@@ -71,7 +71,7 @@ class Tests: XCTestCase {
         {
          "regex": ".*"
         }
-        """.data(using: .utf8)!
+        """.data(using: .utf8)! // swiftlint:disable:this force_unwrapping
 
         let wrapper = try! JSONDecoder().decode(RegexWrapper.self, from: json)
 
@@ -83,7 +83,7 @@ class Tests: XCTestCase {
         {
          "regex": true
         }
-        """.data(using: .utf8)!
+        """.data(using: .utf8)! // swiftlint:disable:this force_unwrapping
 
         let wrapper = try? JSONDecoder().decode(RegexWrapper.self, from: json)
 
@@ -95,7 +95,7 @@ class Tests: XCTestCase {
         {
          "regex": "["
         }
-        """.data(using: .utf8)!
+        """.data(using: .utf8)! // swiftlint:disable:this force_unwrapping
 
         let wrapper = try! JSONDecoder().decode(OptionalRegexWrapper.self, from: json)
 
@@ -104,12 +104,12 @@ class Tests: XCTestCase {
 
     func testEncoding() {
         let jsonString = "{\"regex\":\".*\"}"
-        let json = jsonString.data(using: .utf8)!
+        let json = jsonString.data(using: .utf8)! // swiftlint:disable:this force_unwrapping
 
         let wrapper = try! JSONDecoder().decode(RegexWrapper.self, from: json)
         let encoded = try! JSONEncoder().encode(wrapper)
 
-        let output = String(data: encoded, encoding: .utf8)!
+        let output = String(data: encoded, encoding: .utf8)! // swiftlint:disable:this force_unwrapping
 
         XCTAssertEqual(jsonString, output)
 

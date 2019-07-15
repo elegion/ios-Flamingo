@@ -12,13 +12,17 @@ public struct RequestStub: Hashable {
     public let url: URL
     public let method: HTTPMethod
     public let params: [String: Any]?
-    public var hashValue: Int
-
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(url)
+        hasher.combine(method)
+        hasher.combine(NSDictionary(dictionary: params ?? [:]))
+    }
+    
     public init(url: URL, method: HTTPMethod, params: [String: Any]? = nil) {
         self.url = url
         self.method = method
         self.params = params
-        hashValue = "\(url)\(method)\(params ?? [:])".hashValue
     }
 
     public init?<Request: NetworkRequest>(_ request: Request) {

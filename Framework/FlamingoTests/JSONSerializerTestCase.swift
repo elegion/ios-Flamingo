@@ -42,22 +42,22 @@ class JSONSerializerTestCase: XCTestCase {
 
     public func test_deserializeString_expectedValidStruct() {
         let serializer = self.serializer
-        let actual: Result<SomeStruct> = serializer.deserialize(string: self.jsonString)
+        let actual: Result<SomeStruct, Error> = serializer.deserialize(string: self.jsonString)
 
-        XCTAssertEqual(self.defaultExpected, actual.value)
+        XCTAssertEqual(self.defaultExpected, try? actual.get())
     }
 
     public func test_deserializeWrongString_expectedErrorResult() {
         let serializer = self.serializer
-        let actual: Result<SomeStruct> = serializer.deserialize(string: "")
+        let actual: Result<SomeStruct, Error> = serializer.deserialize(string: "")
 
-        XCTAssertFalse(actual.isSuccess)
+        XCTAssertThrowsError(try actual.get())
     }
 
     public func test_deserializeData_expectedValidStruct() {
         let serializer = self.serializer
-        let actual: Result<SomeStruct> = serializer.deserialize(data: self.jsonData)
+        let actual: Result<SomeStruct, Error> = serializer.deserialize(data: self.jsonData)
 
-        XCTAssertEqual(self.defaultExpected, actual.value)
+        XCTAssertEqual(self.defaultExpected, try? actual.get())
     }
 }

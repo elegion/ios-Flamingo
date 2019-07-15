@@ -48,7 +48,7 @@ internal class ObserversArray<T> {
                 return (pointer as AnyObject) === (observer as AnyObject)
             }
         }
-        if let index = pointers.index(where: findClosure) {
+        if let index = pointers.firstIndex(where: findClosure) {
             pointers.remove(at: index)
         }
     }
