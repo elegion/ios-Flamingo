@@ -48,18 +48,16 @@ public struct URLParametersEncoder: ParametersEncoder {
                 components += queryComponents(fromKey: "\(key)[]", value: value)
             }
         } else if let bool = value as? Bool {
-            components.append(URLQueryItem.init(name: key, value: bool ? "1" : "0"))
-        } else {
-            if let optionalValue = value as? OptionalProtocol {
-                if optionalValue.isSome() {
-                    components.append(URLQueryItem(name: key, value: "\(optionalValue.value)"))
-                }
-            } else {
-                components.append(URLQueryItem(name: key, value: "\(value)"))
+            components.append(URLQueryItem(name: key, value: bool ? "1" : "0"))
+        } else if let optionalValue = value as? OptionalProtocol {
+            if optionalValue.isSome() {
+                components.append(URLQueryItem(name: key, value: "\(optionalValue.value)"))
             }
+        } else {
+            components.append(URLQueryItem(name: key, value: "\(value)"))
         }
         
-        return components
+        return components.sorted { $0.name.lexicographicallyPrecedes($1.name) }
     }
 }
 
