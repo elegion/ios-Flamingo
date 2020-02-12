@@ -11,12 +11,13 @@ import Flamingo
 
 typealias TestStub = ResponseStub
 
-class ResponseStubTestCase: XCTestCase {
+final class ResponseStubTestCase: XCTestCase {
+    
     private var stub: TestStub {
         return TestStub(body: Data())
     }
 
-    public func test_gettingStatusCode_expectedDefaultCodeOk() {
+    func test_gettingStatusCode_expectedDefaultCodeOk() {
         let expected = StatusCodes.ok
         let stub = self.stub
 
@@ -25,7 +26,7 @@ class ResponseStubTestCase: XCTestCase {
         XCTAssertEqual(expected, actual)
     }
 
-    public func test_gettingHeaders_expectedDefaultHeaders() {
+    func test_gettingHeaders_expectedDefaultHeaders() {
         let expected: [String: String] = [:]
         let stub = self.stub
 
@@ -34,7 +35,7 @@ class ResponseStubTestCase: XCTestCase {
         XCTAssertEqual(expected, actual ?? [:])
     }
 
-    public func test_creatingFromString() {
+    func test_creatingFromString() {
         let bodyString = ""
         let stub = TestStub(bodyString: bodyString)
         guard let body = stub.body else {
@@ -45,7 +46,7 @@ class ResponseStubTestCase: XCTestCase {
         XCTAssertEqual(body.data, bodyString.data(using: .utf8))
     }
 
-    public func test_creatingWithNilBody() {
+    func test_creatingWithNilBody() {
         let stub = TestStub(statusCode: .ok, headers: nil, body: nil, error: nil)
 
         XCTAssertNil(stub.body)

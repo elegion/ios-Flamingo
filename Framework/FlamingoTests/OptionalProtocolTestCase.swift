@@ -9,7 +9,8 @@
 import XCTest
 import Flamingo
 
-class OptionalProtocolTestCase: XCTestCase {
+final class OptionalProtocolTestCase: XCTestCase {
+    
     private struct Consts {
         static let optionalValue = 5
     }
@@ -22,38 +23,38 @@ class OptionalProtocolTestCase: XCTestCase {
         return nil
     }
 
-    public func test_isSomeOnSome_expectedTrue() {
+    func test_isSomeOnSome_expectedTrue() {
         let actual = self.optionalSome.isSome()
 
         XCTAssertTrue(actual)
     }
 
-    public func test_isSomeOnNone_expectedFalse() {
+    func test_isSomeOnNone_expectedFalse() {
         let actual = self.optionalNone.isSome()
 
         XCTAssertFalse(actual)
     }
 
-    public func test_isNoneOnNone_expectedTrue() {
+    func test_isNoneOnNone_expectedTrue() {
         let actual = self.optionalNone.isNone()
 
         XCTAssertTrue(actual)
     }
 
-    public func test_isNoneOnSome_expectedFalse() {
+    func test_isNoneOnSome_expectedFalse() {
         let actual = self.optionalSome.isNone()
 
         XCTAssertFalse(actual)
     }
 
-    public func test_getValueOnSome_expectedValue() {
+    func test_getValueOnSome_expectedValue() {
         let expected = Consts.optionalValue
         let actual = self.optionalSome.value
 
         XCTAssertEqual(expected, (actual as? Int))
     }
 
-    public func test_getValueOnNone_expectedNone() {
+    func test_getValueOnNone_expectedNone() {
         let expected = self.optionalNone
         let actual = self.optionalNone.value
 

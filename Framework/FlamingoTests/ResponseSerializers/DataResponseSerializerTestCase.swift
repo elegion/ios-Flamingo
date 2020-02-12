@@ -9,7 +9,7 @@
 import XCTest
 import Flamingo
 
-class DataResponseSerializerTestCase: XCTestCase {
+final class DataResponseSerializerTestCase: XCTestCase {
 
     enum SomeError: Swift.Error {
         case error
@@ -22,7 +22,7 @@ class DataResponseSerializerTestCase: XCTestCase {
     private let request: URLRequest? = nil
     private let response: HTTPURLResponse? = nil
 
-    public func test_serializeData_expectedValidData() {
+    func test_serializeData_expectedValidData() {
         let serializedData = Data()
         let error: SomeError? = nil
         let expected = serializedData
@@ -35,7 +35,7 @@ class DataResponseSerializerTestCase: XCTestCase {
         XCTAssertEqual(expected, try? actual.get())
     }
 
-    public func test_serializeDataWithError_expectedError() {
+    func test_serializeDataWithError_expectedError() {
         let serializedData: Data? = nil
         let error = SomeError.error
         let expected = error
@@ -52,7 +52,7 @@ class DataResponseSerializerTestCase: XCTestCase {
         }
     }
 
-    public func test_serializeDataNoErrorNoData_expectedError() {
+    func test_serializeDataNoErrorNoData_expectedError() {
         let serializedData: Data? = nil
         let error: SomeError? = nil
         let expected = FlamingoError.unableToRetrieveDataAndError

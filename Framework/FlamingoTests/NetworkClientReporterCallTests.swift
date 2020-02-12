@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 import Flamingo
 
-private class MockLogger: Logger {
+private final class MockLogger: Logger {
     private(set) var logSended: Bool = false
 
     public func log(_ message: String, context: [String: Any]?) {
@@ -18,7 +18,8 @@ private class MockLogger: Logger {
     }
 }
 
-private class MockReporter: LoggingClient {
+private final class MockReporter: LoggingClient {
+    
     var willSendCallClosure: (() -> Void)?
     private(set) var willSendCalled: Bool = false
     private(set) var didRecieveCalled: Bool = false
@@ -35,7 +36,7 @@ private class MockReporter: LoggingClient {
     }
 }
 
-class NetworkClientReporterCallTests: XCTestCase {
+final class NetworkClientReporterCallTests: XCTestCase {
 
     var client: NetworkClient!
 

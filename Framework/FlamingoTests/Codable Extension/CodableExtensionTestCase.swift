@@ -9,20 +9,39 @@
 import XCTest
 @testable import Flamingo
 
-struct Person: Decodable {
+private struct Person: Decodable {
+    
     let name: String
+    let age: Int?
+    let transformedDesc: String?
+    let transformedOptionalDesc: String?
 
     private enum CodingKeys: String, CodingKey {
         case name
+        case age
+        case transformedDesc = "desc"
+        case transformedOptionalDesc = "optionalDesc"
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         name = try container.decode(.name)
+        age = try container.decodeIfPresent(.age)
+        transformedDesc = try container.decode(.transformedDesc) {
+            (desc: String) -> String in
+            
+            return "\(desc) Transformed"
+        }
+        transformedOptionalDesc = try container.decodeIfPresent(.transformedOptionalDesc) {
+            (desc: String) -> String in
+            
+            return "\(desc) Transformed"
+        }
     }
 }
 
-struct RegexWrapper: Codable {
+private struct RegexWrapper: Codable {
+    
     let regex: NSRegularExpression
 
     private enum CodingKeys: String, CodingKey {
@@ -40,7 +59,8 @@ struct RegexWrapper: Codable {
     }
 }
 
-struct OptionalRegexWrapper: Decodable {
+private struct OptionalRegexWrapper: Decodable {
+    
     let regex: NSRegularExpression?
 
     private enum CodingKeys: String, CodingKey {
@@ -52,26 +72,35 @@ struct OptionalRegexWrapper: Decodable {
         regex = try? container.decode(.regex, transformer: RegexCodableTransformer())
     }
 }
-// swiftlint:disable force_try
-class Tests: XCTestCase {
+// swiftlint:disable force_try force_unwrapping
+final class Tests: XCTestCase {
+    
     func testDecodingStandardType() {
         let json = """
         {
-         "name": "James Ruston"
+            "name": "James Ruston",
+            "desc": "Description"
         }
-        """.data(using: .utf8)! // swiftlint:disable:this force_unwrapping
+        """.data(using: .utf8)!
 
         let person = try! JSONDecoder().decode(Person.self, from: json)
 
         XCTAssertEqual(person.name, "James Ruston")
+        XCTAssertNil(person.age)
+        XCTAssertEqual(person.transformedDesc, "Description Transformed")
+        XCTAssertNil(person.transformedOptionalDesc)
+    }
+    
+    func testDecodingWithUnkeyedContainer() {
+        
     }
 
     func testCustomTransformer() {
         let json = """
         {
-         "regex": ".*"
+            "regex": ".*"
         }
-        """.data(using: .utf8)! // swiftlint:disable:this force_unwrapping
+        """.data(using: .utf8)!
 
         let wrapper = try! JSONDecoder().decode(RegexWrapper.self, from: json)
 
@@ -81,9 +110,9 @@ class Tests: XCTestCase {
     func testInvalidType() {
         let json = """
         {
-         "regex": true
+            "regex": true
         }
-        """.data(using: .utf8)! // swiftlint:disable:this force_unwrapping
+        """.data(using: .utf8)!
 
         let wrapper = try? JSONDecoder().decode(RegexWrapper.self, from: json)
 
@@ -93,9 +122,9 @@ class Tests: XCTestCase {
     func testInvalidRegex() {
         let json = """
         {
-         "regex": "["
+            "regex": "["
         }
-        """.data(using: .utf8)! // swiftlint:disable:this force_unwrapping
+        """.data(using: .utf8)!
 
         let wrapper = try! JSONDecoder().decode(OptionalRegexWrapper.self, from: json)
 
@@ -104,15 +133,14 @@ class Tests: XCTestCase {
 
     func testEncoding() {
         let jsonString = "{\"regex\":\".*\"}"
-        let json = jsonString.data(using: .utf8)! // swiftlint:disable:this force_unwrapping
+        let json = jsonString.data(using: .utf8)!
 
         let wrapper = try! JSONDecoder().decode(RegexWrapper.self, from: json)
         let encoded = try! JSONEncoder().encode(wrapper)
 
-        let output = String(data: encoded, encoding: .utf8)! // swiftlint:disable:this force_unwrapping
+        let output = String(data: encoded, encoding: .utf8)!
 
         XCTAssertEqual(jsonString, output)
-
     }
 }
-// swiftlint:enable force_try
+// swiftlint:enable force_try force_unwrapping

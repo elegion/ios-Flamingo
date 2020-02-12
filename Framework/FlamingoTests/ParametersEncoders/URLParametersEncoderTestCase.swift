@@ -7,9 +7,10 @@
 //
 
 import XCTest
-import Flamingo
+@testable import Flamingo
 
-class URLParametersEncoderTestCase: XCTestCase {
+final class URLParametersEncoderTestCase: XCTestCase {
+    
     private var encoder: ParametersEncoder {
         return URLParametersEncoder()
     }
@@ -26,10 +27,10 @@ class URLParametersEncoderTestCase: XCTestCase {
         return URLRequest(url: URL(fileURLWithPath: "/"))
     }
 
-    public func test_constructingQueryWithData_expectsUrlWithQuery() {
-        // swiftlint:disable line_length
+    func test_constructingQueryWithData_expectsUrlWithQuery() {
+        // swiftlint:disable:next line_length
         let expected = "http://127.0.0.1?root%5Barray%5D%5B%5D=1&root%5Barray%5D%5B%5D=2&root%5Barray%5D%5B%5D=3&root%5Bbool%5D=1&root%5Bdictionary%5D%5Bkey%261%5D=value1&root%5Bdictionary%5D%5Bkey2%5D=value2&root%5Bdictionary%5D%5Bkey3%5D=value3&root%5Bint%5D=12&root%5Bnested_dictionary%5D%5Bdictionary2%5D%5Bkey4%5D=value4&root%5Bnested_dictionary%5D%5Bdictionary2%5D%5Bkey5%5D=5&root%5Bnested_dictionary%5D%5Bdictionary2%5D%5Bkey6%5D=0&root%5Bstring%5D=string!@%23$%25%5E%26*()_+%3D-%5B%5D%7B%7D;\'%22:,./%3C%3E?%60~%5C"
-        // swiftlint:enable line_length
+        
         let data: [String: Any] = [
             "root": [
                 "dictionary": [
@@ -67,7 +68,7 @@ class URLParametersEncoderTestCase: XCTestCase {
         }
     }
 
-    public func test_construcingQueryByNil_expectsOnlyUrl() {
+    func test_construcingQueryByNil_expectsOnlyUrl() {
         let expected = self.urlString
 
         let data: [String: Any]? = nil
@@ -86,7 +87,7 @@ class URLParametersEncoderTestCase: XCTestCase {
         }
     }
 
-    public func test_appendingQuery_expectsAllDataInUrl() {
+    func test_appendingQuery_expectsAllDataInUrl() {
         let query = "?some_query"
         let expected = URL(string: self.urlString + "?some_query&key=value")?.absoluteString ?? ""
 

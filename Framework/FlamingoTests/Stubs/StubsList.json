@@ -1,25 +1,26 @@
 {
     "stubs": [
         {
-              "url": "/method/text",
-              "method": "POST",
-              "params": {"some": 4545,
-                        "keystring": "string",
-                        "array": [1, 2, 3],
-                        "dict": {"1": "1", "2": "2"},
-                        "array_of_dict": [{"1": "1"}, {"2": "2"}],
-                        "double": 1.1,
-                        "boolean": true,
-                        "bool": false,
-                        "null": null
-              },
-              "stub": {
-                    "statusCode": 200,
-                    "headers": {
+            "url": "/method/text",
+            "method": "POST",
+            "body": {
+                "some": 4545,
+                "keystring": "string",
+                "array": [1, 2, 3],
+                "dict": {"1": "1", "2": "2"},
+                "array_of_dict": [{"1": "1"}, {"2": "2"}],
+                "double": 1.1,
+                "boolean": true,
+                "bool": false,
+                "null": null
+            },
+            "stub": {
+                "statusCode": 200,
+                "headers": {
                     "Content-Type": "plain/text",
                     "Cache-control": "no-cache"
-                    },
-              "body": "text"
+                },
+                "body": "text"
             }
         },
         {
@@ -27,38 +28,38 @@
             "method": "GET",
             "stub": {
                 "statusCode": 401,
-              "headers": {
+                "headers": {
                     "Content-Type": "application/json",
                     "Cache-control": "no-cache"
-              },
-              "body": "{\"haha\": value}"
+                },
+                "body": "{\"haha\": value}"
             }
         },
-          {
-              "url": "/method/errormethod",
-              "method": "PUT",
-              "stub": {
+        {
+            "url": "/method/errormethod",
+            "method": "PUT",
+            "stub": {
                 "statusCode": 401,
                 "headers": {
                     "Cache-control": "no-cache"
                 },
-              "error": {
-                "domain": "123123",
-                "code": 123,
-                "message": "Some error message"
-              }
-             }
-          },
-         {
-              "url": "/method/errormethod",
-              "method": "GET",
-              "stub": {
-              "statusCode": 200,
-              "body": {
-                "1": 1,
-                "2": 2
-              }
-             }
-          }
+                "error": {
+                    "domain": "123123",
+                    "code": 123,
+                    "message": "Some error message"
+                }
+            }
+        },
+        {
+            "url": "/method/errormethod",
+            "method": "GET",
+            "stub": {
+                "statusCode": 200,
+                "body": {
+                    "1": 1,
+                    "2": 2
+                }
+            }
+        }
     ]
 }

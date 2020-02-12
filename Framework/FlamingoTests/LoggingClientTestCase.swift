@@ -10,13 +10,14 @@ import XCTest
 @testable import Flamingo
 
 private class MockClient: NetworkClient {
+    
     private(set) var sendRequestExecuted: Bool = false
     private var queue: DispatchQueue {
         return DispatchQueue(label: "com.e-legion.test.queue", attributes: .concurrent)
     }
 
-    public var responseResult: Result<StubModel, Error>?
-    public var context = NetworkContext(request: nil, response: nil, data: nil, error: nil)
+    var responseResult: Result<StubModel, Error>?
+    var context = NetworkContext(request: nil, response: nil, data: nil, error: nil)
 
     private var reporters = ObserversArray<NetworkClientReporter>()
 
@@ -57,7 +58,7 @@ private class MockClient: NetworkClient {
 private class MockLogger: Logger {
     private(set) var logSended: Bool = false
 
-    public func log(_ message: String, context: [String: Any]?) {
+    func log(_ message: String, context: [String: Any]?) {
         self.logSended = true
     }
 }
@@ -67,6 +68,7 @@ struct StubModel: Codable {
 }
 
 struct StubRequest: NetworkRequest {
+    
     var responseSerializer: CodableJSONSerializer<StubModel> {
         return CodableJSONSerializer()
     }
@@ -76,7 +78,8 @@ struct StubRequest: NetworkRequest {
     }
 }
 
-class LoggingClientTestCase: XCTestCase {
+final class LoggingClientTestCase: XCTestCase {
+    
     private var mockLogger: MockLogger {
         return MockLogger()
     }
@@ -111,13 +114,13 @@ class LoggingClientTestCase: XCTestCase {
         return StubRequest()
     }
 
-    public func test_instanciateLoggingClient_expectedClient() {
+    func test_instanciateLoggingClient_expectedClient() {
         let client = self.client()
 
         XCTAssertNotNil(client)
     }
 
-    public func test_checkCallingDecoratedClient_expectedTrue() {
+    func test_checkCallingDecoratedClient_expectedTrue() {
         let expectation = self.expectation(description: #function)
         let mockClient = self.mockClient
         mockClient.responseResult = .success(self.stubModel)
@@ -133,7 +136,7 @@ class LoggingClientTestCase: XCTestCase {
         self.waitForExpectations(timeout: 5, handler: nil)
     }
 
-    public func test_checkLogging_expectedTrue() {
+    func test_checkLogging_expectedTrue() {
         let expectation = self.expectation(description: #function)
         let mockLogger = self.mockLogger
         let clients = self.client(logger: mockLogger)
@@ -148,7 +151,7 @@ class LoggingClientTestCase: XCTestCase {
         self.waitForExpectations(timeout: 5, handler: nil)
     }
 
-    public func test_disableLogging_expectedFalse() {
+    func test_disableLogging_expectedFalse() {
         let expectation = self.expectation(description: #function)
         let logger = self.mockLogger
         let clients = self.client(logger: logger)
@@ -164,7 +167,7 @@ class LoggingClientTestCase: XCTestCase {
         self.waitForExpectations(timeout: 5, handler: nil)
     }
 
-    public func test_saveDisablingForRequest_expectedFalse() {
+    func test_saveDisablingForRequest_expectedFalse() {
         let expectation = self.expectation(description: #function)
         let logger = self.mockLogger
         let clients = self.client(logger: logger)
@@ -184,8 +187,8 @@ class LoggingClientTestCase: XCTestCase {
     func test_logToConsole() {
         let mockClient = self.mockClient
         let dataString = """
-Hey! "Name": {Here is data as string}
-"""
+            Hey! "Name": {Here is data as string}
+        """
         mockClient.context = NetworkContext(request: nil,
                                             response: nil,
                                             data: dataString.data(using: .utf8), error: nil)

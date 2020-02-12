@@ -38,35 +38,29 @@ private final class MockMutater: NetworkClientMutater {
     let testStatusCode = 212
 
     func response<Request>(for request: Request) -> NetworkClientMutater.RawResponseTuple? where Request: NetworkRequest {
-        if request.URL == mockableRequest.URL &&
-            request.parameters == mockableRequest.parameters &&
-            request.baseURL == mockableRequest.baseURL {
-
-            do {
-                let response = HTTPURLResponse(url: try request.URL.asURL(),
-                                               statusCode: testStatusCode,
-                                               httpVersion: nil,
-                                               headerFields: nil)
-                let data = testData.data(using: .utf8)
-                return (data, response, nil)
-            } catch {
+        guard request.URL == mockableRequest.URL &&
+            request.body?.parameters == mockableRequest.body?.parameters &&
+            request.baseURL == mockableRequest.baseURL else {
                 return nil
-            }
         }
-        return nil
+        
+        do {
+            let response = HTTPURLResponse(url: try request.URL.asURL(),
+                                           statusCode: testStatusCode,
+                                           httpVersion: nil,
+                                           headerFields: nil)
+            
+            let data = testData.data(using: .utf8)
+            
+            return (data, response, nil)
+        } catch {
+            return nil
+        }
     }
 }
 
-class NetworkClientMutaterTests: XCTestCase {
-
-    override func setUp() {
-        super.setUp()
-    }
-
-    override func tearDown() {
-        super.tearDown()
-    }
-
+final class NetworkClientMutaterTests: XCTestCase {
+    
     var networkClient: NetworkDefaultClient {
         let configuration = NetworkDefaultConfiguration(baseURL: "http://www.mocky.io/")
         return NetworkDefaultClient(configuration: configuration, session: .shared)

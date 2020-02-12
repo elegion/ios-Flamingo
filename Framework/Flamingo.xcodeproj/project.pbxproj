@@ -53,6 +53,7 @@
 		E284B6C61FA21D01001B2123 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E284B6C31FA21D01001B2123 /* Logger.swift */; };
 		E2A3E5CD1F9777090085D6D5 /* URLParametersEncoderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3E5CC1F9777090085D6D5 /* URLParametersEncoderTestCase.swift */; };
 		E2D0DC8A207647C500953313 /* CodableExtensionTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D0DC89207647C500953313 /* CodableExtensionTestCase.swift */; };
+		EB08765323F466FE005A82C0 /* FormURLParametersEncoderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08765223F466FE005A82C0 /* FormURLParametersEncoderTestCase.swift */; };
 		FE80C35E1F6FE5450060141B /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3531F6FE4080060141B /* Cancellable.swift */; };
 		FE80C35F1F6FE5470060141B /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3591F6FE4080060141B /* NetworkConfiguration.swift */; };
 		FE80C3601F6FE5490060141B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3541F6FE4080060141B /* Error.swift */; };
@@ -130,6 +131,7 @@
 		E2BC881E1F7E5124005CA524 /* Flamingo.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = Flamingo.podspec; path = ../Flamingo.podspec; sourceTree = "<group>"; };
 		E2D0DC89207647C500953313 /* CodableExtensionTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableExtensionTestCase.swift; sourceTree = "<group>"; };
 		E2DAC70F1FA1F5BA00793F3E /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = .travis.yml; path = ../.travis.yml; sourceTree = "<group>"; };
+		EB08765223F466FE005A82C0 /* FormURLParametersEncoderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormURLParametersEncoderTestCase.swift; sourceTree = "<group>"; };
 		FE80C3531F6FE4080060141B /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		FE80C3541F6FE4080060141B /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		FE80C3551F6FE4080060141B /* ParametersEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersEncoding.swift; sourceTree = "<group>"; };
@@ -247,18 +249,17 @@
 		94E20C9A1F7982F90017D46C /* FlamingoTests */ = {
 			isa = PBXGroup;
 			children = (
+				EB08765123F4646B005A82C0 /* ParametersEncoders */,
 				E2D0DC88207647AE00953313 /* Codable Extension */,
 				E228337E1FA218F4000F479D /* NetworkClient */,
 				E22833741FA218F4000F479D /* ResponseSerializers */,
 				E22833781FA218F4000F479D /* Stubs */,
 				94E20C9D1F7982F90017D46C /* Info.plist */,
-				E22833921FA21904000F479D /* JSONParametersEncoderTestCase.swift */,
 				E22833901FA21904000F479D /* JSONSerializerTestCase.swift */,
 				E284B6BF1FA21CE5001B2123 /* LoggingClientTestCase.swift */,
 				E26F78961F9A06ED007D13D1 /* OptionalProtocolTestCase.swift */,
 				E22833911FA21904000F479D /* URLConvertableTestCase.swift */,
 				E284B6BD1FA21CE0001B2123 /* SimpleLoggerTestCase.swift */,
-				E2A3E5CC1F9777090085D6D5 /* URLParametersEncoderTestCase.swift */,
 				94E20C9B1F7982F90017D46C /* ValidationTests.swift */,
 				9488CB072017963900D7151D /* NetworkClientReporterCallTests.swift */,
 				9488CB0D201889EB00D7151D /* RealRequestsTests.swift */,
@@ -334,7 +335,6 @@
 				E2BC881B1F7E5124005CA524 /* README.md */,
 			);
 			name = "Supporting Files";
-			path = "../Supporting Files";
 			sourceTree = "<group>";
 		};
 		E2D0DC88207647AE00953313 /* Codable Extension */ = {
@@ -343,6 +343,16 @@
 				E2D0DC89207647C500953313 /* CodableExtensionTestCase.swift */,
 			);
 			path = "Codable Extension";
+			sourceTree = "<group>";
+		};
+		EB08765123F4646B005A82C0 /* ParametersEncoders */ = {
+			isa = PBXGroup;
+			children = (
+				E2A3E5CC1F9777090085D6D5 /* URLParametersEncoderTestCase.swift */,
+				E22833921FA21904000F479D /* JSONParametersEncoderTestCase.swift */,
+				EB08765223F466FE005A82C0 /* FormURLParametersEncoderTestCase.swift */,
+			);
+			path = ParametersEncoders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -519,6 +529,7 @@
 				E228338C1FA218F5000F479D /* NetworkClientBaseTestCase.swift in Sources */,
 				9488CB1020188C7100D7151D /* NetworkClientMutaterTests.swift in Sources */,
 				E26F78971F9A06ED007D13D1 /* OptionalProtocolTestCase.swift in Sources */,
+				EB08765323F466FE005A82C0 /* FormURLParametersEncoderTestCase.swift in Sources */,
 				E22833951FA21904000F479D /* JSONParametersEncoderTestCase.swift in Sources */,
 				E22833861FA218F5000F479D /* StringResponseSerializerTestCase.swift in Sources */,
 				E22833941FA21904000F479D /* URLConvertableTestCase.swift in Sources */,

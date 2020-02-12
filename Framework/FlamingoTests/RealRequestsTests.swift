@@ -40,10 +40,6 @@ struct User: Codable {
 
 struct UsersRequest: NetworkRequest {
 
-    init() {
-
-    }
-
     // MARK: - Implementation
 
     var URL: URLConvertible {
@@ -55,11 +51,11 @@ struct UsersRequest: NetworkRequest {
     }
 
     var responseSerializer: CodableJSONSerializer<[User]> {
-        return CodableJSONSerializer<[User]>()
+        return ResponseSerializer()
     }
 }
 
-class RealRequestsTests: XCTestCase {
+final class RealRequestsTests: XCTestCase {
 
     var networkClient: NetworkClient!
 

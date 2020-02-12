@@ -9,15 +9,12 @@
 import XCTest
 import Flamingo
 
-private class StubsManagerMock: StubsManager {
+private final class StubsManagerMock: StubsManager {
 
-    public var affected = false
-
-    internal var hasMockAnswer: Bool = false
-
+    var affected = false
+    var hasMockAnswer: Bool = false
     var error: Swift.Error?
-
-    public var notFoundStubBehavior: NotFoundStubBehavior = .giveError
+    var notFoundStubBehavior: NotFoundStubBehavior = .giveError
 
     func add(_ key: RequestStub, stub: ResponseStub) {
 
@@ -67,6 +64,7 @@ private class StubsManagerMock: StubsManager {
 }
 
 private struct TestModel: Decodable, Equatable {
+    
     var field: String
 
     static func == (lhs: TestModel, rhs: TestModel) -> Bool {
@@ -75,16 +73,18 @@ private struct TestModel: Decodable, Equatable {
 }
 
 private struct TestRequest: NetworkRequest {
+    
     var URL: URLConvertible {
         return "index.html"
     }
 
     var responseSerializer: CodableJSONSerializer<TestModel> {
-        return CodableJSONSerializer()
+        return ResponseSerializer()
     }
 }
 
-class NetworkClientStubsTests: XCTestCase {
+final class NetworkClientStubsTests: XCTestCase {
+    
     private var stubClient: StubsManager {
         return StubsManagerMock()
     }
@@ -94,7 +94,6 @@ class NetworkClientStubsTests: XCTestCase {
     }
 
     private var configuredClient: NetworkDefaultClientStubs {
-
         let client = NetworkDefaultClientStubs.defaultForTest()
         let stubs = self.stubClient
         client.stubsManager = stubs
@@ -102,23 +101,23 @@ class NetworkClientStubsTests: XCTestCase {
         return client
     }
 
-    public func test_setStubClient() {
+    func test_setStubClient() {
         _ = self.configuredClient
     }
 
-    public func test_enableStubs() {
+    func test_enableStubs() {
         let client = self.configuredClient
 
         client.enableStubs()
     }
 
-    public func test_disableStubs() {
+    func test_disableStubs() {
         let client = self.configuredClient
 
         client.disableStubs()
     }
 
-    public func test_getStubOnNotConfiguredClient_expectedError() {
+    func test_getStubOnNotConfiguredClient_expectedError() {
         let expectation = self.expectation(description: #function)
         let client = self.client
         client.stubsManager = nil
@@ -141,7 +140,7 @@ class NetworkClientStubsTests: XCTestCase {
         self.waitForExpectations(timeout: 5, handler: nil)
     }
 
-    public func test_getStub_expectedResponse() {
+    func test_getStub_expectedResponse() {
         let expectation = self.expectation(description: #function)
 
         let client = self.configuredClient
@@ -160,7 +159,7 @@ class NetworkClientStubsTests: XCTestCase {
         self.waitForExpectations(timeout: 5, handler: nil)
     }
 
-    public func test_changingToRealClientOnNotExistsStub_expectedSwiftError() {
+    func test_changingToRealClientOnNotExistsStub_expectedSwiftError() {
         let expectation = self.expectation(description: #function)
         let client = self.configuredClient
         client.enableStubs()
@@ -184,7 +183,7 @@ class NetworkClientStubsTests: XCTestCase {
         self.waitForExpectations(timeout: 5, handler: nil)
     }
 
-    public func test_expectingStubsError() {
+    func test_expectingStubsError() {
         let expectation = self.expectation(description: #function)
         let client = self.configuredClient
         client.enableStubs()
@@ -208,7 +207,7 @@ class NetworkClientStubsTests: XCTestCase {
         self.waitForExpectations(timeout: 5, handler: nil)
     }
 
-    public func test_gettingResponseOnExistingStub_expectedResponse() {
+    func test_gettingResponseOnExistingStub_expectedResponse() {
         let expectation = self.expectation(description: #function)
         let client = self.configuredClient
         client.enableStubs()
@@ -236,14 +235,13 @@ class NetworkClientStubsTests: XCTestCase {
         let double: Double
     }
 
-    class SimpleRequest: NetworkRequest {
+    struct SimpleRequest: NetworkRequest {
+        
         var URL: URLConvertible {
             return "some_url.htm"
         }
 
-        typealias ResponseSerializer = CodableJSONSerializer<SimpleObject>
-
-        var responseSerializer: CodableJSONSerializer<NetworkClientStubsTests.SimpleObject> {
+        var responseSerializer: CodableJSONSerializer<SimpleObject> {
             return ResponseSerializer()
         }
     }
@@ -254,10 +252,12 @@ class NetworkClientStubsTests: XCTestCase {
         let stubs = StubsDefaultManager()
 
         let request = SimpleRequest()
-        let body: [String: Any] = ["id": 2,
-                    "string": "some",
-                    "double": 3.0,
-                    ]
+        let body: [String: Any] = [
+            "id": 2,
+            "string": "some",
+            "double": 3.0,
+        ]
+        
         if let requestStub = RequestStub(request),
             let responseStub = try? ResponseStub(bodyJSON: body) {
             client.addMutater(stubs)

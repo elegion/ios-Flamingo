@@ -9,7 +9,8 @@
 import XCTest
 import Flamingo
 
-class SimpleLoggerTestCase: XCTestCase {
+final class SimpleLoggerTestCase: XCTestCase {
+    
     private struct Consts {
         static let appName = "Flamingo tests"
         static let message = "Some message"
@@ -19,25 +20,25 @@ class SimpleLoggerTestCase: XCTestCase {
         return SimpleLogger(appName: SimpleLoggerTestCase.Consts.appName)
     }
 
-    public func test_instanciateLogger_expectedLogger() {
+    func test_instanciateLogger_expectedLogger() {
         let logger = self.logger
 
         XCTAssertNotNil(logger)
     }
 
-    public func test_loggingMessage() {
+    func test_loggingMessage() {
         let logger = self.logger
 
         logger.log(SimpleLoggerTestCase.Consts.message)
     }
 
-    public func test_loggingWithContext() {
+    func test_loggingWithContext() {
         let logger = self.logger
 
         logger.log(SimpleLoggerTestCase.Consts.message, context: [:])
     }
 
-    public func test_loggingWithVariableContext() {
+    func test_loggingWithVariableContext() {
         let logger = self.logger
 
         [
@@ -52,7 +53,7 @@ class SimpleLoggerTestCase: XCTestCase {
         }
     }
 
-    public func test_loggingURLRequest() {
+    func test_loggingURLRequest() {
         let logger = self.logger
         let request = URLRequest(url: URL(string: "/")  ?? URL(fileURLWithPath: ""))
 

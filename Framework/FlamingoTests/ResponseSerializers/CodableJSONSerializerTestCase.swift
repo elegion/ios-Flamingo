@@ -17,7 +17,8 @@ private struct Stub: Decodable, Equatable {
     }
 }
 
-class CodableJSONSerializerTestCase: XCTestCase {
+final class CodableJSONSerializerTestCase: XCTestCase {
+    
     enum SomeError: Swift.Error {
         case error
     }
@@ -31,7 +32,7 @@ class CodableJSONSerializerTestCase: XCTestCase {
     private let request: URLRequest? = nil
     private let response: HTTPURLResponse? = nil
 
-    public func test_serializeData_expectedValidData() {
+    func test_serializeData_expectedValidData() {
         let expected = Stub(key: "value")
         let serializedData = "{\"key\":\"value\"}".data(using: .utf8)
         let error: SomeError? = nil
@@ -44,7 +45,7 @@ class CodableJSONSerializerTestCase: XCTestCase {
         XCTAssertEqual(expected, try? actual.get())
     }
 
-    public func test_serializeDataWithError_expectedError() {
+    func test_serializeDataWithError_expectedError() {
         let serializedData: Data? = nil
         let error = SomeError.error
         let expected = error
@@ -62,7 +63,7 @@ class CodableJSONSerializerTestCase: XCTestCase {
         }
     }
 
-    public func test_serializeDataNoErrorNoData_expectedError() {
+    func test_serializeDataNoErrorNoData_expectedError() {
         let serializedData: Data? = nil
         let error: SomeError? = nil
         let expected = FlamingoError.unableToRetrieveDataAndError

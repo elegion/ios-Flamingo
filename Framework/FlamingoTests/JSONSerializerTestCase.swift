@@ -17,7 +17,8 @@ private struct SomeStruct: Equatable, Decodable {
     }
 }
 
-class JSONSerializerTestCase: XCTestCase {
+final class JSONSerializerTestCase: XCTestCase {
+    
     private var serializer: JSONSerializer {
         return JSONSerializer()
     }
@@ -34,27 +35,27 @@ class JSONSerializerTestCase: XCTestCase {
         return SomeStruct(key: "value")
     }
 
-    public func test_createSerializer() {
+    func test_createSerializer() {
         let serializer = self.serializer
 
         XCTAssertNotNil(serializer)
     }
 
-    public func test_deserializeString_expectedValidStruct() {
+    func test_deserializeString_expectedValidStruct() {
         let serializer = self.serializer
         let actual: Result<SomeStruct, Error> = serializer.deserialize(string: self.jsonString)
 
         XCTAssertEqual(self.defaultExpected, try? actual.get())
     }
 
-    public func test_deserializeWrongString_expectedErrorResult() {
+    func test_deserializeWrongString_expectedErrorResult() {
         let serializer = self.serializer
         let actual: Result<SomeStruct, Error> = serializer.deserialize(string: "")
 
         XCTAssertThrowsError(try actual.get())
     }
 
-    public func test_deserializeData_expectedValidStruct() {
+    func test_deserializeData_expectedValidStruct() {
         let serializer = self.serializer
         let actual: Result<SomeStruct, Error> = serializer.deserialize(data: self.jsonData)
 

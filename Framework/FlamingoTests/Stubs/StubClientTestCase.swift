@@ -9,7 +9,8 @@
 import XCTest
 import Flamingo
 
-class StubClientTestCase: XCTestCase {
+final class StubClientTestCase: XCTestCase {
+    
     private var client: StubsDefaultManager {
         return StubsDefaultManager()
     }
@@ -22,23 +23,23 @@ class StubClientTestCase: XCTestCase {
         return ResponseStub(body: Data())
     }
 
-    public func test_creation_expectedClient() {
+    func test_creation_expectedClient() {
         let actual = self.client
 
         XCTAssertNotNil(actual)
     }
 
-    public func test_addingOneStub() {
+    func test_addingOneStub() {
         let client = self.client
 
         _ = client.add(RequestStub(url: url, method: .get), stub: stub)
     }
 
-    public func test_addingManyStubs() {
+    func test_addingManyStubs() {
         let client = self.client
 
-        let stubItem = RequestStubMap(url: self.url, method: HTTPMethod.get, params: nil, responseStub: self.stub)
-        let secondStubItem = RequestStubMap(url: self.url, method: HTTPMethod.post, params: nil, responseStub: self.stub)
+        let stubItem = RequestStubMap(url: url, method: .get, query: nil, body: nil, responseStub: stub)
+        let secondStubItem = RequestStubMap(url: url, method: .post, query: nil, body: nil, responseStub: stub)
         let stubs = [stubItem]
         let secondStubs = [secondStubItem]
 
@@ -46,7 +47,7 @@ class StubClientTestCase: XCTestCase {
         client.add(stubsArray: secondStubs)
     }
 
-    public func test_detectExistingMockOnUnconfiguredClient_expectedFalse() {
+    func test_detectExistingMockOnUnconfiguredClient_expectedFalse() {
         let client = self.client
 
         let actual = client.hasStub(RequestStub(url: URL(string: "some_url/") ?? URL(fileURLWithPath: ""), method: .get))
@@ -54,21 +55,21 @@ class StubClientTestCase: XCTestCase {
         XCTAssertFalse(actual)
     }
 
-    public func test_detectExistingMockOnConfiguredClient_expectedTrue() {
+    func test_detectExistingMockOnConfiguredClient_expectedTrue() {
         let url = URL(string: "some_url/") ?? URL(fileURLWithPath: "")
         let method = HTTPMethod.get
 
         let client = self.client
-        let key = RequestStub(url: url, method: method, params: ["key": 1])
+        let key = RequestStub(url: url, method: method, body: ["key": 1])
         client.add(key, stub: stub)
 
         XCTAssertTrue(client.hasStub(key))
     }
 
-    public func test_removingStubByMethod_expectedFalse() {
+    func test_removingStubByMethod_expectedFalse() {
         let method = HTTPMethod.get
 
-        let key = RequestStub(url: self.url, method: method, params: nil)
+        let key = RequestStub(url: self.url, method: method, body: nil)
         let client = self.client
         client.add(key, stub: self.stub)
         client.remove(key)
@@ -83,7 +84,7 @@ class StubClientTestCase: XCTestCase {
         }
 
         var responseSerializer: StringResponseSerializer {
-            return StringResponseSerializer()
+            return ResponseSerializer()
         }
     }
 
@@ -95,7 +96,7 @@ class StubClientTestCase: XCTestCase {
         let method = HTTPMethod.get
         let expectedError = self.stub.error
 
-        let key = RequestStub(url: self.url, method: method, params: nil)
+        let key = RequestStub(url: self.url, method: method)
         let client = self.client
         client.add(key, stub: self.stub)
 
@@ -120,7 +121,7 @@ class StubClientTestCase: XCTestCase {
             let method = HTTPMethod.get
             let expectedError = responseStub.error
 
-            let key = RequestStub(url: self.url, method: method, params: nil)
+            let key = RequestStub(url: self.url, method: method)
             let client = self.client
             client.add(key, stub: responseStub)
 

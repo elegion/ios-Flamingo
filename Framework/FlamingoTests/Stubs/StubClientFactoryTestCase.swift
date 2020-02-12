@@ -13,7 +13,8 @@ private func expectedFileFor(_ name: String) -> String? {
     return Bundle(for: StubClientFactoryTestCase.self).path(forResource: name, ofType: nil)
 }
 
-class StubClientFactoryTestCase: XCTestCase {
+final class StubClientFactoryTestCase: XCTestCase {
+    
     private var url: URL {
         return URL(string: "method") ?? URL(fileURLWithPath: "")
     }
@@ -22,30 +23,29 @@ class StubClientFactoryTestCase: XCTestCase {
         return ResponseStub(body: Data())
     }
 
-    public func test_simpleCreateClient() {
+    func test_simpleCreateClient() {
         let client = StubsManagerFactory.manager()
 
         XCTAssertNotNil(client)
     }
 
-    public func test_createClientWithOneMethod_expectedClient() {
+    func test_createClientWithOneMethod_expectedClient() {
         let key = RequestStub(url: url, method: .get)
         let client = StubsManagerFactory.manager(key, stub: stub)
 
         XCTAssertTrue(client.hasStub(key))
     }
 
-    public func test_createClientWithDictionary_expectedClient() {
-        let stubMethod = RequestStubMap(url: self.url, method: HTTPMethod.get, params: nil, responseStub: self.stub)
-        let stubMethod2 = RequestStubMap(url: URL(fileURLWithPath: "\\"), method: HTTPMethod.post, params: ["wqe": 234],
-                                         responseStub: self.stub)
+    func test_createClientWithDictionary_expectedClient() {
+        let stubMethod = RequestStubMap(url: url, method: .get, query: nil, body: nil, responseStub: stub)
+        let stubMethod2 = RequestStubMap(url: URL(fileURLWithPath: "\\"), method: .post, query: nil, body: ["wqe": 234], responseStub: self.stub)
         let client = StubsManagerFactory.manager(with: [stubMethod, stubMethod2])
 
         XCTAssertTrue(client.hasStub(stubMethod.requestStub))
         XCTAssertTrue(client.hasStub(stubMethod2.requestStub))
     }
 
-    public func test_createFromNotExistsFile_expectedException() {
+    func test_createFromNotExistsFile_expectedException() {
         let expectedFileName = "not exists file"
 
         XCTAssertException(
@@ -54,7 +54,7 @@ class StubClientFactoryTestCase: XCTestCase {
         )
     }
 
-    public func test_createFromFile_expectedClient() {
+    func test_createFromFile_expectedClient() {
         guard let expectedFileName = expectedFileFor("StubsList.json") else {
             XCTFail(" ")
             return
@@ -68,7 +68,7 @@ class StubClientFactoryTestCase: XCTestCase {
         }
     }
 
-    public func test_stubsParsing() {
+    func test_stubsParsing() {
         guard let expectedFileName = expectedFileFor("StubsList.json") else {
             XCTFail(" ")
             return
@@ -82,17 +82,17 @@ class StubClientFactoryTestCase: XCTestCase {
             XCTAssertEqual(stubFile.stubs[0].responseStub.headers ?? [:], ["Content-Type": "plain/text",
                                                                     "Cache-control": "no-cache", ])
             XCTAssertEqual(stubFile.stubs[0].responseStub.body?.data, "text".data(using: .utf8))
-            XCTAssertEqual(stubFile.stubs[0].params?["some"] as? Int, 4545)
-            XCTAssertEqual(stubFile.stubs[0].params?["keystring"] as? String, "string")
-            XCTAssertEqual((stubFile.stubs[0].params?["array"] as? [Int]) ?? [], [1, 2, 3])
-            XCTAssertEqual((stubFile.stubs[0].params?["dict"] as? [String: String]) ?? [:], ["1": "1", "2": "2"])
-            if let arrayOfDict = stubFile.stubs[0].params?["array_of_dict"] as? [[String: String]] {
+            XCTAssertEqual(stubFile.stubs[0].body?["some"] as? Int, 4545)
+            XCTAssertEqual(stubFile.stubs[0].body?["keystring"] as? String, "string")
+            XCTAssertEqual((stubFile.stubs[0].body?["array"] as? [Int]) ?? [], [1, 2, 3])
+            XCTAssertEqual((stubFile.stubs[0].body?["dict"] as? [String: String]) ?? [:], ["1": "1", "2": "2"])
+            if let arrayOfDict = stubFile.stubs[0].body?["array_of_dict"] as? [[String: String]] {
                 XCTAssertEqual(arrayOfDict[0], ["1": "1"])
                 XCTAssertEqual(arrayOfDict[1], ["2": "2"])
             } else {
                 XCTFail(" ")
             }
-            XCTAssertEqual(stubFile.stubs[0].params?["null"] as? NSNull, NSNull())
+            XCTAssertEqual(stubFile.stubs[0].body?["null"] as? NSNull, NSNull())
 
             XCTAssertEqual(stubFile.stubs[1].url.absoluteString, "/method/nottext")
             XCTAssertEqual(stubFile.stubs[1].method.rawValue, "GET")
@@ -135,7 +135,7 @@ class StubClientFactoryTestCase: XCTestCase {
         }
     }
 
-    public func test_mappingFromFileWithBadFormat_expectedClient() {
+    func test_mappingFromFileWithBadFormat_expectedClient() {
         guard let expectedFileName = expectedFileFor("WrongList.json") else {
             XCTFail(" ")
             return

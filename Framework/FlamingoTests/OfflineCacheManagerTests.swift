@@ -69,15 +69,7 @@ private final class MockUsers: NetworkClientMutater {
     }
 }
 
-class OfflineCacheManagerTests: XCTestCase {
-
-    override func setUp() {
-        super.setUp()
-    }
-
-    override func tearDown() {
-        super.tearDown()
-    }
+final class OfflineCacheManagerTests: XCTestCase {
 
     var networkClient: NetworkDefaultClient {
         let configuration = NetworkDefaultConfiguration(baseURL: "http://jsonplaceholder.typicode.com/",

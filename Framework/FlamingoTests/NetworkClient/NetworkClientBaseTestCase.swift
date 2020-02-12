@@ -1,14 +1,14 @@
-////
-////  NetworkClientBaseTestCase.swift
-////  FlamingoTests
-////
-////  Created by Dmitrii Istratov on 05-10-2017.
-////  Copyright © 2017 ELN. All rights reserved.
-////
+//
+//  NetworkClientBaseTestCase.swift
+//  FlamingoTests
+//
+//  Created by Dmitrii Istratov on 05-10-2017.
+//  Copyright © 2017 ELN. All rights reserved.
+//
 //
 import Flamingo
 
-public protocol StubbableClient: class {
+protocol StubbableClient: class {
     var stubsManager: StubsManager? { get set }
 
     func enableStubs()
@@ -16,6 +16,7 @@ public protocol StubbableClient: class {
 }
 
 final class NetworkDefaultClientStubs: NetworkDefaultClient, StubbableClient {
+    
     struct Consts {
         static let headers = [
             (name: "Accept-Language", value: "da, en-gb;q=0.8, en;q=0.7"),
@@ -59,6 +60,7 @@ final class NetworkDefaultClientStubs: NetworkDefaultClient, StubbableClient {
 }
 
 extension NetworkDefaultClientStubs {
+    
     static func defaultForTest() -> NetworkDefaultClientStubs {
         let configuration = NetworkDefaultConfiguration(baseURL: "http://example.com/", parallel: false)
         let result = NetworkDefaultClientStubs(configuration: configuration, session: .shared)

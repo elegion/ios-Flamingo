@@ -9,7 +9,7 @@
 import XCTest
 @testable import Flamingo
 
-class RealFailedTestRequest: NetworkRequest {
+final class RealFailedTestRequest: NetworkRequest {
 
     var URL: URLConvertible {
         return "v2/59c956433f0000910183f797"
@@ -19,22 +19,16 @@ class RealFailedTestRequest: NetworkRequest {
         return .put
     }
 
-    var parameters: [String: Any]? {
-        return ["some_param": 12]
+    var body: Body? {
+        return (["some_param": 12], JSONParametersEncoder())
     }
 
-    var parametersEncoder: ParametersEncoder {
-        return JSONParametersEncoder()
-    }
-
-    typealias ResponseSerializer = StringResponseSerializer
-
-    var responseSerializer: ResponseSerializer {
+    var responseSerializer: StringResponseSerializer {
         return ResponseSerializer()
     }
 }
 
-class ValidationTests: XCTestCase {
+final class ValidationTests: XCTestCase {
 
     var client: NetworkClient!
 
@@ -130,6 +124,7 @@ class ValidationTests: XCTestCase {
 }
 
 private class MockResponse: HTTPURLResponse {
+    
     private struct Consts {
         static let jsonData = "[1,2,3]"
         static var data: Data? {

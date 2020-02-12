@@ -9,8 +9,9 @@
 import XCTest
 import Flamingo
 
-class URLConvertableTestCase: XCTestCase {
-    public func test_convertingValidString_expectedURL() {
+final class URLConvertableTestCase: XCTestCase {
+    
+    func test_convertingValidString_expectedURL() {
         let site = "http://e-legion.com/"
         let expected = URL(string: site)
 
@@ -19,7 +20,7 @@ class URLConvertableTestCase: XCTestCase {
         XCTAssertEqual(expected, actual)
     }
 
-    public func test_convertingInvalidString_MustThrowsConversionError() {
+    func test_convertingInvalidString_MustThrowsConversionError() {
         let site = "some string"
 
         do {
@@ -33,7 +34,7 @@ class URLConvertableTestCase: XCTestCase {
         XCTFail("Error not raised!")
     }
 
-    public func test_convertingUrl_expectedURL() {
+    func test_convertingUrl_expectedURL() {
         let expected = URL(string: "http://e-legion.com/")
 
         do {

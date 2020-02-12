@@ -9,7 +9,8 @@
 import XCTest
 import Flamingo
 
-class JSONParametersEncoderTestCase: XCTestCase {
+final class JSONParametersEncoderTestCase: XCTestCase {
+    
     typealias DataType = [String: [String: [String: String]]]
 
     private let urlString: String = "http://e-legion.com"
@@ -36,7 +37,7 @@ class JSONParametersEncoderTestCase: XCTestCase {
         ]
     }
 
-    public func test_encodeDataAndSetToHttpBody_expectedValidJSON() {
+    func test_encodeDataAndSetToHttpBody_expectedValidJSON() {
         let expected = self.data
 
         var request = self.request
@@ -57,7 +58,7 @@ class JSONParametersEncoderTestCase: XCTestCase {
         }
     }
 
-    public func test_encodeDataAndSetToHttpBody_expectedSameDataAsInitialValue() {
+    func test_encodeDataAndSetToHttpBody_expectedSameDataAsInitialValue() {
         let expected = self.data
 
         var request = self.request
@@ -79,7 +80,7 @@ class JSONParametersEncoderTestCase: XCTestCase {
         }
     }
 
-    public func test_serializingNilParameters_expectedNil() {
+    func test_serializingNilParameters_expectedNil() {
         var request = self.request
         let encoder = self.encoder
         let parameters: [String: Any]? = nil
@@ -93,7 +94,7 @@ class JSONParametersEncoderTestCase: XCTestCase {
         }
     }
 
-    public func test_serializingWrongDataStructure_expectedError() {
+    func test_serializingWrongDataStructure_expectedError() {
         var request = self.request
         let encoder = self.encoder
         let parameters: [String: Any]? = ["s": [ 1: "", "qwe": 32 ]]

@@ -16,15 +16,14 @@ private struct Consts {
     ]
 }
 
-class NetworkClientTestCase: XCTestCase {
+final class NetworkClientTestCase: XCTestCase {
 
     func test_parametersEncodingByParametersTuple() {
         let client = NetworkDefaultClientStubs.defaultForTest()
         let params = ["1": 1, "2": 2]
 
         var request = RequestWithParamsTuple()
-        request.parameters = params
-        request.parametersEncoder = JSONParametersEncoder()
+        request.body = (params, JSONParametersEncoder())
 
         do {
             let urlRequest = try client.urlRequest(from: request)
@@ -36,7 +35,7 @@ class NetworkClientTestCase: XCTestCase {
 
             XCTAssertNotNil(urlRequest.httpBody)
             var urlRequestWithJSONParams = URLRequest(url: url)
-            try request.parametersTuple?.1.encode(parameters: request.parametersTuple?.0, to: &urlRequestWithJSONParams)
+            try request.body?.encoder.encode(parameters: request.body?.parameters, to: &urlRequestWithJSONParams)
             XCTAssertEqual(urlRequestWithJSONParams.httpBody, urlRequest.httpBody)
 
         } catch {
@@ -90,6 +89,7 @@ class NetworkClientTestCase: XCTestCase {
 }
 
 private struct RequestWithParamsTuple: NetworkRequest {
+    
     var customURL: URLConvertible = "index.htm"
     var URL: URLConvertible {
         return customURL
@@ -100,20 +100,10 @@ private struct RequestWithParamsTuple: NetworkRequest {
         return customBaseUrl
     }
 
-    var parameters: [String: Any]?
-
-    var parametersEncoder: ParametersEncoder = URLParametersEncoder()
-
-    var parametersTuple: ([String: Any], ParametersEncoder)? {
-        if let parameters = parameters {
-            return (parameters, parametersEncoder)
-        } else {
-            return nil
-        }
-    }
+    var body: Body?
 
     var responseSerializer: StringResponseSerializer {
-        return StringResponseSerializer()
+        return ResponseSerializer()
     }
 
     var headers: [String: String?]? {
@@ -130,6 +120,7 @@ private struct RequestWithParamsTuple: NetworkRequest {
 }
 
 private struct FailURLConvertible: URLConvertible {
+    
     func asURL() throws -> URL {
         throw TestURLConvertibleError.failURLConvertible
     }
