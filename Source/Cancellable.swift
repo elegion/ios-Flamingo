@@ -1,5 +1,5 @@
 //
-//  Cancelable.swift
+//  Cancellable.swift
 //  Flamingo 1.0
 //
 //  Created by Ilya Kulebyakin on 9/15/17.
@@ -17,10 +17,9 @@ extension URLSessionDataTask: Cancellable {
         
 }
 
-class EmptyCancellable: Cancellable {
+final class EmptyCancellable: Cancellable {
     
     func cancel() {
         // do nothing
     }
-    
 }

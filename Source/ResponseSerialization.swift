@@ -8,16 +8,12 @@
 import Foundation
 
 public protocol ResponseSerialization {
-    
     associatedtype Serialized
     
     func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Swift.Error?) -> Result<Serialized, Error>
-    
 }
 
 public struct DataResponseSerializer: ResponseSerialization {
-    
-    public typealias Serialized = Data
     
     public init() { }
     
@@ -34,8 +30,6 @@ public struct DataResponseSerializer: ResponseSerialization {
 }
 
 public struct StringResponseSerializer: ResponseSerialization {
-    
-    public typealias Serialized = String
     
     let encoding: String.Encoding
     

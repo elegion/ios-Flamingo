@@ -79,16 +79,20 @@ public struct RequestStubMap: Decodable {
 
     public let url: URL
     public let method: HTTPMethod
-    public let params: [String: Any]?
+    public let query: [String: Any]?
+    public let body: [String: Any]?
+    
     public let responseStub: ResponseStub
+    
     public var requestStub: RequestStub {
-        return RequestStub(url: url, method: method, params: params)
+        return RequestStub(url: url, method: method, query: query, body: body)
     }
 
     private enum CodingKeys: String, CodingKey {
         case url
         case method
-        case params
+        case query
+        case body
         case responseStub = "stub"
     }
 
@@ -96,41 +100,54 @@ public struct RequestStubMap: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         url = try container.decode(.url)
         method = try container.decode(.method)
-        if container.contains(.params) {
-            let jsonParams: JSONAny = try container.decode(.params)
-            params = jsonParams.value as? [String: Any]
+        
+        if container.contains(.query) {
+            let jsonQuery: JSONAny = try container.decode(.query)
+            query = jsonQuery.value as? [String: Any]
         } else {
-            params = nil
+            query = nil
         }
+        
+        if container.contains(.body) {
+            let jsonBody: JSONAny = try container.decode(.body)
+            body = jsonBody.value as? [String: Any]
+        } else {
+            body = nil
+        }
+        
         responseStub = try container.decode(.responseStub)
     }
 
-    public init(url: URL, method: HTTPMethod, params: [String: Any]?, responseStub: ResponseStub) {
+    public init(url: URL, method: HTTPMethod, query: [String: Any]?, body: [String: Any]?, responseStub: ResponseStub) {
         self.url = url
         self.method = method
-        self.params = params
+        self.query = query
+        self.body = body
         self.responseStub = responseStub
     }
 
     public init(request: RequestStub, responseStub: ResponseStub) {
         self.url = request.url
         self.method = request.method
-        self.params = request.params
+        self.query = request.query
+        self.body = request.body
         self.responseStub = responseStub
     }
 }
 
 public struct StubFile: Decodable {
+    
     public let version: String?
     public let stubs: [RequestStubMap]
 
     public init(fromFile path: String, decoder: JSONDecoder = JSONDecoder()) throws {
         let filemanager = FileManager.default
-        if !filemanager.fileExists(atPath: path) {
+        
+        guard filemanager.fileExists(atPath: path) else {
             throw StubsError.stubClientFactoryError(.fileNotExists(path))
         }
 
-        if !filemanager.isReadableFile(atPath: path) {
+        guard filemanager.isReadableFile(atPath: path) else {
             throw StubsError.stubClientFactoryError(.cannotAccessToFile(path))
         }
 
@@ -143,27 +160,27 @@ public struct StubFile: Decodable {
 }
 
 public class StubsManagerFactory {
+    
     public static func manager() -> StubsDefaultManager {
         return StubsDefaultManager()
     }
 
     public static func manager(_ key: RequestStub, stub: ResponseStub) -> StubsDefaultManager {
-        let session = self.manager()
+        let session = manager()
         session.add(key, stub: stub)
         return session
     }
 
     public static func manager(with stubs: [RequestStubMap]) -> StubsDefaultManager {
-        let session = self.manager()
+        let session = manager()
         session.add(stubsArray: stubs)
 
         return session
     }
 
     public static func manager(fromFile path: String, decoder: JSONDecoder = JSONDecoder()) throws -> StubsDefaultManager {
-
         let stubFile = try StubFile(fromFile: path, decoder: decoder)
 
-        return self.manager(with: stubFile.stubs)
+        return manager(with: stubFile.stubs)
     }
 }

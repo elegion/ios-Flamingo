@@ -22,6 +22,7 @@ public struct ErrorStub: Codable {
 }
 
 public struct ResponseStub: Decodable {
+    
     public enum BodyType: Codable {
         case binary(Data)
         case string(String)

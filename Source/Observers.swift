@@ -22,10 +22,6 @@ internal class ObserversArray<T> {
 
     private var pointers = [StorageType]()
 
-    internal init() {
-
-    }
-
     internal func addObserver(observer: T, storagePolicy: StoragePolicy = .weak) {
         let storageItem: StorageType
         switch storagePolicy {

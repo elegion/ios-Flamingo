@@ -9,34 +9,38 @@
 import Foundation
 
 public protocol ParametersEncoder {
-    
     func encode(parameters: [String: Any]?, to request: inout URLRequest) throws
-    
 }
 
-public struct URLParametersEncoder: ParametersEncoder {
+internal struct URLParametersEncoder: ParametersEncoder {
     
-    public init() { }
-    
-    public func encode(parameters: [String: Any]?, to request: inout URLRequest) throws {
+    internal func encode(parameters: [String: Any]?, to request: inout URLRequest) throws {
         guard let parameters = parameters, !parameters.isEmpty else {
             return
         }
+        
         guard let url = request.url, var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
             throw FlamingoError.parametersEncodingError(.unableToRetrieveRequestURL)
         }
-        let queryItems = parameters.flatMap(self.queryComponents)
+        
+        let queryItems = Self.sortedQueryComponents(from: parameters)
+        
         if urlComponents.queryItems == nil || urlComponents.queryItems?.isEmpty == true {
             urlComponents.queryItems = queryItems
         } else {
             urlComponents.queryItems?.append(contentsOf: queryItems)
         }
+        
         if let resultURL = urlComponents.url {
             request.url = resultURL
         }
     }
     
-    public func queryComponents(fromKey key: String, value: Any) -> [URLQueryItem] {
+    internal static func sortedQueryComponents(from params: [String: Any]) -> [URLQueryItem] {
+        return params.flatMap(queryComponents).sorted { $0.name.lexicographicallyPrecedes($1.name) }
+    }
+    
+    internal static func queryComponents(fromKey key: String, value: Any) -> [URLQueryItem] {
         var components: [URLQueryItem] = []
         
         if let dictionary = value as? [String: Any] {
@@ -57,7 +61,7 @@ public struct URLParametersEncoder: ParametersEncoder {
             components.append(URLQueryItem(name: key, value: "\(value)"))
         }
         
-        return components.sorted { $0.name.lexicographicallyPrecedes($1.name) }
+        return components
     }
 }
 
@@ -72,7 +76,7 @@ public struct JSONParametersEncoder: ParametersEncoder {
     public func encode(parameters: [String: Any]?, to request: inout URLRequest) throws {
         guard let parameters = parameters else { return }
 
-        if !JSONSerialization.isValidJSONObject(parameters) {
+        guard JSONSerialization.isValidJSONObject(parameters) else {
             throw FlamingoError.parametersEncodingError(.jsonEncodingFailed(FlamingoError.invalidRequest))
         }
 
@@ -88,5 +92,19 @@ public struct JSONParametersEncoder: ParametersEncoder {
             throw FlamingoError.parametersEncodingError(.jsonEncodingFailed(error))
         }
     }
+}
+
+public struct FormURLParametersEncoder: ParametersEncoder {
     
+    public init() {}
+    
+    public func encode(parameters: [String : Any]?, to request: inout URLRequest) throws {
+        guard let parameters = parameters, !parameters.isEmpty else {
+            return
+        }
+        
+        var components = URLComponents()
+        components.queryItems = URLParametersEncoder.sortedQueryComponents(from: parameters)
+        request.httpBody = components.percentEncodedQuery?.data(using: .utf8)
+    }
 }

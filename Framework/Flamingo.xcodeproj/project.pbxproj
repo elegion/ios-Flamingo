@@ -19,7 +19,6 @@
 		9488CB0A2017995000D7151D /* NetworkClientMutater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488CB092017995000D7151D /* NetworkClientMutater.swift */; };
 		9488CB0E201889EB00D7151D /* RealRequestsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488CB0D201889EB00D7151D /* RealRequestsTests.swift */; };
 		9488CB1020188C7100D7151D /* NetworkClientMutaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488CB0F20188C7100D7151D /* NetworkClientMutaterTests.swift */; };
-		94BF3D421FA0A1CA00909B27 /* URLRequest+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF3D411FA0A1CA00909B27 /* URLRequest+Description.swift */; };
 		94DCCAA8204B7BA7002A8B0B /* RequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DCCAA7204B7BA7002A8B0B /* RequestStub.swift */; };
 		94DCCAAA204B7BC6002A8B0B /* StubsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DCCAA9204B7BC6002A8B0B /* StubsError.swift */; };
 		94E20C9C1F7982F90017D46C /* ValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E20C9B1F7982F90017D46C /* ValidationTests.swift */; };
@@ -54,7 +53,7 @@
 		E284B6C61FA21D01001B2123 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E284B6C31FA21D01001B2123 /* Logger.swift */; };
 		E2A3E5CD1F9777090085D6D5 /* URLParametersEncoderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3E5CC1F9777090085D6D5 /* URLParametersEncoderTestCase.swift */; };
 		E2D0DC8A207647C500953313 /* CodableExtensionTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D0DC89207647C500953313 /* CodableExtensionTestCase.swift */; };
-		FE80C35E1F6FE5450060141B /* CancelableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3531F6FE4080060141B /* CancelableOperation.swift */; };
+		FE80C35E1F6FE5450060141B /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3531F6FE4080060141B /* Cancellable.swift */; };
 		FE80C35F1F6FE5470060141B /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3591F6FE4080060141B /* NetworkConfiguration.swift */; };
 		FE80C3601F6FE5490060141B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3541F6FE4080060141B /* Error.swift */; };
 		FE80C3611F6FE54B0060141B /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80C3581F6FE4080060141B /* NetworkClient.swift */; };
@@ -92,7 +91,6 @@
 		9488CB092017995000D7151D /* NetworkClientMutater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientMutater.swift; sourceTree = "<group>"; };
 		9488CB0D201889EB00D7151D /* RealRequestsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealRequestsTests.swift; sourceTree = "<group>"; };
 		9488CB0F20188C7100D7151D /* NetworkClientMutaterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientMutaterTests.swift; sourceTree = "<group>"; };
-		94BF3D411FA0A1CA00909B27 /* URLRequest+Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Description.swift"; sourceTree = "<group>"; };
 		94DCCAA7204B7BA7002A8B0B /* RequestStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStub.swift; sourceTree = "<group>"; };
 		94DCCAA9204B7BC6002A8B0B /* StubsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubsError.swift; sourceTree = "<group>"; };
 		94E20C991F7982F90017D46C /* FlamingoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlamingoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,7 +130,7 @@
 		E2BC881E1F7E5124005CA524 /* Flamingo.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = Flamingo.podspec; path = ../Flamingo.podspec; sourceTree = "<group>"; };
 		E2D0DC89207647C500953313 /* CodableExtensionTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableExtensionTestCase.swift; sourceTree = "<group>"; };
 		E2DAC70F1FA1F5BA00793F3E /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = .travis.yml; path = ../.travis.yml; sourceTree = "<group>"; };
-		FE80C3531F6FE4080060141B /* CancelableOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelableOperation.swift; sourceTree = "<group>"; };
+		FE80C3531F6FE4080060141B /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		FE80C3541F6FE4080060141B /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		FE80C3551F6FE4080060141B /* ParametersEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersEncoding.swift; sourceTree = "<group>"; };
 		FE80C3561F6FE4080060141B /* NetworkContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkContext.swift; sourceTree = "<group>"; };
@@ -192,7 +190,7 @@
 				9488CB02201782B700D7151D /* ClientMiddleware */,
 				8F7CEBB91CE9B0C800D6CCBA /* Utils */,
 				E284B6C71FA21D25001B2123 /* Logger */,
-				FE80C3531F6FE4080060141B /* CancelableOperation.swift */,
+				FE80C3531F6FE4080060141B /* Cancellable.swift */,
 				FE80C3541F6FE4080060141B /* Error.swift */,
 				FE80C3581F6FE4080060141B /* NetworkClient.swift */,
 				FE80C3591F6FE4080060141B /* NetworkConfiguration.swift */,
@@ -214,7 +212,6 @@
 			isa = PBXGroup;
 			children = (
 				E22833961FA21943000F479D /* JSONSerializer.swift */,
-				94BF3D411FA0A1CA00909B27 /* URLRequest+Description.swift */,
 				9488CB052017837600D7151D /* Observers.swift */,
 			);
 			name = Utils;
@@ -426,6 +423,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 8F7CEB8D1CE9AFCD00D6CCBA;
 			productRefGroup = 8F7CEB981CE9AFCD00D6CCBA /* Products */;
@@ -469,7 +467,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint --config ../fastlane/lintRules.yml\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint --config ../fastlane/lintRules.yml\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -491,14 +489,13 @@
 				FE80C3651F6FE5560060141B /* ResponseSerialization.swift in Sources */,
 				9482F3AB2028EFE400812758 /* RegexCodeableTransformer.swift in Sources */,
 				9488CB04201782F300D7151D /* NetworkClientReporter.swift in Sources */,
-				94BF3D421FA0A1CA00909B27 /* URLRequest+Description.swift in Sources */,
 				E284B6C61FA21D01001B2123 /* Logger.swift in Sources */,
 				E26F78951F99F7C6007D13D1 /* OptionalProtocol.swift in Sources */,
 				9482F3AA2028EFE400812758 /* CodableExtensions.swift in Sources */,
 				E284B6C41FA21D01001B2123 /* LoggingClient.swift in Sources */,
 				E22833971FA21943000F479D /* JSONSerializer.swift in Sources */,
 				94DCCAA8204B7BA7002A8B0B /* RequestStub.swift in Sources */,
-				FE80C35E1F6FE5450060141B /* CancelableOperation.swift in Sources */,
+				FE80C35E1F6FE5450060141B /* Cancellable.swift in Sources */,
 				9442635E204B99360053B7F7 /* OfflineCacheManager.swift in Sources */,
 				FE80C3641F6FE5510060141B /* ParametersEncoding.swift in Sources */,
 				E228339E1FA2197C000F479D /* ResponseStub.swift in Sources */,

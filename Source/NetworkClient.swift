@@ -197,21 +197,21 @@ open class NetworkDefaultClient: NetworkClientMutable {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = networkRequest.method.rawValue
         
-        for (name, value) in (networkRequest.headers ?? [:]) {
-            urlRequest.setValue(value, forHTTPHeaderField: name)
-        }
-        for (name, value) in (customHeadersForRequest(networkRequest) ?? [:]) {
-            urlRequest.setValue(value, forHTTPHeaderField: name)
-        }
+        networkRequest.headers?.forEach { urlRequest.setValue($0.value, forHTTPHeaderField: $0.key) }
+        customHeadersForRequest(networkRequest)?.forEach { urlRequest.setValue($0.value, forHTTPHeaderField: $0.key) }
+ 
         urlRequest.timeoutInterval = configuration.defaultTimeoutInterval
+        
         if let cachePolicy = networkRequest.cachePolicy {
             urlRequest.cachePolicy = cachePolicy
         }
 
-        if let parametersTuple = networkRequest.parametersTuple {
-            try parametersTuple.1.encode(parameters: parametersTuple.0, to: &urlRequest)
-        } else {
-            try networkRequest.parametersEncoder.encode(parameters: networkRequest.parameters, to: &urlRequest)
+        if let query = networkRequest.query {
+            try URLParametersEncoder().encode(parameters: query, to: &urlRequest)
+        }
+        
+        if let body = networkRequest.body {
+            try body.encoder.encode(parameters: body.parameters, to: &urlRequest)
         }
         
         return urlRequest

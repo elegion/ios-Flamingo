@@ -9,6 +9,7 @@
 import Foundation
 
 public class JSONSerializer {
+    
     let decoder: JSONDecoder
 
     public init(decoder: JSONDecoder) {
