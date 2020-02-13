@@ -29,7 +29,7 @@ final class FormURLParametersEncoderTestCase: XCTestCase {
                 "dictionary": [
                     "key&1": "value1",
                     "key2": "value2",
-                    "key3": "value3",
+                    "key3": "+79000000000",
                 ],
             ],
             "key": "value",
@@ -46,7 +46,7 @@ final class FormURLParametersEncoderTestCase: XCTestCase {
             try encoder.encode(parameters: expected, to: &request)
 
             if let body = request.httpBody {
-                let expectedString = "key=value&root%5Bdictionary%5D%5Bkey%261%5D=value1&root%5Bdictionary%5D%5Bkey2%5D=value2&root%5Bdictionary%5D%5Bkey3%5D=value3"
+                let expectedString = "key=value&root%5Bdictionary%5D%5Bkey&1%5D=value1&root%5Bdictionary%5D%5Bkey2%5D=value2&root%5Bdictionary%5D%5Bkey3%5D=%2B79000000000"
                 let resultString = String(data: body, encoding: .utf8)
 
                 XCTAssertEqual(resultString, expectedString)
