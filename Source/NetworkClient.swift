@@ -10,7 +10,7 @@ import Foundation
 
 public typealias CompletionHandler<T> = (Result<T, Error>, NetworkContext?) -> Void
 
-public protocol NetworkClient: class {
+public protocol NetworkClient: AnyObject {
     
     @discardableResult
     func sendRequest<Request: NetworkRequest>(_ networkRequest: Request, completionHandler: ((Result<Request.Response, Error>, NetworkContext?) -> Void)?) -> Cancellable

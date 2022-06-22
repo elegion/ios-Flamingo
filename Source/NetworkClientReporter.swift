@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol NetworkClientReporter: class {
+public protocol NetworkClientReporter: AnyObject {
     func willSendRequest<Request: NetworkRequest>(_ networkRequest: Request)
     func didRecieveResponse<Request: NetworkRequest>(for request: Request,
                                                      context: NetworkContext)
