@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol OfflineCacheProtocol: class {
+public protocol OfflineCacheProtocol: AnyObject {
     func storeCachedResponse(_ cachedResponse: CachedURLResponse, for request: URLRequest)
     func cachedResponse(for request: URLRequest) -> CachedURLResponse?
 }

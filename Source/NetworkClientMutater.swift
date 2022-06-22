@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol NetworkClientMutater: class {
+public protocol NetworkClientMutater: AnyObject {
     typealias RawResponseTuple = (data: Data?, response: URLResponse?, error: Swift.Error?)
 
     func response<Request: NetworkRequest>(for request: Request) -> RawResponseTuple?
