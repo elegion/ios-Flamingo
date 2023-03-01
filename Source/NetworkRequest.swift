@@ -24,6 +24,7 @@ public protocol NetworkRequest: CustomStringConvertible {
     var responseSerializer: ResponseSerializer { get }
     var completionQueue: DispatchQueue? { get }
     var cachePolicy: URLRequest.CachePolicy? { get }
+    var uuid: UUID { get }
 }
 
 public extension NetworkRequest {
@@ -58,6 +59,10 @@ public extension NetworkRequest {
 
     var cachePolicy: URLRequest.CachePolicy? {
         return nil
+    }
+    
+    var uuid: UUID {
+        UUID()
     }
 }
 
