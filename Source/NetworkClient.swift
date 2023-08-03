@@ -16,6 +16,9 @@ public protocol NetworkClient: AnyObject {
     func sendRequest<Request: NetworkRequest>(_ networkRequest: Request, completionHandler: ((Result<Request.Response, Error>, NetworkContext?) -> Void)?) -> Cancellable
     func addReporter(_ reporter: NetworkClientReporter, storagePolicy: StoragePolicy)
     func removeReporter(_ reporter: NetworkClientReporter)
+    
+    @available(macOS 10.15, iOS 14, *)
+    func sendRequest<Request: NetworkRequest>(_ networkRequest: Request) async -> (Result<Request.Response, Error>, NetworkContext?)
 }
 
 public protocol NetworkClientMutable: NetworkClient {
@@ -90,6 +93,19 @@ open class NetworkDefaultClient: NetworkClientMutable {
         }
 
         return EmptyCancellable()
+    }
+    
+    @available(macOS 10.15, iOS 14, *)
+    public func sendRequest<Request>(_ networkRequest: Request) async -> (Result<Request.Response, Error>, NetworkContext?) where Request : NetworkRequest {
+        await withCheckedContinuation {
+            continuation in
+            
+            sendRequest(networkRequest) {
+                result, context in
+                
+                continuation.resume(returning: (result, context))
+            }
+        }
     }
 
     public func addReporter(_ reporter: NetworkClientReporter, storagePolicy: StoragePolicy = .weak) {
