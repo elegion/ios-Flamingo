@@ -23,6 +23,7 @@ public protocol NetworkClient: AnyObject {
 
 public protocol NetworkClientCookieClerable: NetworkClient {
     func removeCookies(for url: URL)
+    func removeCookies(for name: String)
     func clearCookies()
 }
 
@@ -140,6 +141,18 @@ open class NetworkDefaultClient: NetworkClientMutable {
             for cookie in cookies {
                 storage.deleteCookie(cookie)
             }
+        }
+    }
+    
+    public func removeCookies(for name: String) {
+        let storage = session.configuration.httpCookieStorage ?? HTTPCookieStorage.shared
+        
+        guard let cookies = storage.cookies else {
+            return
+        }
+        
+        cookies.filter({ $0.name == name }).forEach {
+            storage.deleteCookie($0)
         }
     }
     
