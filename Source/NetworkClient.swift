@@ -21,7 +21,12 @@ public protocol NetworkClient: AnyObject {
     func sendRequest<Request: NetworkRequest>(_ networkRequest: Request) async -> (Result<Request.Response, Error>, NetworkContext?)
 }
 
-public protocol NetworkClientMutable: NetworkClient {
+public protocol NetworkClientCookieClerable: NetworkClient {
+    func removeCookies(for url: URL)
+    func clearCookies()
+}
+
+public protocol NetworkClientMutable: NetworkClientCookieClerable {
 
     func addMutater(_ mutater: NetworkClientMutater, storagePolicy: StoragePolicy)
     func removeMutater(_ mutater: NetworkClientMutater)
@@ -126,6 +131,22 @@ open class NetworkDefaultClient: NetworkClientMutable {
 
     public func removeMutater(_ mutater: NetworkClientMutater) {
         mutaters.removeObserver(observer: mutater)
+    }
+    
+    public func removeCookies(for url: URL) {
+        let storage = session.configuration.httpCookieStorage ?? HTTPCookieStorage.shared
+        
+        if let cookies = storage.cookies(for: url) {
+            for cookie in cookies {
+                storage.deleteCookie(cookie)
+            }
+        }
+    }
+    
+    public func clearCookies() {
+        let storage = session.configuration.httpCookieStorage ?? HTTPCookieStorage.shared
+        
+        storage.removeCookies(since: .distantPast)
     }
     
     private func requestHandler<Request: NetworkRequest>(with networkRequest: Request,
